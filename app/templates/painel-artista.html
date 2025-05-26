@@ -138,62 +138,192 @@
             </div>
         </section>
         <section id="produtos" class="secao-conteudo p-10">
-            <div class="flex justify-between">
-                <h1 class="text-4xl font-semibold">Gerenciar Obras</h1>
-                <button class="btn btn-primary">+ Nova Obra</button>
+            <!-- Título e Ações -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Gerenciar Obras</h1>
+                <button class="btn btn-primary" onclick="my_modal_1.showModal()">+ Nova Obra</button>
             </div>
-            <div class="tabs tabs-border mt-5">
-                <input type="radio" name="my_tabs_2" class="tab" aria-label="Todas" />
-                <div class="tab-content bg-base-200 p-10">
-                    <div class="overflow-x-auto">
-                        <table class="table">
-                            <!-- head -->
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Name</th>
-                                    <th>Job</th>
-                                    <th>Favorite Color</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- row 1 -->
-                                <tr>
-                                    <th>1</th>
-                                    <td>Cy Ganderton</td>
-                                    <td>Quality Control Specialist</td>
-                                    <td>Blue</td>
-                                </tr>
-                                <!-- row 2 -->
-                                <tr>
-                                    <th>2</th>
-                                    <td>Hart Hagerty</td>
-                                    <td>Desktop Support Technician</td>
-                                    <td>Purple</td>
-                                </tr>
-                                <!-- row 3 -->
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+            <dialog id="my_modal_1" class="modal">
+                <div class="modal-box  max-w-5xl h-160">
+                    <h1 class="text-2xl font-bold">Adicionar nova obra</h1>
+                    <form class="py-4" action="" method="post">
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Imagem</legend>
+                            <input type="file" class="input" placeholder="Imagem" />
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Título</legend>
+                            <input type="text" class="input" placeholder="Digite o título" />
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Descrição</legend>
+                            <textarea class="textarea h-24" placeholder="Descrição"></textarea>
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Dimensão</legend>
+                            <input type="text" class="input" placeholder="Digite a dimensão da obra" />
+                            <p class="label">Opcional</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Tecnica</legend>
+                            <textarea class="textarea h-24" placeholder="Tecnica"></textarea>
+                            <p class="label text-red-400">Opcional</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Preço</legend>
+                            <input type="number" class="input" placeholder="Digite o preço" />
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Categoria</legend>
+                            <select class="select">
+                                <option disabled selected>Selecione uma categoria</option>
+                                <option>Chrome</option>
+                                <option>FireFox</option>
+                                <option>Safari</option>
+                            </select>
+                            <span class="label">Optional</span>
+                        </fieldset>
+                    </form>
+                    <div class="modal-action">
+                        <form class="flex gap-5" method="dialog">
+                            <button class="btn w-30 btn-primary">Salvar</button>
+                            <button class="btn w-30">rascunho</button>
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn w-30 btn-error text-white">Cancelar</button>
+                        </form>
                     </div>
                 </div>
+            </dialog>
 
-                <input type="radio" name="my_tabs_2" class="tab" aria-label="Ativas" checked="checked" />
-                <div class="tab-content bg-base-200 p-10">Tab content 2</div>
-
-                <input type="radio" name="my_tabs_2" class="tab" aria-label="Pendentes" />
-                <div class="tab-content bg-base-200 p-10">Tab content 3</div>
-
-                <input type="radio" name="my_tabs_2" class="tab" aria-label="Ocultas" />
-                <div class="tab-content bg-base-200 p-10">Tab content 3</div>
+            <!-- Filtros e Busca -->
+            <div class="flex flex-wrap items-center gap-4 mb-4">
+                <div class="space-x-2">
+                    <button class="btn btn-ghost px-3 py-1">Todas</button>
+                    <button class="btn btn-ghost px-3 py-1">Ativas</button>
+                    <button class="btn btn-ghost px-3 py-1">Pendentes</button>
+                </div>
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" required placeholder="Search" />
+                </label>
             </div>
+
+            <!-- Tabela de Obras -->
+            <div class="overflow-x-auto bg-white rounded-xl shadow">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Imagem</th>
+                            <th class="px-6 py-3 text-left">Título</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-left">Visualizações</th>
+                            <th class="px-6 py-3 text-left">Vendas</th>
+                            <th class="px-6 py-3 text-left">Estoque</th>
+                            <th class="px-6 py-3 text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="obra-lista" class="divide-y divide-gray-100 text-sm">
+
+                        <tr data-status="ativas">
+                            <td class="px-6 py-4">
+                                <div class="h-12 w-12">
+                                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                        alt="Avatar Tailwind CSS Component" />
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">Noite Silenciosa</td>
+                            <td class="px-6 py-4 font-semibold">
+                                <p class="badge badge-soft badge-primary">Ativa</p>
+                            </td>
+                            <td class="px-6 py-4">120</td>
+                            <td class="px-6 py-4">4</td>
+                            <td class="px-6 py-4">8</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <button class="text-blue-600 hover:underline">Editar</button>
+                                <button class="text-red-500 hover:underline">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr data-status="pendentes">
+                            <td class="px-6 py-4">
+                                <div class="h-12 w-12">
+                                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                        alt="Avatar Tailwind CSS Component" />
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">Aquarela Bruta</td>
+                            <td class="px-6 py-4 text-yellow-600 font-semibold">Pendente</td>
+                            <td class="px-6 py-4">80</td>
+                            <td class="px-6 py-4">0</td>
+                            <td class="px-6 py-4">3</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <button class="text-blue-600 hover:underline">Editar</button>
+                                <button class="text-red-500 hover:underline">Excluir</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
         </section>
-        <section id="pedidos" class="secao-conteudo p-10">pedidos</section>
+        <section id="pedidos" class="secao-conteudo p-10">
+            <!-- Título -->
+            <h1 class="text-2xl font-bold mb-6">Pedidos Recebidos</h1>
+
+            <!-- Tabela de Pedidos -->
+            <div class="overflow-x-auto bg-white shadow rounded-xl">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Pedido</th>
+                            <th class="px-6 py-3 text-left">Comprador</th>
+                            <th class="px-6 py-3 text-left">Obra</th>
+                            <th class="px-6 py-3 text-left">Quantidade</th>
+                            <th class="px-6 py-3 text-left">Valor</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
+                        <!-- Pedido exemplo -->
+                        <tr>
+                            <td class="px-6 py-4">#1023</td>
+                            <td class="px-6 py-4">Ana Carvalho</td>
+                            <td class="px-6 py-4">"Amanhecer"</td>
+                            <td class="px-6 py-4">1</td>
+                            <td class="px-6 py-4">R$ 250,00</td>
+                            <td class="px-6 py-4">
+                                <select class="status-dropdown border-gray-300 rounded-md"
+                                    onchange="atualizarStatus(this)">
+                                    <option>Pendente</option>
+                                    <option>Em preparo</option>
+                                    <option>Enviado</option>
+                                    <option>Concluído</option>
+                                    <option>Cancelado</option>
+                                </select>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <button class="text-blue-600 hover:underline">Ver detalhes</button>
+                            </td>
+                        </tr>
+                        <!-- Adicione mais pedidos conforme necessário -->
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
         <section id="personalizar" class="secao-conteudo p-10">personalizar</section>
         <section id="configuracoes" class="secao-conteudo p-10">Configurações</section>
     </main>
