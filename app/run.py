@@ -17,7 +17,7 @@ if __name__ == "__main__":
         tabela_pedido()
         tabela_item_pedido()
         inserir_categorias()
-        print("✅ Banco de dados criado com sucesso!")
+        print("Banco de dados criado com sucesso!")
     except sqlite3.OperationalError:
         print("Tabelas já existentes")
     
