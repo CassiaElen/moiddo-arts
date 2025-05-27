@@ -1,0 +1,18 @@
+.secao-conteudo {
+    display: none;
+}
+
+.secao-conteudo.ativo {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
