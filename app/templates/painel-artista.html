@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muiddo Arts</title>
+    <title>painel-artista</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../static/painel-artista.css">
+    <link rel="stylesheet" href="../static/css/painel-artista.css">
 </head>
 
 <body class="m-0 p-0 flex min-h-screen">
@@ -52,7 +52,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
-                    Personalizar Loja
+                    Vendas e pagamentos
                 </a>
             </li>
             <li data-secao="configuracoes">
@@ -293,7 +293,7 @@
                             <th class="px-6 py-3 text-left">Quantidade</th>
                             <th class="px-6 py-3 text-left">Valor</th>
                             <th class="px-6 py-3 text-left">Status</th>
-                            <th class="px-6 py-3 text-right">Ações</th>
+                            <th class="px-6 py-3 text-left">Opções</th>
                         </tr>
                     </thead>
                     <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
@@ -305,8 +305,7 @@
                             <td class="px-6 py-4">1</td>
                             <td class="px-6 py-4">R$ 250,00</td>
                             <td class="px-6 py-4">
-                                <select class="status-dropdown border-gray-300 rounded-md"
-                                    onchange="atualizarStatus(this)">
+                                <select class="status-dropdown border-gray-300 rounded-md">
                                     <option>Pendente</option>
                                     <option>Em preparo</option>
                                     <option>Enviado</option>
@@ -324,8 +323,66 @@
             </div>
 
         </section>
-        <section id="personalizar" class="secao-conteudo p-10">personalizar</section>
-        <section id="configuracoes" class="secao-conteudo p-10">Configurações</section>
+        <section id="personalizar" class="secao-conteudo p-10">
+            <h1 class="text-2xl font-bold mb-6">Vendas e pagamentos</h1>
+            <div>
+                <div class="flex justify-end gap-8">
+                    <div>
+                        <p class="label">Total de vendas</p>
+                        <p class="text-3xl font-bold mb-6">138</p>
+                    </div>
+                    <div>
+                        <p class="label" >Saldo atual</p>
+                        <p class="text-3xl font-bold mb-6">R$ 4.500,00</p>
+                    </div>
+                </div>
+                <!-- Tabela de Vendas -->
+                <div class="overflow-x-auto bg-white shadow rounded-xl">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                            <tr>
+                                <th class="px-6 py-3 text-left">Pedido</th>
+                                <th class="px-6 py-3 text-left">Obra</th>
+                                <th class="px-6 py-3 text-left">Data</th>
+                                <th class="px-6 py-3 text-left">Valor</th>
+                                <th class="px-6 py-3 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
+                            <!-- Pedido exemplo -->
+                            <tr>
+                                <td class="px-6 py-4">#1023</td>
+                                <td class="px-6 py-4">"Amanhecer"</td>
+                                <td class="px-6 py-4">23/02/2025</td>
+                                <td class="px-6 py-4">R$ 250,00</td>
+                                <td class="px-6 py-4">
+                                    <p class="badge badge-soft badge-primary">Pago</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4">#1023</td>
+                                <td class="px-6 py-4">"Amanhecer"</td>
+                                <td class="px-6 py-4">23/02/2025</td>
+                                <td class="px-6 py-4">R$ 250,00</td>
+                                <td class="px-6 py-4">
+                                    <p class="badge badge-soft badge-error">processando</p>
+                                </td>
+                            </tr>
+                        <!-- Adicione mais pedidos conforme necessário -->
+                        </tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+        <section id=" configuracoes" class="secao-conteudo p-10">
+            <!-- Título -->
+            <h1 class="text-2xl font-bold mb-6">Configurações</h1>
+            <div>
+                <div>
+                    <h1 class="text-"></h1>
+                </div>
+            </div>
+        </section>
     </main>
     <script src="../static/js/script-painel-artista.js"></script>
 </body>

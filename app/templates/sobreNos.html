@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="artesoes_comunidade.css">
+    <title>Muiddo Arts</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <title>Artesões e Comunidade</title>
 </head>
-<body>
 
+<body>
     <header>
         <div class="drawer shadow-sm">
             <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
                 <!-- Navbar -->
-                <div class="navbar [background-color:#536340] w-full">
+                <div class="navbar bg-base-300 w-full">
                     <div class="flex-none lg:hidden">
                         <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -26,7 +25,7 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="mx-2 flex-1 px-2 text-white">Moiddo Arts</div>
+                    <div class="mx-2 flex-1 px-2">Moiddo Arts</div>
                     <div class="navbar-end flex gap-2">
                         <div class="hidden flex-none lg:block">
                             <div class="menu menu-horizontal">
@@ -87,11 +86,11 @@
                     </div>
                 </div>
                 <!-- Page content here -->
-                <div class="navbar [background-color:#2c3c1c] shadow-sm flex-col hidden lg:flex">
-                    <ul class="menu menu-horizontal px-1 text-white">
-                        <li><a>Loja</a></li>
-                        <li><a>Sobre Nós</a></li>
-                        <li><a>Artistas</a></li>
+                <div class="navbar bg-base-100 shadow-sm flex-col hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a href="./index.html">Loja</a></li>
+                        <li><a href="./sobreNos.html">Sobre Nós</a></li>
+                        <li><a href="./artista.html">Artistas</a></li>
                     </ul>
                 </div>
             </div>
@@ -107,89 +106,21 @@
                             </g>
                         </svg>
                         <input type="search" required placeholder="Search" />
-                    </label>
+                    </label>   
                     <ul class="mt-3">
                         <!-- Sidebar content here -->
-                        <li><a>Loja</a></li>
-                        <li><a>Sobre Nós</a></li>
-                        <li><a>Artistas</a></li>
+                        <li><a href="./index.html">Loja</a></li>
+                        <li><a href="./sobreNos.html">Sobre Nós</a></li>
+                        <li><a href="./artista.html">Artistas</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </header>   
-
-
-    <section class="section h-100 bg-[#f4f4f4]">
-        <div class="">
-            <h2 class="flex justify-center text-[26px] [letter-spacing:0.18em] pt-25 text-[#536340] font-medium">Pesquise por novos artesões</h2>
-        </div>  
-        <div class="flex justify-center pt-3">
-            <input type="search" placeholder="Buscar..." name="" class="w-150 h-15 rounded-xl outline-none focus:outline-none border-[#536340] focus:border-[#3f5c2a]">
-        </div>
-    </section>
-
-    <main class="h-250 [background-color:#aab898]">
-        <h1 class="[color:#2c3c1c] [letter-spacing:0.05em] font-semibold text-center text-5xl pt-25">
-            Artesões
-        </h1>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-9/10 mx-auto text-center [letter-spacing:0.05em] mt-18 text-[#2c3c1c]">
-    <!-- 1ª Linha -->
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-abdoo-32147894.jpg" alt="Dona Lourdes" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold">Dona<br> Lourdes</p>
-            </div>
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-artempodrez-6786895.jpg" alt="Carlos Mendes" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Carlos<br> Mendes</p>
-            </div>
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-pixabay-35183.jpg" alt="Seu João Batista" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Seu João<br> Batista</p>
-            </div>
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-joshua-mcknight-442355-3290244.jpg" alt="Maria Aparecida" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Maria<br> Aparecida</p>
-            </div>
-
-            <!-- 2ª Linha -->
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-rdne-8112620.jpg" alt="Camila Oliveira" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Camila<br> Oliveira</p>
-            </div>
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-thisisjooh-32202053.jpg" alt="Maria Helena" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Maria<br> Helena</p>
-            </div>
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-soc-nang-d-ng-2150345854-32168128.jpg" alt="Rafael Silva" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Rafael<br> Silva</p>
-            </div>
-            <div>
-                <div class="w-60 h-60 mx-auto overflow-hidden">
-                    <img src="/assets/pexels-uiliamnornberg-30767572.jpg" alt="Seu Zé Antônio" class="w-full h-full object-cover" />
-                </div>
-                <p class="mt-2 text-2xl font-semibold ">Seu Zé<br> Antônio</p>
-            </div>
-        </div>
-    </main> 
-
-    <footer class="footer sm:footer-horizontal bg-[#536340] text-white text-base-content p-10">
+    </header>
+    <main>
+        
+    </main>
+    <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
         <aside>
             <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                 clip-rule="evenodd" class="fill-current">
@@ -230,4 +161,5 @@
         </aside>
     </footer>
 </body>
+
 </html>
