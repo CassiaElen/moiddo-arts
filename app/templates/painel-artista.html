@@ -12,7 +12,7 @@
 
 <body class="m-0 p-0 flex min-h-screen">
 
-    <nav class=" w-3xs bg-base-300 menu-lateral">
+    <nav class="fixed left-0 top-0 w-56 h-screen bg-base-300 z-10 menu-lateral">
         <h1 class="pl-5 pt-5 text-2xl font-semibold">MUIDDO ARTS</h1>
         <ul class="menu rounded-box w-56">
             <li class="ativo" data-secao="inicio">
@@ -72,23 +72,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
-                    Voltar
-                </a>
-            </li>
-            <li>
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
                     Sair
                 </a>
             </li>
 
         </ul>
     </nav>
-    <main class="p-5 w-full bg-base-200">
+    <main class="ml-56 p-5 bg-base-200 w-full">
         <section id="inicio" class="secao-conteudo ativo p-10">
             <div>
                 <h1 class="text-4xl font-semibold">Olá, Cledson schwarzenegger!</h1>
@@ -140,7 +130,7 @@
         <section id="produtos" class="secao-conteudo p-10">
             <!-- Título e Ações -->
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold">Gerenciar Obras</h1>
+                <h1 class="text-4xl font-bold">Gerenciar Obras</h1>
                 <button class="btn btn-primary" onclick="my_modal_1.showModal()">+ Nova Obra</button>
             </div>
 
@@ -280,7 +270,7 @@
         </section>
         <section id="pedidos" class="secao-conteudo p-10">
             <!-- Título -->
-            <h1 class="text-2xl font-bold mb-6">Pedidos Recebidos</h1>
+            <h1 class="text-4xl font-bold mb-6">Pedidos Recebidos</h1>
 
             <!-- Tabela de Pedidos -->
             <div class="overflow-x-auto bg-white shadow rounded-xl">
@@ -324,7 +314,7 @@
 
         </section>
         <section id="personalizar" class="secao-conteudo p-10">
-            <h1 class="text-2xl font-bold mb-6">Vendas e pagamentos</h1>
+            <h1 class="text-4xl font-bold mb-6">Vendas e pagamentos</h1>
             <div>
                 <div class="flex justify-end gap-8">
                     <div>
@@ -332,7 +322,7 @@
                         <p class="text-3xl font-bold mb-6">138</p>
                     </div>
                     <div>
-                        <p class="label" >Saldo atual</p>
+                        <p class="label">Saldo atual</p>
                         <p class="text-3xl font-bold mb-6">R$ 4.500,00</p>
                     </div>
                 </div>
@@ -368,18 +358,179 @@
                                     <p class="badge badge-soft badge-error">processando</p>
                                 </td>
                             </tr>
-                        <!-- Adicione mais pedidos conforme necessário -->
+                            <!-- Adicione mais pedidos conforme necessário -->
                         </tbody>
-                </table>
-            </div>
+                    </table>
+                </div>
             </div>
         </section>
-        <section id=" configuracoes" class="secao-conteudo p-10">
+        <section id="configuracoes" class="secao-conteudo p-10">
             <!-- Título -->
-            <h1 class="text-2xl font-bold mb-6">Configurações</h1>
-            <div>
-                <div>
-                    <h1 class="text-"></h1>
+            <h1 class="text-4xl font-bold mb-6">Configurações</h1>
+            <div class="w-full">
+                <div class="pt-4 pb-4 border-t-1">
+                    <h3 class="text-2xl font-bold mb-6">Editar Perfil</h3>
+                    <div class="flex justify-end gap-8">
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Foto</legend>
+                            <div class="avatar">
+                                <div class="w-24 rounded-full">
+                                    <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="flex flex-wrap gap-4">
+                            <div>
+                                <fieldset class="fieldset w-lg">
+                                    <legend class="fieldset-legend">Nome completo</legend>
+                                    <input type="text" class="input w-full" placeholder="Cledson schwarzenegger" />
+                                </fieldset>
+                                <fieldset class="fieldset w-lg">
+                                    <legend class="fieldset-legend">Usuário</legend>
+                                    <input type="text" class="input w-full" placeholder="Cledson schwarzenegger" />
+                                </fieldset>
+                            </div>
+                            <fieldset class="fieldset w-lg">
+                                <legend class="fieldset-legend">Bio</legend>
+                                <textarea class="textarea h-29 w-full" placeholder="Conte sua história"></textarea>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4 pb-4 border-t-1">
+                    <h3 class="text-2xl font-bold mb-6">Gerenciamento da Conta</h3>
+                    <div class="flex justify-end">
+                        <div>
+                            <div class="flex gap-4">
+                                <fieldset class="fieldset w-lg">
+                                    <legend class="fieldset-legend">CPF/CNPJ</legend>
+                                    <input type="text" class="input w-full" placeholder="297.297.297-87" />
+                                </fieldset>
+                                <fieldset class="fieldset w-lg">
+                                    <legend class="fieldset-legend">E-mail</legend>
+                                    <input type="text" class="input w-full" placeholder="cledson.cled@gmail.com" />
+                                </fieldset>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="flex justify-between w-lg mb-3">
+                                    <p class="fieldset-legend">Senha</p>
+                                    <button class="btn" onclick="my_modal_senha.showModal()">Alterar senha</button>
+                                </div>
+                                <dialog id="my_modal_senha" class="modal">
+                                    <div class="modal-box h-125">
+                                        <h1 class="text-2xl text-center font-bold">Altere a sua senha</h1>
+                                        <form class="p-6" action="" method="post">
+                                            <fieldset class="fieldset">
+                                                <legend class="fieldset-legend">Senha antiga. <span><a href="">Esqueceu?</a></span></legend>
+                                                <input type="password" class="input w-full"/>
+                                                <p class="label text-red-400">Obrigatório</p>
+                                            </fieldset>
+                                            <fieldset class="fieldset">
+                                                <legend class="fieldset-legend">Nova senha</legend>
+                                                <input type="password" class="input w-full"/>
+                                                <p class="label text-red-400">Obrigatório</p>
+                                            </fieldset>
+                                            <fieldset class="fieldset">
+                                                <legend class="fieldset-legend">Digite novamente a nova senha</legend>
+                                                <input type="password" class="input w-full"/>
+                                                <p class="label text-red-400">Obrigatório</p>
+                                            </fieldset>
+                                        </form>
+                                        <div class="modal-action">
+                                            <form class="flex gap-5" method="dialog">
+                                                <button class="btn w-30 btn-primary">Alterar</button>
+                                                <!-- if there is a button in form, it will close the modal -->
+                                                <button class="btn w-30 btn-error text-white">Cancelar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </dialog>
+                                <div class="flex justify-between w-lg mb-3">
+                                    <p class="fieldset-legend">Autenticação de dois fatores</p>
+                                    <button class="btn">Ativar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4 pb-4 border-t-1">
+                    <h3 class="text-2xl font-bold mb-6">Encerramento da conta e Desativação</h3>
+                    <div class="flex justify-end">
+                        <div class="w-260">
+                            <div class="flex justify-between mb-8">
+                                <div>
+                                    <p class="fieldset-legend">Desativar conta</p>
+                                    <p class="label">Oculte temporariamente seu perfil, Produtos e vendas.</p>
+                                </div>
+                                <button class="btn" onclick="my_modal_desativar_perfil.showModal()">Desativar conta</button>
+                                <dialog id="my_modal_desativar_perfil" class="modal">
+                                    <div class="modal-box h-138">
+                                        <h1 class="text-2xl text-center font-bold">Desativar a conta</h1>
+                                        <div class="p-6">
+                                            <p class="text-center pb-4">Se você desativar a conta, ninguém verá suas Obras ou sua Loja</p>
+                                            <div class="border-1 py-5">
+                                                <div class="flex justify-center items-center gap-4">
+                                                    <div class="avatar">
+                                                        <div class="w-24 rounded-full">
+                                                            <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                                                        </div>
+                                                    </div>
+                                                    <h3>Cledson schwarzenegger</h3>
+                                                </div>
+                                                <div>
+                                                    <p class="text-center m-5">Você pode reativar sua conta a qualquer momento. Se quiser voltar a usar a Moiddo Arts, basta entrar com:</p>
+                                                    <p class="text-center font-semibold">cledson.cled@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-action">
+                                            <form class="flex gap-5" method="dialog">
+                                                <button class="btn w-30 btn-primary">Desativar</button>
+                                                <!-- if there is a button in form, it will close the modal -->
+                                                <button class="btn w-30 btn-error text-white">Cancelar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </dialog>
+                            </div>
+                            <div class="flex justify-between">
+                                <div>
+                                    <p class="fieldset-legend">Excluir seus dados e conta</p>
+                                    <p class="label">Exclua permanentemente seus dados e sua conta</p>
+                                </div>
+                                <button class="btn btn-error" onclick="my_modal_excluir_perfil.showModal()">Excluir conta</button>
+                                <dialog id="my_modal_excluir_perfil" class="modal">
+                                    <div class="modal-box h-138">
+                                        <h1 class="text-2xl text-center font-bold">Excluir sua conta</h1>
+                                        <div class="p-6">
+                                            <p class="text-center pb-4">Se você excluir sua conta, não poderá recuperar suas Obras. Todos os dados da sua conta da Muiddo Arts serão excluídos</p>
+                                            <div class="border-1 py-5">
+                                                <div class="flex justify-center items-center gap-4">
+                                                    <div class="avatar">
+                                                        <div class="w-24 rounded-full">
+                                                            <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                                                        </div>
+                                                    </div>
+                                                    <h3>Cledson schwarzenegger</h3>
+                                                </div>
+                                                <div>
+                                                    <p class="text-center m-5">Cledson, se quiser sair para sempre, enviaremos um email com a etapa final para:</p>
+                                                    <p class="text-center font-semibold">cledson.cled@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-action">
+                                            <form class="flex gap-5" method="dialog">
+                                                <button class="btn w-30 btn-primary">Excluir</button>
+                                                <!-- if there is a button in form, it will close the modal -->
+                                                <button class="btn w-30 btn-error text-white">Cancelar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </dialog>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
