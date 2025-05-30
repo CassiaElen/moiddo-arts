@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>painel-artista</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../static/css/painel-artista.css">
+</head>
+
+<body class="m-0 p-0 flex min-h-screen">
+
+    <nav class=" w-3xs bg-base-300 menu-lateral">
+        <h1 class="pl-5 pt-5 text-2xl font-semibold">MUIDDO ARTS</h1>
+        <ul class="menu rounded-box w-56">
+            <li class="ativo" data-secao="inicio">
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Inicío
+                </a>
+            </li>
+            <li data-secao="produtos">
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Produtos
+                </a>
+            </li>
+            <li data-secao="pedidos">
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Pedidos
+                </a>
+            </li>
+            <li data-secao="personalizar">
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Vendas e pagamentos
+                </a>
+            </li>
+            <li data-secao="configuracoes">
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Configurações
+                </a>
+            </li>
+            <li>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Voltar
+                </a>
+            </li>
+            <li>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Sair
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    <main class="p-5 w-full bg-base-200">
+        <section id="inicio" class="secao-conteudo ativo p-10">
+            <div>
+                <h1 class="text-4xl font-semibold">Olá, Cledson schwarzenegger!</h1>
+                <p class="text-gray-600">Pronto para compartilhar sua arte?</p>
+            </div>
+            <div class="flex gap-4 mt-5">
+                <div class="w-200">
+                    <div class="flex gap-8 pb-5">
+                        <div class="card w-60 shadow-sm p-3 border rounded-md">
+                            <p class="text-2xl font-medium ">Obras Ativas</p>
+                            <p class="text-2xl font-semibold text-primary">12</p>
+                        </div>
+                        <div class="card w-60 shadow-sm p-3 border rounded-md">
+                            <p class="text-2xl font-medium ">Total de vendas</p>
+                            <p class="text-2xl font-semibold text-primary">R$ 0,00</p>
+                        </div>
+                        <div class="card w-60 shadow-sm p-3 border rounded-md">
+                            <p class="text-2xl font-medium ">Visualizações</p>
+                            <p class="text-2xl font-semibold text-primary">0</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 pb-5">
+                        <button class="btn btn-primary w-60">+ Nova Obra</button>
+                        <button class="btn btn-outline w-60">Gerenciar Obras</button>
+                        <button class="btn btn-outline w-60">Editar Loja</button>
+                    </div>
+                    <div class="mt-10">
+                        <h1 class="text-3xl font-semibold pb-5">Últimas Obras</h1>
+                        <div class="card card-side border rounded-md h-56 w-198 flex">
+                            <img class="rounded-l-lg"
+                                src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                alt="">
+                            <div class="card-body items-start">
+                                <h2 class="card-title">Itaquaquecetuba</h2>
+                                <p></p>
+                                <div class="card-actions justify-end">
+                                    <button class="btn btn-primary">Editar</button>
+                                    <button class="btn btn-ghost hover:bg-red-600 hover:text-white">excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-xs border pl-4">
+
+                </div>
+            </div>
+        </section>
+        <section id="produtos" class="secao-conteudo p-10">
+            <!-- Título e Ações -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Gerenciar Obras</h1>
+                <button class="btn btn-primary" onclick="my_modal_1.showModal()">+ Nova Obra</button>
+            </div>
+
+            <dialog id="my_modal_1" class="modal">
+                <div class="modal-box  max-w-5xl h-160">
+                    <h1 class="text-2xl font-bold">Adicionar nova obra</h1>
+                    <form class="py-4" action="" method="post">
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Imagem</legend>
+                            <input type="file" class="input" placeholder="Imagem" />
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Título</legend>
+                            <input type="text" class="input" placeholder="Digite o título" />
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Descrição</legend>
+                            <textarea class="textarea h-24" placeholder="Descrição"></textarea>
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Dimensão</legend>
+                            <input type="text" class="input" placeholder="Digite a dimensão da obra" />
+                            <p class="label">Opcional</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Tecnica</legend>
+                            <textarea class="textarea h-24" placeholder="Tecnica"></textarea>
+                            <p class="label text-red-400">Opcional</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Preço</legend>
+                            <input type="number" class="input" placeholder="Digite o preço" />
+                            <p class="label text-red-400">Obrigatório</p>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Categoria</legend>
+                            <select class="select">
+                                <option disabled selected>Selecione uma categoria</option>
+                                <option>Chrome</option>
+                                <option>FireFox</option>
+                                <option>Safari</option>
+                            </select>
+                            <span class="label">Optional</span>
+                        </fieldset>
+                    </form>
+                    <div class="modal-action">
+                        <form class="flex gap-5" method="dialog">
+                            <button class="btn w-30 btn-primary">Salvar</button>
+                            <button class="btn w-30">rascunho</button>
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn w-30 btn-error text-white">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+
+            <!-- Filtros e Busca -->
+            <div class="flex flex-wrap items-center gap-4 mb-4">
+                <div class="space-x-2">
+                    <button class="btn btn-ghost px-3 py-1">Todas</button>
+                    <button class="btn btn-ghost px-3 py-1">Ativas</button>
+                    <button class="btn btn-ghost px-3 py-1">Pendentes</button>
+                </div>
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" required placeholder="Search" />
+                </label>
+            </div>
+
+            <!-- Tabela de Obras -->
+            <div class="overflow-x-auto bg-white rounded-xl shadow">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Imagem</th>
+                            <th class="px-6 py-3 text-left">Título</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-left">Visualizações</th>
+                            <th class="px-6 py-3 text-left">Vendas</th>
+                            <th class="px-6 py-3 text-left">Estoque</th>
+                            <th class="px-6 py-3 text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="obra-lista" class="divide-y divide-gray-100 text-sm">
+
+                        <tr data-status="ativas">
+                            <td class="px-6 py-4">
+                                <div class="h-12 w-12">
+                                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                        alt="Avatar Tailwind CSS Component" />
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">Noite Silenciosa</td>
+                            <td class="px-6 py-4 font-semibold">
+                                <p class="badge badge-soft badge-primary">Ativa</p>
+                            </td>
+                            <td class="px-6 py-4">120</td>
+                            <td class="px-6 py-4">4</td>
+                            <td class="px-6 py-4">8</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <button class="text-blue-600 hover:underline">Editar</button>
+                                <button class="text-red-500 hover:underline">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr data-status="pendentes">
+                            <td class="px-6 py-4">
+                                <div class="h-12 w-12">
+                                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                        alt="Avatar Tailwind CSS Component" />
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">Aquarela Bruta</td>
+                            <td class="px-6 py-4 text-yellow-600 font-semibold">Pendente</td>
+                            <td class="px-6 py-4">80</td>
+                            <td class="px-6 py-4">0</td>
+                            <td class="px-6 py-4">3</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <button class="text-blue-600 hover:underline">Editar</button>
+                                <button class="text-red-500 hover:underline">Excluir</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </section>
+        <section id="pedidos" class="secao-conteudo p-10">
+            <!-- Título -->
+            <h1 class="text-2xl font-bold mb-6">Pedidos Recebidos</h1>
+
+            <!-- Tabela de Pedidos -->
+            <div class="overflow-x-auto bg-white shadow rounded-xl">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Pedido</th>
+                            <th class="px-6 py-3 text-left">Comprador</th>
+                            <th class="px-6 py-3 text-left">Obra</th>
+                            <th class="px-6 py-3 text-left">Quantidade</th>
+                            <th class="px-6 py-3 text-left">Valor</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-left">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
+                        <!-- Pedido exemplo -->
+                        <tr>
+                            <td class="px-6 py-4">#1023</td>
+                            <td class="px-6 py-4">Ana Carvalho</td>
+                            <td class="px-6 py-4">"Amanhecer"</td>
+                            <td class="px-6 py-4">1</td>
+                            <td class="px-6 py-4">R$ 250,00</td>
+                            <td class="px-6 py-4">
+                                <select class="status-dropdown border-gray-300 rounded-md">
+                                    <option>Pendente</option>
+                                    <option>Em preparo</option>
+                                    <option>Enviado</option>
+                                    <option>Concluído</option>
+                                    <option>Cancelado</option>
+                                </select>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <button class="text-blue-600 hover:underline">Ver detalhes</button>
+                            </td>
+                        </tr>
+                        <!-- Adicione mais pedidos conforme necessário -->
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <section id="personalizar" class="secao-conteudo p-10">
+            <h1 class="text-2xl font-bold mb-6">Vendas e pagamentos</h1>
+            <div>
+                <div class="flex justify-end gap-8">
+                    <div>
+                        <p class="label">Total de vendas</p>
+                        <p class="text-3xl font-bold mb-6">138</p>
+                    </div>
+                    <div>
+                        <p class="label" >Saldo atual</p>
+                        <p class="text-3xl font-bold mb-6">R$ 4.500,00</p>
+                    </div>
+                </div>
+                <!-- Tabela de Vendas -->
+                <div class="overflow-x-auto bg-white shadow rounded-xl">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                            <tr>
+                                <th class="px-6 py-3 text-left">Pedido</th>
+                                <th class="px-6 py-3 text-left">Obra</th>
+                                <th class="px-6 py-3 text-left">Data</th>
+                                <th class="px-6 py-3 text-left">Valor</th>
+                                <th class="px-6 py-3 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
+                            <!-- Pedido exemplo -->
+                            <tr>
+                                <td class="px-6 py-4">#1023</td>
+                                <td class="px-6 py-4">"Amanhecer"</td>
+                                <td class="px-6 py-4">23/02/2025</td>
+                                <td class="px-6 py-4">R$ 250,00</td>
+                                <td class="px-6 py-4">
+                                    <p class="badge badge-soft badge-primary">Pago</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4">#1023</td>
+                                <td class="px-6 py-4">"Amanhecer"</td>
+                                <td class="px-6 py-4">23/02/2025</td>
+                                <td class="px-6 py-4">R$ 250,00</td>
+                                <td class="px-6 py-4">
+                                    <p class="badge badge-soft badge-error">processando</p>
+                                </td>
+                            </tr>
+                        <!-- Adicione mais pedidos conforme necessário -->
+                        </tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+        <section id=" configuracoes" class="secao-conteudo p-10">
+            <!-- Título -->
+            <h1 class="text-2xl font-bold mb-6">Configurações</h1>
+            <div>
+                <div>
+                    <h1 class="text-"></h1>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="../static/js/script-painel-artista.js"></script>
+</body>
+
+</html>
