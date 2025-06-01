@@ -4,537 +4,1064 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>painel-artista</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Painel do Artista | Moiddo Arts</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/painel-artista.css">
 </head>
 
-<body class="m-0 p-0 flex min-h-screen">
+<body class="gradient-bg min-h-screen flex">
 
-    <nav class="fixed left-0 top-0 w-56 h-screen bg-base-300 z-10 menu-lateral">
-        <h1 class="pl-5 pt-5 text-2xl font-semibold">MUIDDO ARTS</h1>
-        <ul class="menu rounded-box w-56">
-            <li class="ativo" data-secao="inicio">
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                    Inicío
+    <!-- Menu Lateral -->
+    <nav class="fixed left-0 top-0 w-64 h-screen bg-white shadow-lg z-10 menu-lateral">
+        <div class="p-5 border-b">
+            <h1 class="text-2xl font-bold text-gray-800">Moiddo <span class="text-indigo-600">Arts</span></h1>
+            <p class="text-xs text-gray-500">Painel do Artista</p>
+        </div>
+        <ul class="menu p-4 w-full">
+            <li class="nav-item ativo" data-secao="inicio">
+                <a class="flex items-center py-3 px-4 rounded-lg">
+                    <i class="fas fa-home mr-3 text-indigo-600"></i>
+                    <span class="font-medium">Início</span>
                 </a>
             </li>
-            <li data-secao="produtos">
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Produtos
+            <li class="nav-item" data-secao="produtos">
+                <a class="flex items-center py-3 px-4 rounded-lg">
+                    <i class="fas fa-palette mr-3 text-indigo-600"></i>
+                    <span class="font-medium">Obras</span>
                 </a>
             </li>
-            <li data-secao="pedidos">
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    Pedidos
+            <li class="nav-item" data-secao="pedidos">
+                <a class="flex items-center py-3 px-4 rounded-lg">
+                    <i class="fas fa-shopping-bag mr-3 text-indigo-600"></i>
+                    <span class="font-medium">Pedidos</span>
                 </a>
             </li>
-            <li data-secao="personalizar">
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    Vendas e pagamentos
+            <li class="nav-item" data-secao="vendas">
+                <a class="flex items-center py-3 px-4 rounded-lg">
+                    <i class="fas fa-chart-line mr-3 text-indigo-600"></i>
+                    <span class="font-medium">Vendas</span>
                 </a>
             </li>
-            <li data-secao="configuracoes">
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    Configurações
+            <li class="nav-item" data-secao="configuracoes">
+                <a class="flex items-center py-3 px-4 rounded-lg">
+                    <i class="fas fa-cog mr-3 text-indigo-600"></i>
+                    <span class="font-medium">Configurações</span>
                 </a>
             </li>
-            <li>
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    Sair
+            <li class="nav-item mt-auto border-t pt-2">
+                <a class="flex items-center py-3 px-4 rounded-lg text-red-500 hover:bg-red-50">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    <span class="font-medium">Sair</span>
                 </a>
             </li>
-
         </ul>
     </nav>
-    <main class="ml-56 p-5 bg-base-200 w-full">
-        <section id="inicio" class="secao-conteudo ativo p-10">
-            <div>
-                <h1 class="text-4xl font-semibold">Olá, Cledson schwarzenegger!</h1>
-                <p class="text-gray-600">Pronto para compartilhar sua arte?</p>
+
+    <!-- Conteúdo Principal -->
+    <main class="ml-64 p-8 w-full">
+        <!-- Seção Início -->
+        <section id="inicio" class="secao-conteudo ativo">
+            <div class="mb-8">
+                <h1 class="title-font text-3xl font-bold text-gray-900">Olá, <span class="text-indigo-600">Cledson
+                        Schwarzenegger</span>!</h1>
+                <p class="text-gray-600">Veja suas estatísticas e atividades recentes</p>
             </div>
-            <div class="flex gap-4 mt-5">
-                <div class="w-200">
-                    <div class="flex gap-8 pb-5">
-                        <div class="card w-60 shadow-sm p-3 border rounded-md">
-                            <p class="text-2xl font-medium ">Obras Ativas</p>
-                            <p class="text-2xl font-semibold text-primary">12</p>
+
+            <!-- Cards de Estatísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Obras Ativas</p>
+                            <p class="text-3xl font-bold text-indigo-600">12</p>
                         </div>
-                        <div class="card w-60 shadow-sm p-3 border rounded-md">
-                            <p class="text-2xl font-medium ">Total de vendas</p>
-                            <p class="text-2xl font-semibold text-primary">R$ 0,00</p>
-                        </div>
-                        <div class="card w-60 shadow-sm p-3 border rounded-md">
-                            <p class="text-2xl font-medium ">Visualizações</p>
-                            <p class="text-2xl font-semibold text-primary">0</p>
+                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                            <i class="fas fa-palette text-xl"></i>
                         </div>
                     </div>
-                    <div class="flex gap-8 pb-5">
-                        <button class="btn btn-primary w-60">+ Nova Obra</button>
-                        <button class="btn btn-outline w-60">Gerenciar Obras</button>
-                        <button class="btn btn-outline w-60">Editar Loja</button>
+                    <div class="mt-4">
+                        <div class="flex items-center text-sm text-green-600">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>2 novas este mês</span>
+                        </div>
                     </div>
-                    <div class="mt-10">
-                        <h1 class="text-3xl font-semibold pb-5">Últimas Obras</h1>
-                        <div class="card card-side border rounded-md h-56 w-198 flex">
-                            <img class="rounded-l-lg"
-                                src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="">
-                            <div class="card-body items-start">
-                                <h2 class="card-title">Itaquaquecetuba</h2>
-                                <p></p>
-                                <div class="card-actions justify-end">
-                                    <button class="btn btn-primary">Editar</button>
-                                    <button class="btn btn-ghost hover:bg-red-600 hover:text-white">excluir</button>
+                </div>
+
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Total de Vendas</p>
+                            <p class="text-3xl font-bold text-indigo-600">R$ 4.250,00</p>
+                        </div>
+                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex items-center text-sm text-green-600">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>15% em relação ao mês passado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Visualizações</p>
+                            <p class="text-3xl font-bold text-indigo-600">1.248</p>
+                        </div>
+                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                            <i class="fas fa-eye text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex items-center text-sm text-green-600">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>32% mais visitas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ações Rápidas -->
+            <div class="flex flex-wrap gap-4 mb-10">
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus mr-2"></i> Nova Obra
+                </button>
+                <button class="btn btn-outline border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                    <i class="fas fa-edit mr-2"></i> Gerenciar Obras
+                </button>
+                <button class="btn btn-outline border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                    <i class="fas fa-store mr-2"></i> Editar Loja
+                </button>
+            </div>
+
+            <!-- Últimas Obras -->
+            <div class="mb-10">
+                <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Suas Obras Recentes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card-obra bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="relative overflow-hidden h-48">
+                            <img class="w-full h-full object-cover obra-image"
+                                src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg"
+                                alt="Itaquaquecetuba">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-semibold mb-2">Itaquaquecetuba</h3>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Adicionada em: 15/06/2023</p>
+                                    <p class="text-indigo-600 font-medium">R$ 480,00</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-ghost text-red-500 hover:bg-red-50">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-obra bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="relative overflow-hidden h-48">
+                            <img class="w-full h-full object-cover obra-image"
+                                src="https://images.pexels.com/photos/2253835/pexels-photo-2253835.jpeg"
+                                alt="Horizonte Silencioso">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-semibold mb-2">Horizonte Silencioso</h3>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Adicionada em: 10/06/2023</p>
+                                    <p class="text-indigo-600 font-medium">R$ 650,00</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-ghost text-red-500 hover:bg-red-50">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-xs border pl-4">
+            </div>
 
+            <!-- Atividades Recentes -->
+            <div>
+                <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Atividades Recentes</h2>
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 pb-4 border-b border-gray-100">
+                            <div class="bg-indigo-100 p-2 rounded-full text-indigo-600 mt-1">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Novo favorito em sua obra</p>
+                                <p class="text-gray-600 text-sm">Alguém favoritou "Itaquaquecetuba" há 2 horas</p>
+                            </div>
+                            <span class="text-gray-400 text-sm ml-auto">10:45 AM</span>
+                        </div>
+
+                        <div class="flex items-start gap-4 pb-4 border-b border-gray-100">
+                            <div class="bg-green-100 p-2 rounded-full text-green-600 mt-1">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Nova venda realizada</p>
+                                <p class="text-gray-600 text-sm">"Horizonte Silencioso" foi vendido por R$ 650,00</p>
+                            </div>
+                            <span class="text-gray-400 text-sm ml-auto">Ontem</span>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-blue-100 p-2 rounded-full text-blue-600 mt-1">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Novo comentário recebido</p>
+                                <p class="text-gray-600 text-sm">"Adorei sua técnica de pintura!" em "Itaquaquecetuba"
+                                </p>
+                            </div>
+                            <span class="text-gray-400 text-sm ml-auto">2 dias atrás</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <section id="produtos" class="secao-conteudo p-10">
-            <!-- Título e Ações -->
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-4xl font-bold">Gerenciar Obras</h1>
-                <button class="btn btn-primary" onclick="my_modal_1.showModal()">+ Nova Obra</button>
+
+        <!-- Seção Obras -->
+        <section id="produtos" class="secao-conteudo">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                    <h1 class="title-font text-3xl font-bold text-gray-900 mb-2">Suas Obras</h1>
+                    <p class="text-gray-600">Gerencie todas as suas obras publicadas</p>
+                </div>
+                <button class="btn btn-primary mt-4 md:mt-0" onclick="modal_adicionar_obra.showModal()">
+                    <i class="fas fa-plus mr-2"></i> Adicionar Obra
+                </button>
             </div>
 
-            <dialog id="my_modal_1" class="modal">
-                <div class="modal-box  max-w-5xl h-160">
-                    <h1 class="text-2xl font-bold">Adicionar nova obra</h1>
-                    <form class="py-4" action="" method="post">
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Imagem</legend>
-                            <input type="file" class="input" placeholder="Imagem" />
-                            <p class="label text-red-400">Obrigatório</p>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Título</legend>
-                            <input type="text" class="input" placeholder="Digite o título" />
-                            <p class="label text-red-400">Obrigatório</p>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Descrição</legend>
-                            <textarea class="textarea h-24" placeholder="Descrição"></textarea>
-                            <p class="label text-red-400">Obrigatório</p>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Dimensão</legend>
-                            <input type="text" class="input" placeholder="Digite a dimensão da obra" />
-                            <p class="label">Opcional</p>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Tecnica</legend>
-                            <textarea class="textarea h-24" placeholder="Tecnica"></textarea>
-                            <p class="label text-red-400">Opcional</p>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Preço</legend>
-                            <input type="number" class="input" placeholder="Digite o preço" />
-                            <p class="label text-red-400">Obrigatório</p>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Categoria</legend>
-                            <select class="select">
-                                <option disabled selected>Selecione uma categoria</option>
-                                <option>Chrome</option>
-                                <option>FireFox</option>
-                                <option>Safari</option>
-                            </select>
-                            <span class="label">Optional</span>
-                        </fieldset>
+            <!-- Modal Adicionar Obra -->
+            <dialog id="modal_adicionar_obra" class="modal">
+                <div class="modal-box max-w-4xl">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
+                    <h3 class="font-bold text-2xl mb-6">Adicionar Nova Obra</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Coluna 1 -->
+                        <div>
+                            <div class="fieldset">
+                                <legend class="fieldset-legend">Imagem da Obra <span class="text-red-500">*</span>
+                                </legend>
+                                <div
+                                    class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                                    <p class="text-gray-500 mb-2">Arraste e solte a imagem aqui</p>
+                                    <p class="text-gray-400 text-sm mb-4">ou</p>
+                                    <label class="btn btn-outline border-indigo-200 text-indigo-600">
+                                        Selecione um arquivo
+                                        <input type="file" class="hidden" />
+                                    </label>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
+                            </div>
+
+                            <div class="fieldset">
+                                <legend class="fieldset-legend">Detalhes Técnicos</legend>
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
+                                        <input type="text" class="input input-bordered w-full"
+                                            placeholder="Ex: 60x40cm" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
+                                        <input type="text" class="input input-bordered w-full"
+                                            placeholder="Ex: Óleo sobre tela" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
+                                    <input type="text" class="input input-bordered w-full" placeholder="Ex: 2023" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coluna 2 -->
+                        <div>
+                            <div class="fieldset">
+                                <legend class="fieldset-legend">Informações Básicas <span class="text-red-500">*</span>
+                                </legend>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="text" class="input input-bordered w-full" placeholder="Nome da obra"
+                                        required />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
+                                            class="text-red-500">*</span></label>
+                                    <textarea class="textarea textarea-bordered w-full h-24"
+                                        placeholder="Descreva sua obra" required></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                                    <select class="select select-bordered w-full">
+                                        <option disabled selected>Selecione uma categoria</option>
+                                        <option>Pintura</option>
+                                        <option>Fotografia</option>
+                                        <option>Escultura</option>
+                                        <option>Arte Digital</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="fieldset">
+                                <legend class="fieldset-legend">Preço e Estoque <span class="text-red-500">*</span>
+                                </legend>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="number" class="input input-bordered w-full" placeholder="0,00"
+                                        step="0.01" min="0" required />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
+                                        Disponível</label>
+                                    <input type="number" class="input input-bordered w-full" placeholder="1" min="1"
+                                        value="1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="modal-action">
-                        <form class="flex gap-5" method="dialog">
-                            <button class="btn w-30 btn-primary">Salvar</button>
-                            <button class="btn w-30">rascunho</button>
-                            <!-- if there is a button in form, it will close the modal -->
-                            <button class="btn w-30 btn-error text-white">Cancelar</button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save mr-2"></i> Publicar Obra
+                        </button>
+                        <button class="btn btn-ghost">
+                            <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
+                        </button>
+                        <form method="dialog">
+                            <button class="btn btn-error text-white">
+                                <i class="fas fa-times mr-2"></i> Cancelar
+                            </button>
                         </form>
                     </div>
                 </div>
             </dialog>
 
             <!-- Filtros e Busca -->
-            <div class="flex flex-wrap items-center gap-4 mb-4">
-                <div class="space-x-2">
-                    <button class="btn btn-ghost px-3 py-1">Todas</button>
-                    <button class="btn btn-ghost px-3 py-1">Ativas</button>
-                    <button class="btn btn-ghost px-3 py-1">Pendentes</button>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div class="flex flex-wrap gap-2">
+                    <button class="btn btn-sm btn-active">Todas</button>
+                    <button class="btn btn-sm btn-ghost">Ativas</button>
+                    <button class="btn btn-sm btn-ghost">Rascunhos</button>
+                    <button class="btn btn-sm btn-ghost">Esgotadas</button>
                 </div>
-                <label class="input">
-                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                            stroke="currentColor">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
+
+                <label class="input input-bordered flex items-center gap-2 w-full md:w-64">
+                    <input type="text" class="grow" placeholder="Buscar obras..." />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                        class="w-4 h-4 opacity-70">
+                        <path fill-rule="evenodd"
+                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                            clip-rule="evenodd" />
                     </svg>
-                    <input type="search" required placeholder="Search" />
                 </label>
             </div>
 
             <!-- Tabela de Obras -->
             <div class="overflow-x-auto bg-white rounded-xl shadow">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left">Imagem</th>
-                            <th class="px-6 py-3 text-left">Título</th>
-                            <th class="px-6 py-3 text-left">Status</th>
-                            <th class="px-6 py-3 text-left">Visualizações</th>
-                            <th class="px-6 py-3 text-left">Vendas</th>
-                            <th class="px-6 py-3 text-left">Estoque</th>
-                            <th class="px-6 py-3 text-right">Ações</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Obra</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Preço</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Visualizações</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Vendas</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Estoque</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="obra-lista" class="divide-y divide-gray-100 text-sm">
-
-                        <tr data-status="ativas">
-                            <td class="px-6 py-4">
-                                <div class="h-12 w-12">
-                                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                        alt="Avatar Tailwind CSS Component" />
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Obra 1 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-md object-cover"
+                                            src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg"
+                                            alt="Itaquaquecetuba">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Itaquaquecetuba</div>
+                                        <div class="text-sm text-gray-500">Pintura</div>
+                                    </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">Noite Silenciosa</td>
-                            <td class="px-6 py-4 font-semibold">
-                                <p class="badge badge-soft badge-primary">Ativa</p>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ativa</span>
                             </td>
-                            <td class="px-6 py-4">120</td>
-                            <td class="px-6 py-4">4</td>
-                            <td class="px-6 py-4">8</td>
-                            <td class="px-6 py-4 text-right space-x-2">
-                                <button class="text-blue-600 hover:underline">Editar</button>
-                                <button class="text-red-500 hover:underline">Excluir</button>
-                            </td>
-                        </tr>
-                        <tr data-status="pendentes">
-                            <td class="px-6 py-4">
-                                <div class="h-12 w-12">
-                                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                        alt="Avatar Tailwind CSS Component" />
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">Aquarela Bruta</td>
-                            <td class="px-6 py-4 text-yellow-600 font-semibold">Pendente</td>
-                            <td class="px-6 py-4">80</td>
-                            <td class="px-6 py-4">0</td>
-                            <td class="px-6 py-4">3</td>
-                            <td class="px-6 py-4 text-right space-x-2">
-                                <button class="text-blue-600 hover:underline">Editar</button>
-                                <button class="text-red-500 hover:underline">Excluir</button>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 480,00</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">124</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-900">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
 
+                        <!-- Obra 2 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-md object-cover"
+                                            src="https://images.pexels.com/photos/2253835/pexels-photo-2253835.jpeg"
+                                            alt="Horizonte Silencioso">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Horizonte Silencioso</div>
+                                        <div class="text-sm text-gray-500">Fotografia</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Rascunho</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 650,00</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-900">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-
+            <!-- Paginação -->
+            <div class="flex justify-between items-center mt-6">
+                <div class="text-sm text-gray-500">
+                    Mostrando <span class="font-medium">1</span> a <span class="font-medium">2</span> de <span
+                        class="font-medium">12</span> obras
+                </div>
+                <div class="join">
+                    <button class="join-item btn btn-sm">«</button>
+                    <button class="join-item btn btn-sm btn-active">1</button>
+                    <button class="join-item btn btn-sm">2</button>
+                    <button class="join-item btn btn-sm">3</button>
+                    <button class="join-item btn btn-sm">»</button>
+                </div>
+            </div>
         </section>
-        <section id="pedidos" class="secao-conteudo p-10">
-            <!-- Título -->
-            <h1 class="text-4xl font-bold mb-6">Pedidos Recebidos</h1>
+
+        <!-- Seção Pedidos -->
+        <section id="pedidos" class="secao-conteudo">
+            <div class="mb-8">
+                <h1 class="title-font text-3xl font-bold text-gray-900">Pedidos Recebidos</h1>
+                <p class="text-gray-600">Gerencie todos os pedidos dos seus clientes</p>
+            </div>
+
+            <!-- Filtros de Pedidos -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div class="flex flex-wrap gap-2">
+                    <button class="btn btn-sm btn-active">Todos</button>
+                    <button class="btn btn-sm btn-ghost">Pendentes</button>
+                    <button class="btn btn-sm btn-ghost">Processando</button>
+                    <button class="btn btn-sm btn-ghost">Enviados</button>
+                    <button class="btn btn-sm btn-ghost">Concluídos</button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                    <input type="date" class="input input-bordered w-full md:w-40">
+                    <input type="date" class="input input-bordered w-full md:w-40">
+                    <button class="btn btn-sm btn-ghost">
+                        <i class="fas fa-filter mr-2"></i> Filtrar
+                    </button>
+                </div>
+            </div>
 
             <!-- Tabela de Pedidos -->
-            <div class="overflow-x-auto bg-white shadow rounded-xl">
+            <div class="overflow-x-auto bg-white rounded-xl shadow">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left">Pedido</th>
-                            <th class="px-6 py-3 text-left">Comprador</th>
-                            <th class="px-6 py-3 text-left">Obra</th>
-                            <th class="px-6 py-3 text-left">Quantidade</th>
-                            <th class="px-6 py-3 text-left">Valor</th>
-                            <th class="px-6 py-3 text-left">Status</th>
-                            <th class="px-6 py-3 text-left">Opções</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Pedido</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Data</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Cliente</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Valor</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
-                        <!-- Pedido exemplo -->
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Pedido 1 -->
                         <tr>
-                            <td class="px-6 py-4">#1023</td>
-                            <td class="px-6 py-4">Ana Carvalho</td>
-                            <td class="px-6 py-4">"Amanhecer"</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-6 py-4">R$ 250,00</td>
-                            <td class="px-6 py-4">
-                                <select class="status-dropdown border-gray-300 rounded-md">
-                                    <option>Pendente</option>
-                                    <option>Em preparo</option>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/06/2023</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full"
+                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                                            alt="">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Ana Carvalho</div>
+                                        <div class="text-sm text-gray-500">ana@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 480,00</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <select class="select select-bordered select-sm w-full max-w-xs">
+                                    <option selected>Pendente</option>
+                                    <option>Processando</option>
                                     <option>Enviado</option>
                                     <option>Concluído</option>
-                                    <option>Cancelado</option>
                                 </select>
                             </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="text-blue-600 hover:underline">Ver detalhes</button>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="text-green-600 hover:text-green-900">
+                                    <i class="fas fa-print"></i>
+                                </button>
                             </td>
                         </tr>
-                        <!-- Adicione mais pedidos conforme necessário -->
+
+                        <!-- Pedido 2 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">14/06/2023</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full"
+                                            src="https://img.daisyui.com/images/stock/photo-1570295999919-56ceb5ecca61.jpg"
+                                            alt="">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Carlos Mendes</div>
+                                        <div class="text-sm text-gray-500">carlos@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 650,00</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <select class="select select-bordered select-sm w-full max-w-xs">
+                                    <option>Pendente</option>
+                                    <option selected>Processando</option>
+                                    <option>Enviado</option>
+                                    <option>Concluído</option>
+                                </select>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="text-green-600 hover:text-green-900">
+                                    <i class="fas fa-print"></i>
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
+            <!-- Paginação -->
+            <div class="flex justify-between items-center mt-6">
+                <div class="text-sm text-gray-500">
+                    Mostrando <span class="font-medium">1</span> a <span class="font-medium">2</span> de <span
+                        class="font-medium">5</span> pedidos
+                </div>
+                <div class="join">
+                    <button class="join-item btn btn-sm">«</button>
+                    <button class="join-item btn btn-sm btn-active">1</button>
+                    <button class="join-item btn btn-sm">2</button>
+                    <button class="join-item btn btn-sm">3</button>
+                    <button class="join-item btn btn-sm">»</button>
+                </div>
+            </div>
         </section>
-        <section id="personalizar" class="secao-conteudo p-10">
-            <h1 class="text-4xl font-bold mb-6">Vendas e pagamentos</h1>
-            <div>
-                <div class="flex justify-end gap-8">
-                    <div>
-                        <p class="label">Total de vendas</p>
-                        <p class="text-3xl font-bold mb-6">138</p>
-                    </div>
-                    <div>
-                        <p class="label">Saldo atual</p>
-                        <p class="text-3xl font-bold mb-6">R$ 4.500,00</p>
+
+        <!-- Seção Vendas -->
+        <section id="vendas" class="secao-conteudo">
+            <div class="mb-8">
+                <h1 class="title-font text-3xl font-bold text-gray-900">Vendas e Pagamentos</h1>
+                <p class="text-gray-600">Acompanhe seu desempenho financeiro</p>
+            </div>
+
+            <!-- Resumo Financeiro -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Total de Vendas</p>
+                            <p class="text-2xl font-bold text-indigo-600">R$ 4.250,00</p>
+                        </div>
+                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                        </div>
                     </div>
                 </div>
-                <!-- Tabela de Vendas -->
-                <div class="overflow-x-auto bg-white shadow rounded-xl">
+
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Vendas Este Mês</p>
+                            <p class="text-2xl font-bold text-indigo-600">R$ 1.130,00</p>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-sm text-green-600">
+                            <i class="fas fa-arrow-up mr-1"></i> 15% em relação ao mês passado
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Saldo Disponível</p>
+                            <p class="text-2xl font-bold text-indigo-600">R$ 3.450,00</p>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-wallet text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500">Próximo Pagamento</p>
+                            <p class="text-2xl font-bold text-indigo-600">R$ 1.250,00</p>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-full text-purple-600">
+                            <i class="fas fa-calendar-check text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-sm text-gray-500">Previsto para: 05/07/2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfico e Histórico -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <!-- Gráfico (placeholder) -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">Desempenho de Vendas</h3>
+                    <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <p class="text-gray-500">Gráfico de vendas mensais</p>
+                    </div>
+                </div>
+
+                <!-- Métodos de Pagamento -->
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">Métodos de Pagamento</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-credit-card text-blue-500 mr-3"></i>
+                                <span>Cartão de Crédito</span>
+                            </div>
+                            <span class="font-medium">Ativo</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-barcode text-green-500 mr-3"></i>
+                                <span>Boleto Bancário</span>
+                            </div>
+                            <span class="font-medium">Ativo</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-pix text-purple-500 mr-3"></i>
+                                <span>PIX</span>
+                            </div>
+                            <span class="font-medium">Ativo</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-university text-yellow-500 mr-3"></i>
+                                <span>Transferência Bancária</span>
+                            </div>
+                            <span class="font-medium">Inativo</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600 mt-4 w-full">
+                        Configurar Pagamentos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Últimas Vendas -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">Histórico de Vendas</h3>
+                    <button class="btn btn-sm btn-ghost text-indigo-600">Ver todos</button>
+                </div>
+                <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left">Pedido</th>
-                                <th class="px-6 py-3 text-left">Obra</th>
-                                <th class="px-6 py-3 text-left">Data</th>
-                                <th class="px-6 py-3 text-left">Valor</th>
-                                <th class="px-6 py-3 text-left">Status</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Data</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Pedido</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Obra</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Valor</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status</th>
                             </tr>
                         </thead>
-                        <tbody id="pedido-lista" class="divide-y divide-gray-100 text-sm">
-                            <!-- Pedido exemplo -->
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Venda 1 -->
                             <tr>
-                                <td class="px-6 py-4">#1023</td>
-                                <td class="px-6 py-4">"Amanhecer"</td>
-                                <td class="px-6 py-4">23/02/2025</td>
-                                <td class="px-6 py-4">R$ 250,00</td>
-                                <td class="px-6 py-4">
-                                    <p class="badge badge-soft badge-primary">Pago</p>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/06/2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Itaquaquecetuba</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 480,00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pago</span>
                                 </td>
                             </tr>
+
+                            <!-- Venda 2 -->
                             <tr>
-                                <td class="px-6 py-4">#1023</td>
-                                <td class="px-6 py-4">"Amanhecer"</td>
-                                <td class="px-6 py-4">23/02/2025</td>
-                                <td class="px-6 py-4">R$ 250,00</td>
-                                <td class="px-6 py-4">
-                                    <p class="badge badge-soft badge-error">processando</p>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">14/06/2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1024</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Horizonte Silencioso</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 650,00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Processando</span>
                                 </td>
                             </tr>
-                            <!-- Adicione mais pedidos conforme necessário -->
+
+                            <!-- Venda 3 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10/06/2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1020</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Amanhecer</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 320,00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pago</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
-        <section id="configuracoes" class="secao-conteudo p-10">
-            <!-- Título -->
-            <h1 class="text-4xl font-bold mb-6">Configurações</h1>
-            <div class="w-full">
-                <div class="pt-4 pb-4 border-t-1">
-                    <h3 class="text-2xl font-bold mb-6">Editar Perfil</h3>
-                    <div class="flex justify-end gap-8">
-                        <fieldset class="fieldset">
-                            <legend class="fieldset-legend">Foto</legend>
-                            <div class="avatar">
-                                <div class="w-24 rounded-full">
+
+        <!-- Seção Configurações -->
+        <section id="configuracoes" class="secao-conteudo">
+            <div class="mb-8">
+                <h1 class="title-font text-3xl font-bold text-gray-900">Configurações</h1>
+                <p class="text-gray-600">Gerencie suas preferências e informações da conta</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <!-- Perfil -->
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold mb-4">Perfil Público</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="avatar mb-4">
+                                <div class="w-24 rounded-full ring ring-indigo-200 ring-offset-2">
                                     <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
                                 </div>
                             </div>
-                        </fieldset>
-                        <div class="flex flex-wrap gap-4">
+                            <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
+                                Alterar Foto
+                            </button>
+                        </div>
+
+                        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <fieldset class="fieldset w-lg">
-                                    <legend class="fieldset-legend">Nome completo</legend>
-                                    <input type="text" class="input w-full" placeholder="Cledson schwarzenegger" />
-                                </fieldset>
-                                <fieldset class="fieldset w-lg">
-                                    <legend class="fieldset-legend">Usuário</legend>
-                                    <input type="text" class="input w-full" placeholder="Cledson schwarzenegger" />
-                                </fieldset>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                <input type="text" class="input input-bordered w-full" value="Cledson Schwarzenegger">
                             </div>
-                            <fieldset class="fieldset w-lg">
-                                <legend class="fieldset-legend">Bio</legend>
-                                <textarea class="textarea h-29 w-full" placeholder="Conte sua história"></textarea>
-                            </fieldset>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nome de Usuário</label>
+                                <input type="text" class="input input-bordered w-full" value="cledson_art">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Biografia</label>
+                                <textarea class="textarea textarea-bordered w-full h-32"
+                                    placeholder="Conte sobre você e seu trabalho artístico">Artista visual especializado em pinturas abstratas e paisagens urbanas. Minha obra explora a relação entre caos e harmonia nas cidades contemporâneas.</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="pt-4 pb-4 border-t-1">
-                    <h3 class="text-2xl font-bold mb-6">Gerenciamento da Conta</h3>
-                    <div class="flex justify-end">
+
+                <!-- Informações da Conta -->
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold mb-4">Informações da Conta</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
-                            <div class="flex gap-4">
-                                <fieldset class="fieldset w-lg">
-                                    <legend class="fieldset-legend">CPF/CNPJ</legend>
-                                    <input type="text" class="input w-full" placeholder="297.297.297-87" />
-                                </fieldset>
-                                <fieldset class="fieldset w-lg">
-                                    <legend class="fieldset-legend">E-mail</legend>
-                                    <input type="text" class="input w-full" placeholder="cledson.cled@gmail.com" />
-                                </fieldset>
-                            </div>
-                            <div class="flex gap-4">
-                                <div class="flex justify-between w-lg mb-3">
-                                    <p class="fieldset-legend">Senha</p>
-                                    <button class="btn" onclick="my_modal_senha.showModal()">Alterar senha</button>
-                                </div>
-                                <dialog id="my_modal_senha" class="modal">
-                                    <div class="modal-box h-125">
-                                        <h1 class="text-2xl text-center font-bold">Altere a sua senha</h1>
-                                        <form class="p-6" action="" method="post">
-                                            <fieldset class="fieldset">
-                                                <legend class="fieldset-legend">Senha antiga. <span><a href="">Esqueceu?</a></span></legend>
-                                                <input type="password" class="input w-full"/>
-                                                <p class="label text-red-400">Obrigatório</p>
-                                            </fieldset>
-                                            <fieldset class="fieldset">
-                                                <legend class="fieldset-legend">Nova senha</legend>
-                                                <input type="password" class="input w-full"/>
-                                                <p class="label text-red-400">Obrigatório</p>
-                                            </fieldset>
-                                            <fieldset class="fieldset">
-                                                <legend class="fieldset-legend">Digite novamente a nova senha</legend>
-                                                <input type="password" class="input w-full"/>
-                                                <p class="label text-red-400">Obrigatório</p>
-                                            </fieldset>
-                                        </form>
-                                        <div class="modal-action">
-                                            <form class="flex gap-5" method="dialog">
-                                                <button class="btn w-30 btn-primary">Alterar</button>
-                                                <!-- if there is a button in form, it will close the modal -->
-                                                <button class="btn w-30 btn-error text-white">Cancelar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </dialog>
-                                <div class="flex justify-between w-lg mb-3">
-                                    <p class="fieldset-legend">Autenticação de dois fatores</p>
-                                    <button class="btn">Ativar</button>
-                                </div>
-                            </div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                            <input type="email" class="input input-bordered w-full" value="cledson.cled@gmail.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
+                            <input type="text" class="input input-bordered w-full" value="297.297.297-87">
                         </div>
                     </div>
-                </div>
-                <div class="pt-4 pb-4 border-t-1">
-                    <h3 class="text-2xl font-bold mb-6">Encerramento da conta e Desativação</h3>
-                    <div class="flex justify-end">
-                        <div class="w-260">
-                            <div class="flex justify-between mb-8">
-                                <div>
-                                    <p class="fieldset-legend">Desativar conta</p>
-                                    <p class="label">Oculte temporariamente seu perfil, Produtos e vendas.</p>
-                                </div>
-                                <button class="btn" onclick="my_modal_desativar_perfil.showModal()">Desativar conta</button>
-                                <dialog id="my_modal_desativar_perfil" class="modal">
-                                    <div class="modal-box h-138">
-                                        <h1 class="text-2xl text-center font-bold">Desativar a conta</h1>
-                                        <div class="p-6">
-                                            <p class="text-center pb-4">Se você desativar a conta, ninguém verá suas Obras ou sua Loja</p>
-                                            <div class="border-1 py-5">
-                                                <div class="flex justify-center items-center gap-4">
-                                                    <div class="avatar">
-                                                        <div class="w-24 rounded-full">
-                                                            <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
-                                                        </div>
-                                                    </div>
-                                                    <h3>Cledson schwarzenegger</h3>
-                                                </div>
-                                                <div>
-                                                    <p class="text-center m-5">Você pode reativar sua conta a qualquer momento. Se quiser voltar a usar a Moiddo Arts, basta entrar com:</p>
-                                                    <p class="text-center font-semibold">cledson.cled@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-action">
-                                            <form class="flex gap-5" method="dialog">
-                                                <button class="btn w-30 btn-primary">Desativar</button>
-                                                <!-- if there is a button in form, it will close the modal -->
-                                                <button class="btn w-30 btn-error text-white">Cancelar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </dialog>
-                            </div>
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="fieldset-legend">Excluir seus dados e conta</p>
-                                    <p class="label">Exclua permanentemente seus dados e sua conta</p>
-                                </div>
-                                <button class="btn btn-error" onclick="my_modal_excluir_perfil.showModal()">Excluir conta</button>
-                                <dialog id="my_modal_excluir_perfil" class="modal">
-                                    <div class="modal-box h-138">
-                                        <h1 class="text-2xl text-center font-bold">Excluir sua conta</h1>
-                                        <div class="p-6">
-                                            <p class="text-center pb-4">Se você excluir sua conta, não poderá recuperar suas Obras. Todos os dados da sua conta da Muiddo Arts serão excluídos</p>
-                                            <div class="border-1 py-5">
-                                                <div class="flex justify-center items-center gap-4">
-                                                    <div class="avatar">
-                                                        <div class="w-24 rounded-full">
-                                                            <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
-                                                        </div>
-                                                    </div>
-                                                    <h3>Cledson schwarzenegger</h3>
-                                                </div>
-                                                <div>
-                                                    <p class="text-center m-5">Cledson, se quiser sair para sempre, enviaremos um email com a etapa final para:</p>
-                                                    <p class="text-center font-semibold">cledson.cled@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-action">
-                                            <form class="flex gap-5" method="dialog">
-                                                <button class="btn w-30 btn-primary">Excluir</button>
-                                                <!-- if there is a button in form, it will close the modal -->
-                                                <button class="btn w-30 btn-error text-white">Cancelar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </dialog>
-                            </div>
+
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <p class="font-medium">Senha</p>
+                            <p class="text-sm text-gray-500">Última alteração: 15/05/2023</p>
                         </div>
+                        <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600"
+                            onclick="modal_alterar_senha.showModal()">
+                            Alterar Senha
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-medium">Autenticação de Dois Fatores</p>
+                            <p class="text-sm text-gray-500">Proteção adicional para sua conta</p>
+                        </div>
+                        <label class="cursor-pointer label">
+                            <input type="checkbox" class="toggle toggle-primary">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Configurações de Pagamento -->
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold mb-4">Configurações de Pagamento</h2>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Conta Bancária</label>
+                        <select class="select select-bordered w-full">
+                            <option>Banco do Brasil - ****4532</option>
+                            <option>Adicionar nova conta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Dia de Pagamento</label>
+                        <select class="select select-bordered w-full">
+                            <option>Todo dia 5</option>
+                            <option>Todo dia 10</option>
+                            <option>Todo dia 15</option>
+                            <option selected>Todo dia 20</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Gerenciamento de Conta -->
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-4">Gerenciamento de Conta</h2>
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <p class="font-medium">Desativar Conta Temporariamente</p>
+                            <p class="text-sm text-gray-500">Oculte seu perfil e obras sem excluir dados</p>
+                        </div>
+                        <button class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
+                            onclick="modal_desativar_conta.showModal()">
+                            Desativar Conta
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-medium">Excluir Conta Permanentemente</p>
+                            <p class="text-sm text-gray-500">Todos os seus dados serão removidos</p>
+                        </div>
+                        <button class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
+                            onclick="modal_excluir_conta.showModal()">
+                            Excluir Conta
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <!-- Botão Salvar -->
+            <div class="flex justify-end mt-6">
+                <button class="btn btn-primary">
+                    <i class="fas fa-save mr-2"></i> Salvar Alterações
+                </button>
+            </div>
         </section>
     </main>
+
+    <!-- Modals -->
+    <!-- Modal Alterar Senha -->
+    <dialog id="modal_alterar_senha" class="modal">
+        <div class="modal-box max-w-md">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-xl mb-6">Alterar Senha</h3>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
+                    <input type="password" class="input input-bordered w-full" placeholder="Digite sua senha atual">
+                    <a href="#" class="text-sm text-indigo-600 hover:underline mt-1 block">Esqueceu sua senha?</a>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
+                    <input type="password" class="input input-bordered w-full" placeholder="Digite a nova senha">
+                    <p class="text-xs text-gray-500 mt-1">Mínimo de 8 caracteres</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar Nova Senha</label>
+                    <input type="password" class="input input-bordered w-full"
+                        placeholder="Digite novamente a nova senha">
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <button class="btn btn-primary">
+                    <i class="fas fa-check mr-2"></i> Confirmar
+                </button>
+                <form method="dialog">
+                    <button class="btn btn-error text-white">
+                        <i class="fas fa-times mr-2"></i> Cancelar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Modal Desativar Conta -->
+    <dialog id="modal_desativar_conta" class="modal">
+        <div class="modal-box max-w-md">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-xl mb-2">Desativar Sua Conta</h3>
+            <p class="text-gray-600 mb-6">Tem certeza que deseja desativar temporariamente sua conta?</p>
+
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="avatar">
+                        <div class="w-16 rounded-full">
+                            <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-medium">Cledson Schwarzenegger</p>
+                        <p class="text-sm text-gray-500">cledson.cled@gmail.com</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">Ao desativar sua conta, seu perfil e obras não estarão visíveis
+                    publicamente até que você reative sua conta.</p>
+            </div>
+
+            <div class="modal-action">
+                <button class="btn btn-primary">
+                    <i class="fas fa-power-off mr-2"></i> Desativar
+                </button>
+                <form method="dialog">
+                    <button class="btn btn-error text-white">
+                        <i class="fas fa-times mr-2"></i> Cancelar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Modal Excluir Conta -->
+    <dialog id="modal_excluir_conta" class="modal">
+        <div class="modal-box max-w-md">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-xl mb-2">Excluir Sua Conta Permanentemente</h3>
+            <p class="text-red-500 mb-6">Esta ação não pode ser desfeita!</p>
+
+            <div class="bg-red-50 p-4 rounded-lg mb-6 border border-red-100">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                    <div>
+                        <p class="font-medium text-red-700">Atenção</p>
+                        <p class="text-sm text-red-600">Ao excluir sua conta, todos os seus dados, obras e histórico
+                            serão permanentemente removidos e não poderão ser recuperados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Digite sua senha para confirmar</label>
+                <input type="password" class="input input-bordered w-full" placeholder="Digite sua senha">
+            </div>
+
+            <div class="modal-action">
+                <button class="btn btn-error text-white">
+                    <i class="fas fa-trash mr-2"></i> Excluir Conta
+                </button>
+                <form method="dialog">
+                    <button class="btn btn-ghost">
+                        <i class="fas fa-times mr-2"></i> Cancelar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
     <script src="../static/js/script-painel-artista.js"></script>
 </body>
 
