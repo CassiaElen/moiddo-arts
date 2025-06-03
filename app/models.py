@@ -150,6 +150,7 @@ tabela_item_pedido()
 
 #popular tabela categoria
 
+"""
 def inserir_categorias():
     categorias = [
         ("Xilogravura", "xilogravura"),
@@ -171,5 +172,43 @@ def inserir_categorias():
     cursor.executemany("INSERT INTO categoria (nome_categoria, slug) VALUES (?, ?)", categorias)
     con.commit()
     con.close()
-
+"""
+def inserir_categorias():
+    categorias = [
+        ("Xilogravura", "xilogravura"),
+        ("Escultura em Barro", "escultura-em-barro"),
+        ("Escultura em Madeira", "escultura-em-madeira"),
+        ("Pintura", "pintura"),
+        ("Ilustração Digital", "ilustracao-digital"),
+        ("Artesanato Têxtil", "artesanato-textil"),
+        ("Bijuterias e Acessórios Artesanais", "bijuterias-acessorios-artesanais"),
+        ("Cerâmica", "ceramica"),
+        ("Cordel e Literatura Visual", "cordel-literatura-visual"),
+        ("Fotografia Artística", "fotografia-artistica"),
+        ("Arte Reciclada", "arte-reciclada"),
+        ("Arte Popular", "arte-popular")
+    ]
+    
+    con = sqlite3.connect("moiddo_arts.db")
+    cursor = con.cursor()
+    
+    cursor.execute("CREATE TEMPORARY TABLE temp_categorias (nome_categoria TEXT, slug TEXT)")
+    cursor.executemany("INSERT INTO temp_categorias (nome_categoria, slug) VALUES (?, ?)", categorias)
+    
+    cursor.execute("""
+        INSERT OR IGNORE INTO categoria (nome_categoria, slug)
+        SELECT nome_categoria, slug
+        FROM temp_categorias
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM categoria
+            WHERE (nome_categoria = temp_categorias.nome_categoria OR slug = temp_categorias.slug)
+        )
+    """)
+    
+    # Remover a tabela temporária
+    cursor.execute("DROP TABLE temp_categorias")
+    
+    con.commit()
+    con.close()
 inserir_categorias()
