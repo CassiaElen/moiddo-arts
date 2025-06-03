@@ -3,7 +3,7 @@ import sqlite3
 def tabela_artistas():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE artistas(
+    sql = """CREATE TABLE IF NOT EXISTS artistas(
             id_artista INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_completo VARCHAR(100) NOT NULL,
             usuario VARCHAR(100) UNIQUE NOT NULL,
@@ -22,7 +22,7 @@ def tabela_artistas():
 def tabela_compradores():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE comprador(
+    sql = """CREATE TABLE IF NOT EXISTS comprador(
             id_comprador INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_completo VARCHAR(100) NOT NULL,
             usuario VARCHAR(100) UNIQUE NOT NULL,
@@ -40,7 +40,7 @@ def tabela_compradores():
 def tabela_categorias():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE categoria(
+    sql = """CREATE TABLE IF NOT EXISTS categoria(
             id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_categoria VARCHAR(100) NOT NULL,
             slug VARCHAR(50) UNIQUE NOT NULL
@@ -53,7 +53,7 @@ def tabela_categorias():
 def tabela_obras():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE obras(
+    sql = """CREATE TABLE IF NOT EXISTS obras(
             id_obra INTEGER PRIMARY KEY AUTOINCREMENT,
             artista_id INTEGER,
             titulo VARCHAR(100) NOT NULL,
@@ -74,7 +74,7 @@ def tabela_obras():
 def tabela_carrinho():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE carrinho(
+    sql = """CREATE TABLE IF NOT EXISTS carrinho(
             id_carrinho INTEGER PRIMARY KEY AUTOINCREMENT,
             comprador_id INTEGER,
             sessao_id INTEGER,
@@ -91,7 +91,7 @@ def tabela_carrinho():
 def tabela_item_carrinho():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE ItemCarrinho(
+    sql = """CREATE TABLE IF NOT EXISTS ItemCarrinho(
             id_itemCarrinho INTEGER PRIMARY KEY AUTOINCREMENT,
             carrinho_id INTEGER,
             obra_id INTEGER,
@@ -108,7 +108,7 @@ def tabela_item_carrinho():
 def tabela_pedido():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE pedido(
+    sql = """CREATE TABLE IF NOT EXISTS pedido(
             id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,
             carrinho_id INTEGER,
             comprador_id INTEGER,
@@ -126,7 +126,7 @@ def tabela_pedido():
 def tabela_item_pedido():
     con = sqlite3.connect("moiddo_arts.db")
     cursor = con.cursor()
-    sql = """CREATE TABLE ItemPedido(
+    sql = """CREATE TABLE IF NOT EXISTS ItemPedido(
             id_itemPedido INTEGER PRIMARY KEY AUTOINCREMENT,
             pedido_id INTEGER,
             obra_id INTEGER,
