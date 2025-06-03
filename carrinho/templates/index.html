@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obras de Arte</title>
+</head>
+<body>
+    <h1>Obras à venda</h1>
+    <ul>
+        {% for p in produtos %}
+            <li>
+                <strong>{{ p['nome'] }}</strong> - {{ p['artista'] }} - R$ {{ p['preco'] }}
+                <a href="/adicionar/{{ p['id'] }}">[Adicionar ao carrinho]</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/carrinho">Ver carrinho</a>
+</body>
+</html>
