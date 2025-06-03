@@ -10,7 +10,7 @@
 
 <body>
 
-    <img class="muiddo" src="/login/muiddo.png" alt="">
+    <img class="muiddo" src="/app/static/assets/muiddo.png" alt="">
 
     <h1 id="bemvindo">
         <center>Bem-vindo à Muiddo Arts</center>
@@ -19,33 +19,35 @@
         <center>Insira seus dados para criar sua conta</center>
     </h4>
 
-    <section class="formulario-login">
-        <div class="forms-log">
-            <label class="label" for="email">Digite seu E-Mail: </label>
-            <input id="email" name="email" type="email" required placeholder="Ex.: abc@gmail.com"><br>
+    <form action="{{ url_for(register_artist) }}" method="POST">
+        <section class="formulario-login">
+            <div class="forms-log">
+                <label class="label" for="email">Digite seu E-Mail: </label>
+                <input id="email" name="email" type="email" required placeholder="Ex.: abc@gmail.com"><br>
 
-            <label class="label" for="name">Digite seu nome: </label>
-            <input id="name" name="name" type="text" required placeholder="Ex.: João de Sá"><br>
+                <label class="label" for="name">Digite seu nome: </label>
+                <input id="name" name="name" type="text" required placeholder="Ex.: João de Sá"><br>
 
-            <label class="label" for="password">Digite sua senha: </label>
-            <input id="password" name="password" type="password" required placeholder="Ex.: 123456"><br>
+                <label class="label" for="password">Digite sua senha: </label>
+                <input id="password" name="password" type="password" required placeholder="Ex.: 123456"><br>
 
-            <label class="label" for="cpf">Digite seu CPF/CNPJ: </label>
-            <input id="cpf" name="cpf" type="text" required placeholder="Ex.: 000.000.000-00 ou 00.000.000/0001-00"><br>
+                <label class="label" for="cpf">Digite seu CPF/CNPJ: </label>
+                <input id="cpf" name="cpf" type="text" required placeholder="Ex.: 000.000.000-00 ou 00.000.000/0001-00"><br>
 
-            <label class="label" for="phone">Digite seu telefone: </label>
-            <input id="phone" name="phone" type="text" required placeholder="Ex.: (00) 0 0000-0000">
-        </div>
+                <label class="label" for="name">Digite o nome de usuário: </label>
+                <input id="name" name="name" type="text" required placeholder="Ex.: Jp123">
+            </div>
 
-    </section>
-    <section>
-        <div class="botoes-login">
-            <label for="botao1">
-                <button id="botao1" name="botao1" type="submit"><a id="a1"
-                        href="/app/template/login-artesao.html">Cadatrar</a></button>
-            </label>
-        </div>
-    </section>
+        </section>
+        <section>
+            <div class="botoes-login">
+                <label for="botao1">
+                    <button id="botao1" name="botao1" type="submit"><a id="a1"
+                            href="/app/templates/login-artesao.html">Cadatrar</a></button>
+                </label>
+            </div>
+        </section>
+    </form>
 </body>
 
 </html>

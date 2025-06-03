@@ -10,7 +10,7 @@
 
 <body>
 
-    <img class="muiddo" src="/login/muiddo.png" alt="">
+    <img class="muiddo" src="/app/static/assets/muiddo.png" alt="">
 
     <h1 id="bemvindo">
         <center>Seja Bem-vindo à Muiddo Arts</center>
@@ -20,28 +20,30 @@
     </h4>
     <br>
 
-    <section class="formulario-login">
-        <div class="forms-log">
-            <label class="label" for="email">Digite seu E-Mail: </label><br>
-            <input id="email" name="email" type="email" required placeholder="Ex.: abc@gmail.com"><br>
+    <form action="{{ url_for('login_artist')}}" method="POST">
+        <section class="formulario-login">
+            <div class="forms-log">
+                <label class="label" for="email">Digite seu E-Mail: </label><br>
+                <input id="email" name="email" type="email" required placeholder="Ex.: abc@gmail.com"><br>
 
-            <label class="label" for="password">Digite sua senha: </label><br>
-            <input id="password" name="password" type="password" required placeholder="Ex.: 123456">
-        </div>
+                <label class="label" for="password">Digite sua senha: </label><br>
+                <input id="password" name="password" type="password" required placeholder="Ex.: 123456">
+            </div>
 
-    </section>
-    <section>
-        <div class="botoes-login">
-            <label for="botao1">
-                <button id="botao1" name="botao1" type="submit"><a id="a1" href="/index.html">Entrar</a></button>
-            </label>
+        </section>
+        <section>
+            <div class="botoes-login">
+                <label for="botao1">
+                    <button id="botao1" name="botao1" type="submit"><a id="a1" href="/app/templates/index.html">Entrar</a></button>
+                </label>
 
-            <label for="botao3">
-                <button id="botao3" name="botao3" type="submit"><a id="a3"
-                        href="/app/template/cadastro-artesao.html">Ainda não tenho uma conta</a></button>
-            </label>
-        </div>
-    </section>
+                <label for="botao3">
+                    <button id="botao3" name="botao3" type="submit"><a id="a3"
+                            href="/app/templates/cadastro-artesao.html">Ainda não tenho uma conta</a></button>
+                </label>
+            </div>
+        </section>
+    </form>
 </body>
 
 </html>

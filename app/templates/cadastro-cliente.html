@@ -10,7 +10,7 @@
 
 <body>
 
-    <img class="muiddo" src="/login/muiddo.png" alt="">
+    <img class="muiddo" src="/app/static/assets/muiddo.png" alt="">
 
     <h1 id="bemvindo">
         <center>Bem-vindo à Muiddo Arts</center>
@@ -20,27 +20,35 @@
     </h4>
     <br>
 
-    <section class="formulario-login">
-        <div class="forms-log">
-            <label class="label" for="email">Digite seu E-Mail: </label><br>
-            <input id="email" name="email" type="email" required placeholder="Ex.: abc@gmail.com"><br>
+    <form action="{{ url_for(register_client) }}" method="POST">
+        <section class="formulario-login">
+            <div class="forms-log">
+                <label class="label" for="email">Digite seu E-Mail: </label>
+                <input id="email" name="email" type="email" required placeholder="Ex.: abc@gmail.com"><br>
 
-            <label class="label" for="name">Digite seu nome: </label><br>
-            <input id="name" name="name" type="text" required placeholder="Ex.: João de Sá"><br>
+                <label class="label" for="name">Digite seu nome: </label>
+                <input id="name" name="name" type="text" required placeholder="Ex.: João de Sá"><br>
 
-            <label class="label" for="password">Digite sua senha: </label><br>
-            <input id="password" name="password" type="password" required placeholder="Ex.: 123456">
-        </div>
+                <label class="label" for="name">Digite o nome de usuário: </label>
+                <input id="name" name="name" type="text" required placeholder="Ex.: Jp123"><br>
 
-    </section>
-    <section>
-        <div class="botoes-login">
-            <label for="botao1">
-                <button id="botao1" name="botao1" type="submit"><a id="a1"
-                        href="/app/template/login-cliente.html">Cadatrar</a></button>
-            </label>
-        </div>
-    </section>
+                <label class="label" for="name">Digite seu CPF: </label>
+                <input id="name" name="name" type="text" required placeholder="Ex.: 000.000.000-00"><br>
+
+                <label class="label" for="password">Digite sua senha: </label>
+                <input id="password" name="password" type="password" required placeholder="Ex.: 123456">
+            </div>
+
+        </section>
+        <section>
+            <div class="botoes-login">
+                <label for="botao1">
+                    <button id="botao1" name="botao1" type="submit"><a id="a1"
+                            href="/app/templates/login-cliente.html">Cadatrar</a></button>
+                </label>
+            </div>
+        </section>
+    </form>
 </body>
 
 </html>
