@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moiddo Arts - Contato</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/contato.css">
+</head>
+
+<body class="gradient-bg min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50">
+        <div class="drawer">
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                <!-- Navbar -->
+                <div class="navbar bg-white shadow-sm">
+                    <div class="flex-none lg:hidden">
+                        <label for="my-drawer-3" aria-label="open sidebar"
+                            class="btn btn-square btn-ghost text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="inline-block h-6 w-6 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </label>
+                    </div>
+                    <div class="flex-1 px-2 mx-2">
+                        <a href="#" class="text-xl font-bold text-gray-800">Moiddo <span
+                                class="text-indigo-600">Arts</span></a>
+                    </div>
+                    <div class="navbar-end flex gap-2">
+                        <div class="hidden flex-none lg:block">
+                            <div class="menu menu-horizontal">
+                                <label class="input input-bordered flex items-center gap-2 rounded-full">
+                                    <input type="text" class="grow" placeholder="Pesquisar" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                        class="w-4 h-4 opacity-70">
+                                        <path fill-rule="evenodd"
+                                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="dropdown dropdown-end">
+                            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                                <div class="indicator">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    <span
+                                        class="badge badge-sm indicator-item bg-indigo-600 border-none text-white">3</span>
+                                </div>
+                            </div>
+                            <div tabindex="0"
+                                class="card card-compact dropdown-content bg-base-100 shadow-lg z-50 mt-3 w-72">
+                                <div class="card-body">
+                                    <span class="font-bold text-lg">3 Itens no Carrinho</span>
+                                    <span class="text-indigo-600">Subtotal: R$ 1.240,00</span>
+                                    <div class="card-actions">
+                                        <button class="btn btn-primary btn-block"><a href="carrinho.html">Ver Carrinho</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown dropdown-end">
+                            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                                <div class="w-10 rounded-full border-2 border-indigo-200">
+                                    <img alt="Foto de perfil"
+                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                </div>
+                            </div>
+                            <ul tabindex="0"
+                                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-lg">
+                                <li>
+                                    <a class="justify-between">
+                                        Meu Perfil
+                                        <span class="badge bg-indigo-100 text-indigo-800">Novo</span>
+                                    </a>
+                                </li>
+                                <li><a>Minhas Compras</a></li>
+                                <li><a>Configurações</a></li>
+                                <li><a class="text-red-500">Sair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Secondary Navbar -->
+                <div class="navbar bg-white shadow-sm hidden lg:flex justify-center">
+                    <ul class="menu menu-horizontal px-1 gap-1">
+                        <li><a href="loja.html"
+                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Loja</a></li>
+                        <li><a href="artistas.html"
+                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Artistas</a>
+                        </li>
+                        <li><a href="exposicoes.html"
+                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Exposições</a>
+                        </li>
+                        <li><a href="sobreNos.html"
+                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Sobre Nós</a>
+                        </li>
+                        <li><a href="contato.html"
+                                class="text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="drawer-side z-50">
+                <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+                <div class="menu p-4 w-80 min-h-full bg-white">
+                    <div class="mb-6">
+                        <a href="#" class="text-xl font-bold text-gray-800">Moiddo <span
+                                class="text-indigo-600">Arts</span></a>
+                    </div>
+                    <label class="input input-bordered flex items-center mb-4">
+                        <input type="text" class="grow w-[15rem]" placeholder="Pesquisar" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                            class="w-4 h-4 opacity-70">
+                            <path fill-rule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </label>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="loja.html" class="text-gray-700 rounded-lg">Loja</a>
+                        </li>
+                        <li><a href="artistas.html" class="text-gray-700 rounded-lg">Artistas</a>
+                        </li>
+                        <li><a href="exposicoes.html" class="text-gray-700 rounded-lg">Exposições</a></li>
+                        <li><a href="sobreNos.html" class="text-gray-700 rounded-lg">Sobre Nós</a>
+                        </li>
+                        <li><a href="contato.html" class="text-indigo-700 bg-indigo-50 rounded-lg">Contato</a>
+                        </li>
+                    </ul>
+                    <div class="divider"></div>
+                    <ul>
+                        <li><a class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Minha Conta</a>
+                        </li>
+                        <li><a class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Favoritos</a>
+                        </li>
+                        <li><a class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Histórico</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-12">
+
+        <div class="max-w-7xl mx-auto">
+            <!-- Breadcrumbs -->
+            <div class="text-sm breadcrumbs mb-8">
+                <ul>
+                    <li><a href="index.html" class="text-indigo-600 hover:text-indigo-800">Home</a></li>
+                    <li class="text-gray-500">Contato</li>
+                </ul>
+            </div>
+
+            <!-- Page Title -->
+            <div class="text-center mb-12">
+                <h1 class="title-font text-4xl md:text-5xl font-bold text-gray-900 mb-4">Fale Conosco</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Tem alguma dúvida, sugestão ou quer saber mais sobre nossas obras? Entre em contato conosco, nossa
+                    equipe está pronta para te ajudar.
+                </p>
+            </div>
+
+            <!-- Contact Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-xl shadow-md p-6 md:p-8 contact-card">
+                    <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Envie sua mensagem</h2>
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+                                <input type="text" id="name" class="input input-bordered w-full input-focus"
+                                    placeholder="Seu nome completo" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                                <input type="email" id="email" class="input input-bordered w-full input-focus"
+                                    placeholder="seu@email.com" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Assunto</label>
+                            <select id="subject" class="select select-bordered w-full input-focus">
+                                <option disabled selected>Selecione um assunto</option>
+                                <option>Dúvida sobre produtos</option>
+                                <option>Informações sobre artistas</option>
+                                <option>Problemas com pedidos</option>
+                                <option>Sugestões</option>
+                                <option>Parcerias</option>
+                                <option>Outros</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
+                            <textarea id="message" rows="5" class="textarea textarea-bordered w-full input-focus"
+                                placeholder="Escreva sua mensagem aqui..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="fas fa-paper-plane mr-2"></i> Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <!-- Contact Card 1 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 contact-card">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-indigo-100 p-3 rounded-full text-indigo-700">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-1">Endereço</h3>
+                                <p class="text-gray-600">Rua das Artes, 123<br>Vila Criativa<br>São Paulo - SP<br>CEP:
+                                    01234-567</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Card 2 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 contact-card">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-indigo-100 p-3 rounded-full text-indigo-700">
+                                <i class="fas fa-phone-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-1">Telefones</h3>
+                                <p class="text-gray-600 mb-2">
+                                    <span class="font-medium">Comercial:</span> (11) 1234-5678<br>
+                                    <span class="font-medium">WhatsApp:</span> (11) 98765-4321
+                                </p>
+                                <a href="https://wa.me/5511987654321" class="btn btn-sm btn-success text-white mt-2">
+                                    <i class="fab fa-whatsapp mr-2"></i> Chamar no WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Card 3 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 contact-card">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-indigo-100 p-3 rounded-full text-indigo-700">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-1">E-mail</h3>
+                                <p class="text-gray-600 mb-2">
+                                    <span class="font-medium">Geral:</span> contato@moiddoarts.com.br<br>
+                                    <span class="font-medium">Vendas:</span> vendas@moiddoarts.com.br<br>
+                                    <span class="font-medium">Artistas:</span> artistas@moiddoarts.com.br
+                                </p>
+                                <a href="mailto:contato@moiddoarts.com.br" class="btn btn-sm btn-outline mt-2">
+                                    <i class="fas fa-envelope mr-2"></i> Enviar E-mail
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-16">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-6 md:p-8">
+                        <h2 class="title-font text-2xl font-bold text-gray-900 mb-4">Visite nossa galeria</h2>
+                        <p class="text-gray-600 mb-4">
+                            Nossa galeria está aberta para visitação de terça a sábado, das 10h às 18h. Venha conhecer
+                            nossas obras pessoalmente e sentir a energia que só a arte presencial pode proporcionar.
+                        </p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-center gap-2">
+                                <i class="fas fa-clock text-indigo-600"></i>
+                                <span><strong>Horário de funcionamento:</strong> Ter-Sáb, 10h-18h</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fas fa-parking text-indigo-600"></i>
+                                <span>Estacionamento gratuito no local</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fas fa-wheelchair text-indigo-600"></i>
+                                <span>Acesso para pessoas com deficiência</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0754267452926!2d-46.65342692401411!3d-23.5657343617579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%201000%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001310-100!5e0!3m2!1spt-BR!2sbr!4v1719877641234!5m2!1spt-BR!2sbr"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
+                <h2 class="title-font text-2xl font-bold text-gray-900 mb-6 text-center">Perguntas Frequentes</h2>
+                <div class="space-y-4">
+                    <div class="collapse collapse-plus bg-base-100">
+                        <input type="radio" name="my-accordion-3" checked="checked" />
+                        <div class="collapse-title text-lg font-medium">
+                            Como faço para comprar uma obra de arte?
+                        </div>
+                        <div class="collapse-content">
+                            <p class="text-gray-600">Você pode comprar diretamente pelo nosso site, adicionando as obras
+                                ao carrinho e finalizando o pedido, ou visitando nossa galeria física. Também atendemos
+                                por WhatsApp para negociações especiais.</p>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-plus bg-base-100">
+                        <input type="radio" name="my-accordion-3" />
+                        <div class="collapse-title text-lg font-medium">
+                            Quais são as formas de pagamento aceitas?
+                        </div>
+                        <div class="collapse-content">
+                            <p class="text-gray-600">Aceitamos cartões de crédito (em até 12x), débito, transferência
+                                bancária, PIX e boleto. Para compras na galeria, também aceitamos dinheiro.</p>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-plus bg-base-100">
+                        <input type="radio" name="my-accordion-3" />
+                        <div class="collapse-title text-lg font-medium">
+                            Como funciona o envio das obras?
+                        </div>
+                        <div class="collapse-content">
+                            <p class="text-gray-600">Todas as obras são embaladas com materiais especiais para proteção
+                                e enviadas por transportadoras especializadas em objetos de arte. O prazo de entrega
+                                varia conforme o tamanho da obra e local de entrega.</p>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-plus bg-base-100">
+                        <input type="radio" name="my-accordion-3" />
+                        <div class="collapse-title text-lg font-medium">
+                            Posso devolver uma obra se não gostar?
+                        </div>
+                        <div class="collapse-content">
+                            <p class="text-gray-600">Sim, aceitamos devoluções em até 7 dias após o recebimento, desde
+                                que a obra esteja em perfeitas condições. O custo do frete de devolução fica por conta
+                                do cliente.</p>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-plus bg-base-100">
+                        <input type="radio" name="my-accordion-3" />
+                        <div class="collapse-title text-lg font-medium">
+                            Como posso me tornar um artista representado pela Moiddo Arts?
+                        </div>
+                        <div class="collapse-content">
+                            <p class="text-gray-600">Artistas interessados podem enviar portfólio para
+                                artistas@moiddoarts.com.br. Nossa curadoria analisa mensalmente os materiais recebidos e
+                                entra em contato com os selecionados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Moiddo Arts</h3>
+                    <p class="mb-4">Conectando artistas talentosos com amantes da arte em todo o mundo.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-pinterest-p text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-youtube text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Explorar</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition-colors">Obras em Destaque</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Novos Artistas</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Coleções Temáticas</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Exposições Virtuais</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Ajuda</h4>
+                    <ul class="space-y-2">
+                        <li><a href="contato.html" class="hover:text-white transition-colors">Central de Ajuda</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Como Comprar</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Envios e Entregas</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Devoluções</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Newsletter</h4>
+                    <p class="mb-4">Inscreva-se para receber novidades e ofertas exclusivas.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Seu e-mail"
+                            class="input input-bordered w-full max-w-xs rounded-r-none bg-gray-800 border-gray-700 text-white" />
+                        <button class="btn btn-primary rounded-l-none">
+                            <i class="far fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>© 2023 Moiddo Arts. Todos os direitos reservados.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Termos de Serviço</a>
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
