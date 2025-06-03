@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar arquivos</title>
+</head>
+<body>
+    <h1>Arquivos Enviados</h1>
+    <form method="GET" action="{{ url_for('listar_arquivos') }}">
+        <label>Filtrar por tipo:</label>
+        <select name="tipo">
+            <option value="">Todos</option>
+            <option value="pdf" {% if tipo == 'pdf' %}selected{% endif %}>PDF</option>
+            <option value="jpg" {% if tipo == 'jpg' %}selected{% endif %}>JPG</option>
+            <option value="png" {% if tipo == 'png' %}selected{% endif %}>PNG</option>
+            <option value="txt" {% if tipo == 'txt' %}selected{% endif %}>TXT</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+    
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+            <th>Nome original</th>
+            <th>Data</th>
+            <th>Tamanho</th>
+            <th>Visualizar</th>
+            <th>Baixar</th>
+            <th>Excluir</th>
+            <th>Descrição</th>
+            <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for arquivo in arquivos %}
+            <tr>
+                <td>{{ arquivo.nome_original }}</td>
+                <td>{{ arquivo.data_envio.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ arquivo.tamanho_kb }} KB</td>
+                <td>
+                    <a href="{{ url_for('arquivo_enviado', id=arquivo.id) }}" target="_blank">Abrir</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('arquivo_enviado', id=arquivo.id) }}" download>Baixar</a>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('deletar_arquivo', nome_arquivo=arquivo.nome_armazenado) }}">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+                <td> 
+                    <p>{{ arquivo.descricao or "Sem descrição" }}</p>
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_descricao', id=arquivo.id) }}">Editar descrição</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    <div>
+        {% if paginacao.has_prev %}
+            <a href="{{ url_for('listar_arquivos', page=paginacao.prev_num, tipo=tipo) }}">Página anterior</a>
+        {% endif %}
+
+        Página {{ paginacao.page }} de {{ paginacao.pages }}
+
+        {% if paginacao.has_next %}
+            <a href="{{ url_for('listar_arquivos', page=paginacao.next_num, tipo=tipo) }}">Próxima página</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

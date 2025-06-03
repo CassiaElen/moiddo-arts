@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .preview {
+            max-width: 500px;
+        }
+        textarea {
+            width: 100%;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            overflow-x: auto;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Descrição do Arquivo</h1>
+
+    <div class="container">
+        <!-- Formulário -->
+        <form method="post">
+            <label for="descricao">Descrição:</label><br>
+            <textarea name="descricao" rows="6">{{ arquivo.descricao }}</textarea><br><br>
+            <button type="submit">Salvar</button>
+            <a href="{{ url_for('listar_arquivos') }}">Cancelar</a>
+        </form>
+
+        <!-- Visualização -->
+        <div class="preview">
+            <h3>Visualização:</h3>
+            {% set caminho = url_for('static', filename=arquivo.caminho) %}
+        
+            {% if arquivo.caminho.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+                <img src="{{ caminho }}" alt="Preview" style="max-width:100%;">
+        
+            {% elif arquivo.caminho.endswith('.pdf') %}
+                <embed src="{{ caminho }}" type="application/pdf" width="100%" height="400px" />
+        
+            {% elif arquivo.caminho.endswith(('.mp4', '.webm')) %}
+                <video controls width="100%">
+                    <source src="{{ caminho }}" type="video/{{ arquivo.caminho.split('.')[-1] }}">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
+        
+            {% elif arquivo.caminho.endswith('.txt') %}
+                <pre>{{ conteudo_txt }}</pre>
+        
+            {% else %}
+                <p>Pré-visualização não disponível para este tipo de arquivo.</p>
+            {% endif %}
+        </div>        
+    </div>
+</body>
+</html>
