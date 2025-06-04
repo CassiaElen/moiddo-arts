@@ -12,7 +12,7 @@ def RegisterClient(nome_completo,usuario,email,cpf,senha):
 
     try:
         data_cadastro = datetime.now().strftime("%Y-%m-%d")
-        cursor.execute("INSERT INTO cliente (nome_completo,usuario,email,cpf,senha) VALUES (?,?,?,?,?)", (nome_completo,usuario,email,cpf,senha))
+        cursor.execute("INSERT INTO cliente (nome_completo,usuario,email,cpf,senha,data_cadastro) VALUES (?,?,?,?,?,?)", (nome_completo,usuario,email,cpf,senha,data_cadastro))
         conn.commit()
     
     except sqlite3.IntegrityError:
@@ -28,8 +28,8 @@ def RegisterArtist(nome_completo,usuario,email,cpf_cnpj,senha): # Adicionar o no
     cursor = conn.cursor()
 
     try:
-        data_cadastro = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        cursor.execute("INSERT INTO artistas (nome_completo,usuario,email,cpf_cnpj,senha) VALUES (?,?,?,?,?)", (nome_completo,usuario,email,cpf_cnpj,senha))
+        data_cadastro = datetime.now().strftime("%Y-%m-%d")
+        cursor.execute("INSERT INTO artistas (nome_completo,usuario,email,cpf_cnpj,senha, data_cadastro) VALUES (?,?,?,?,?,?)", (nome_completo,usuario,email,cpf_cnpj,senha, data_cadastro))
         conn.commit()
     
     except sqlite3.IntegrityError:
