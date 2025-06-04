@@ -12,7 +12,7 @@ def RegisterClient(email,nome_completo,senha,cpf,usuario): # Adicionar o nome de
 
     try:
         data_cadastro = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        cursor.execute("INSERT INTO comprador (email,nome_completo,senha,cpf,usuario,data_cadastro) VALUES (?,?,?,?,?,?)", (email,nome_completo,senha,cpf,usuario,data_cadastro))
+        cursor.execute("INSERT INTO cliente (email,nome_completo,senha,cpf,usuario,data_cadastro) VALUES (?,?,?,?,?,?)", (email,nome_completo,senha,cpf,usuario,data_cadastro))
         conn.commit()
     
     except sqlite3.IntegrityError:
@@ -54,7 +54,7 @@ def CheckLoginClient(email,senha):
     conn = sqlite3.connect("moiddo_arts.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM comprador WHERE email=? AND senha=?",(email,senha))
+    cursor.execute("SELECT * FROM cliente WHERE email=? AND senha=?",(email,senha))
     usuario_cliente = cursor.fetchone()
     conn.close()
     return usuario_cliente
