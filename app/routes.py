@@ -11,7 +11,7 @@ def RegisterClient(email,nome_completo,senha,cpf,usuario): # Adicionar o nome de
     cursor = conn.cursor()
 
     try:
-        data_cadastro = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data_cadastro = datetime.datetime.now().strftime("%Y-%m-%d")
         cursor.execute("INSERT INTO comprador (email,nome_completo,senha,cpf,usuario,data_cadastro) VALUES (?,?,?,?,?,?)", (email,nome_completo,senha,cpf,usuario,data_cadastro))
         conn.commit()
     
@@ -28,7 +28,7 @@ def RegisterArtist(email, nome_completo, senha, cpf_cnpj,usuario): # Adicionar o
     cursor = conn.cursor()
 
     try:
-        data_cadastro = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data_cadastro = datetime.datetime.now().strftime("%Y-%m-%d")
         cursor.execute("INSERT INTO artistas (email,nome_completo,senha,cpf_cnpj,usuario,data_cadastro) VALUES (?,?,?,?,?,?)", (email,nome_completo,senha,cpf_cnpj,usuario,data_cadastro))
         conn.commit()
     
@@ -108,15 +108,14 @@ def login_artist():
     return render_template("login-artesao.html")
 
 
-
 @main.route('/register/cliente', methods=['GET', 'POST'])
 def register_client():
     if request.method == "POST":
-        email = request.form["email"]
-        nome_completo = request.form["name"]
-        senha = request.form["password"]
-        cpf = request.form["cpf"]  
-        usuario = request.form["name"]
+        email = request.form.get("email")
+        nome_completo = request.form.get("name")
+        senha = request.form.get("password")
+        cpf = request.form.get("cpf")  
+        usuario = request.form.get("user")
 
         if not email or not nome_completo or not senha or not cpf or not usuario:
             flash("Todos os campos são obrigatórios!")
@@ -129,6 +128,7 @@ def register_client():
         else:
             flash("Usuário já cadastrado!")
             return redirect(url_for("register_client"))
+    return render_template("cadastro-cliente.html")
 
 @main.route("/register/artista", methods=["GET","POST"])
 def register_artist():
@@ -151,3 +151,4 @@ def register_artist():
             flash("Usuário já cadastrado!")
             return redirect(url_for("register_artist"))
         
+    return render_template("cadastro-artesao.html")
