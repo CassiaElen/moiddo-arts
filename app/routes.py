@@ -13,7 +13,7 @@ class AuthManager:
             self.init_app(app)
 
     def init_app(self, app):
-        self.session_lifetime = app.config.get('PERMANENT_SESSION_LIFETIME', timedelta(seconds=180))
+        self.session_lifetime = app.config.get('PERMANENT_SESSION_LIFETIME', timedelta(minutes=30))
         app.permanent_session_lifetime = self.session_lifetime
 
     def login_user(self, user_type, user_data):
