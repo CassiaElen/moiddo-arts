@@ -1,4 +1,5 @@
 from flask import Flask
+from app.routes import AuthManager
 from app.config import Config
 import sqlite3
 import secrets
@@ -10,7 +11,11 @@ def create_app():
     app.config.from_pyfile(os.path.join(app.root_path, 'config.py')) # Adicionar um arquivo externo para carregar as configurações do projeto.
     app.config.from_object(Config)  # aplica as configurações da classe
     
+     # Inicializar o AuthManager
+    auth_manager = AuthManager()
+    auth_manager.init_app(app)
+
     from app.routes import main
     app.register_blueprint(main)
 
-    return app 
+    return app
