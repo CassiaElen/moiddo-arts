@@ -97,7 +97,12 @@ def PreLogin():
 
 @main.route("/home")
 def home():
-    return render_template("index.html")
+    if not auth_manager.is_authenticated():
+        flash("Você precisa estar logado para acessar esta página.")
+        return redirect(url_for("main.PreLogin"))
+
+    user = auth_manager.current_user()
+    return render_template("index.html",user=user)
 
 
 @main.route("/login/cliente", methods=["GET","POST"])
