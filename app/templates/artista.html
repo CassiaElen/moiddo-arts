@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muiddo Arts</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -14,8 +15,7 @@
         <div class="drawer shadow-sm">
             <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
-                <!-- Navbar -->
-                <div class="navbar bg-base-300 w-full">
+                <div class="navbar bg-[#536340] w-full">
                     <div class="flex-none lg:hidden">
                         <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -25,7 +25,13 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="mx-2 flex-1 px-2">Moiddo Arts</div>
+                    <div class="mx-2 flex-1 px-2  ">
+                        <figure class="w-30 h-30">
+                            <a href="index.html">
+                            <img src="/app/static/assets/muiddo.png " alt="Muiddo Arts">
+                            </a>
+                        </figure>
+                    </div>
                     <div class="navbar-end flex gap-2">
                         <div class="hidden flex-none lg:block">
                             <div class="menu menu-horizontal">
@@ -56,7 +62,7 @@
                             <div tabindex="0"
                                 class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
                                 <div class="card-body">
-                                    <span class="text-lg font-bold">8 Items</span>
+                                    <span class="text-lg font-bold ">8 Items</span>
                                     <span class="text-info">Subtotal: $999</span>
                                     <div class="card-actions">
                                         <button class="btn btn-primary btn-block">View cart</button>
@@ -74,7 +80,7 @@
                             <ul tabindex="0"
                                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                 <li>
-                                    <a class="justify-between">
+                                    <a class="justify-between" href="/app/templates/Pré-login.html">
                                         Perfil
                                         <span class="badge">New</span>
                                     </a>
@@ -86,17 +92,19 @@
                     </div>
                 </div>
                 <!-- Page content here -->
-                <div class="navbar bg-base-100 shadow-sm flex-col hidden lg:flex">
-                    <ul class="menu menu-horizontal px-1">
-                        <li><a href="./index.html">Loja</a></li>
-                        <li><a href="./sobreNos.html">Sobre Nós</a></li>
-                        <li><a href="./artista.html">Artistas</a></li>
+                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1 ">
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side ">
                 <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu bg-base-200 min-h-full w-70 p-4">
+                <div class="menu bg-[#536340] min-h-full w-70 p-4">
                     <label class="input">
                         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
@@ -108,17 +116,104 @@
                         <input type="search" required placeholder="Search" />
                     </label>
                     <ul class="mt-3">
-                        <!-- Sidebar content here -->
-                        <li><a href="./index.html">Loja</a></li>
-                        <li><a href="./sobreNos.html">Sobre Nós</a></li>
-                        <li><a href="./artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
 
-    <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+
+
+    <main >
+
+        <section class="section pt-10 pb-10 h-100 bg-[#f4f4f4]">
+
+            <form class="max-w-md mx-auto">   
+                <div class="relative">
+                    <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-[#536340] rounded-lg bg-[#F4F4F4] " placeholder="" required />
+                </div>
+            </form>
+
+        </section>
+
+
+        <section class=" [background-color:#aab898]">
+            <h1 class="[color:#2c3c1c] [letter-spacing:0.05em] font-semibold text-center text-5xl pt-25">
+                Artesões
+            </h1>
+
+            <div class="flex flex-wrap gap-10 justify-center ml-10 mr-10 max-w-9/10 mx-auto text-center [letter-spacing:0.05em] mt-18 text-[#2c3c1c]">
+
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-abdoo-32147894.jpg" alt="Dona Lourdes"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold">Dona<br> Lourdes</p>
+                </div>
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-artempodrez-6786895.jpg" alt="Carlos Mendes"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Carlos<br> Mendes</p>
+                </div>
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-pixabay-35183.jpg" alt="Seu João Batista"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Seu João<br> Batista</p>
+                </div>
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-joshua-mcknight-442355-3290244.jpg" alt="Maria Aparecida"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Maria<br> Aparecida</p>
+                </div>
+
+
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-rdne-8112620.jpg" alt="Camila Oliveira"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Camila<br> Oliveira</p>
+                </div>
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-thisisjooh-32202053.jpg" alt="Maria Helena"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Maria<br> Helena</p>
+                </div>
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-soc-nang-d-ng-2150345854-32168128.jpg" alt="Rafael Silva"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Rafael<br> Silva</p>
+                </div>
+                <div>
+                    <div class="w-60 h-60 mx-auto overflow-hidden">
+                        <img src="../static/assets/pexels-uiliamnornberg-30767572.jpg" alt="Seu Zé Antônio"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <p class="mt-2 text-2xl font-semibold ">Seu Zé<br> Antônio</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="footer sm:footer-horizontal bg-[#536340] text-base-content p-10 text-[#F4F4F4]">
         <aside>
             <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                 clip-rule="evenodd" class="fill-current">
@@ -127,34 +222,34 @@
                 </path>
             </svg>
             <p>
-                ACME Industries Ltd.
+                Moiddo Arts Ltd.
                 <br />
-                Providing reliable tech since 1992
+                Since 2025
             </p>
         </aside>
-        <nav>
-            <h6 class="footer-title">Services</h6>
-            <a class="link link-hover">Branding</a>
-            <a class="link link-hover">Design</a>
-            <a class="link link-hover">Marketing</a>
-            <a class="link link-hover">Advertisement</a>
+        <nav >
+            <h6 class="footer-title">Links rápidos</h6>
+            <a class="link link-hover">Loja</a>
+            <a class="link link-hover">Contatos</a>
+            <a class="link link-hover">Exposições</a>
+            <a class="link link-hover">Sobre nós</a>
+            <a class="link link-hover">Contatos</a>
         </nav>
         <nav>
-            <h6 class="footer-title">Company</h6>
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
+            <h6 class="footer-title">Destaques</h6>
+            <a class="link link-hover">Para artesãos</a>
+            <a class="link link-hover">Para clientes</a>
+            <a class="link link-hover">Para fornecedores</a>
         </nav>
         <nav>
-            <h6 class="footer-title">Legal</h6>
-            <a class="link link-hover">Terms of use</a>
-            <a class="link link-hover">Privacy policy</a>
-            <a class="link link-hover">Cookie policy</a>
+            <h6 class="footer-title">Suporte</h6>
+            <a class="link link-hover">Termos de uso</a>
+            <a class="link link-hover">Ajuda/FAQ</a>
+            <a class="link link-hover">Politica de privacidade</a>
         </nav>
     </footer>
-    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
-        <aside>
+    <footer class="footer sm:footer-horizontal footer-center bg-[#536340] text-base-content p-4">
+        <aside class="text-[#F4F4F4]">
             <p>Copyright © 2025 - All right reserved by ACME Industries Ltd</p>
         </aside>
     </footer>
