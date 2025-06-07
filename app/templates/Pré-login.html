@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo de volta</title>
-    <link rel="stylesheet" href="/app/static/css/prelogin.css">
+    <link rel="stylesheet" href="../static/css/prelogin.css">
 </head>
 
 <body>
 
-    <img class="muiddo" src="/app/static/assets/muiddo.png" alt="">
+    <img class="muiddo" src="../static/assets/muiddo.png" alt="">
 
     <h1 id="bemvindo">
         <center>Bem-vindo de volta</center>
@@ -25,12 +25,12 @@
         <div class="botoes-pre-login">
             <label for="botao0">
                 <button id="botao0" name="botao0" type="submit"><a id="a1"
-                        href="/app/templates/login-cliente.html">Cliente</a></button>
+                        href="{{ url_for('main.login_client') }}">Cliente</a></button>
             </label>
 
             <label for="botao2">
                 <button id="botao2" name="botao2" type="submit"><a id="a2"
-                        href="/app/templates/login-artesao.html">Artista</a></button>
+                        href="{{ url_for('main.login_artist') }}">Artista</a></button>
             </label>
         </div>
     </section>

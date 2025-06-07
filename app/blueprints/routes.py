@@ -1,0 +1,197 @@
+from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session
+import sqlite3
+import hashlib
+from datetime import datetime, timedelta
+
+main = Blueprint('main', __name__)
+
+# Classe para gerenciar autenticação:
+class AuthManager:
+    def __init__(self, app=None):
+        self.session_lifetime = timedelta(minutes=30)
+        if app:
+            self.init_app(app)
+
+    def init_app(self, app):
+        self.session_lifetime = app.config.get('PERMANENT_SESSION_LIFETIME', timedelta(minutes=30))
+        app.permanent_session_lifetime = self.session_lifetime
+
+    def login_user(self, user_type, user_data):
+        session.permanent = True
+        session['user_type'] = user_type
+        session['user'] = user_data
+        session.modified = True
+
+    def logout_user(self):
+        session.pop('user', None)
+        session.pop('user_type', None)
+
+    def is_authenticated(self):
+        return 'user' in session
+
+    def current_user(self):
+        return session.get('user')
+
+# Instância do AuthManager (será associada à aplicação principal depois)
+auth_manager = AuthManager()
+
+
+#Função para cadastrar cliente:
+def RegisterClient(nome_completo,usuario,email,cpf,senha): 
+    conn = sqlite3.connect("moiddo_arts.db")
+    cursor = conn.cursor()
+
+    try:
+        data_cadastro = datetime.now().strftime("%Y-%m-%d")
+        cursor.execute("INSERT INTO cliente (nome_completo,usuario,email,cpf,senha,data_cadastro) VALUES (?,?,?,?,?,?)", (nome_completo,usuario,email,cpf,senha,data_cadastro))
+        conn.commit()
+    
+    except sqlite3.IntegrityError:
+        conn.close()
+        return False  # Se o Usuário já existir
+
+    conn.close()
+    return True
+
+#Função para cadastrar Artista:
+def RegisterArtist(nome_completo,usuario,email,cpf_cnpj,senha): # Adicionar o nome de usuário
+    conn = sqlite3.connect("moiddo_arts.db")
+    cursor = conn.cursor()
+
+    try:
+        data_cadastro = datetime.now().strftime("%Y-%m-%d")
+        cursor.execute("INSERT INTO artistas (nome_completo,usuario,email,cpf_cnpj,senha, data_cadastro) VALUES (?,?,?,?,?,?)", (nome_completo,usuario,email,cpf_cnpj,senha, data_cadastro))
+        conn.commit()
+    
+    except sqlite3.IntegrityError:
+        conn.close()
+        return False  # Se o Usuário já existir
+
+    conn.close()
+    return True
+
+# Função para verificar login do artista:
+def CheckLoginArtist(email,senha):
+    conn = sqlite3.connect("moiddo_arts.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM artistas WHERE email=? AND senha=?",(email,senha))
+    usuario_artista = cursor.fetchone()
+    conn.close()
+    return usuario_artista
+
+#Função para verificar login do cliente:
+def CheckLoginClient(email,senha):
+    conn = sqlite3.connect("moiddo_arts.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM cliente WHERE email=? AND senha=?",(email,senha))
+    usuario_cliente = cursor.fetchone()
+    conn.close()
+    return usuario_cliente
+
+#Rota inicial:
+@main.route("/")
+def PreLogin():
+    return render_template("Pré-login.html")
+
+@main.route("/home")
+def home():
+    if not auth_manager.is_authenticated():
+        flash("Você precisa estar logado para acessar esta página.")
+        return redirect(url_for("main.PreLogin"))
+
+    user = auth_manager.current_user()
+    return render_template("index.html",user=user)
+
+
+@main.route("/login/cliente", methods=["GET","POST"])
+def login_client():
+    if request.method == "POST":
+        email = request.form["email"]
+        senha = request.form["password"]
+
+        if not email or not senha:
+            flash("Todos os campos são obrigatórios!")
+            return(redirect(url_for("main.login_client")))
+        
+        user = CheckLoginClient(email, senha)
+        if user:
+            auth_manager.login_user('cliente', user)
+            flash("Login realizado com sucesso!")
+            return redirect(url_for("main.home"))
+        else:
+            flash("Email ou senha incorretos!")
+            return redirect(url_for("main.login_client"))
+    return render_template("login-cliente.html")
+
+@main.route("/login/artista", methods=["GET","POST"])
+def login_artist():
+    if request.method == "POST":
+        email = request.form["email"]
+        senha = request.form["password"]
+
+        if not email or not senha:
+            flash("Todos os campos são obrigatórios!")
+            return redirect(url_for("main.login_artist"))
+        
+        user = CheckLoginArtist(email, senha)
+        if user:
+            auth_manager.login_user('artista',user)
+            flash("Login realizado com sucesso!")
+            return redirect(url_for("main.home"))
+        else:
+            flash("Email ou senha incorretos!")
+            return redirect(url_for("main.login_artist"))
+    return render_template("login-artesao.html")
+
+@main.route("/logout")
+def logout():
+    auth_manager.logout_user()
+    flash("Logout realizado com sucesso!")
+    return redirect(url_for("main.PreLogin"))
+
+@main.route('/register/cliente', methods=['GET', 'POST'])
+def register_client():
+    if request.method == "POST":
+        nome_completo = request.form["name"]
+        usuario = request.form["user"]
+        email = request.form["email"]
+        cpf = request.form["cpf"]         
+        senha = request.form["password"]
+
+        if not email or not nome_completo or not senha or not cpf or not usuario:
+            flash("Todos os campos são obrigatórios!")
+            return redirect(url_for("main.register_client"))
+        
+        if RegisterClient(nome_completo,usuario,email,cpf,senha): 
+            flash("Cadastro realizado com sucesso!")
+            flash("Faça o seu login como Cliente!")
+            return redirect(url_for("main.login_client"))
+        else:
+            flash("Usuário já cadastrado!")
+            return redirect(url_for("main.register_client"))
+    return render_template("cadastro-cliente.html")
+
+@main.route("/register/artista", methods=["GET","POST"])
+def register_artist():
+    if request.method == "POST":
+        nome_completo = request.form["name"]
+        usuario = request.form["user"]
+        email = request.form["email"]
+        cpf_cnpj = request.form["cpf"]
+        senha = request.form["password"]
+
+        if not email or not nome_completo or not senha or not cpf_cnpj or not usuario: 
+            flash("Todos os campos são obrigatórios!")
+            return redirect(url_for("main.register_artist"))
+        
+        if RegisterArtist(nome_completo,usuario,email,cpf_cnpj,senha):
+            flash("Cadastro realizado com sucesso!")
+            flash("Faça o seu login com Artesão!")
+            return redirect(url_for("main.login_artist"))
+        else:
+            flash("Usuário já cadastrado!")
+            return redirect(url_for("main.register_artist"))
+        
+    return render_template("cadastro-artesao.html")

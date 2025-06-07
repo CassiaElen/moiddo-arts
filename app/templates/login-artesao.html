@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seja Bem-Vindo</title>
-    <link rel="stylesheet" href="/app/static/css/prelogin.css">
+    <link rel="stylesheet" href="../static/css/prelogin.css">
 </head>
 
 <body>
 
-    <img class="muiddo" src="/app/static/assets/muiddo.png" alt="">
+    <img class="muiddo" src="../static/assets/muiddo.png" alt="">
 
     <h1 id="bemvindo">
         <center>Seja Bem-vindo à Muiddo Arts</center>
@@ -20,7 +20,7 @@
     </h4>
     <br>
 
-    <form action="{{ url_for('login_artist')}}" method="POST">
+    <form action="{{ url_for('main.login_artist')}}" method="POST">
         <section class="formulario-login">
             <div class="forms-log">
                 <label class="label" for="email">Digite seu E-Mail: </label><br>
@@ -34,12 +34,12 @@
         <section>
             <div class="botoes-login">
                 <label for="botao1">
-                    <button id="botao1" name="botao1" type="submit"><a id="a1" href="/app/templates/index.html">Entrar</a></button>
+                    <button id="botao1" name="botao1" type="submit">Entrar</button>
                 </label>
 
                 <label for="botao3">
                     <button id="botao3" name="botao3" type="submit"><a id="a3"
-                            href="/app/templates/cadastro-artesao.html">Ainda não tenho uma conta</a></button>
+                            href="{{ url_for('main.register_artist')}}">Ainda não tenho uma conta</a></button>
                 </label>
             </div>
         </section>

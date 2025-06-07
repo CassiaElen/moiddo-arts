@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Artista</title>
-    <link rel="stylesheet" href="/app/static/css/prelogin.css">
+    <link rel="stylesheet" href="../static/css/prelogin.css">
 </head>
 
 <body>
 
-    <img class="muiddo" src="/app/static/assets/muiddo.png" alt="">
+    <img class="muiddo" src="../static/assets/muiddo.png" alt="">
 
     <h1 id="bemvindo">
         <center>Bem-vindo à Muiddo Arts</center>
@@ -19,7 +19,7 @@
         <center>Insira seus dados para criar sua conta</center>
     </h4>
 
-    <form action="{{ url_for(register_artist) }}" method="POST">
+    <form action="{{ url_for('main.register_artist') }}" method="POST">
         <section class="formulario-login">
             <div class="forms-log">
                 <label class="label" for="email">Digite seu E-Mail: </label>
@@ -35,15 +35,14 @@
                 <input id="cpf" name="cpf" type="text" required placeholder="Ex.: 000.000.000-00 ou 00.000.000/0001-00"><br>
 
                 <label class="label" for="name">Digite o nome de usuário: </label>
-                <input id="name" name="name" type="text" required placeholder="Ex.: Jp123">
+                <input id="name" name="user" type="text" required placeholder="Ex.: Jp123">
             </div>
 
         </section>
         <section>
             <div class="botoes-login">
                 <label for="botao1">
-                    <button id="botao1" name="botao1" type="submit"><a id="a1"
-                            href="/app/templates/login-artesao.html">Cadatrar</a></button>
+                    <button id="botao1" name="botao1" type="submit">Cadastrar</button>
                 </label>
             </div>
         </section>
