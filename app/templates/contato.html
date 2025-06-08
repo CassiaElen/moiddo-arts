@@ -12,15 +12,14 @@
 </head>
 
 <body class="gradient-bg min-h-screen flex flex-col">
-    <header class="sticky top-0 z-50">
-        <div class="drawer">
+    <header>
+        <div class="drawer shadow-sm">
             <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
                 <!-- Navbar -->
-                <div class="navbar bg-white shadow-sm">
+                <div class="navbar bg-[#536340] w-full">
                     <div class="flex-none lg:hidden">
-                        <label for="my-drawer-3" aria-label="open sidebar"
-                            class="btn btn-square btn-ghost text-gray-700">
+                        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="inline-block h-6 w-6 stroke-current">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -28,20 +27,25 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="flex-1 px-2 mx-2">
-                        <a href="#" class="text-xl font-bold text-gray-800">Moiddo <span
-                                class="text-indigo-600">Arts</span></a>
+                    <div class="mx-2 flex-1 px-2  ">
+                        <figure class="w-30 h-30">
+                            <a href="index.html">
+                            <img src="/app/static/assets/muiddo.png " alt="Muiddo Arts">
+                            </a>
+                        </figure>
                     </div>
                     <div class="navbar-end flex gap-2">
                         <div class="hidden flex-none lg:block">
                             <div class="menu menu-horizontal">
-                                <label class="input input-bordered flex items-center gap-2 rounded-full">
-                                    <input type="text" class="grow" placeholder="Pesquisar" />
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                                        class="w-4 h-4 opacity-70">
-                                        <path fill-rule="evenodd"
-                                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                            clip-rule="evenodd" />
+                                <label class="input w-100">
+                                    <input type="search" required placeholder="Search" />
+                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">
+                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                            stroke="currentColor">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <path d="m21 21-4.3-4.3"></path>
+                                        </g>
                                     </svg>
                                 </label>
                             </div>
@@ -54,99 +58,71 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
-                                    <span
-                                        class="badge badge-sm indicator-item bg-indigo-600 border-none text-white">3</span>
+                                    <span class="badge badge-sm indicator-item">8</span>
                                 </div>
                             </div>
                             <div tabindex="0"
-                                class="card card-compact dropdown-content bg-base-100 shadow-lg z-50 mt-3 w-72">
+                                class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
                                 <div class="card-body">
-                                    <span class="font-bold text-lg">3 Itens no Carrinho</span>
-                                    <span class="text-indigo-600">Subtotal: R$ 1.240,00</span>
+                                    <span class="text-lg font-bold ">8 Items</span>
+                                    <span class="text-info">Subtotal: $999</span>
                                     <div class="card-actions">
-                                        <button class="btn btn-primary btn-block"><a href="carrinho.html">Ver Carrinho</a></button>
+                                        <button class="btn btn-primary btn-block">View cart</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="dropdown dropdown-end">
                             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                <div class="w-10 rounded-full border-2 border-indigo-200">
+                                <div class="w-10 rounded-full">
                                     <img alt="Foto de perfil"
                                         src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                                 </div>
                             </div>
                             <ul tabindex="0"
-                                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-lg">
+                                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                 <li>
-                                    <a class="justify-between">
-                                        Meu Perfil
-                                        <span class="badge bg-indigo-100 text-indigo-800">Novo</span>
+                                    <a class="justify-between" href="/app/templates/Pré-login.html">
+                                        Perfil
+                                        <span class="badge">New</span>
                                     </a>
                                 </li>
-                                <li><a>Minhas Compras</a></li>
-                                <li><a>Configurações</a></li>
-                                <li><a class="text-red-500">Sair</a></li>
+                                <li><a>Settings</a></li>
+                                <li><a>Logout</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Secondary Navbar -->
-                <div class="navbar bg-white shadow-sm hidden lg:flex justify-center">
-                    <ul class="menu menu-horizontal px-1 gap-1">
-                        <li><a href="loja.html"
-                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Loja</a></li>
-                        <li><a href="artistas.html"
-                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Artistas</a>
-                        </li>
-                        <li><a href="exposicoes.html"
-                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Exposições</a>
-                        </li>
-                        <li><a href="sobreNos.html"
-                                class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Sobre Nós</a>
-                        </li>
-                        <li><a href="contato.html"
-                                class="text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg">Contato</a>
-                        </li>
+                <!-- Page content here -->
+                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1 ">
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="drawer-side z-50">
+            <div class="drawer-side ">
                 <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu p-4 w-80 min-h-full bg-white">
-                    <div class="mb-6">
-                        <a href="#" class="text-xl font-bold text-gray-800">Moiddo <span
-                                class="text-indigo-600">Arts</span></a>
-                    </div>
-                    <label class="input input-bordered flex items-center mb-4">
-                        <input type="text" class="grow w-[15rem]" placeholder="Pesquisar" />
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                            class="w-4 h-4 opacity-70">
-                            <path fill-rule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clip-rule="evenodd" />
+                <div class="menu bg-[#536340] min-h-full w-70 p-4">
+                    <label class="input">
+                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
                         </svg>
+                        <input type="search" required placeholder="Search" />
                     </label>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="loja.html" class="text-gray-700 rounded-lg">Loja</a>
-                        </li>
-                        <li><a href="artistas.html" class="text-gray-700 rounded-lg">Artistas</a>
-                        </li>
-                        <li><a href="exposicoes.html" class="text-gray-700 rounded-lg">Exposições</a></li>
-                        <li><a href="sobreNos.html" class="text-gray-700 rounded-lg">Sobre Nós</a>
-                        </li>
-                        <li><a href="contato.html" class="text-indigo-700 bg-indigo-50 rounded-lg">Contato</a>
-                        </li>
-                    </ul>
-                    <div class="divider"></div>
-                    <ul>
-                        <li><a class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Minha Conta</a>
-                        </li>
-                        <li><a class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Favoritos</a>
-                        </li>
-                        <li><a class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg">Histórico</a>
-                        </li>
+                    <ul class="mt-3">
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
@@ -367,65 +343,45 @@
         </div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-300">
-        <div class="container mx-auto px-4 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-4">Moiddo Arts</h3>
-                    <p class="mb-4">Conectando artistas talentosos com amantes da arte em todo o mundo.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f text-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram text-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-pinterest-p text-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-youtube text-lg"></i>
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Explorar</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-white transition-colors">Obras em Destaque</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Novos Artistas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Coleções Temáticas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Exposições Virtuais</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Ajuda</h4>
-                    <ul class="space-y-2">
-                        <li><a href="contato.html" class="hover:text-white transition-colors">Central de Ajuda</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Como Comprar</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Envios e Entregas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Devoluções</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Newsletter</h4>
-                    <p class="mb-4">Inscreva-se para receber novidades e ofertas exclusivas.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Seu e-mail"
-                            class="input input-bordered w-full max-w-xs rounded-r-none bg-gray-800 border-gray-700 text-white" />
-                        <button class="btn btn-primary rounded-l-none">
-                            <i class="far fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p>© 2023 Moiddo Arts. Todos os direitos reservados.</p>
-                <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Termos de Serviço</a>
-                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
-                </div>
-            </div>
-        </div>
+    <footer class="footer sm:footer-horizontal bg-[#536340] text-base-content p-10 text-[#F4F4F4]">
+        <aside>
+            <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                clip-rule="evenodd" class="fill-current">
+                <path
+                    d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z">
+                </path>
+            </svg>
+            <p>
+                Moiddo Arts Ltd.
+                <br />
+                Since 2025
+            </p>
+        </aside>
+        <nav >
+            <h6 class="footer-title">Links rápidos</h6>
+            <a class="link link-hover">Loja</a>
+            <a class="link link-hover">Contatos</a>
+            <a class="link link-hover">Exposições</a>
+            <a class="link link-hover">Sobre nós</a>
+            <a class="link link-hover">Contatos</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Destaques</h6>
+            <a class="link link-hover">Para artesãos</a>
+            <a class="link link-hover">Para clientes</a>
+            <a class="link link-hover">Para fornecedores</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Suporte</h6>
+            <a class="link link-hover">Termos de uso</a>
+            <a class="link link-hover">Ajuda/FAQ</a>
+            <a class="link link-hover">Politica de privacidade</a>
+        </nav>
+    </footer>
+    <footer class="footer sm:footer-horizontal footer-center bg-[#536340] text-base-content p-4">
+        <aside class="text-[#F4F4F4]">
+            <p>Copyright © 2025 - All right reserved by ACME Industries Ltd</p>
+        </aside>
     </footer>
 </body>
 

@@ -1,5 +1,6 @@
 from ..connection import db
 
+
 # Popula a tabela de artistas com dados iniciais
 def seed_artistas():
     artistas = [
@@ -11,7 +12,7 @@ def seed_artistas():
             "senha789",
             "ativo",
             "2023-02-15",
-            "../app/static/assets/perfils/beatriz.jpeg",
+            "../static/assets/perfils/beatriz.jpeg",
             "Ceramista premiada com obras em museus internacionais",
         ),
         (
@@ -22,7 +23,7 @@ def seed_artistas():
             "senha101",
             "ativo",
             "2023-03-10",
-            "../app/static/assets/perfils/carlos.jpg",
+            "../static/assets/perfils/carlos.jpg",
             "Mestre em xilogravura nordestina",
         ),
         (
@@ -33,7 +34,7 @@ def seed_artistas():
             "senha202",
             "bloqueado",
             "2023-04-05",
-            "../app/static/assets/perfils/fernanda.jpg",
+            "../static/assets/perfils/fernanda.jpg",
             "Fotógrafa artística com foco em cultura popular",
         ),
         (
@@ -44,7 +45,7 @@ def seed_artistas():
             "senha303",
             "ativo",
             "2023-05-20",
-            "../app/static/assets/perfils/ricardo.jpg",
+            "../static/assets/perfils/ricardo.jpg",
             "Escultor em barro com técnicas ancestrais",
         ),
         (
@@ -55,7 +56,7 @@ def seed_artistas():
             "senha404",
             "ativo",
             "2023-06-12",
-            "../app/static/assets/perfils/juliana.jpg",
+            "../static/assets/perfils/juliana.jpg",
             "Ilustradora digital com temas folclóricos",
         ),
         (
@@ -66,7 +67,7 @@ def seed_artistas():
             "senha505",
             "desativado",
             "2023-07-08",
-            "../app/static/assets/perfils/marcos.jpg",
+            "../static/assets/perfils/marcos.jpg",
             "Artista têxtil com técnicas de bordado inovadoras",
         ),
         (
@@ -77,7 +78,7 @@ def seed_artistas():
             "senha606",
             "ativo",
             "2023-08-25",
-            "../app/static/assets/perfils/patricia.jpg",
+            "../static/assets/perfils/patricia.jpg",
             "Criadora de bijuterias artesanais com materiais naturais",
         ),
         (
@@ -88,7 +89,7 @@ def seed_artistas():
             "senha707",
             "ativo",
             "2023-09-17",
-            "../app/static/assets/perfils/lucas.jpg",
+            "../static/assets/perfils/lucas.jpg",
             "Especialista em cordel e literatura de cordel",
         ),
         (
@@ -99,7 +100,7 @@ def seed_artistas():
             "senha808",
             "ativo",
             "2023-10-05",
-            "../app/static/assets/perfils/isabela.jpg",
+            "../static/assets/perfils/isabela.jpg",
             "Artista de arte reciclada com consciência ambiental",
         ),
         (
@@ -110,7 +111,7 @@ def seed_artistas():
             "senha909",
             "ativo",
             "2023-11-30",
-            "../app/static/assets/perfils/roberto.jpg",
+            "../static/assets/perfils/roberto.jpg",
             "Pintor naïf com reconhecimento internacional",
         ),
         (
@@ -121,7 +122,7 @@ def seed_artistas():
             "senha010",
             "ativo",
             "2023-12-12",
-            "../app/static/assets/perfils/tatiane.jpg",
+            "../static/assets/perfils/tatiane.jpg",
             "Artesã especializada em bonecas de pano regionais",
         ),
         (
@@ -132,7 +133,7 @@ def seed_artistas():
             "senha111",
             "ativo",
             "2024-01-18",
-            "../app/static/assets/perfils/jobim.jpg",
+            "../static/assets/perfils/jobim.jpg",
             "Escultor em madeira com influências indígenas",
         ),
         (
@@ -143,7 +144,7 @@ def seed_artistas():
             "senha121",
             "bloqueado",
             "2024-02-22",
-            "../app/static/assets/perfils/helena.jpg",
+            "../static/assets/perfils/helena.jpg",
             "Pintora abstrata com elementos da cultura popular",
         ),
         (
@@ -154,7 +155,7 @@ def seed_artistas():
             "senha131",
             "ativo",
             "2024-03-07",
-            "../app/static/assets/perfils/felipe.jpg",
+            "../static/assets/perfils/felipe.jpg",
             "Artista digital que mistura técnicas tradicionais",
         ),
         (
@@ -165,7 +166,7 @@ def seed_artistas():
             "senha141",
             "ativo",
             "2024-04-14",
-            "../app/static/assets/perfils/camila.jpg",
+            "../static/assets/perfils/camila.jpg",
             "Ceramista utilitária com designs contemporâneos",
         ),
     ]
