@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre nós</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../static/css/sobrenos.css">
+    <title>Muiddo Arts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
                 <!-- Navbar -->
-                <div class="navbar bg-base-300 w-full">
+                <div class="navbar bg-[#536340] w-full">
                     <div class="flex-none lg:hidden">
                         <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -26,7 +26,13 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="mx-2 flex-1 px-2">Muiddo Arts</div>
+                    <div class="mx-2 flex-1 px-2  ">
+                        <figure class="w-30 h-30">
+                            <a href="index.html">
+                            <img src="/app/static/assets/muiddo.png " alt="Muiddo Arts">
+                            </a>
+                        </figure>
+                    </div>
                     <div class="navbar-end flex gap-2">
                         <div class="hidden flex-none lg:block">
                             <div class="menu menu-horizontal">
@@ -57,7 +63,7 @@
                             <div tabindex="0"
                                 class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
                                 <div class="card-body">
-                                    <span class="text-lg font-bold">8 Items</span>
+                                    <span class="text-lg font-bold ">8 Items</span>
                                     <span class="text-info">Subtotal: $999</span>
                                     <div class="card-actions">
                                         <button class="btn btn-primary btn-block">View cart</button>
@@ -75,7 +81,7 @@
                             <ul tabindex="0"
                                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                 <li>
-                                    <a class="justify-between">
+                                    <a class="justify-between" href="/app/templates/Pré-login.html">
                                         Perfil
                                         <span class="badge">New</span>
                                     </a>
@@ -87,17 +93,19 @@
                     </div>
                 </div>
                 <!-- Page content here -->
-                <div class="navbar bg-base-100 shadow-sm flex-col hidden lg:flex">
-                    <ul class="menu menu-horizontal px-1">
-                        <li><a>Loja</a></li>
-                        <li><a>Sobre Nós</a></li>
-                        <li><a>Artistas</a></li>
+                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1 ">
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side ">
                 <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu bg-base-200 min-h-full w-70 p-4">
+                <div class="menu bg-[#536340] min-h-full w-70 p-4">
                     <label class="input">
                         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
@@ -109,10 +117,11 @@
                         <input type="search" required placeholder="Search" />
                     </label>
                     <ul class="mt-3">
-                        <!-- Sidebar content here -->
-                        <li><a>Loja</a></li>
-                        <li><a>Sobre Nós</a></li>
-                        <li><a>Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
@@ -120,107 +129,102 @@
     </header>
 
     <main>
-        <div class="hero">
+
+        <section class="hero h-150" style="background-image: url(https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp);">
             <div class="hero-overlay"></div>
-            <div class="hero-content text-neutral-content text-center">
-                <div>
-                    <h1 class="mb-5 text-5xl font-bold">Sobre nós</h1>
+            <div class=" w-full flex justify-center ml-auto pt-30 pb-30">
+                <div class="hero-content text-neutral-content">
+                    <div class="w-auto max-w-200 text-center ">
+                        <h1 class="mb-5 text-4xl font-bold">Sobre nós</h1>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
         <section>
-            <br>
-            <div class="welcome">
-                <center>
-                    <p class="firstP">Bem-vindo à Muíddo Artes, a plataforma digital que conecta artistas, <br>
-                        colecionadores e fornecedores de matérias-primas em um ambiente seguro,<br>
-                        inovador e colaborativo. </p>
-                </center>
+            <div class="mt-10 mb-10 ">
+                <p class="text-center">Bem-vindo à Muíddo Artes, a plataforma digital que conecta artistas,
+                    colecionadores e fornecedores de matérias-primas em um ambiente seguro,
+                    inovador e colaborativo. </p>
             </div>
         </section>
-        <br>
+
         <section>
-            <div class="exampleimages">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-10">
                 <img class="images" src="../static/assets/artesanato.png" alt="artesanato">
                 <img class="images" src="../static/assets/diadonordestino.png" alt="nordestino">
                 <img class="images" src="../static/assets/cordel.png" alt="cordel">
             </div>
         </section>
-        <br>
-        <section>
-            <div class="ourhistory">
-                <center>
-                    <div class="max-w-md">
-                        <h4 class="mb-5 text-3xl font-bold">Nossa história</h4>
-                    </div><br>
-                    <p class="secP">A Muíddo Artes nasceu da paixão pela arte e pelo artesanato. Percebemos que <br>
-                        muitos artesãos e criadores enfrentavam dificuldades para comercializar suas <br>
-                        obras e acessar matérias-primas de qualidade. Ao mesmo tempo, clientes e <br>
-                        colecionadores buscavam um canal confiável para adquirir peças exclusivas. Foi <br>
-                        assim que decidimos criar uma plataforma que une todos esses elos, promovendo <br>
-                        conexões significativas e oportunidades para todos.</p>
-                </center>
+
+        <section class="w-full justify-center">
+            <div class=" w-1/2 bg-white">
+                <h1 class="mb-5 text-3xl font-bold text-center">Nossa história</h1>
+                <p class="text-center">A Muíddo Artes nasceu da paixão pela arte e pelo artesanato. Percebemos que 
+                muitos artesãos e criadores enfrentavam dificuldades para comercializar suas 
+                obras e acessar matérias-primas de qualidade. Ao mesmo tempo, clientes e 
+                colecionadores buscavam um canal confiável para adquirir peças exclusivas. Foi 
+                assim que decidimos criar uma plataforma que une todos esses elos, promovendo 
+                conexões significativas e oportunidades para todos.</p>
             </div>
         </section>
-        <br>
-        <section class="backgreen">
-            <hr>
-            <div class="backgreen">
-                <img class="adjetivos" src="../static/assets/autenticidade.png" alt="">
-                <img class="adjetivos" src="../static/assets/colaboracao.png" alt="">
-                <img class="adjetivos" src="../static/assets/sustentabilidade.png" alt="">
+
+        <section class="bg-[#536340] ">
+
+            <div class="mt-10 mb-10 pb-30 pt-30 flex flex-wrap justify-center gap-10">
+                <img class="border border-[#F4F4F4]" src="../static/assets/autenticidade.png" alt="">
+                <img class="border border-[#F4F4F4]" src="../static/assets/colaboracao.png" alt="">
+                <img class="border border-[#F4F4F4]" src="../static/assets/sustentabilidade.png" alt="">
             </div>
-            <hr>
+
         </section>
 
         <section>
-            <div class="geral">
-                <div class="images-nossas">
+            <div class="m-10 justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-2">
                     <img class="img-nossa-missão" src="../static/assets/pexels-ludakavun-12915899.svg" alt="">
+                    <div class="pl-5 pr-5">
+                        <h1 class="ourmission text-3xl font-bold ">Nossa missão</h1>
+                        <p class="text-nosso">Facilitar a comercialização de artesanato e matérias-primas, 
+                            conectando artesãos, clientes e fornecedores em um ambiente 
+                            digital seguro e eficiente. Queremos fortalecer a economia criativa, 
+                            valorizando o trabalho manual e a autenticidade de cada peça.
+                        </p>
+                    </div>
+                </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="pl-5 pr-5">
+                        <h1 class="ourvision text-3xl font-bold ">Nossa visão</h1>
+                        <p class="text-nosso">Ser a principal referência em marketplace de artesanato, 
+                            reconhecida pela inovação, confiabilidade e impacto positivo na 
+                            vida de artesãos, clientes e fornecedores.
+                        </p>
+                    </div>
                     <img class="img-nossa-missão" src="../static/assets/pexels-yasinaydin-15752282 1.svg" alt="">
                 </div>
-
-                <div class="geral">
-                    <div class="nossa-geral">
-                        <div class="nossa-text">
-                            <h1 class="ourmission text-3xl font-bold ">Nossa missão</h1><br>
-                            <p class="text-nosso">Facilitar a comercialização de artesanato e matérias-primas, <br>
-                                conectando artesãos, clientes e fornecedores em um ambiente <br>
-                                digital seguro e eficiente. Queremos fortalecer a economia criativa, <br>
-                                valorizando o trabalho manual e a autenticidade de cada peça.</p>
-                        </div>
-
-                        <div class="nossa-text">
-                            <h1 class="ourvision text-3xl font-bold ">Nossa visão</h1>
-                            <p class="text-nosso">Ser a principal referência em marketplace de artesanato, <br>
-                                reconhecida pela inovação, confiabilidade e impacto positivo na <br>
-                                vida de artesãos, clientes e fornecedores.</p>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </section>
 
-        <section class="backgreen-white">
-            <hr>
-            <div class="ourpartner">
-                <center>
-                    <div class="max-w-md">
+        <section class="bg-[#ABB99A]">
+
+            <div class="">
+
+                    <div class="max-w-md ">
                         <h4 class="mb-partner text-4xl font-bold">Nossas parcerias</h4>
                     </div>
-                    <br>
-                    <div class="backgreen-white">
-                        <img class="adjetivos-parcerias" src="../static/assets/artesaos.png" alt="">
-                        <img class="adjetivos-parcerias" src="../static/assets/clientes.png" alt="">
-                        <img class="adjetivos-parcerias" src="../static/assets/fornecedores.png" alt="">
+                    <div class="flex flex-wrap justify-center gap-10">
+                        <div class="border border-[#2C3C1C]"><img class="adjetivos-parcerias" src="../static/assets/artesaos.png" alt=""></div>
+                        <div class="border border-[#2C3C1C]"><img class="adjetivos-parcerias" src="../static/assets/clientes.png" alt=""></div>
+                        <div class="border border-[#2C3C1C]"><img class="adjetivos-parcerias" src="../static/assets/fornecedores.png" alt=""></div>
                     </div>
-                    <hr>
+ 
         </section>
     </main>
-    <br>
 
-    </section>
-    <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+
+
+    <footer class="footer sm:footer-horizontal bg-[#536340] text-base-content p-10 text-[#F4F4F4]">
         <aside>
             <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                 clip-rule="evenodd" class="fill-current">
@@ -229,35 +233,34 @@
                 </path>
             </svg>
             <p>
-                ACME Industries Ltd.
+                Moiddo Arts Ltd.
                 <br />
-                Providing reliable tech since 1992
+                Since 2025
             </p>
         </aside>
-        <nav>
-            <h6 class="footer-title">Services</h6>
-            <a class="link link-hover">Branding</a>
-            <a class="link link-hover">Design</a>
-            <a class="link link-hover">Marketing</a>
-            <a class="link link-hover">Advertisement</a>
+        <nav >
+            <h6 class="footer-title">Links rápidos</h6>
+            <a class="link link-hover">Loja</a>
+            <a class="link link-hover">Contatos</a>
+            <a class="link link-hover">Exposições</a>
+            <a class="link link-hover">Sobre nós</a>
+            <a class="link link-hover">Contatos</a>
         </nav>
         <nav>
-            <h6 class="footer-title">Company</h6>
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
+            <h6 class="footer-title">Destaques</h6>
+            <a class="link link-hover">Para artesãos</a>
+            <a class="link link-hover">Para clientes</a>
+            <a class="link link-hover">Para fornecedores</a>
         </nav>
         <nav>
-            <h6 class="footer-title">Legal</h6>
-            <a class="link link-hover">Terms of use</a>
-            <a class="link link-hover">Privacy policy</a>
-            <a class="link link-hover">Cookie policy</a>
+            <h6 class="footer-title">Suporte</h6>
+            <a class="link link-hover">Termos de uso</a>
+            <a class="link link-hover">Ajuda/FAQ</a>
+            <a class="link link-hover">Politica de privacidade</a>
         </nav>
     </footer>
-    </footer>
-    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
-        <aside>
+    <footer class="footer sm:footer-horizontal footer-center bg-[#536340] text-base-content p-4">
+        <aside class="text-[#F4F4F4]">
             <p>Copyright © 2025 - All right reserved by ACME Industries Ltd</p>
         </aside>
     </footer>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muiddo Arts</title>
     <link rel="stylesheet" href="artesoes_comunidade.css">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -18,7 +19,7 @@
             <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
                 <!-- Navbar -->
-                <div class="navbar [background-color:#536340] w-full">
+                <div class="navbar bg-[#536340] w-full">
                     <div class="flex-none lg:hidden">
                         <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -28,7 +29,13 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="mx-2 flex-1 px-2 text-white">Moiddo Arts</div>
+                    <div class="mx-2 flex-1 px-2  ">
+                        <figure class="w-30 h-30">
+                            <a href="index.html">
+                            <img src="/app/static/assets/muiddo.png " alt="Muiddo Arts">
+                            </a>
+                        </figure>
+                    </div>
                     <div class="navbar-end flex gap-2">
                         <div class="hidden flex-none lg:block">
                             <div class="menu menu-horizontal">
@@ -59,7 +66,7 @@
                             <div tabindex="0"
                                 class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
                                 <div class="card-body">
-                                    <span class="text-lg font-bold">8 Items</span>
+                                    <span class="text-lg font-bold ">8 Items</span>
                                     <span class="text-info">Subtotal: $999</span>
                                     <div class="card-actions">
                                         <button class="btn btn-primary btn-block">View cart</button>
@@ -77,7 +84,7 @@
                             <ul tabindex="0"
                                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                 <li>
-                                    <a class="justify-between">
+                                    <a class="justify-between" href="/app/templates/Pré-login.html">
                                         Perfil
                                         <span class="badge">New</span>
                                     </a>
@@ -89,17 +96,19 @@
                     </div>
                 </div>
                 <!-- Page content here -->
-                <div class="navbar [background-color:#2c3c1c] shadow-sm flex-col hidden lg:flex">
-                    <ul class="menu menu-horizontal px-1 text-white">
-                        <li><a>Loja</a></li>
-                        <li><a>Sobre Nós</a></li>
-                        <li><a>Artistas</a></li>
+                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1 ">
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side ">
                 <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu bg-base-200 min-h-full w-70 p-4">
+                <div class="menu bg-[#536340] min-h-full w-70 p-4">
                     <label class="input">
                         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
@@ -111,16 +120,16 @@
                         <input type="search" required placeholder="Search" />
                     </label>
                     <ul class="mt-3">
-                        <!-- Sidebar content here -->
-                        <li><a>Loja</a></li>
-                        <li><a>Sobre Nós</a></li>
-                        <li><a>Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/loja.html">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/artista.html">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/exposicoes.html">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/sobre-nós.html">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="/app/templates/contato.html">Contato</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
-
 
     <section class="section h-100 bg-[#f4f4f4]">
         <div class="">
@@ -202,7 +211,7 @@
         </div>
     </main>
 
-    <footer class="footer sm:footer-horizontal bg-[#536340] text-white text-base-content p-10">
+    <footer class="footer sm:footer-horizontal bg-[#536340] text-base-content p-10 text-[#F4F4F4]">
         <aside>
             <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                 clip-rule="evenodd" class="fill-current">
@@ -211,34 +220,34 @@
                 </path>
             </svg>
             <p>
-                ACME Industries Ltd.
+                Moiddo Arts Ltd.
                 <br />
-                Providing reliable tech since 1992
+                Since 2025
             </p>
         </aside>
-        <nav>
-            <h6 class="footer-title">Services</h6>
-            <a class="link link-hover">Branding</a>
-            <a class="link link-hover">Design</a>
-            <a class="link link-hover">Marketing</a>
-            <a class="link link-hover">Advertisement</a>
+        <nav >
+            <h6 class="footer-title">Links rápidos</h6>
+            <a class="link link-hover">Loja</a>
+            <a class="link link-hover">Contatos</a>
+            <a class="link link-hover">Exposições</a>
+            <a class="link link-hover">Sobre nós</a>
+            <a class="link link-hover">Contatos</a>
         </nav>
         <nav>
-            <h6 class="footer-title">Company</h6>
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
+            <h6 class="footer-title">Destaques</h6>
+            <a class="link link-hover">Para artesãos</a>
+            <a class="link link-hover">Para clientes</a>
+            <a class="link link-hover">Para fornecedores</a>
         </nav>
         <nav>
-            <h6 class="footer-title">Legal</h6>
-            <a class="link link-hover">Terms of use</a>
-            <a class="link link-hover">Privacy policy</a>
-            <a class="link link-hover">Cookie policy</a>
+            <h6 class="footer-title">Suporte</h6>
+            <a class="link link-hover">Termos de uso</a>
+            <a class="link link-hover">Ajuda/FAQ</a>
+            <a class="link link-hover">Politica de privacidade</a>
         </nav>
     </footer>
-    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
-        <aside>
+    <footer class="footer sm:footer-horizontal footer-center bg-[#536340] text-base-content p-4">
+        <aside class="text-[#F4F4F4]">
             <p>Copyright © 2025 - All right reserved by ACME Industries Ltd</p>
         </aside>
     </footer>

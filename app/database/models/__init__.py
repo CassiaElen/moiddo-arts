@@ -1,11 +1,11 @@
-from .artistas import Artistas
-from .cliente import Cliente
-from .categoria import Categoria
-from .obras import Obras
-from .carrinho import Carrinho
-from .itemCarrinho import ItemCarrinho
-from .pedido import Pedido
-from .itemPedido import ItemPedido
+from .model_artistas import Artistas
+from .model_cliente import Cliente
+from .model_categoria import Categoria
+from .model_obras import Obras
+from .model_carrinho import Carrinho
+from .model_itemCarrinho import ItemCarrinho
+from .model_pedido import Pedido
+from .model_itemPedido import ItemPedido
 
 __all__ = [
     'Artistas',
