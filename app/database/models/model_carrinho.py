@@ -6,7 +6,7 @@ class Carrinho:
         id_carrinho=None,
         cliente_id=None,
         sessao_id=None,
-        status_carrinho="ativo",
+        status_carrinho=None,
         qtd_item=None,
         data_criacao=None,
     ):

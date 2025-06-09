@@ -1,7 +1,7 @@
 from ..connection import db
 
-
 class Artistas:
+    
     def __init__(
         self,
         id_artista=None,
@@ -10,7 +10,7 @@ class Artistas:
         email=None,
         cpf_cnpj=None,
         senha=None,
-        status_artista="ativo",
+        status_artista=None,
         data_cadastro=None,
         url_avatar=None,
         biografia=None,
@@ -42,27 +42,24 @@ class Artistas:
                         self.data_cadastro,
                     )
                 )
-                self.id = cursor.lastrowid
+                conn.commit()
+                self.id_artista = cursor.lastrowid
             else:
                 cursor.execute(
-                    """UPDATE artistas SET nome_completo=?, usuario=?, email=?, cpf_cnpj=?, senha=? WHERE id_artista=?""",
+                    """UPDATE artistas SET nome_completo=?, usuario=?, email=?, cpf_cnpj=?, senha=?, status_artista=?, url_avatar=?, biografia=? WHERE id_artista=?""",
                     (
                         self.nome_completo,
                         self.usuario,
                         self.email,
                         self.cpf_cnpj,
                         self.senha,
-                        self.id_artista
+                        self.status_artista,
+                        self.url_avatar,
+                        self.biografia,
+                        self.id_artista,
                     )
                 )
                 conn.commit()
-
-    def buscar_obras(self):
-        from .model_obras import Obras
-        with db.get_conn() as conn:
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM obras WHERE artista_id = ?",(self.id_artista,))
-            return [Obras(**dict(row)) for row in cursor.fetchall()]
 
     def buscar_artista(self):
         with db.get_conn() as conn:
@@ -70,5 +67,24 @@ class Artistas:
             cursor.execute("SELECT * FROM artistas WHERE id_artista = ?", (self.id_artista,))
             row = cursor.fetchone()
             return dict(row) if row else None
+
+    def deletar_artista(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute("DELETE FROM artistas WHERE id_artista = ?", (self.id_artista,))
+                conn.commit()
+                return True
+        except Exception as e:
+            print(f"Erro ao deletar artista: {e}")
+            return False
+
+    def buscar_obras(self):
+            from .model_obras import Obras
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM obras WHERE artista_id = ?",(self.id_artista,))
+                return [Obras(**dict(row)) for row in cursor.fetchall()]
+
 
 

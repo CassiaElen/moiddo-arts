@@ -64,7 +64,8 @@
         <!-- Seção Início -->
         <section id="inicio" class="secao-conteudo ativo">
             <div class="mb-8">
-                <h1 class="title-font text-3xl font-bold text-gray-900">Olá, <span class="text-indigo-600">{{dados.nome_completo}}</span>!</h1>
+                <h1 class="title-font text-3xl font-bold text-gray-900">Olá, <span
+                        class="text-indigo-600">{{dados.nome_completo}}</span>!</h1>
                 <p class="text-gray-600">Veja suas estatísticas e atividades recentes</p>
             </div>
 
@@ -249,118 +250,6 @@
                 </button>
             </div>
 
-            <!-- Modal Adicionar Obra -->
-            <dialog id="modal_adicionar_obra" class="modal">
-                <div class="modal-box max-w-4xl">
-                    <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <h3 class="font-bold text-2xl mb-6">Adicionar Nova Obra</h3>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Coluna 1 -->
-                        <div>
-                            <div class="fieldset">
-                                <legend class="fieldset-legend">Imagem da Obra <span class="text-red-500">*</span>
-                                </legend>
-                                <div
-                                    class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6">
-                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
-                                    <p class="text-gray-500 mb-2">Arraste e solte a imagem aqui</p>
-                                    <p class="text-gray-400 text-sm mb-4">ou</p>
-                                    <label class="btn btn-outline border-indigo-200 text-indigo-600">
-                                        Selecione um arquivo
-                                        <input type="file" class="hidden" />
-                                    </label>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
-                            </div>
-
-                            <div class="fieldset">
-                                <legend class="fieldset-legend">Detalhes Técnicos</legend>
-                                <div class="grid grid-cols-2 gap-4 mb-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
-                                        <input type="text" class="input input-bordered w-full"
-                                            placeholder="Ex: 60x40cm" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
-                                        <input type="text" class="input input-bordered w-full"
-                                            placeholder="Ex: Óleo sobre tela" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                    <input type="text" class="input input-bordered w-full" placeholder="Ex: 2023" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Coluna 2 -->
-                        <div>
-                            <div class="fieldset">
-                                <legend class="fieldset-legend">Informações Básicas <span class="text-red-500">*</span>
-                                </legend>
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
-                                            class="text-red-500">*</span></label>
-                                    <input type="text" class="input input-bordered w-full" placeholder="Nome da obra"
-                                        required />
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
-                                            class="text-red-500">*</span></label>
-                                    <textarea class="textarea textarea-bordered w-full h-24"
-                                        placeholder="Descreva sua obra" required></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-                                    <select class="select select-bordered w-full">
-                                        <option disabled selected>Selecione uma categoria</option>
-                                        <option>Pintura</option>
-                                        <option>Fotografia</option>
-                                        <option>Escultura</option>
-                                        <option>Arte Digital</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="fieldset">
-                                <legend class="fieldset-legend">Preço e Estoque <span class="text-red-500">*</span>
-                                </legend>
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
-                                            class="text-red-500">*</span></label>
-                                    <input type="number" class="input input-bordered w-full" placeholder="0,00"
-                                        step="0.01" min="0" required />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
-                                        Disponível</label>
-                                    <input type="number" class="input input-bordered w-full" placeholder="1" min="1"
-                                        value="1" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-action">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-save mr-2"></i> Publicar Obra
-                        </button>
-                        <button class="btn btn-ghost">
-                            <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
-                        </button>
-                        <form method="dialog">
-                            <button class="btn btn-error text-white">
-                                <i class="fas fa-times mr-2"></i> Cancelar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
-
             <!-- Filtros e Busca -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <div class="flex flex-wrap gap-2">
@@ -426,13 +315,18 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">124</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                            <td class="mt-3 px-6 py-4 flex items-end text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3"
+                                    onclick="modal_editar_obra.showModal()">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="text-red-600 hover:text-red-900">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <form action="" method="post">
+                                    <input type="hidden" name="acao" value="excluir_obra">
+                                    <input type="hidden" name="obra_id" value="">
+                                    <button type="submit" class="text-red-600 hover:text-red-900">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
 
@@ -811,254 +705,498 @@
 
         <!-- Seção Configurações -->
         <section id="configuracoes" class="secao-conteudo">
-            <div class="mb-8">
-                <h1 class="title-font text-3xl font-bold text-gray-900">Configurações</h1>
-                <p class="text-gray-600">Gerencie suas preferências e informações da conta</p>
-            </div>
+            <form action="" method="post">
+                <input type="hidden" name="acao" value="editar_perfil">
+                <div class="mb-8">
+                    <h1 class="title-font text-3xl font-bold text-gray-900">Configurações</h1>
+                    <p class="text-gray-600">Gerencie suas preferências e informações da conta</p>
+                </div>
 
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                <!-- Perfil -->
-                <div class="p-6 border-b">
-                    <h2 class="text-xl font-semibold mb-4">Perfil Público</h2>
-                    <div class="flex flex-col md:flex-row gap-6">
-                        <div class="flex flex-col items-center">
-                            <div class="avatar mb-4">
-                                <div class="w-24 rounded-full ring ring-indigo-200 ring-offset-2">
-                                    <img src='{{dados.url_avatar}}'/>
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <!-- Perfil -->
+                    <div class="p-6 border-b">
+                        <h2 class="text-xl font-semibold mb-4">Perfil Público</h2>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="flex flex-col items-center">
+                                <div class="avatar mb-4">
+                                    <div class="w-24 rounded-full ring ring-indigo-200 ring-offset-2">
+                                        <img src='{{dados.url_avatar}}' />
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
+                                    Alterar Foto
+                                </button>
+                            </div>
+
+                            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                    <input type="text" name="nome" class="input input-bordered w-full"
+                                        value='{{dados.nome_completo}}'>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome de Usuário</label>
+                                    <input type="text" name="usuario" class="input input-bordered w-full"
+                                        value='{{dados.usuario}}'>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Biografia</label>
+                                    <textarea name="biografia" class="textarea textarea-bordered w-full h-32"
+                                        placeholder="Conte sobre você e seu trabalho artístico">{{dados.biografia}}</textarea>
                                 </div>
                             </div>
-                            <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
-                                Alterar Foto
+                        </div>
+                    </div>
+
+                    <!-- Informações da Conta -->
+                    <div class="p-6 border-b">
+                        <h2 class="text-xl font-semibold mb-4">Informações da Conta</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                                <input type="email" name="email" class="input input-bordered w-full"
+                                    value='{{dados.email}}'>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
+                                <input type="text" name="cpf-cnpj" class="input input-bordered w-full"
+                                    value='{{dados.cpf_cnpj}}' disabled />
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="font-medium">Senha</p>
+                                <p class="text-sm text-gray-500">Última alteração: 15/05/2023</p>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline border-indigo-200 text-indigo-600"
+                                onclick="modal_alterar_senha.showModal()">
+                                Alterar Senha
                             </button>
                         </div>
 
-                        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
-                                <input type="text" class="input input-bordered w-full" value='{{dados.nome_completo}}'>
+                                <p class="font-medium">Autenticação de Dois Fatores</p>
+                                <p class="text-sm text-gray-500">Proteção adicional para sua conta</p>
                             </div>
+                            <label class="cursor-pointer label">
+                                <input type="checkbox" class="toggle toggle-primary">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Configurações de Pagamento -->
+                    <div class="p-6 border-b">
+                        <h2 class="text-xl font-semibold mb-4">Configurações de Pagamento</h2>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Conta Bancária</label>
+                            <select class="select select-bordered w-full">
+                                <option>Banco do Brasil - ****4532</option>
+                                <option>Adicionar nova conta</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Dia de Pagamento</label>
+                            <select class="select select-bordered w-full">
+                                <option>Todo dia 5</option>
+                                <option>Todo dia 10</option>
+                                <option>Todo dia 15</option>
+                                <option selected>Todo dia 20</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Gerenciamento de Conta -->
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-4">Gerenciamento de Conta</h2>
+                        <div class="flex justify-between items-center mb-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Nome de Usuário</label>
-                                <input type="text" class="input input-bordered w-full" value='{{dados.usuario}}'>
+                                <p class="font-medium">Desativar Conta Temporariamente</p>
+                                <p class="text-sm text-gray-500">Oculte seu perfil e obras sem excluir dados</p>
                             </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Biografia</label>
-                                <textarea class="textarea textarea-bordered w-full h-32"
-                                    placeholder="Conte sobre você e seu trabalho artístico">{{dados.biografia}}</textarea>
+                            <button type="button" class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
+                                onclick="modal_desativar_conta.showModal()">
+                                Desativar Conta
+                            </button>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="font-medium">Excluir Conta Permanentemente</p>
+                                <p class="text-sm text-gray-500">Todos os seus dados serão removidos</p>
                             </div>
+                            <button type="button" class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
+                                onclick="modal_excluir_conta.showModal()">
+                                Excluir Conta
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Informações da Conta -->
-                <div class="p-6 border-b">
-                    <h2 class="text-xl font-semibold mb-4">Informações da Conta</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
-                            <input type="email" class="input input-bordered w-full" value='{{dados.email}}'>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
-                            <input type="text" class="input input-bordered w-full" value='{{dados.cpf_cnpj}}'>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <p class="font-medium">Senha</p>
-                            <p class="text-sm text-gray-500">Última alteração: 15/05/2023</p>
-                        </div>
-                        <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600"
-                            onclick="modal_alterar_senha.showModal()">
-                            Alterar Senha
-                        </button>
-                    </div>
-
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="font-medium">Autenticação de Dois Fatores</p>
-                            <p class="text-sm text-gray-500">Proteção adicional para sua conta</p>
-                        </div>
-                        <label class="cursor-pointer label">
-                            <input type="checkbox" class="toggle toggle-primary">
-                        </label>
-                    </div>
+                <!-- Botão Salvar -->
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i> Salvar Alterações
+                    </button>
                 </div>
-
-                <!-- Configurações de Pagamento -->
-                <div class="p-6 border-b">
-                    <h2 class="text-xl font-semibold mb-4">Configurações de Pagamento</h2>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Conta Bancária</label>
-                        <select class="select select-bordered w-full">
-                            <option>Banco do Brasil - ****4532</option>
-                            <option>Adicionar nova conta</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Dia de Pagamento</label>
-                        <select class="select select-bordered w-full">
-                            <option>Todo dia 5</option>
-                            <option>Todo dia 10</option>
-                            <option>Todo dia 15</option>
-                            <option selected>Todo dia 20</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Gerenciamento de Conta -->
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-4">Gerenciamento de Conta</h2>
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <p class="font-medium">Desativar Conta Temporariamente</p>
-                            <p class="text-sm text-gray-500">Oculte seu perfil e obras sem excluir dados</p>
-                        </div>
-                        <button class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
-                            onclick="modal_desativar_conta.showModal()">
-                            Desativar Conta
-                        </button>
-                    </div>
-
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="font-medium">Excluir Conta Permanentemente</p>
-                            <p class="text-sm text-gray-500">Todos os seus dados serão removidos</p>
-                        </div>
-                        <button class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
-                            onclick="modal_excluir_conta.showModal()">
-                            Excluir Conta
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botão Salvar -->
-            <div class="flex justify-end mt-6">
-                <button class="btn btn-primary">
-                    <i class="fas fa-save mr-2"></i> Salvar Alterações
-                </button>
-            </div>
+            </form>
         </section>
     </main>
 
     <!-- Modals -->
-    <!-- Modal Alterar Senha -->
-    <dialog id="modal_alterar_senha" class="modal">
-        <div class="modal-box max-w-md">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="font-bold text-xl mb-6">Alterar Senha</h3>
 
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
-                    <input type="password" class="input input-bordered w-full" placeholder="Digite sua senha atual">
-                    <a href="#" class="text-sm text-indigo-600 hover:underline mt-1 block">Esqueceu sua senha?</a>
+    <!-- Modal Adicionar Obra -->
+    <dialog id="modal_adicionar_obra" class="modal">
+        <div class="modal-box max-w-4xl">
+
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onclick="modal_adicionar_obra.close()">✕</button>
+
+            <h3 class="font-bold text-2xl mb-6">Adicionar Nova Obra</h3>
+
+            <form action="" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="hidden" name="acao" value="nova_obra">
+                    <!-- Coluna 1 -->
+                    <div>
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Imagem da Obra <span class="text-red-500">*</span>
+                            </legend>
+                            <div
+                                class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                                <p class="text-gray-500 mb-2">Arraste e solte a imagem aqui</p>
+                                <p class="text-gray-400 text-sm mb-4">ou</p>
+                                <label class="btn btn-outline border-indigo-200 text-indigo-600">
+                                    Selecione um arquivo
+                                    <input type="file" name="imagem-nova-obra" class="hidden" />
+                                </label>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
+                        </div>
+
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Detalhes Técnicos</legend>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
+                                    <input type="text" name="dimensao-nova-obra" class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
+                                    <input type="text" name="tecnica-nova-obra" class="input input-bordered w-full"
+                                        placeholder="Ex: Óleo sobre tela" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
+                                <input type="text" name="ano-nova-obra" class="input input-bordered w-full" placeholder="Ex: 2023" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna 2 -->
+                    <div>
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Informações Básicas <span class="text-red-500">*</span>
+                            </legend>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" name="titulo-nova-obra" class="input input-bordered w-full" placeholder="Nome da obra"
+                                    required />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
+                                        class="text-red-500">*</span></label>
+                                <textarea class="textarea textarea-bordered w-full h-24" name="descricao-nova-obra" placeholder="Descreva sua obra"
+                                    required></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                                <select name="categoria-nova-obra" class="select select-bordered w-full">
+                                    <option disabled selected>Selecione uma categoria</option>
+                                    <option>Pintura</option>
+                                    <option>Fotografia</option>
+                                    <option>Escultura</option>
+                                    <option>Arte Digital</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Preço e Estoque <span class="text-red-500">*</span>
+                            </legend>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
+                                        class="text-red-500">*</span></label>
+                                <input type="number" name="preco-nova-obra" class="input input-bordered w-full" placeholder="0,00" step="0.01"
+                                    min="0" required />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
+                                    Disponível</label>
+                                <input type="number" name="estoque-nova-obra" class="input input-bordered w-full" placeholder="1" min="1"
+                                    value="1" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
-                    <input type="password" class="input input-bordered w-full" placeholder="Digite a nova senha">
-                    <p class="text-xs text-gray-500 mt-1">Mínimo de 8 caracteres</p>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar Nova Senha</label>
-                    <input type="password" class="input input-bordered w-full"
-                        placeholder="Digite novamente a nova senha">
-                </div>
-            </div>
-
-            <div class="modal-action">
-                <button class="btn btn-primary">
-                    <i class="fas fa-check mr-2"></i> Confirmar
-                </button>
-                <form method="dialog">
-                    <button class="btn btn-error text-white">
+                <div class="modal-action">
+                    <button type="submit" name="status-nova-obra" value="ativo" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i> Publicar Obra
+                    </button>
+                    <button type="submit" name="status-nova-obra" value="rascunho" class="btn btn-ghost">
+                        <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
+                    </button>
+                    <button type="button" class="btn btn-error text-white" onclick="modal_adicionar_obra.close()">
                         <i class="fas fa-times mr-2"></i> Cancelar
                     </button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+    </dialog>
+
+    <!-- Modal Editar Obra -->
+    <dialog id="modal_editar_obra" class="modal">
+        <div class="modal-box max-w-4xl">
+
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onclick="modal_editar_obra.close()">✕</button>
+
+            <h3 class="font-bold text-2xl mb-6">Editar Obra</h3>
+
+            <form action="" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="hidden" name="acao" value="editar_obra">
+                    <!-- Coluna 1 -->
+                    <div>
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Imagem da Obra <span class="text-red-500">*</span>
+                            </legend>
+                            <div
+                                class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                                <p class="text-gray-500 mb-2">Arraste e solte a imagem aqui</p>
+                                <p class="text-gray-400 text-sm mb-4">ou</p>
+                                <label class="btn btn-outline border-indigo-200 text-indigo-600">
+                                    Selecione um arquivo
+                                    <input type="file" name="imagem-editar-obra" class="hidden" />
+                                </label>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
+                        </div>
+
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Detalhes Técnicos</legend>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
+                                    <input type="text" name="dimensao-editar-obra" value="" class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
+                                    <input type="text" name="tecnica-editar-obra" value="" class="input input-bordered w-full"
+                                        placeholder="Ex: Óleo sobre tela" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
+                                <input type="text" name="ano-editar-obra" value="" class="input input-bordered w-full" placeholder="Ex: 2023" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna 2 -->
+                    <div>
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Informações Básicas <span class="text-red-500">*</span>
+                            </legend>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" name="titulo-editar-obra" value="" class="input input-bordered w-full" placeholder="Nome da obra"
+                                    required />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
+                                        class="text-red-500">*</span></label>
+                                <textarea  name="descricao-editar-obra" class="textarea textarea-bordered w-full h-24" placeholder="Descreva sua obra"
+                                    required></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                                <select name="categoria-editar-obra" class="select select-bordered w-full">
+                                    <option disabled selected>Selecione uma categoria</option>
+                                    <option>Pintura</option>
+                                    <option>Fotografia</option>
+                                    <option>Escultura</option>
+                                    <option>Arte Digital</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="fieldset">
+                            <legend class="fieldset-legend">Preço e Estoque <span class="text-red-500">*</span>
+                            </legend>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
+                                        class="text-red-500">*</span></label>
+                                <input type="number" name="preco-editar-obra" value="" class="input input-bordered w-full" placeholder="0,00" step="0.01"
+                                    min="0" required />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
+                                    Disponível</label>
+                                <input type="number" name="estoque-editar-obra" class="input input-bordered w-full" placeholder="1" min="1"
+                                    value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-action">
+                    <button type="submit" name="status-editar-obra" value="ativo" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i> Salvar Alterações
+                    </button>
+                    <button type="submit" name="status-editar-obra" value="rascunho" class="btn btn-ghost">
+                        <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
+                    </button>
+                    <button type="button" class="btn btn-error text-white" onclick="modal_editar_obra.close()">
+                        <i class="fas fa-times mr-2"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </dialog>
+
+    <!-- Modal Alterar Senha -->
+    <dialog id="modal_alterar_senha" class="modal">
+        <form action="" method="post">
+            <input type="hidden" name="acao" value="alterar_senha">
+            <div class="modal-box max-w-md">
+
+                <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                    onclick="modal_alterar_senha.close()">✕</button>
+
+                <h3 class="font-bold text-xl mb-6">Alterar Senha</h3>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
+                        <input type="password" name="senha-atual" class="input input-bordered w-full"
+                            placeholder="Digite sua senha atual">
+                        <a href="#" class="text-sm text-indigo-600 hover:underline mt-1 block">Esqueceu sua senha?</a>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
+                        <input type="password" name="senha-nova" class="input input-bordered w-full"
+                            placeholder="Digite a nova senha">
+                        <p class="text-xs text-gray-500 mt-1">Mínimo de 8 caracteres</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar Nova Senha</label>
+                        <input type="password" name="confirmar-senha-nova" class="input input-bordered w-full"
+                            placeholder="Digite novamente a nova senha">
+                    </div>
+                </div>
+
+                <div class="modal-action">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-check mr-2"></i> Confirmar
+                    </button>
+                    <button type="button" class="btn btn-error text-white" onclick="modal_alterar_senha.close()">
+                        <i class="fas fa-times mr-2"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
     </dialog>
 
     <!-- Modal Desativar Conta -->
     <dialog id="modal_desativar_conta" class="modal">
-        <div class="modal-box max-w-md">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="font-bold text-xl mb-2">Desativar Sua Conta</h3>
-            <p class="text-gray-600 mb-6">Tem certeza que deseja desativar temporariamente sua conta?</p>
+        <form action="" method="post">
+            <input type="hidden" name="acao" value="desativar_perfil">
+            <div class="modal-box max-w-md">
 
-            <div class="bg-gray-50 p-4 rounded-lg mb-6">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="avatar">
-                        <div class="w-16 rounded-full">
-                            <img src="{{dados.url_avatar}}" />
+                <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                    onclick="modal_desativar_conta.close()">✕</button>
+
+                <h3 class="font-bold text-xl mb-2">Desativar Sua Conta</h3>
+                <p class="text-gray-600 mb-6">Tem certeza que deseja desativar temporariamente sua conta?</p>
+
+                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="avatar">
+                            <div class="w-16 rounded-full">
+                                <img src="{{dados.url_avatar}}" />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium">{{dados.nome_completo}}</p>
+                            <p class="text-sm text-gray-500">{{dados.email}}</p>
                         </div>
                     </div>
-                    <div>
-                        <p class="font-medium">{{dados.nome_completo}}</p>
-                        <p class="text-sm text-gray-500">{{dados.email}}</p>
-                    </div>
+                    <p class="text-sm text-gray-600">Ao desativar sua conta, seu perfil e obras não estarão visíveis
+                        publicamente até que você reative sua conta.</p>
                 </div>
-                <p class="text-sm text-gray-600">Ao desativar sua conta, seu perfil e obras não estarão visíveis
-                    publicamente até que você reative sua conta.</p>
-            </div>
 
-            <div class="modal-action">
-                <button class="btn btn-primary">
-                    <i class="fas fa-power-off mr-2"></i> Desativar
-                </button>
-                <form method="dialog">
-                    <button class="btn btn-error text-white">
+                <div class="modal-action">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-power-off mr-2"></i> Desativar
+                    </button>
+                    <button type="button" class="btn btn-error text-white" onclick="modal_desativar_conta.close()">
                         <i class="fas fa-times mr-2"></i> Cancelar
                     </button>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </dialog>
 
     <!-- Modal Excluir Conta -->
     <dialog id="modal_excluir_conta" class="modal">
-        <div class="modal-box max-w-md">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="font-bold text-xl mb-2">Excluir Sua Conta Permanentemente</h3>
-            <p class="text-red-500 mb-6">Esta ação não pode ser desfeita!</p>
+        <form action="" method="post">
+            <input type="hidden" name="acao" value="excluir_perfil">
+            <input type="hidden" name="id-artista" value="">
+            <div class="modal-box max-w-md">
 
-            <div class="bg-red-50 p-4 rounded-lg mb-6 border border-red-100">
-                <div class="flex items-start gap-3">
-                    <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
-                    <div>
-                        <p class="font-medium text-red-700">Atenção</p>
-                        <p class="text-sm text-red-600">Ao excluir sua conta, todos os seus dados, obras e histórico
-                            serão permanentemente removidos e não poderão ser recuperados.</p>
+                <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                    onclick="modal_excluir_conta.close()">✕</button>
+
+                <h3 class="font-bold text-xl mb-2">Excluir Sua Conta Permanentemente</h3>
+                <p class="text-red-500 mb-6">Esta ação não pode ser desfeita!</p>
+
+                <div class="bg-red-50 p-4 rounded-lg mb-6 border border-red-100">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-red-700">Atenção</p>
+                            <p class="text-sm text-red-600">Ao excluir sua conta, todos os seus dados, obras e histórico
+                                serão permanentemente removidos e não poderão ser recuperados.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Digite sua senha para confirmar</label>
-                <input type="password" class="input input-bordered w-full" placeholder="Digite sua senha">
-            </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Digite sua senha para confirmar</label>
+                    <input type="password" class="input input-bordered w-full" placeholder="Digite sua senha">
+                </div>
 
-            <div class="modal-action">
-                <button class="btn btn-error text-white">
-                    <i class="fas fa-trash mr-2"></i> Excluir Conta
-                </button>
-                <form method="dialog">
-                    <button class="btn btn-ghost">
+                <div class="modal-action">
+                    <button class="btn btn-error text-white">
+                        <i class="fas fa-trash mr-2"></i> Excluir Conta
+                    </button>
+                    <button type="button" class="btn btn-ghost" onclick="modal_excluir_conta.close()">
                         <i class="fas fa-times mr-2"></i> Cancelar
                     </button>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </dialog>
 
     <script src="../static/js/script-painel-artista.js"></script>

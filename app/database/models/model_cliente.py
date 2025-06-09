@@ -9,7 +9,7 @@ class Cliente:
         email=None,
         cpf=None,
         senha=None,
-        status_cliente="ativo",
+        status_cliente=None,
         data_cadastro=None,
         url_avatar=None,
     ):
