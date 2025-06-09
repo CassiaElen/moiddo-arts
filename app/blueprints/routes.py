@@ -104,6 +104,25 @@ def home():
     user = auth_manager.current_user()
     return render_template("index.html",user=user)
 
+@main.route("/sobre-nós")
+def sobre_nos():
+    return render_template("sobre-nós.html")
+
+@main.route("/contatos")
+def contato():
+    return render_template("contato.html")
+
+@main.route("/exposições")
+def exposicoes():
+    return render_template("exposicoes.html")
+
+@main.route("/loja")
+def loja():
+    return render_template("loja.html")
+
+@main.route("/artistas")
+def artistas():
+    return render_template("artista.html")
 
 @main.route("/login/cliente", methods=["GET","POST"])
 def login_client():
@@ -188,7 +207,7 @@ def register_artist():
         
         if RegisterArtist(nome_completo,usuario,email,cpf_cnpj,senha):
             flash("Cadastro realizado com sucesso!","success")
-            flash("Faça o seu login com Artesão!","success")
+            flash("Faça o seu login como Artesão!","success")
             return redirect(url_for("main.login_artist"))
         else:
             flash("Usuário já cadastrado!","error")
