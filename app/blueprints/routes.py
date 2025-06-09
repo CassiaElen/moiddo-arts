@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session
+from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session,get_flashed_messages
 import sqlite3
 import hashlib
 from datetime import datetime, timedelta
@@ -98,7 +98,7 @@ def PreLogin():
 @main.route("/home")
 def home():
     if not auth_manager.is_authenticated():
-        flash("Você precisa estar logado para acessar esta página.")
+        flash("Você precisa estar logado para acessar esta página.","error")
         return redirect(url_for("main.PreLogin"))
 
     user = auth_manager.current_user()
@@ -112,16 +112,16 @@ def login_client():
         senha = request.form["password"]
 
         if not email or not senha:
-            flash("Todos os campos são obrigatórios!")
+            flash("Todos os campos são obrigatórios!","error")
             return(redirect(url_for("main.login_client")))
         
         user = CheckLoginClient(email, senha)
         if user:
             auth_manager.login_user('cliente', user)
-            flash("Login realizado com sucesso!")
+            flash("Login realizado com sucesso!","success")
             return redirect(url_for("main.home"))
         else:
-            flash("Email ou senha incorretos!")
+            flash("Email ou senha incorretos!", "error")
             return redirect(url_for("main.login_client"))
     return render_template("login-cliente.html")
 
@@ -132,23 +132,23 @@ def login_artist():
         senha = request.form["password"]
 
         if not email or not senha:
-            flash("Todos os campos são obrigatórios!")
+            flash("Todos os campos são obrigatórios!","error")
             return redirect(url_for("main.login_artist"))
         
         user = CheckLoginArtist(email, senha)
         if user:
             auth_manager.login_user('artista',user)
-            flash("Login realizado com sucesso!")
+            flash("Login realizado com sucesso!","success")
             return redirect(url_for("main.home"))
         else:
-            flash("Email ou senha incorretos!")
+            flash("Email ou senha incorretos!","error")
             return redirect(url_for("main.login_artist"))
     return render_template("login-artesao.html")
 
 @main.route("/logout")
 def logout():
     auth_manager.logout_user()
-    flash("Logout realizado com sucesso!")
+    flash("Logout realizado com sucesso!","success")
     return redirect(url_for("main.PreLogin"))
 
 @main.route('/register/cliente', methods=['GET', 'POST'])
@@ -161,15 +161,15 @@ def register_client():
         senha = request.form["password"]
 
         if not email or not nome_completo or not senha or not cpf or not usuario:
-            flash("Todos os campos são obrigatórios!")
+            flash("Todos os campos são obrigatórios!","error")
             return redirect(url_for("main.register_client"))
         
         if RegisterClient(nome_completo,usuario,email,cpf,senha): 
-            flash("Cadastro realizado com sucesso!")
-            flash("Faça o seu login como Cliente!")
+            flash("Cadastro realizado com sucesso!","success")
+            flash("Faça o seu login como Cliente!","success")
             return redirect(url_for("main.login_client"))
         else:
-            flash("Usuário já cadastrado!")
+            flash("Usuário já cadastrado!","error")
             return redirect(url_for("main.register_client"))
     return render_template("cadastro-cliente.html")
 
@@ -183,15 +183,15 @@ def register_artist():
         senha = request.form["password"]
 
         if not email or not nome_completo or not senha or not cpf_cnpj or not usuario: 
-            flash("Todos os campos são obrigatórios!")
+            flash("Todos os campos são obrigatórios!","error")
             return redirect(url_for("main.register_artist"))
         
         if RegisterArtist(nome_completo,usuario,email,cpf_cnpj,senha):
-            flash("Cadastro realizado com sucesso!")
-            flash("Faça o seu login com Artesão!")
+            flash("Cadastro realizado com sucesso!","success")
+            flash("Faça o seu login com Artesão!","success")
             return redirect(url_for("main.login_artist"))
         else:
-            flash("Usuário já cadastrado!")
+            flash("Usuário já cadastrado!","error")
             return redirect(url_for("main.register_artist"))
         
     return render_template("cadastro-artesao.html")
