@@ -1,6 +1,5 @@
 from ..connection import db
 
-
 # Popula a tabela de artistas com dados iniciais
 def seed_artistas():
     artistas = [
@@ -8,7 +7,7 @@ def seed_artistas():
             "Ana Beatriz Lima",
             "anabeatriz",
             "ana.lima@example.com",
-            "111.222.333-44",
+            "651.463.710-83",
             "senha789",
             "ativo",
             "2023-02-15",

@@ -1,6 +1,5 @@
 from ..connection import db
 
-
 # Popula a tabela de cliente com dados iniciais
 def seed_cliente():
     clientes = [

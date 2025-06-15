@@ -46,9 +46,10 @@ def init_db():
             preco DECIMAL(5,2) NOT NULL,
             categoria_id INTEGER NOT NULL,
             url_foto VARCHAR(100),
-            status_obras VARCHAR(15) CHECK (status_obras IN ('ativo','rascunho')),
+            status_obras VARCHAR(15) CHECK (status_obras IN ('ativa','rascunho','bloqueada')),
             estoque INTEGER,
             ano_criacao DATETIME,
+            data_cadastro DATETIME,
             FOREIGN KEY(artista_id) REFERENCES artistas(id_artista),
             FOREIGN KEY(categoria_id) REFERENCES categoria(id_categoria)
             )
@@ -84,14 +85,15 @@ def init_db():
             FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
     )
 """)
-            cursor.execute( """CREATE TABLE IF NOT EXISTS ItemPedido(
+            cursor.execute("""CREATE TABLE IF NOT EXISTS ItemPedido(
             id_itemPedido INTEGER PRIMARY KEY AUTOINCREMENT,
             pedido_id INTEGER,
             obra_id INTEGER,
             preco DECIMAL(5,2) NOT NULL,
+            quantidade INTEGER DEFAULT 1,
             FOREIGN KEY(pedido_id) REFERENCES pedido(id_pedido),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
-    )
+)
 """)
             conn.commit()
             popular_tabelas_inciais()

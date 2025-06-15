@@ -9,9 +9,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/painel-artista.css">
+    <link rel="stylesheet" href="../static/css/alertas.css">
 </head>
 
 <body class="gradient-bg min-h-screen flex">
+    <!-- Notificação Flash (sobrepõe tudo) -->
+    <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+        {% for categoria, mensagem in mensagens %}
+        <div class="alert {{ categoria }} shadow-lg animate-fade-in-out">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ mensagem }}</span>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
 
     <!-- Menu Lateral -->
     <nav class="fixed left-0 top-0 w-64 h-screen bg-white shadow-lg z-10 menu-lateral">
@@ -75,7 +95,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Obras Ativas</p>
-                            <p class="text-3xl font-bold text-indigo-600">12</p>
+                            <p class="text-3xl font-bold text-indigo-600">{{contar}}</p>
                         </div>
                         <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
                             <i class="fas fa-palette text-xl"></i>
@@ -84,7 +104,7 @@
                     <div class="mt-4">
                         <div class="flex items-center text-sm text-green-600">
                             <i class="fas fa-arrow-up mr-1"></i>
-                            <span>2 novas este mês</span>
+                            <span>{{contar_mes}} novas este mês</span>
                         </div>
                     </div>
                 </div>
@@ -93,7 +113,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Total de Vendas</p>
-                            <p class="text-3xl font-bold text-indigo-600">R$ 4.250,00</p>
+                            <p class="text-3xl font-bold text-indigo-600">R$ {{contar_vendas}} </p>
                         </div>
                         <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
                             <i class="fas fa-chart-line text-xl"></i>
@@ -102,7 +122,7 @@
                     <div class="mt-4">
                         <div class="flex items-center text-sm text-green-600">
                             <i class="fas fa-arrow-up mr-1"></i>
-                            <span>15% em relação ao mês passado</span>
+                            <span>{{porcentagem_vendas}}% em relação ao mês passado</span>
                         </div>
                     </div>
                 </div>
@@ -143,55 +163,23 @@
             <div class="mb-10">
                 <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Suas Obras Recentes</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for obra in ultimas_obras %}
                     <div class="card-obra bg-white rounded-xl shadow-sm overflow-hidden">
                         <div class="relative overflow-hidden h-48">
-                            <img class="w-full h-full object-cover obra-image"
-                                src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg"
-                                alt="Itaquaquecetuba">
+                            <img class="w-full h-full object-cover obra-image" src="{{obra.url_foto}}"
+                                alt="{{obra.titulo}}">
                         </div>
                         <div class="p-5">
-                            <h3 class="text-xl font-semibold mb-2">Itaquaquecetuba</h3>
+                            <h3 class="text-xl font-semibold mb-2">{{obra.titulo}}</h3>
                             <div class="flex justify-between items-center">
                                 <div>
-                                    <p class="text-gray-600 text-sm">Adicionada em: 15/06/2023</p>
-                                    <p class="text-indigo-600 font-medium">R$ 480,00</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-ghost text-red-500 hover:bg-red-50">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <p class="text-gray-600 text-sm">Adicionada em: {{obra.data_cadastro}}</p>
+                                    <p class="text-indigo-600 font-medium">R$ {{obra.preco}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card-obra bg-white rounded-xl shadow-sm overflow-hidden">
-                        <div class="relative overflow-hidden h-48">
-                            <img class="w-full h-full object-cover obra-image"
-                                src="https://images.pexels.com/photos/2253835/pexels-photo-2253835.jpeg"
-                                alt="Horizonte Silencioso">
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-semibold mb-2">Horizonte Silencioso</h3>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Adicionada em: 10/06/2023</p>
-                                    <p class="text-indigo-600 font-medium">R$ 650,00</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-ghost text-red-500 hover:bg-red-50">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -251,24 +239,32 @@
             </div>
 
             <!-- Filtros e Busca -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+            <form method="get" action="{{ url_for('artistas.painel_artista') }}"
+                class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <div class="flex flex-wrap gap-2">
-                    <button class="btn btn-sm btn-active">Todas</button>
-                    <button class="btn btn-sm btn-ghost">Ativas</button>
-                    <button class="btn btn-sm btn-ghost">Rascunhos</button>
-                    <button class="btn btn-sm btn-ghost">Esgotadas</button>
+                    <input type="hidden" name="busca" value="{{ request.args.get('busca', '') }}">
+                    {% for f in ['todas', 'ativas', 'rascunhos', 'esgotadas'] %}
+                    <button type="submit" name="filtro" value="{{ f }}"
+                        class="btn btn-sm {% if request.args.get('filtro', 'todas') == f %}btn-active{% else %}btn-ghost{% endif %}">
+                        {{ f.capitalize() }}
+                    </button>
+                    {% endfor %}
                 </div>
 
                 <label class="input input-bordered flex items-center gap-2 w-full md:w-64">
-                    <input type="text" class="grow" placeholder="Buscar obras..." />
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                        class="w-4 h-4 opacity-70">
-                        <path fill-rule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                            clip-rule="evenodd" />
-                    </svg>
+                    <input type="text" name="busca" class="grow" placeholder="Buscar obras..."
+                        value="{{ request.args.get('busca', '') }}" />
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-70" viewBox="0 0 16 16"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
                 </label>
-            </div>
+            </form>
+
 
             <!-- Tabela de Obras -->
             <div class="overflow-x-auto bg-white rounded-xl shadow">
@@ -292,77 +288,62 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <!-- Obra 1 -->
+                        {% if obras %}
+                        {% for obra in obras %}
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-md object-cover"
-                                            src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg"
-                                            alt="Itaquaquecetuba">
+                                        <img class="h-10 w-10 rounded-md object-cover" src="{{ obra.url_foto }}"
+                                            alt="{{ obra.titulo }}">
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">Itaquaquecetuba</div>
-                                        <div class="text-sm text-gray-500">Pintura</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ obra.titulo }}</div>
+                                        <div class="text-sm text-gray-500">{{ obra.tecnica }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
+                                {% if obra.status_obras == 'ativa' %}
                                 <span
                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ativa</span>
+                                {% elif obra.status_obras == 'rascunho' %}
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Rascunho</span>
+                                {% elif obra.status_obras == 'bloqueado' %}
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-700">Bloqueada</span>
+                                {% endif %}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 480,00</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">124</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ {{
+                                "%.2f"|format(obra.preco|float) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.visualizacoes }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.vendas }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.estoque }}</td>
                             <td class="mt-3 px-6 py-4 flex items-end text-sm font-medium">
                                 <button class="text-indigo-600 hover:text-indigo-900 mr-3"
-                                    onclick="modal_editar_obra.showModal()">
+                                    onclick="modal_editar_obra.showModal()" data-id="{{ obra.id_obra }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form action="" method="post">
+                                <form action="{{ url_for('artistas.painel_artista') }}" method="post">
                                     <input type="hidden" name="acao" value="excluir_obra">
-                                    <input type="hidden" name="obra_id" value="">
+                                    <input type="hidden" name="obra_id" value="{{ obra.id_obra }}">
                                     <button type="submit" class="text-red-600 hover:text-red-900">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
-
-                        <!-- Obra 2 -->
+                        {% endfor %}
+                        {% else %}
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-md object-cover"
-                                            src="https://images.pexels.com/photos/2253835/pexels-photo-2253835.jpeg"
-                                            alt="Horizonte Silencioso">
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">Horizonte Silencioso</div>
-                                        <div class="text-sm text-gray-500">Fotografia</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Rascunho</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 650,00</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="text-red-600 hover:text-red-900">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                            <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
+                                Nenhuma obra encontrada com esses filtros.
                             </td>
                         </tr>
+                        {% endif %}
                     </tbody>
+
                 </table>
             </div>
 
@@ -447,12 +428,8 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 480,00</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <select class="select select-bordered select-sm w-full max-w-xs">
-                                    <option selected>Pendente</option>
-                                    <option>Processando</option>
-                                    <option>Enviado</option>
-                                    <option>Concluído</option>
-                                </select>
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">pendente</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <button class="text-indigo-600 hover:text-indigo-900 mr-3">
@@ -723,9 +700,10 @@
                                         <img src='{{dados.url_avatar}}' />
                                     </div>
                                 </div>
-                                <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
+                                <label class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
                                     Alterar Foto
-                                </button>
+                                    <input type="file" name="avatar" hidden>
+                                </label>
                             </div>
 
                             <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -754,13 +732,13 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
-                                <input type="email" name="email" class="input input-bordered w-full"
+                                <input type="text" name="email" class="input input-bordered w-full"
                                     value='{{dados.email}}'>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
                                 <input type="text" name="cpf-cnpj" class="input input-bordered w-full"
-                                    value='{{dados.cpf_cnpj}}' disabled />
+                                    value='{{dados.cpf_cnpj}}' />
                             </div>
                         </div>
 
@@ -881,7 +859,8 @@
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
-                                    <input type="text" name="dimensao-nova-obra" class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
+                                    <input type="text" name="dimensao-nova-obra" class="input input-bordered w-full"
+                                        placeholder="Ex: 60x40cm" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
@@ -891,7 +870,8 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                <input type="text" name="ano-nova-obra" class="input input-bordered w-full" placeholder="Ex: 2023" />
+                                <input type="text" name="ano-nova-obra" class="input input-bordered w-full"
+                                    placeholder="Ex: 2023" />
                             </div>
                         </div>
                     </div>
@@ -904,14 +884,14 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" name="titulo-nova-obra" class="input input-bordered w-full" placeholder="Nome da obra"
-                                    required />
+                                <input type="text" name="titulo-nova-obra" class="input input-bordered w-full"
+                                    placeholder="Nome da obra" />
                             </div>
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
                                         class="text-red-500">*</span></label>
-                                <textarea class="textarea textarea-bordered w-full h-24" name="descricao-nova-obra" placeholder="Descreva sua obra"
-                                    required></textarea>
+                                <textarea class="textarea textarea-bordered w-full h-24" name="descricao-nova-obra"
+                                    placeholder="Descreva sua obra"></textarea>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
@@ -931,21 +911,21 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
                                         class="text-red-500">*</span></label>
-                                <input type="number" name="preco-nova-obra" class="input input-bordered w-full" placeholder="0,00" step="0.01"
-                                    min="0" required />
+                                <input type="number" name="preco-nova-obra" class="input input-bordered w-full"
+                                    placeholder="0,00" step="0.01" min="0" />
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
                                     Disponível</label>
-                                <input type="number" name="estoque-nova-obra" class="input input-bordered w-full" placeholder="1" min="1"
-                                    value="1" />
+                                <input type="number" name="estoque-nova-obra" class="input input-bordered w-full"
+                                    placeholder="1" min="1" value="1" />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-action">
-                    <button type="submit" name="status-nova-obra" value="ativo" class="btn btn-primary">
+                    <button type="submit" name="status-nova-obra" value="ativa" class="btn btn-primary">
                         <i class="fas fa-save mr-2"></i> Publicar Obra
                     </button>
                     <button type="submit" name="status-nova-obra" value="rascunho" class="btn btn-ghost">
@@ -994,17 +974,19 @@
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
-                                    <input type="text" name="dimensao-editar-obra" value="" class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
+                                    <input type="text" name="dimensao-editar-obra" value=""
+                                        class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
-                                    <input type="text" name="tecnica-editar-obra" value="" class="input input-bordered w-full"
-                                        placeholder="Ex: Óleo sobre tela" />
+                                    <input type="text" name="tecnica-editar-obra" value=""
+                                        class="input input-bordered w-full" placeholder="Ex: Óleo sobre tela" />
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                <input type="text" name="ano-editar-obra" value="" class="input input-bordered w-full" placeholder="Ex: 2023" />
+                                <input type="text" name="ano-editar-obra" value="" class="input input-bordered w-full"
+                                    placeholder="Ex: 2023" />
                             </div>
                         </div>
                     </div>
@@ -1017,14 +999,14 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" name="titulo-editar-obra" value="" class="input input-bordered w-full" placeholder="Nome da obra"
-                                    required />
+                                <input type="text" name="titulo-editar-obra" value=""
+                                    class="input input-bordered w-full" placeholder="Nome da obra" />
                             </div>
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
                                         class="text-red-500">*</span></label>
-                                <textarea  name="descricao-editar-obra" class="textarea textarea-bordered w-full h-24" placeholder="Descreva sua obra"
-                                    required></textarea>
+                                <textarea name="descricao-editar-obra" class="textarea textarea-bordered w-full h-24"
+                                    placeholder="Descreva sua obra"></textarea>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
@@ -1044,21 +1026,21 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
                                         class="text-red-500">*</span></label>
-                                <input type="number" name="preco-editar-obra" value="" class="input input-bordered w-full" placeholder="0,00" step="0.01"
-                                    min="0" required />
+                                <input type="number" name="preco-editar-obra" value=""
+                                    class="input input-bordered w-full" placeholder="0,00" step="0.01" min="0" />
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
                                     Disponível</label>
-                                <input type="number" name="estoque-editar-obra" class="input input-bordered w-full" placeholder="1" min="1"
-                                    value="" />
+                                <input type="number" name="estoque-editar-obra" class="input input-bordered w-full"
+                                    placeholder="1" min="1" value="" />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-action">
-                    <button type="submit" name="status-editar-obra" value="ativo" class="btn btn-primary">
+                    <button type="submit" name="status-editar-obra" value="ativa" class="btn btn-primary">
                         <i class="fas fa-save mr-2"></i> Salvar Alterações
                     </button>
                     <button type="submit" name="status-editar-obra" value="rascunho" class="btn btn-ghost">
@@ -1107,7 +1089,7 @@
                 </div>
 
                 <div class="modal-action">
-                    <button class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fas fa-check mr-2"></i> Confirmar
                     </button>
                     <button type="button" class="btn btn-error text-white" onclick="modal_alterar_senha.close()">
@@ -1147,7 +1129,7 @@
                 </div>
 
                 <div class="modal-action">
-                    <button class="btn btn-primary">
+                    <button type="submit" name="desativar" value="desativado" class="btn btn-primary">
                         <i class="fas fa-power-off mr-2"></i> Desativar
                     </button>
                     <button type="button" class="btn btn-error text-white" onclick="modal_desativar_conta.close()">
@@ -1184,11 +1166,12 @@
 
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Digite sua senha para confirmar</label>
-                    <input type="password" class="input input-bordered w-full" placeholder="Digite sua senha">
+                    <input type="password" name="senha_excluir" class="input input-bordered w-full"
+                        placeholder="Digite sua senha">
                 </div>
 
                 <div class="modal-action">
-                    <button class="btn btn-error text-white">
+                    <button type="submit" class="btn btn-error text-white">
                         <i class="fas fa-trash mr-2"></i> Excluir Conta
                     </button>
                     <button type="button" class="btn btn-ghost" onclick="modal_excluir_conta.close()">
@@ -1200,6 +1183,7 @@
     </dialog>
 
     <script src="../static/js/script-painel-artista.js"></script>
+    <script src="../static/js/alertas.js"></script>
 </body>
 
 </html>

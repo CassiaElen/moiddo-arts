@@ -1,20 +1,11 @@
 from ..connection import db
 
 class Obras:
-    """Representa um produto no marketplace
-    
-    Attributes:
-        id: Identificador único
-        name: Nome do produto
-        price: Preço em BRL
-        seller_id: ID do vendedor
-        is_active: Se está disponível para venda
-    """
     def __init__(
         self,
         id_obra=None,
-        artista_id=None,
         titulo=None,
+        artista_id=None,
         descricao=None,
         tecnica=None,
         dimensoes=None,
@@ -24,6 +15,7 @@ class Obras:
         status_obras=None,
         estoque=None,
         ano_criacao=None,
+        data_cadastro=None,
     ):
         self.id_obra = id_obra
         self.artista_id = artista_id
@@ -37,3 +29,62 @@ class Obras:
         self.status_obras = status_obras
         self.estoque = estoque
         self.ano_criacao = ano_criacao
+        self.data_cadastro = data_cadastro
+
+    def salvar(self, conn):
+        cursor = conn.cursor()
+        if self.id_obra:
+            cursor.execute(
+                """
+                UPDATE obras SET
+                    artista_id = ?, titulo = ?, descricao = ?, tecnica = ?, dimensoes = ?,
+                    preco = ?, categoria_id = ?, url_foto = ?, status_obras = ?, estoque = ?, ano_criacao = ?
+                WHERE id_obra = ?
+            """,
+                (
+                    self.artista_id,
+                    self.titulo,
+                    self.descricao,
+                    self.tecnica,
+                    self.dimensoes,
+                    self.preco,
+                    self.categoria_id,
+                    self.url_foto,
+                    self.status_obras,
+                    self.estoque,
+                    self.ano_criacao,
+                    self.id_obra,
+                ),
+            )
+        else:
+            cursor.execute(
+                """
+                INSERT INTO obras (
+                    artista_id, titulo, descricao, tecnica, dimensoes, preco, categoria_id,
+                    url_foto, status_obras, estoque, ano_criacao
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+                (
+                    self.artista_id,
+                    self.titulo,
+                    self.descricao,
+                    self.tecnica,
+                    self.dimensoes,
+                    self.preco,
+                    self.categoria_id,
+                    self.url_foto,
+                    self.status_obras,
+                    self.estoque,
+                    self.ano_criacao,
+                ),
+            )
+            self.id_obra = cursor.lastrowid
+        conn.commit()
+
+    def buscar_todas(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM obras WHERE status_obras='ativa'")
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
