@@ -1,8 +1,44 @@
+from flask import flash
+
 from ..database.models.model_artistas import Artistas
 
 class ArtistaService:
     def __init__(self, id_artista=None):
         self.artista = Artistas(id_artista=id_artista)
+        if id_artista:
+            self.artista.buscar_artista_service()
+
+    def editar(self, campos, imagem):
+        # Atualiza os atributos do artista
+        self.artista.nome_completo = campos["nome_completo"]
+        self.artista.usuario = campos["usuario"]
+        self.artista.biografia = campos.get("biografia", "")
+        self.artista.email = campos["email"]
+        self.artista.cpf_cnpj = campos["cpf_cnpj"]
+        
+        if imagem:
+            self.artista.url_avatar = imagem  # só troca se tiver imagem nova
+
+        self.artista.salvar()
+
+    def alterar_senha(self, campos):
+        if self.artista.senha != campos["senha_atual"]:
+            return flash("Senha atual incorreta!", "alert-error")
+        else:
+            self.artista.senha = campos["senha_nova"]
+            self.artista.editar_senha()
+            return flash("Senha alterada com sucesso!", "alert-success")
+
+    def excluir_perfil(self, campos):
+        if self.artista.senha != campos["senha"]:
+            return flash("Senha incorreta!", "alert-error")
+        else:
+            self.artista.deletar_artista()
+            return flash("Deletando!", "alert-success")
+        
+    def desativar_perfil(self):
+        self.artista.desativar_artista()
+        return flash("Conta desativada com sucesso!", "alert-success")
 
     def dados_artista(self):
         return self.artista.buscar_artista()

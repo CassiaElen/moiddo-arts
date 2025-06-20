@@ -16,3 +16,4 @@ class Pedido:
         self.status_pedido = status_pedido
         self.total_pedido = total_pedido
         self.data_criacao = data_criacao
+

@@ -124,6 +124,10 @@ def loja():
 def artistas():
     return render_template("artista.html")
 
+@main.route("/carrinho")
+def carrinho():
+    return render_template("carrinho.html")
+
 @main.route("/login/cliente", methods=["GET","POST"])
 def login_client():
     if request.method == "POST":

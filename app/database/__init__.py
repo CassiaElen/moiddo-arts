@@ -1,23 +1,27 @@
 from .connection import db
 from .seeders import popular_tabelas_inciais
 
+
 def init_db():
-        with db.get_conn() as conn:
-            cursor = conn.cursor()
-            cursor.execute("""CREATE TABLE IF NOT EXISTS artistas(
+    with db.get_conn() as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS artistas(
             id_artista INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_completo VARCHAR(100) NOT NULL,
             usuario VARCHAR(100) UNIQUE NOT NULL,
             email VARCHAR(100) UNIQUE NOT NULL,
             cpf_cnpj VARCHAR(18) UNIQUE NOT NULL,
             senha VARCHAR(100) NOT NULL,
-            status_artista VARCHAR(15) DEFAULT 'ativo' CHECK (status_artista IN ('ativo','desativado','bloqueado')),
+            status_artista VARCHAR(15) DEFAULT 'ativo' CHECK (status_artista IN ('ativo','desativado','bloqueado','inativo')),
             data_cadastro DATETIME NOT NULL,
             url_avatar VARCHAR(100),
             biografia VARCHAR(200)
     )
-""")
-            cursor.execute("""CREATE TABLE IF NOT EXISTS cliente(
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS cliente(
             id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_completo VARCHAR(100) NOT NULL,
             usuario VARCHAR(100) UNIQUE NOT NULL,
@@ -28,15 +32,18 @@ def init_db():
             data_cadastro DATETIME NOT NULL,
             url_avatar VARCHAR(100)
     )
-""")
-            cursor.execute("""CREATE TABLE IF NOT EXISTS categoria(
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS categoria(
             id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
             nome_categoria VARCHAR(100) NOT NULL,
             slug VARCHAR(50) UNIQUE NOT NULL
     )
-""")
-            cursor.execute(
-                """CREATE TABLE IF NOT EXISTS obras(
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS obras(
             id_obra INTEGER PRIMARY KEY AUTOINCREMENT,
             artista_id INTEGER,
             titulo VARCHAR(100) NOT NULL,
@@ -46,25 +53,30 @@ def init_db():
             preco DECIMAL(5,2) NOT NULL,
             categoria_id INTEGER NOT NULL,
             url_foto VARCHAR(100),
-            status_obras VARCHAR(15) CHECK (status_obras IN ('ativa','rascunho','bloqueada')),
-            estoque INTEGER,
-            ano_criacao DATETIME,
+            status_obras VARCHAR(15) CHECK (status_obras IN ('ativa','rascunho','bloqueada','inativa')),
+            estoque INTEGER NOT NULL,
+            ano_criacao INTEGER,
             data_cadastro DATETIME,
             FOREIGN KEY(artista_id) REFERENCES artistas(id_artista),
             FOREIGN KEY(categoria_id) REFERENCES categoria(id_categoria)
             )
-""")
-            cursor.execute("""CREATE TABLE IF NOT EXISTS carrinho(
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS carrinho (
             id_carrinho INTEGER PRIMARY KEY AUTOINCREMENT,
-            cliente_id INTEGER,
+            cliente_id INTEGER NOT NULL,
             sessao_id INTEGER,
             status_carrinho VARCHAR(15) DEFAULT 'ativo' CHECK (status_carrinho IN ('ativo','finalizado','cancelado')),
-            qtd_item INTEGER NOT NULL,
-            data_criacao DATETIME,
-            FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
-    )
-""")
-            cursor.execute("""CREATE TABLE IF NOT EXISTS ItemCarrinho(
+            qtd_item INTEGER NOT NULL DEFAULT 0 CHECK (qtd_item >= 0),
+            data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (cliente_id) REFERENCES cliente(id_cliente)
+)
+
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS ItemCarrinho(
             id_itemCarrinho INTEGER PRIMARY KEY AUTOINCREMENT,
             carrinho_id INTEGER,
             obra_id INTEGER,
@@ -73,8 +85,10 @@ def init_db():
             FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
     )
-""")
-            cursor.execute("""CREATE TABLE IF NOT EXISTS pedido(
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS pedido(
             id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,
             carrinho_id INTEGER,
             cliente_id INTEGER,
@@ -84,8 +98,10 @@ def init_db():
             FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),
             FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
     )
-""")
-            cursor.execute("""CREATE TABLE IF NOT EXISTS ItemPedido(
+"""
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS ItemPedido(
             id_itemPedido INTEGER PRIMARY KEY AUTOINCREMENT,
             pedido_id INTEGER,
             obra_id INTEGER,
@@ -94,6 +110,7 @@ def init_db():
             FOREIGN KEY(pedido_id) REFERENCES pedido(id_pedido),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
 )
-""")
-            conn.commit()
-            popular_tabelas_inciais()
+"""
+        )
+        conn.commit()
+        popular_tabelas_inciais()

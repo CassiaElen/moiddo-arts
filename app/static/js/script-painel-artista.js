@@ -26,6 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Inicializar quando a página carregar
-window.onload = function () {
-    initChart();
-};
+//window.onload = function () {
+//    initChart();
+//};

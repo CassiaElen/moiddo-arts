@@ -49,7 +49,7 @@ def validar_campos(campos, regras):
         if regra.get("igual_a"):
             outro_valor = campos.get(regra["igual_a"])
             if valor != outro_valor:
-                erros.append(f"O campo '{nome_legivel}' deve ser igual ao campo '{regra['igual_a_legivel']}'.")
+                erros.append(f"As senhas devem ser iguais.")
 
     return erros
 
@@ -69,7 +69,7 @@ def regras_nova_obra():
     }
 
 
-# Regras para editar obra (sem mudar nada)
+# Regras para editar obra
 def regras_editar_obra():
     return regras_nova_obra()
 
@@ -100,6 +100,5 @@ def regras_alterar_senha():
 
 def regras_excluir_perfil():
     return {
-        "identificador": {"required": True, "type": str},
-        "senha": {"required": True, "type": str, "minlength": 6}
+        "senha": {"required": True, "type": str}
     }

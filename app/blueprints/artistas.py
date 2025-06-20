@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 import math
 from ..services.artista_service import service_artistas
+from ..services.obras_service import service_obras
+from ..services.imagem_service import salvar_imagem
+from ..services.categoria_service import service_categorias
 from ..services.validacoes_service import (
     validar_campos,
     regras_nova_obra,
@@ -39,11 +42,15 @@ def painel_artista():
                 for erro in erros:
                     flash(erro, "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
-            # service_artistas.nova_obra(campos, imagem)
+
+            nome_arquivo = salvar_imagem(imagem[0], "obras") if imagem else None
+            service_obras.salvar_obra(campos, nome_arquivo)
+            flash("Obra criada com sucesso!", "alert-success")
 
         elif acao == "editar_obra":
             imagem = request.files.getlist("imagem-editar-obra")
             campos = {
+                "id_obra":request.form.get("id-obra-editar"),
                 "titulo": request.form.get("titulo-editar-obra"),
                 "descricao": request.form.get("descricao-editar-obra"),
                 "categoria": request.form.get("categoria-editar-obra"),
@@ -59,10 +66,15 @@ def painel_artista():
                 for erro in erros:
                     flash(erro, "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
-            # service_artistas.editar_obra(campos, imagem)
+
+            nome_arquivo = salvar_imagem(imagem[0], "obras") if imagem else None
+            service_obras.editar_obra(campos, nome_arquivo)
+            flash("Obra editada com sucesso!", "alert-success")
 
         elif acao == "editar_perfil":
-            avatar = request.files.getlist("avatar")
+            imagens = request.files.getlist("avatar")
+            imagem = imagens[0] if imagens and imagens[0].filename else None
+
             campos = {
                 "nome_completo": request.form.get("nome"),
                 "usuario": request.form.get("usuario"),
@@ -75,7 +87,10 @@ def painel_artista():
                 for erro in erros:
                     flash(erro, "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
-            # service_artistas.editar_perfil(campos, avatar)
+
+            nome_arquivo = salvar_imagem(imagem, "perfils") if imagem else None
+            service_artistas.editar(campos, nome_arquivo)
+            flash("Perfil editado com sucesso!", "alert-success")
 
         elif acao == "alterar_senha":
             campos = {
@@ -89,10 +104,10 @@ def painel_artista():
                     flash(erro, "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
             # service_artistas.alterar_senha(campos)
+            service_artistas.alterar_senha(campos)
 
         elif acao == "excluir_perfil":
             campos = {
-                "id_artista": request.form.get("id_artista"),
                 "senha": request.form.get("senha_excluir"),
             }
             erros = validar_campos(campos, regras_excluir_perfil())
@@ -100,14 +115,14 @@ def painel_artista():
                 for erro in erros:
                     flash(erro, "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
-            # service_artistas.excluir_perfil(campos)
+            service_artistas.excluir_perfil(campos)
 
         elif acao == "desativar_perfil":
             desativar = request.form.get("desativar")
             if not desativar:
                 flash("Confirmação de desativação não enviada.", "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
-            # service_artistas.desativar_perfil(desativar)
+            service_artistas.desativar_perfil()
 
         elif acao == "excluir_obra":
             id_obra = request.form.get("obra_id")
@@ -134,10 +149,10 @@ def painel_artista():
     contar_vendas = service_artistas.contar_total_vendas()
     porcentagem_vendas = service_artistas.contar_porcentagem_vendas()
 
+    categorias = service_categorias.buscar_categorias()
     total_paginas = math.ceil(total / por_pagina) #REFERENTE A SEÇÃO PRODUTOS
     
-    return render_template(
-        "painel-artista.html",
+    return render_template("painel-artista.html",
         dados=dados,
         contar=contar,
         contar_mes=contar_mes,
@@ -148,5 +163,6 @@ def painel_artista():
         pagina=pagina,
         total_paginas = total_paginas,
         busca = busca,
-        filtro = filtro
+        filtro = filtro,
+        categorias = categorias
     )

@@ -11,7 +11,7 @@ def seed_cliente():
             "senha123",
             "ativo",
             "2023-01-05",
-            "../app/static/assets/perfils/laura.jpg",
+            "../static/assets/uploads/perfils/laura.jpg",
         ),
         (
             "Pedro Henrique Alves",
@@ -21,7 +21,7 @@ def seed_cliente():
             "senha456",
             "ativo",
             "2023-01-10",
-            "../app/static/assets/perfils/pedro.jpg",
+            "../static/assets/uploads/perfils/pedro.jpg",
         ),
         (
             "Mariana Costa Silva",
@@ -31,7 +31,7 @@ def seed_cliente():
             "senha789",
             "ativo",
             "2023-02-15",
-            "../app/static/assets/perfils/mariana.jpg",
+            "../static/assets/uploads/perfils/mariana.jpg",
         ),
         (
             "Rafael Pereira",
@@ -41,7 +41,7 @@ def seed_cliente():
             "senha101",
             "bloqueado",
             "2023-03-08",
-            "../app/static/assets/perfils/rafael.jpg",
+            "../static/assets/uploads/perfils/rafael.jpg",
         ),
         (
             "Beatriz Oliveira",
@@ -51,7 +51,7 @@ def seed_cliente():
             "senha202",
             "ativo",
             "2023-04-20",
-            "../app/static/assets/perfils/beatriz.jpg",
+            "../static/assets/uploads/perfils/beatriz.jpg",
         ),
         (
             "Lucas Martins",
@@ -61,7 +61,7 @@ def seed_cliente():
             "senha303",
             "ativo",
             "2023-05-12",
-            "../app/static/assets/perfils/lucas.jpg",
+            "../static/assets/uploads/perfils/lucas.jpg",
         ),
         (
             "Isabela Santos",
@@ -71,7 +71,7 @@ def seed_cliente():
             "senha404",
             "desativado",
             "2023-06-25",
-            "../app/static/assets/perfils/isabela.jpg",
+            "../static/assets/uploads/perfils/isabela.jpg",
         ),
         (
             "Gustavo Lima",
@@ -81,7 +81,7 @@ def seed_cliente():
             "senha505",
             "ativo",
             "2023-07-18",
-            "../app/static/assets/perfils/gustavo.jpg",
+            "../static/assets/uploads/perfils/gustavo.jpg",
         ),
         (
             "Camila Rocha",
@@ -91,7 +91,7 @@ def seed_cliente():
             "senha606",
             "ativo",
             "2023-08-30",
-            "../app/static/assets/perfils/camila.jpg",
+            "../static/assets/uploads/perfils/camila.jpg",
         ),
         (
             "Bruno Carvalho",
@@ -101,7 +101,7 @@ def seed_cliente():
             "senha707",
             "ativo",
             "2023-09-22",
-            "../app/static/assets/perfils/bruno.jpg",
+            "../static/assets/uploads/perfils/bruno.jpg",
         ),
     ]
     with db.get_conn() as conn:

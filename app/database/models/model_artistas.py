@@ -47,14 +47,12 @@ class Artistas:
                 self.id_artista = cursor.lastrowid
             else:
                 cursor.execute(
-                    """UPDATE artistas SET nome_completo=?, usuario=?, email=?, cpf_cnpj=?, senha=?, status_artista=?, url_avatar=?, biografia=? WHERE id_artista=?""",
+                    """UPDATE artistas SET nome_completo=?, usuario=?, email=?, cpf_cnpj=?, url_avatar=?, biografia=? WHERE id_artista=?""",
                     (
                         self.nome_completo,
                         self.usuario,
                         self.email,
                         self.cpf_cnpj,
-                        self.senha,
-                        self.status_artista,
                         self.url_avatar,
                         self.biografia,
                         self.id_artista,
@@ -62,27 +60,50 @@ class Artistas:
                 )
                 conn.commit()
 
-    def buscar_artista(self):
+    def editar_senha(self):
         with db.get_conn() as conn:
             cursor = conn.cursor()
             cursor.execute(
-                "SELECT * FROM artistas WHERE id_artista = ?", (self.id_artista,)
-            )
-            row = cursor.fetchone()
-            return dict(row) if row else None
+                    """UPDATE artistas SET senha=? WHERE id_artista=?""",
+                    (
+                        self.senha,
+                        self.id_artista,
+                    ),
+                )
+            conn.commit()
 
-    def deletar_artista(self):
+    def buscar_artista(self):
         try:
             with db.get_conn() as conn:
                 cursor = conn.cursor()
-                cursor.execute(
-                    "DELETE FROM artistas WHERE id_artista = ?", (self.id_artista,)
-                )
-                conn.commit()
-                return True
+                cursor.execute("SELECT * FROM artistas WHERE id_artista = ?", (self.id_artista,))
+                row = cursor.fetchone()
+                return dict(row) if row else None
         except Exception as e:
-            print(f"Erro ao deletar artista: {e}")
-            return False
+            print("Erro ao buscar artista:", e)
+            return None
+
+    def deletar_artista(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE artistas SET status_artista='inativo' WHERE id_artista=?", (self.id_artista,),
+            )
+            cursor.execute(
+                "UPDATE obras SET status_obras = 'inativa' WHERE artista_id = ?",(self.id_artista,)
+            )
+            conn.commit()
+    
+    def desativar_artista(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE artistas SET status_artista='desativado' WHERE id_artista=?", (self.id_artista,),
+            )
+            cursor.execute(
+                "UPDATE obras SET status_obras = 'inativa' WHERE artista_id = ?",(self.id_artista,)
+            )
+            conn.commit()
 
     def buscar_obras(self):
         from .model_obras import Obras
@@ -256,3 +277,24 @@ class Artistas:
                 total = cursor.fetchone()[0]
 
                 return obras, total
+            
+    def buscar_artista_service(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM artistas WHERE id_artista = ?", (self.id_artista,))
+                row = cursor.fetchone()
+                if row:
+                    self.nome_completo = row["nome_completo"]
+                    self.usuario = row["usuario"]
+                    self.email = row["email"]
+                    self.cpf_cnpj = row["cpf_cnpj"]
+                    self.senha = row["senha"]
+                    self.status_artista = row["status_artista"]
+                    self.url_avatar = row["url_avatar"]
+                    self.biografia = row["biografia"]
+                    return dict(row)
+                return None
+        except Exception as e:
+            print("Erro ao buscar artista:", e)
+            return None

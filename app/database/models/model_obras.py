@@ -31,55 +31,65 @@ class Obras:
         self.ano_criacao = ano_criacao
         self.data_cadastro = data_cadastro
 
-    def salvar(self, conn):
-        cursor = conn.cursor()
-        if self.id_obra:
-            cursor.execute(
-                """
-                UPDATE obras SET
-                    artista_id = ?, titulo = ?, descricao = ?, tecnica = ?, dimensoes = ?,
-                    preco = ?, categoria_id = ?, url_foto = ?, status_obras = ?, estoque = ?, ano_criacao = ?
-                WHERE id_obra = ?
-            """,
-                (
-                    self.artista_id,
-                    self.titulo,
-                    self.descricao,
-                    self.tecnica,
-                    self.dimensoes,
-                    self.preco,
-                    self.categoria_id,
-                    self.url_foto,
-                    self.status_obras,
-                    self.estoque,
-                    self.ano_criacao,
-                    self.id_obra,
-                ),
-            )
-        else:
-            cursor.execute(
-                """
-                INSERT INTO obras (
-                    artista_id, titulo, descricao, tecnica, dimensoes, preco, categoria_id,
-                    url_foto, status_obras, estoque, ano_criacao
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-                (
-                    self.artista_id,
-                    self.titulo,
-                    self.descricao,
-                    self.tecnica,
-                    self.dimensoes,
-                    self.preco,
-                    self.categoria_id,
-                    self.url_foto,
-                    self.status_obras,
-                    self.estoque,
-                    self.ano_criacao,
-                ),
-            )
-            self.id_obra = cursor.lastrowid
-        conn.commit()
+    def salvar(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            if self.id_obra:
+                cursor.execute(
+                    """
+                    UPDATE obras SET
+                        artista_id = ?, titulo = ?, descricao = ?, tecnica = ?, dimensoes = ?,
+                        preco = ?, categoria_id = ?, url_foto = ?, status_obras = ?, estoque = ?, ano_criacao = ?
+                    WHERE id_obra = ?
+                """,
+                    (
+                        self.artista_id,
+                        self.titulo,
+                        self.descricao,
+                        self.tecnica,
+                        self.dimensoes,
+                        self.preco,
+                        self.categoria_id,
+                        self.url_foto,
+                        self.status_obras,
+                        self.estoque,
+                        self.ano_criacao,
+                        self.id_obra,
+                    ),
+                )
+                conn.commit()
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO obras (
+                        artista_id, titulo, descricao, tecnica, dimensoes, preco, categoria_id,
+                        url_foto, status_obras, estoque, ano_criacao, data_cadastro
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                    (
+                        self.artista_id,
+                        self.titulo,
+                        self.descricao,
+                        self.tecnica,
+                        self.dimensoes,
+                        self.preco,
+                        self.categoria_id,
+                        self.url_foto,
+                        self.status_obras,
+                        self.estoque,
+                        self.ano_criacao,
+                        self.data_cadastro
+                    ),
+                )
+                self.id_obra = cursor.lastrowid
+                conn.commit()
+
+    def buscar_obra(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM obras WHERE id_obra = ?", (self.id_obra,))
+            row = cursor.fetchone()
+            return dict(row) if row else None
 
     def buscar_todas(self):
         with db.get_conn() as conn:
@@ -87,4 +97,17 @@ class Obras:
             cursor.execute("SELECT * FROM obras WHERE status_obras='ativa'")
             row = cursor.fetchone()
             return dict(row) if row else None
+        
+    def deletar_obra(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "DELETE FROM obras WHERE id_obra = ?", (self.id_obra,)
+                )
+                conn.commit()
+                return True
+        except Exception as e:
+            print(f"Erro ao deletar obra: {e}")
+            return False
 

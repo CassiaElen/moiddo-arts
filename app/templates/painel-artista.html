@@ -71,9 +71,10 @@
                 </a>
             </li>
             <li class="nav-item mt-auto border-t pt-2">
-                <a class="flex items-center py-3 px-4 rounded-lg text-red-500 hover:bg-red-50">
+                <a href="{{url_for('main.logout')}}"
+                    class="flex items-center py-3 px-4 rounded-lg text-red-500 hover:bg-red-50">
                     <i class="fas fa-sign-out-alt mr-3"></i>
-                    <span class="font-medium">Sair</span>
+                    <span class="font-medium"> Sair</span>
                 </a>
             </li>
         </ul>
@@ -252,11 +253,11 @@
                 </div>
 
                 <label class="input input-bordered flex items-center gap-2 w-full md:w-64">
-                    <input type="text" name="busca" class="grow" placeholder="Buscar obras..."
+                    <input type="text" name="busca" class="grow w-[10rem]" placeholder="Buscar obras..."
                         value="{{ request.args.get('busca', '') }}" />
                     <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-70" viewBox="0 0 16 16"
-                            fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                            class="w-4 h-4 opacity-70">
                             <path fill-rule="evenodd"
                                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                                 clip-rule="evenodd" />
@@ -321,8 +322,17 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.vendas }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.estoque }}</td>
                             <td class="mt-3 px-6 py-4 flex items-end text-sm font-medium">
-                                <button class="text-indigo-600 hover:text-indigo-900 mr-3"
-                                    onclick="modal_editar_obra.showModal()" data-id="{{ obra.id_obra }}">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3 modal_editar_obra"
+                                    data-id="{{ obra.id_obra }}"
+                                    data-titulo="{{obra.titulo}}"
+                                    data-descricao="{{ obra.descricao }}"
+                                    data-tecnica="{{ obra.tecnica }}"
+                                    data-dimensao="{{ obra.dimensoes }}"
+                                    data-ano="{{ obra.ano_criacao }}"
+                                    data-preco="{{ obra.preco }}"
+                                    data-estoque="{{ obra.estoque }}"
+                                    data-categoria="{{ obra.categoria_id }}"
+                                    onclick="modal_editar_obra.showModal()" >
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="{{ url_for('artistas.painel_artista') }}" method="post">
@@ -682,7 +692,7 @@
 
         <!-- Seção Configurações -->
         <section id="configuracoes" class="secao-conteudo">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="acao" value="editar_perfil">
                 <div class="mb-8">
                     <h1 class="title-font text-3xl font-bold text-gray-900">Configurações</h1>
@@ -702,7 +712,7 @@
                                 </div>
                                 <label class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
                                     Alterar Foto
-                                    <input type="file" name="avatar" hidden>
+                                    <input type="file" name="avatar" hidden />
                                 </label>
                             </div>
 
@@ -738,7 +748,7 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
                                 <input type="text" name="cpf-cnpj" class="input input-bordered w-full"
-                                    value='{{dados.cpf_cnpj}}' />
+                                    value='{{dados.cpf_cnpj}}'/>
                             </div>
                         </div>
 
@@ -833,7 +843,7 @@
 
             <h3 class="font-bold text-2xl mb-6">Adicionar Nova Obra</h3>
 
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <input type="hidden" name="acao" value="nova_obra">
                     <!-- Coluna 1 -->
@@ -897,10 +907,9 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
                                 <select name="categoria-nova-obra" class="select select-bordered w-full">
                                     <option disabled selected>Selecione uma categoria</option>
-                                    <option>Pintura</option>
-                                    <option>Fotografia</option>
-                                    <option>Escultura</option>
-                                    <option>Arte Digital</option>
+                                    {% for categoria in categorias %}
+                                        <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -948,9 +957,10 @@
 
             <h3 class="font-bold text-2xl mb-6">Editar Obra</h3>
 
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <input type="hidden" name="acao" value="editar_obra">
+                    <input type="hidden" name="id-obra-editar" id="id-obra-editar" value="">
                     <!-- Coluna 1 -->
                     <div>
                         <div class="fieldset">
@@ -974,18 +984,18 @@
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
-                                    <input type="text" name="dimensao-editar-obra" value=""
+                                    <input type="text" name="dimensao-editar-obra" id="dimensao-editar-obra" value=""
                                         class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
-                                    <input type="text" name="tecnica-editar-obra" value=""
+                                    <input type="text" name="tecnica-editar-obra" id="tecnica-editar-obra" value=""
                                         class="input input-bordered w-full" placeholder="Ex: Óleo sobre tela" />
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                <input type="text" name="ano-editar-obra" value="" class="input input-bordered w-full"
+                                <input type="text" name="ano-editar-obra" id="ano-editar-obra" value="" class="input input-bordered w-full"
                                     placeholder="Ex: 2023" />
                             </div>
                         </div>
@@ -999,23 +1009,22 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" name="titulo-editar-obra" value=""
+                                <input type="text" name="titulo-editar-obra" id="titulo-editar-obra" value=""
                                     class="input input-bordered w-full" placeholder="Nome da obra" />
                             </div>
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
                                         class="text-red-500">*</span></label>
-                                <textarea name="descricao-editar-obra" class="textarea textarea-bordered w-full h-24"
+                                <textarea name="descricao-editar-obra" id="descricao-editar-obra" class="textarea textarea-bordered w-full h-24"
                                     placeholder="Descreva sua obra"></textarea>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-                                <select name="categoria-editar-obra" class="select select-bordered w-full">
+                                <select name="categoria-editar-obra" id="categoria-editar-obra" class="select select-bordered w-full">
                                     <option disabled selected>Selecione uma categoria</option>
-                                    <option>Pintura</option>
-                                    <option>Fotografia</option>
-                                    <option>Escultura</option>
-                                    <option>Arte Digital</option>
+                                    {% for categoria in categorias %}
+                                        <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -1026,13 +1035,13 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
                                         class="text-red-500">*</span></label>
-                                <input type="number" name="preco-editar-obra" value=""
+                                <input type="number" name="preco-editar-obra" id="preco-editar-obra" value=""
                                     class="input input-bordered w-full" placeholder="0,00" step="0.01" min="0" />
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
                                     Disponível</label>
-                                <input type="number" name="estoque-editar-obra" class="input input-bordered w-full"
+                                <input type="number" name="estoque-editar-obra" id="estoque-editar-obra" class="input input-bordered w-full"
                                     placeholder="1" min="1" value="" />
                             </div>
                         </div>
@@ -1057,7 +1066,7 @@
 
     <!-- Modal Alterar Senha -->
     <dialog id="modal_alterar_senha" class="modal">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="acao" value="alterar_senha">
             <div class="modal-box max-w-md">
 
@@ -1144,7 +1153,6 @@
     <dialog id="modal_excluir_conta" class="modal">
         <form action="" method="post">
             <input type="hidden" name="acao" value="excluir_perfil">
-            <input type="hidden" name="id-artista" value="">
             <div class="modal-box max-w-md">
 
                 <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -1182,8 +1190,10 @@
         </form>
     </dialog>
 
-    <script src="../static/js/script-painel-artista.js"></script>
-    <script src="../static/js/alertas.js"></script>
+    <script src="{{ url_for('static', filename='js/preencher-form-editar-obra.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script-painel-artista.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/alertas.js') }}"></script>
+
 </body>
 
 </html>
