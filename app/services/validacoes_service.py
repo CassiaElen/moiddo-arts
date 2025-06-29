@@ -3,11 +3,10 @@ import re
 def validar_campos(campos, regras):
     erros = []
 
-    # CPF no formato 000.000.000-00
     cpf_regex = r"^\d{3}\.\d{3}\.\d{3}-\d{2}$"
-
-    # CNPJ no formato 00.000.000/0000-00
     cnpj_regex = r"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"
+
+    tem_campo_vazio = False
 
     for nome_campo, valor in campos.items():
         regra = regras.get(nome_campo, {})
@@ -15,8 +14,8 @@ def validar_campos(campos, regras):
 
         # Campo obrigatório
         if regra.get("obrigatorio") and not valor:
-            erros.append(f"O campo '{nome_legivel}' é obrigatório.")
-            continue
+            tem_campo_vazio = True
+            continue  # pula outras validações pra este campo
 
         # Valor positivo
         if regra.get("positivo"):
@@ -40,10 +39,10 @@ def validar_campos(campos, regras):
             except ValueError:
                 erros.append(f"O campo '{nome_legivel}' deve conter apenas números.")
 
+        # CPF ou CNPJ válido
         if regra.get("cpf_cnpj_formatado"):
             if not re.match(cpf_regex, valor or "") and not re.match(cnpj_regex, valor or ""):
                 erros.append(f"O campo '{nome_legivel}' deve estar no formato de CPF ou CNPJ válido.")
-
 
         # Confirmação de senha
         if regra.get("igual_a"):
@@ -51,8 +50,11 @@ def validar_campos(campos, regras):
             if valor != outro_valor:
                 erros.append(f"As senhas devem ser iguais.")
 
-    return erros
+    # Adiciona mensagem geral para campos vazios
+    if tem_campo_vazio:
+        erros.insert(0, "Campos obrigatórios não podem ficar vazios.")
 
+    return erros
 
 # Regras para nova obra
 def regras_nova_obra():

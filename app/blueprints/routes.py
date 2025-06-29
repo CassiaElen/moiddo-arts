@@ -128,6 +128,14 @@ def artistas():
 def carrinho():
     return render_template("carrinho.html")
 
+@main.route("/deletar-conta")
+def animacao_deletar_conta():
+    return render_template("deletar-conta.html")
+
+@main.route("/desativar-conta")
+def animacao_desativar_conta():
+    return render_template("desativar-conta.html")
+
 @main.route("/login/cliente", methods=["GET","POST"])
 def login_client():
     if request.method == "POST":

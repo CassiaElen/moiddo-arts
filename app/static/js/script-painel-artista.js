@@ -1,31 +1,43 @@
-// Navegação entre seções
-document.addEventListener('DOMContentLoaded', function () {
-    const menuItems = document.querySelectorAll('.nav-item');
-    const sections = document.querySelectorAll('.secao-conteudo');
+document.addEventListener('DOMContentLoaded', () => {
+    const navItems = document.querySelectorAll('.nav-item');
+    const secoes = document.querySelectorAll('section.secao-conteudo');
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', function () {
-            // Remove a classe ativo de todos os itens e seções
-            menuItems.forEach(i => i.classList.remove('ativo'));
-            sections.forEach(s => s.classList.remove('ativo'));
+    // Recupera seção salva ou usa 'inicio'
+    const secaoSalva = localStorage.getItem('secaoAtiva') || 'inicio';
 
-            // Adiciona a classe ativo ao item clicado
-            this.classList.add('ativo');
+    const ativarSecao = (secaoId) => {
+        // Remove 'ativo' de todos os itens do menu
+        navItems.forEach(item => {
+            item.classList.remove('ativo');
+        });
 
-            // Mostra a seção correspondente
-            const secaoId = this.getAttribute('data-secao');
-            if (secaoId) {
-                document.getElementById(secaoId).classList.add('ativo');
-            } else {
-                // Se for o botão de Sair (sem data-secao)
-                document.getElementById('inicio').classList.add('ativo');
-            }
+        // Remove 'ativo' de todas as seções
+        secoes.forEach(secao => {
+            secao.classList.remove('ativo'); // seu CSS usa 'ativo'!
+        });
+
+        // Ativa item de menu
+        const itemAtivo = document.querySelector(`.nav-item[data-secao="${secaoId}"]`);
+        if (itemAtivo) {
+            itemAtivo.classList.add('ativo');
+        }
+
+        // Ativa seção correspondente
+        const secaoAtiva = document.getElementById(secaoId);
+        if (secaoAtiva) {
+            secaoAtiva.classList.add('ativo');
+        }
+    };
+
+    // Ativa a seção salva no carregamento
+    ativarSecao(secaoSalva);
+
+    // Salva e ativa ao clicar no menu
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const secao = item.getAttribute('data-secao');
+            localStorage.setItem('secaoAtiva', secao);
+            ativarSecao(secao);
         });
     });
-
 });
-
-// Inicializar quando a página carregar
-//window.onload = function () {
-//    initChart();
-//};

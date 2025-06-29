@@ -111,3 +111,26 @@ class Obras:
             print(f"Erro ao deletar obra: {e}")
             return False
 
+    def buscar_obra_service(self):
+            try:
+                with db.get_conn() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT * FROM obras WHERE id_obra = ?", (self.id_obra,))
+                    row = cursor.fetchone()
+                    if row:
+                        self.artista_id = row["artista_id"]
+                        self.titulo = row["titulo"]
+                        self.descricao = row["descricao"]
+                        self.dimensoes = row["dimensoes"]
+                        self.preco = row["preco"]
+                        self.categoria_id = row["categoria_id"]
+                        self.url_foto = row["url_foto"]
+                        self.biografia = row["biografia"]
+                        self.status_obras = row["status_obras"]
+                        self.estoque = row["estoque"]
+                        self.ano_criacao = row["ano_criacao"]
+                        return dict(row)
+                    return None
+            except Exception as e:
+                print("Erro ao buscar obra:", e)
+                return None

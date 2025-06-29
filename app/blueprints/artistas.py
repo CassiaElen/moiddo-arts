@@ -19,7 +19,7 @@ artistas_bp = Blueprint("artistas", __name__)
 @artistas_bp.route("/painel-artista", methods=["GET", "POST"])
 def painel_artista():
 
-    """TODOS OS FORMULÁRIOS DA ROTA----------------------------------------"""
+    """TODOS OS FORMULÁRIOS DA ROTA----------------------------------------------------------"""
 
     if request.method == "POST":
         acao = request.form.get("acao")
@@ -116,6 +116,7 @@ def painel_artista():
                     flash(erro, "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
             service_artistas.excluir_perfil(campos)
+            return redirect(url_for("main.animacao_deletar_conta"))
 
         elif acao == "desativar_perfil":
             desativar = request.form.get("desativar")
@@ -123,13 +124,15 @@ def painel_artista():
                 flash("Confirmação de desativação não enviada.", "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
             service_artistas.desativar_perfil()
+            return redirect(url_for("main.animacao_desativar_conta"))
+
 
         elif acao == "excluir_obra":
             id_obra = request.form.get("obra_id")
             if not id_obra:
                 flash("ID da obra não enviado.", "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
-                # service_artistas.excluir_obra(id_obra)
+            service_obras.excluir_obra(id_obra)
     """SEÇÃO PRODUTOS-------------------------------------------------------------------------"""
     # Filtros GET
     pagina = int(request.args.get("pagina", 1))
@@ -159,7 +162,9 @@ def painel_artista():
         ultimas_obras = ultimas_obras,
         contar_vendas=contar_vendas,
         porcentagem_vendas=porcentagem_vendas,
+        total = total,
         obras = obras,
+        por_pagina = por_pagina,
         pagina=pagina,
         total_paginas = total_paginas,
         busca = busca,

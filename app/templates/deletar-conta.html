@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deletando Conta</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="bg-red-500 flex items-center justify-center min-h-screen">
+    <div class="text-center">
+        <!-- Primeiro estado: "Deletando conta" com spinner -->
+        <div id="deleting-state">
+            <h1 class="text-4xl font-bold text-white mb-6">Deletando conta</h1>
+            <span class="loading loading-spinner loading-lg text-white"></span>
+        </div>
+
+        <!-- Segundo estado: "Conta deletada" (inicialmente escondido) -->
+        <div id="deleted-state" class="hidden">
+            <h1 class="text-4xl font-bold text-white mb-6">Conta deletada</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 mx-auto text-white" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <p class="text-white mt-4">Sua conta foi removida com sucesso.</p>
+            <a href="{{url_for('main.logout')}}">
+                <button class="btn btn-outline btn-sm mt-6 text-white hover:bg-white hover:text-red-500">
+                    Voltar à página inicial
+                </button>
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        // Simula o processo de deleção
+        setTimeout(() => {
+            document.getElementById('deleting-state').classList.add('hidden');
+            document.getElementById('deleted-state').classList.remove('hidden');
+        }, 3000); // Troca após 3 segundos
+    </script>
+</body>
+
+</html>
