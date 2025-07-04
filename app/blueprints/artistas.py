@@ -160,10 +160,11 @@ def painel_artista():
     contar = service_artistas.contar_obras()
     contar_mes = service_artistas.contar_obras_mes()
     ultimas_obras = service_artistas.ultimas_obras()
-    contar_vendas = service_artistas.contar_total_vendas()
-    porcentagem_vendas = service_artistas.contar_porcentagem_vendas()
-
+    contar_vendas = service_artistas.calcular_total_vendas()
+    vendas = service_artistas.historico_vendas()
+    porcentagem_vendas, vendas_mes = service_artistas.calcular_percentual_vendas_mes()
     categorias = service_categorias.buscar_categorias()
+    print(vendas)
     
     return render_template("painel-artista.html",
         dados=dados,
@@ -172,8 +173,9 @@ def painel_artista():
         ultimas_obras = ultimas_obras,
         contar_vendas=contar_vendas,
         porcentagem_vendas=porcentagem_vendas,
+        vendas_mes=vendas_mes,
         total = total,
-
+        vendas = vendas,
         obras = obras,
         por_pagina = por_pagina,
         pagina=pagina,

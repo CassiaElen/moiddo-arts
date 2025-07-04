@@ -6,7 +6,7 @@ def seed_obras():
         # artista_id, título, descrição, técnica, dimensões, preço, categoria_id, url_foto, status_obras, estoque, ano_criacao, data_cadastro
         (
             1,
-            "Vaso das Memórias",
+            "A",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -20,7 +20,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "AB",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -34,7 +34,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABC",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -48,7 +48,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCD",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -62,7 +62,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDE",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -76,7 +76,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDEF",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -90,7 +90,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDEFG",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -104,7 +104,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDEFGH",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -118,7 +118,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDEFGHI",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -132,7 +132,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDEFGHIJ",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",
@@ -146,7 +146,7 @@ def seed_obras():
         ),
         (
             1,
-            "Vaso das Memórias",
+            "ABCDEFGHIJL",
             "Vaso de cerâmica com padrões nordestinos.",
             "Cerâmica queimada",
             "25x30cm",

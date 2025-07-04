@@ -52,11 +52,14 @@ class ArtistaService:
     def ultimas_obras(self):
         return self.artista.buscar_ultimas_obras()
 
-    def contar_total_vendas(self):
+    def calcular_total_vendas(self):
         return self.artista.calcular_total_vendas()
 
-    def contar_porcentagem_vendas(self):
+    def calcular_percentual_vendas_mes(self):
         return self.artista.calcular_percentual_vendas_mes()
+    
+    def historico_vendas(self):
+        return self.artista.historico_vendas()
     
     def buscar_obras_filtradas(self, busca, filtro, pagina, por_pagina):
         return self.artista.buscar_obras_filtradas(busca, filtro, pagina, por_pagina )
