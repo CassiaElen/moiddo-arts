@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, jsonify, render_template, request, redirect, url_for, flash
 import math
 from ..services.artista_service import service_artistas
 from ..services.obras_service import service_obras
@@ -126,13 +126,13 @@ def painel_artista():
             service_artistas.desativar_perfil()
             return redirect(url_for("main.animacao_desativar_conta"))
 
-
         elif acao == "excluir_obra":
             id_obra = request.form.get("obra_id")
             if not id_obra:
                 flash("ID da obra não enviado.", "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
             service_obras.excluir_obra(id_obra)
+    
     """SEÇÃO PRODUTOS-------------------------------------------------------------------------"""
     # Filtros GET
     pagina = int(request.args.get("pagina", 1))
@@ -142,7 +142,18 @@ def painel_artista():
 
     # Busca obras filtradas e paginadas
     obras, total = service_artistas.buscar_obras_filtradas(busca, filtro, pagina, por_pagina)
-    
+    total_paginas = math.ceil(total / por_pagina) 
+    """SEÇÃO PEDIDOS-------------------------------------------------------------------------"""
+    status_pedido = request.args.get("status", "todos")
+    pagina_pedidos = int(request.args.get('pagina_pedidos', 1))
+    por_pagina_pedidos = 5
+
+    pedidos, total_pedidos = service_artistas.buscar_pedidos_filtrados(
+        status=status_pedido,
+        pagina=pagina_pedidos,
+        por_pagina=por_pagina_pedidos
+    )    
+    total_paginas_pedidos = math.ceil(total_pedidos / por_pagina_pedidos)
     """Dados do painel--------------------------------------------------------"""
 
     dados = service_artistas.dados_artista()
@@ -153,7 +164,6 @@ def painel_artista():
     porcentagem_vendas = service_artistas.contar_porcentagem_vendas()
 
     categorias = service_categorias.buscar_categorias()
-    total_paginas = math.ceil(total / por_pagina) #REFERENTE A SEÇÃO PRODUTOS
     
     return render_template("painel-artista.html",
         dados=dados,
@@ -163,11 +173,54 @@ def painel_artista():
         contar_vendas=contar_vendas,
         porcentagem_vendas=porcentagem_vendas,
         total = total,
+
         obras = obras,
         por_pagina = por_pagina,
         pagina=pagina,
         total_paginas = total_paginas,
         busca = busca,
         filtro = filtro,
+
+        pedidos=pedidos,
+        pagina_pedidos=pagina_pedidos,
+        por_pagina_pedidos=por_pagina_pedidos,
+        total_pedidos=total_pedidos,
+        total_paginas_pedidos=total_paginas_pedidos,
+        status_pedido=status_pedido,
+        
         categorias = categorias
+    )
+
+@artistas_bp.route("/artistas-comunidade", methods=["GET"])
+def artistas_comunidade():
+    pagina = request.args.get('pagina', 1, type=int)
+    por_pagina = 9
+    busca = request.args.get('busca', '').strip()
+    filtro = request.args.get('filtro', 'todos')
+    ordenacao = request.args.get('ordenacao', 'recentes')
+
+    artistas = service_artistas.buscar_artistas_comunidade(
+        busca=busca, filtro=filtro, ordenacao=ordenacao, pagina=pagina, por_pagina=por_pagina
+    )
+
+    total_artistas = service_artistas.contar_artistas_comunidade(busca=busca, filtro=filtro)
+    total_paginas = (total_artistas + por_pagina - 1) // por_pagina
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({
+            'artistas': [artista.to_dict() for artista in artistas],
+            'total_artistas': total_artistas,
+            'pagina_atual': pagina,
+            'total_paginas': total_paginas
+        })
+
+    return render_template(
+        'artistas-comunidade.html',
+        artistas=artistas,
+        total_artistas=total_artistas,
+        pagina_atual=pagina,
+        total_paginas=total_paginas,
+        busca=busca,
+        filtro=filtro,
+        ordenacao=ordenacao
     )

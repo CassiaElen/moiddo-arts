@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Perfil | Muiddo Arts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="bg-[#f5f5f5] min-h-screen flex flex-col">
+
+  <!-- Navbar padrão -->
+  <header class="sticky top-0 z-50">
+    <div class="drawer">
+      <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col">
+        <div class="navbar bg-white shadow-sm">
+          <div class="flex-none lg:hidden">
+            <label for="my-drawer-3" class="btn btn-square btn-ghost">
+              <i class="fas fa-bars"></i>
+            </label>
+          </div>
+          <div class="flex-1 px-2 mx-2">
+            <a href="{{url_for('main.home')}}" class="text-xl font-bold text-gray-800">Muiddo <span class="text-indigo-600">Arts</span></a>
+          </div>
+          <div class="navbar-end flex gap-2">
+            <div class="hidden flex-none lg:block">
+              <label class="input input-bordered flex items-center gap-2 rounded-full">
+                <input type="text" class="grow" placeholder="Pesquisar" />
+                <i class="fas fa-search"></i>
+              </label>
+            </div>
+            <div class="dropdown dropdown-end">
+              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                  <img src="{{ cliente.foto_perfil or 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp' }}" alt="Perfil">
+                </div>
+              </div>
+              <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow">
+                <li><a>Meu Perfil</a></li>
+                <li><a>Minhas Compras</a></li>
+                <li><a href="{{url_for('main.logout')}}" class="text-red-500">Sair</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="navbar bg-white shadow-sm hidden lg:flex justify-center">
+          <ul class="menu menu-horizontal px-1 gap-1">
+            <li><a href="{{url_for('main.loja')}}">Loja</a></li>
+            <li><a href="{{url_for('main.artistas')}}">Artistas</a></li>
+            <li><a href="{{url_for('main.exposicoes')}}">Exposições</a></li>
+            <li><a href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
+            <li><a href="{{url_for('main.contato')}}">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="drawer-side z-50">
+        <label for="my-drawer-3" class="drawer-overlay"></label>
+        <div class="menu p-4 w-80 min-h-full bg-white">
+          <a href="{{url_for('main.home')}}" class="text-xl font-bold text-gray-800 mb-6">Muiddo <span class="text-indigo-600">Arts</span></a>
+          <label class="input input-bordered flex items-center mb-4">
+            <input type="text" placeholder="Pesquisar" class="grow" />
+            <i class="fas fa-search"></i>
+          </label>
+          <ul class="space-y-2">
+            <li><a href="{{url_for('main.loja')}}">Loja</a></li>
+            <li><a href="{{url_for('main.artistas')}}">Artistas</a></li>
+            <li><a href="{{url_for('main.exposicoes')}}">Exposições</a></li>
+            <li><a href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
+            <li><a href="{{url_for('main.contato')}}">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="container mx-auto px-4 py-8 flex-grow">
+    <!-- Título -->
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Meu Perfil</h1>
+
+    <!-- Perfil Card -->
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-8 flex flex-col md:flex-row gap-8">
+      <div class="flex flex-col items-center md:w-1/3">
+        <div class="avatar mb-4">
+          <div class="w-32 rounded-full ring ring-indigo-200 ring-offset-base-100 ring-offset-2">
+            <img src="{{ cliente.foto_perfil or 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp' }}" alt="Perfil">
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-800">{{ cliente.nome }}</h2>
+        <p class="text-gray-500">{{ cliente.email }}</p>
+      </div>
+      <div class="md:w-2/3">
+        <h3 class="text-lg font-semibold mb-4 text-gray-700">Informações Pessoais</h3>
+        <form method="POST" action="{{url_for('main.editar_perfil')}}" class="space-y-4">
+          <div class="form-control">
+            <label class="label">Nome</label>
+            <input type="text" name="nome" value="{{ cliente.nome }}" class="input input-bordered w-full" />
+          </div>
+          <div class="form-control">
+            <label class="label">E-mail</label>
+            <input type="email" name="email" value="{{ cliente.email }}" class="input input-bordered w-full" />
+          </div>
+          <div class="form-control">
+            <label class="label">Telefone</label>
+            <input type="text" name="telefone" value="{{ cliente.telefone or '' }}" class="input input-bordered w-full" />
+          </div>
+          <button class="btn btn-primary">Salvar Alterações</button>
+        </form>
+        <div class="mt-6">
+          <a href="{{url_for('main.alterar_senha')}}" class="text-indigo-600 hover:underline">Alterar Senha</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Endereços -->
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">Endereços de Entrega</h3>
+      {% for endereco in enderecos %}
+      <div class="border p-4 rounded-lg mb-2">
+        <p>{{ endereco.rua }}, {{ endereco.numero }} - {{ endereco.bairro }}</p>
+        <p>{{ endereco.cidade }} - {{ endereco.estado }}, CEP: {{ endereco.cep }}</p>
+      </div>
+      {% endfor %}
+      <button class="btn btn-outline btn-sm text-indigo-600 border-indigo-200">Adicionar Novo Endereço</button>
+    </div>
+
+    <!-- Pedidos Recentes -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">Pedidos Recentes</h3>
+      {% for pedido in pedidos %}
+      <div class="border p-4 rounded-lg mb-2">
+        <p><strong>Pedido #{{ pedido.id }}</strong> — {{ pedido.data_pedido.strftime('%d/%m/%Y') }}</p>
+        <p>Status: <span class="badge badge-outline badge-info">{{ pedido.status }}</span></p>
+        <p>Valor: R$ {{ pedido.valor_total }}</p>
+      </div>
+      {% endfor %}
+      <a href="{{url_for('main.minhas_compras')}}" class="text-indigo-600 hover:underline">Ver Todos os Pedidos</a>
+    </div>
+
+  </main>
+
+  <footer class="bg-white text-center text-sm text-gray-500 py-4">
+    &copy; 2025 Muiddo Arts. Todos os direitos reservados.
+  </footer>
+</body>
+
+</html>

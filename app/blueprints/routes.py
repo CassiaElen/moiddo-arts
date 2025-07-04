@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, Blu
 import sqlite3
 import hashlib
 from datetime import datetime, timedelta
-import services.authmanager as auth_manager
+from ..services.authmanager import auth_manager
 
 main = Blueprint('main', __name__)
 

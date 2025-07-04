@@ -15,6 +15,7 @@ class Artistas:
         data_cadastro=None,
         url_avatar=None,
         biografia=None,
+        total_obras=0
     ):
         self.id_artista = id_artista
         self.nome_completo = nome_completo
@@ -26,6 +27,7 @@ class Artistas:
         self.data_cadastro = data_cadastro
         self.url_avatar = url_avatar
         self.biografia = biografia
+        self.total_obras = total_obras
 
     def salvar(self):
         """Método para salvar ou editar o objeto no banco"""
@@ -298,3 +300,110 @@ class Artistas:
         except Exception as e:
             print("Erro ao buscar artista:", e)
             return None
+        
+    def buscar_pedidos_filtrados(self, status, pagina, por_pagina):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            
+            # Base da query
+            query = """
+                SELECT p.id_pedido, p.data_criacao, p.status_pedido, p.total_pedido,
+                    c.nome_completo AS cliente_nome, c.email AS cliente_email, c.url_avatar AS cliente_avatar
+                FROM pedido p
+                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
+                JOIN cliente c ON ca.cliente_id = c.id_cliente
+                JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
+                JOIN obras o ON ip.obra_id = o.id_obra
+                WHERE o.artista_id = ?
+            """
+            params = [self.id_artista]
+
+            # Filtro por status
+            if status != "todos":
+                query += " AND p.status_pedido = ?"
+                params.append(status)
+
+            # Ordenação e paginação
+            query += " GROUP BY p.id_pedido ORDER BY p.data_criacao DESC LIMIT ? OFFSET ?"
+            offset = (pagina - 1) * por_pagina
+            params.extend([por_pagina, offset])
+
+            cursor.execute(query, params)
+            pedidos = [dict(row) for row in cursor.fetchall()]
+
+            # Query separada para total de resultados (sem LIMIT/OFFSET)
+            count_query = """
+                SELECT COUNT(DISTINCT p.id_pedido)
+                FROM pedido p
+                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
+                JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
+                JOIN obras o ON ip.obra_id = o.id_obra
+                WHERE o.artista_id = ?
+            """
+            count_params = [self.id_artista]
+
+            if status != "todos":
+                count_query += " AND p.status_pedido = ?"
+                count_params.append(status)
+
+            cursor.execute(count_query, count_params)
+            total = cursor.fetchone()[0]
+
+            return pedidos, total
+
+    def to_dict(self):
+        return {
+            'id_artista': self.id_artista,
+            'nome_completo': self.nome_completo,
+            'usuario': self.usuario,
+            'email': self.email,
+            'url_avatar': self.url_avatar,
+            'biografia': self.biografia,
+            'data_cadastro': self.data_cadastro,
+            'total_obras': self.total_obras
+        }
+
+    def buscar_artistas_comunidade(self, busca='', filtro='todos', ordenacao='recentes', pagina=1, por_pagina=9):
+        query = """
+            SELECT 
+                artistas.*,
+                (SELECT COUNT(*) FROM obras WHERE artista_id = artistas.id_artista AND status_obras = 'ativa') AS total_obras
+            FROM artistas
+            WHERE status_artista = 'ativo'
+        """
+        params = []
+
+        if busca:
+            query += " AND (nome_completo LIKE ? OR usuario LIKE ? OR biografia LIKE ?)"
+            params.extend([f"%{busca}%"] * 3)
+
+        if ordenacao == 'recentes':
+            query += " ORDER BY data_cadastro DESC"
+        elif ordenacao == 'antigos':
+            query += " ORDER BY data_cadastro ASC"
+        elif ordenacao == 'alfabetico':
+            query += " ORDER BY nome_completo ASC"
+        elif ordenacao == 'mais_obras':
+            query += " ORDER BY total_obras DESC"
+
+        offset = (pagina - 1) * por_pagina
+        query += " LIMIT ? OFFSET ?"
+        params.extend([por_pagina, offset])
+
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            return [Artistas(**dict(row)) for row in cursor.fetchall()]
+
+    def contar_artistas_comunidade(self, busca='', filtro='todos'):
+        query = "SELECT COUNT(*) FROM artistas WHERE status_artista = 'ativo'"
+        params = []
+
+        if busca:
+            query += " AND (nome_completo LIKE ? OR usuario LIKE ? OR biografia LIKE ?)"
+            params.extend([f"%{busca}%"] * 3)
+
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            return cursor.fetchone()[0]

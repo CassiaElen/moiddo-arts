@@ -61,5 +61,13 @@ class ArtistaService:
     def buscar_obras_filtradas(self, busca, filtro, pagina, por_pagina):
         return self.artista.buscar_obras_filtradas(busca, filtro, pagina, por_pagina )
 
+    def buscar_pedidos_filtrados(self, status, pagina, por_pagina):
+        return self.artista.buscar_pedidos_filtrados(status, pagina, por_pagina)
 
+    def buscar_artistas_comunidade(self, busca, filtro, ordenacao, pagina, por_pagina):
+        return self.artista.buscar_artistas_comunidade(busca, filtro, ordenacao, pagina, por_pagina)
+
+    def contar_artistas_comunidade(self, busca, filtro):
+        return self.artista.contar_artistas_comunidade(busca, filtro)
+    
 service_artistas = ArtistaService(id_artista=1)
