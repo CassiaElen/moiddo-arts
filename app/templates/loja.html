@@ -131,7 +131,7 @@
                         <h2 class="text-xl font-bold text-gray-800">Filtrar Obras</h2>
                         <button class="btn btn-sm btn-ghost text-indigo-600 hover:text-indigo-800">Limpar tudo</button>
                     </div>
-
+                <form action="/app/blueprints/obras.py" method="POST">
                     <!-- Filtro de Categorias (Accordion) -->
                     <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
                         <input type="checkbox" class="peer" checked />
@@ -288,6 +288,8 @@
                 </div>
             </aside>
             <div class="lg:w-3/4 w-full">
+
+            </form>
                 <!-- Barra de Ordenação e Contagem -->
                 <div
                     class="bg-white p-4 rounded-lg shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-center">
