@@ -1,5 +1,5 @@
 from flask import Flask
-from app.services.authmanager import AuthManager 
+from app.services.authmanager import AuthManager
 from app.config import Config
 from app.database import init_db
 import os
