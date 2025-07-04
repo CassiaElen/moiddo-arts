@@ -95,7 +95,7 @@
                 <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Obras Ativas</p>
+                            <p class="text-gray-500">Total de Obras</p>
                             <p class="text-3xl font-bold text-indigo-600">{{contar}}</p>
                         </div>
                         <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
@@ -323,22 +323,17 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.estoque }}</td>
                             <td class="mt-3 px-6 py-4 flex items-end text-sm font-medium">
                                 <button class="text-indigo-600 hover:text-indigo-900 mr-3 modal_editar_obra"
-                                    data-id="{{ obra.id_obra }}"
-                                    data-titulo="{{obra.titulo}}"
-                                    data-descricao="{{ obra.descricao }}"
-                                    data-tecnica="{{ obra.tecnica }}"
-                                    data-dimensao="{{ obra.dimensoes }}"
-                                    data-ano="{{ obra.ano_criacao }}"
-                                    data-preco="{{ obra.preco }}"
-                                    data-estoque="{{ obra.estoque }}"
-                                    data-categoria="{{ obra.categoria_id }}"
-                                    onclick="modal_editar_obra.showModal()" >
+                                    data-id="{{ obra.id_obra }}" data-titulo="{{obra.titulo}}"
+                                    data-descricao="{{ obra.descricao }}" data-tecnica="{{ obra.tecnica }}"
+                                    data-dimensao="{{ obra.dimensoes }}" data-ano="{{ obra.ano_criacao }}"
+                                    data-preco="{{ obra.preco }}" data-estoque="{{ obra.estoque }}"
+                                    data-categoria="{{ obra.categoria_id }}" onclick="modal_editar_obra.showModal()">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="{{ url_for('artistas.painel_artista') }}" method="post">
                                     <input type="hidden" name="acao" value="excluir_obra">
-                                    <input type="hidden" name="obra_id" value="{{ obra.id_obra }}">
-                                    <button type="submit" class="text-red-600 hover:text-red-900">
+                                    <button type="submit" name="obra_id" value="{{ obra.id_obra }}"
+                                        class="text-red-600 hover:text-red-900">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -360,17 +355,41 @@
             <!-- Paginação -->
             <div class="flex justify-between items-center mt-6">
                 <div class="text-sm text-gray-500">
-                    Mostrando <span class="font-medium">1</span> a <span class="font-medium">2</span> de <span
-                        class="font-medium">12</span> obras
+                    Mostrando
+                    <span class="font-medium">
+                        {{ (pagina - 1) * por_pagina + 1 if total > 0 else 0 }}
+                    </span>
+                    a
+                    <span class="font-medium">
+                        {{ (pagina - 1) * por_pagina + obras|length }}
+                    </span>
+                    de
+                    <span class="font-medium">{{ total }}</span> obras
                 </div>
+
                 <div class="join">
-                    <button class="join-item btn btn-sm">«</button>
-                    <button class="join-item btn btn-sm btn-active">1</button>
-                    <button class="join-item btn btn-sm">2</button>
-                    <button class="join-item btn btn-sm">3</button>
-                    <button class="join-item btn btn-sm">»</button>
+                    {% if pagina > 1 %}
+                    <a class="join-item btn btn-sm"
+                        href="?pagina={{ pagina - 1 }}&busca={{ busca }}&filtro={{ filtro }}">
+                        «
+                    </a>
+                    {% endif %}
+
+                    {% for p in range(1, total_paginas + 1) %}
+                    <a class="join-item btn btn-sm {% if p == pagina %}btn-active{% endif %}"
+                        href="?pagina={{ p }}&busca={{ busca }}&filtro={{ filtro }}">
+                        {{ p }}
+                    </a>
+                    {% endfor %}
+
+                    {% if pagina < total_paginas %} <a class="join-item btn btn-sm"
+                        href="?pagina={{ pagina + 1 }}&busca={{ busca }}&filtro={{ filtro }}">
+                        »
+                        </a>
+                        {% endif %}
                 </div>
             </div>
+
         </section>
 
         <!-- Seção Pedidos -->
@@ -748,7 +767,7 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
                                 <input type="text" name="cpf-cnpj" class="input input-bordered w-full"
-                                    value='{{dados.cpf_cnpj}}'/>
+                                    value='{{dados.cpf_cnpj}}' />
                             </div>
                         </div>
 
@@ -908,7 +927,7 @@
                                 <select name="categoria-nova-obra" class="select select-bordered w-full">
                                     <option disabled selected>Selecione uma categoria</option>
                                     {% for categoria in categorias %}
-                                        <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
+                                    <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -995,8 +1014,8 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                <input type="text" name="ano-editar-obra" id="ano-editar-obra" value="" class="input input-bordered w-full"
-                                    placeholder="Ex: 2023" />
+                                <input type="text" name="ano-editar-obra" id="ano-editar-obra" value=""
+                                    class="input input-bordered w-full" placeholder="Ex: 2023" />
                             </div>
                         </div>
                     </div>
@@ -1015,15 +1034,17 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
                                         class="text-red-500">*</span></label>
-                                <textarea name="descricao-editar-obra" id="descricao-editar-obra" class="textarea textarea-bordered w-full h-24"
+                                <textarea name="descricao-editar-obra" id="descricao-editar-obra"
+                                    class="textarea textarea-bordered w-full h-24"
                                     placeholder="Descreva sua obra"></textarea>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-                                <select name="categoria-editar-obra" id="categoria-editar-obra" class="select select-bordered w-full">
+                                <select name="categoria-editar-obra" id="categoria-editar-obra"
+                                    class="select select-bordered w-full">
                                     <option disabled selected>Selecione uma categoria</option>
                                     {% for categoria in categorias %}
-                                        <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
+                                    <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -1041,8 +1062,8 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
                                     Disponível</label>
-                                <input type="number" name="estoque-editar-obra" id="estoque-editar-obra" class="input input-bordered w-full"
-                                    placeholder="1" min="1" value="" />
+                                <input type="number" name="estoque-editar-obra" id="estoque-editar-obra"
+                                    class="input input-bordered w-full" placeholder="1" min="1" value="" />
                             </div>
                         </div>
                     </div>
