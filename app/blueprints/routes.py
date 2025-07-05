@@ -90,9 +90,9 @@ def exposicoes():
 def loja():
     return render_template("loja.html")
 
-@main.route("/artistas")
+@main.route("/artistas.comunidade")
 def artistas():
-    return render_template("artista.html")
+    return render_template("artistas.comunidade.html")
 
 @main.route("/carrinho")
 def carrinho():
