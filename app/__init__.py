@@ -1,5 +1,4 @@
 from flask import Flask
-from .blueprints import artistas, carrinho, obras, pedidos
 from app.services.authmanager import AuthManager
 from app.config import Config
 from app.database import init_db

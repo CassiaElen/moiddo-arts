@@ -71,7 +71,7 @@ class Cliente:
                 with db.get_conn() as conn:
                     cursor = conn.cursor()
                     cursor.execute(
-                        "DELETE FROM clientes WHERE id_cliente = ?", (self.id_cliente,)
+                        "DELETE FROM cliente WHERE id_cliente = ?", (self.id_cliente,)
                     )
                     conn.commit()
                     return True
