@@ -184,7 +184,7 @@ class Artistas:
             resultado = cursor.fetchone()[0]
             return resultado if resultado else 0.0
 
-    def calcular_percentual_vendas_mes(self):
+    def calcular_percentual_vendas_mes(self) -> tuple[float, float]:
 
         from datetime import datetime, timedelta
         with db.get_conn() as conn:
@@ -210,7 +210,7 @@ class Artistas:
                 AND p.data_criacao >= ? AND p.data_criacao < ?
             """, (self.id_artista, inicio_mes_atual, inicio_proximo_mes))
             total_atual = cursor.fetchone()[0] or 0
-
+            
             # Vendas mês passado
             cursor.execute("""
                 SELECT SUM(ip.preco * ip.quantidade)
@@ -223,11 +223,14 @@ class Artistas:
             """, (self.id_artista, inicio_mes_passado, fim_mes_passado))
             total_passado = cursor.fetchone()[0] or 0
 
+            # Tratamento quando o valor passado é zero
             if total_passado == 0:
-                return 100.0 if total_atual > 0 else 0.0
+            # Retorna 0% de variação e o total atual
+                return (0.0, total_atual)
 
             variacao = ((total_atual - total_passado) / total_passado) * 100
-            return round(variacao, 2)
+
+            return  (round(variacao, 2), total_atual)
 
     def buscar_obras_filtradas(self, busca, filtro, pagina, por_pagina):
             from .model_obras import Obras
@@ -350,6 +353,24 @@ class Artistas:
             total = cursor.fetchone()[0]
 
             return pedidos, total
+
+    def historico_vendas(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                SELECT p.id_pedido, p.data_criacao, p.status_pedido, ip.preco, o.titulo
+                FROM pedido p
+                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
+                JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
+                JOIN obras o ON ip.obra_id = o.id_obra
+                WHERE o.artista_id = ? 
+                AND p.status_pedido = 'finalizado'
+                ORDER BY p.data_criacao DESC, p.id_pedido
+            """, (self.id_artista,))
+
+            vendas = [dict(row) for row in cursor.fetchall()]
+        return vendas
 
     def to_dict(self):
         return {

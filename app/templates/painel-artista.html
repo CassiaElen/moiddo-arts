@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Artista | Moiddo Arts</title>
+    <title>Painel do Artista | Muiddo Arts</title>
+    <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -113,8 +114,8 @@
                 <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Total de Vendas</p>
-                            <p class="text-3xl font-bold text-indigo-600">R$ {{contar_vendas}} </p>
+                            <p class="text-gray-500">Total de Vendas no mês</p>
+                            <p class="text-3xl font-bold text-indigo-600">R$ {{vendas_mes}} </p>
                         </div>
                         <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
                             <i class="fas fa-chart-line text-xl"></i>
@@ -547,7 +548,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Total de Vendas</p>
-                            <p class="text-2xl font-bold text-indigo-600">R$ 4.250,00</p>
+                            <p class="text-2xl font-bold text-indigo-600">R$ {{contar_vendas}}</p>
                         </div>
                         <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
                             <i class="fas fa-shopping-cart text-xl"></i>
@@ -559,7 +560,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Vendas Este Mês</p>
-                            <p class="text-2xl font-bold text-indigo-600">R$ 1.130,00</p>
+                            <p class="text-2xl font-bold text-indigo-600">R$ {{vendas_mes}}</p>
                         </div>
                         <div class="bg-green-100 p-3 rounded-full text-green-600">
                             <i class="fas fa-chart-line text-xl"></i>
@@ -567,7 +568,7 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-sm text-green-600">
-                            <i class="fas fa-arrow-up mr-1"></i> 15% em relação ao mês passado
+                            <i class="fas fa-arrow-up mr-1"></i> {{porcentagem_vendas}}% em relação ao mês passado
                         </span>
                     </div>
                 </div>
@@ -677,41 +678,26 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Venda 1 -->
+                            {% if vendas %}
+                            {% for venda in vendas %}
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/06/2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1025</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Itaquaquecetuba</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 480,00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{venda.data_criacao}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MA{{venda.id_pedido}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{venda.titulo}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R${{venda.preco}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pago</span>
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{venda.status_pedido}}</span>
                                 </td>
                             </tr>
-
-                            <!-- Venda 2 -->
+                            {% endfor %}
+                            {% else %}
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">14/06/2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1024</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Horizonte Silencioso</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 650,00</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Processando</span>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    Nenhuma venda realizada.
                                 </td>
                             </tr>
-
-                            <!-- Venda 3 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10/06/2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MO1020</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Amanhecer</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 320,00</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pago</span>
-                                </td>
-                            </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
