@@ -134,3 +134,11 @@ class Obras:
             except Exception as e:
                 print("Erro ao buscar obra:", e)
                 return None
+
+    def buscar_categoria(self, categoria):
+        with db.get_conn as conn:
+            cursor = conn.cursor()
+            query = f""" 
+            SELECT * FROM obras
+            WHERE 
+            """
