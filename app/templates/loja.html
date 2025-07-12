@@ -130,99 +130,74 @@
 
     <main class="container mx-auto px-4 py-8">
         <form action="{{url_for('obras.filtrar_categorias')}}" method="POST">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <aside class="max-lg:hidden lg:w-1/4 w-full">
-                    <div class="bg-white p-6 rounded-lg shadow-sm sticky top-4">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-xl font-bold text-gray-800">Filtrar Obras</h2>
-                            <button class="btn btn-sm btn-ghost text-indigo-600 hover:text-indigo-800">Limpar
-                                tudo</button>
+        <div class="flex flex-col lg:flex-row gap-8">
+            <aside class="max-lg:hidden lg:w-1/4 w-full">
+                <div class="bg-white p-6 rounded-lg shadow-sm sticky top-4">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800">Filtrar Obras</h2>
+                        <button class="btn btn-sm btn-ghost text-indigo-600 hover:text-indigo-800">Limpar tudo</button>
+                    </div>
+           
+                    <!-- Filtro de Categorias (Accordion) -->
+                    <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
+                        <input type="checkbox" class="peer" checked />
+                        <div class="collapse-title font-medium flex items-center">
+                            <i class="fas fa-palette text-indigo-500 mr-2"></i>
+                            <span>Categorias</span>
                         </div>
-
-                        <!-- Filtro de Categorias (Accordion) -->
-                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
-                            <input type="checkbox" class="peer" checked />
-                            <div class="collapse-title font-medium flex items-center">
-                                <i class="fas fa-palette text-indigo-500 mr-2"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <div class="collapse-content">
-                                <div class="space-y-2 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Xilogravura"
-                                            class="checkbox checkbox-primary" checked />
-                                        <span class="label-text">Xilogravura</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Escultura em Barro"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Escultura em Barro</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Escultura em Madeira"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Escultura em Madeira</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Pintura"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Pintura</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Ilustação Digital"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Ilustração Digital</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Artesanato Têxtil"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Artesanato Têxtil</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Bijuterias e Acessórios"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Bijuterias e Acessórios</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Cerâmica"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Cerâmica</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Cordel"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Cordel</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Fotografia"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Fotografia</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Arte Reciclada"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Arte Reciclada</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Arte Popular"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Arte Popular</span>
-                                    </label>
-                                </div>
+                        <div class="collapse-content">
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Xilogravura" class="checkbox checkbox-primary" checked />
+                                    <span class="label-text">Xilogravura</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Escultura em Barro" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Escultura em Barro</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Escultura em Madeira" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Escultura em Madeira</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Pintura" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Pintura</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Ilustação Digital" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Ilustração Digital</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Artesanato Têxtil" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Artesanato Têxtil</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Bijuterias e Acessórios" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Bijuterias e Acessórios</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Cerâmica" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Cerâmica</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Cordel" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Cordel</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Fotografia" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Fotografia</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Arte Reciclada" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Arte Reciclada</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" name="categoria" value="Arte Popular" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Arte Popular</span>
+                                </label>
                             </div>
                         </div>
+                    </div>
 
                         <!-- Filtro de Preço (Com feedback dinâmico) -->
                         <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
