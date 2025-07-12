@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+:root {
+    --primary: #2C3C1C;
+    /* Verde-escuro principal */
+    --primary-light: #5A7247;
+    /* Verde médio */
+    --secondary: #AAB898;
+    /* Verde-claro acinzentado */
+    --accent: #8C3B2D;
+    /* Terracota (destaque) */
+    --neutral: #E3D9C6;
+    /* Off-white (fundo suave) */
+    --light: #F4F4F4;
+    /* Branco (mantido para contrastes) */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, rgba(83, 99, 64, 0.9) 0%, rgba(44, 60, 28, 0.95) 100%);
+}
+
+.btn-gradient {
+    background: linear-gradient(135deg, #536340 0%, #2C3C1C 100%);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #8C3B2D 0%, #2C3C1C 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 60, 28, 0.3);
+}
+
+.artwork-card {
+    transition: all 0.3s ease;
+}
+
+.artwork-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(44, 60, 28, 0.2);
+}
+
+.artist-card {
+    transition: all 0.3s ease;
+}
+
+.artist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(83, 99, 64, 0.15);
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background: var(--primary);
+    bottom: -10px;
+    left: 25%;
+    border-radius: 2px;
+}
+
+.lazy {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.lazy.loaded {
+    opacity: 1;
+}

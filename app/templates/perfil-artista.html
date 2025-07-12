@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ artista.nome_completo }} | Muiddo Arts</title>
+    <meta name="description"
+        content="Perfil do artista {{ artista.nome_completo }} na Muiddo Arts. Conheça suas obras, biografia e exposições.">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #536340;
+            --primary-dark: #2C3C1C;
+            --secondary: #AAB898;
+            --light: #F4F4F4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F8F8;
+        }
+
+        .artwork-card {
+            transition: all 0.3s ease;
+        }
+
+        .artwork-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(83, 99, 64, 0.15);
+        }
+
+        .social-icon {
+            transition: all 0.2s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: var(--primary-dark);
+        }
+
+        .tab-active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .stats-card {
+            background-color: rgba(170, 184, 152, 0.1);
+            border: 1px solid rgba(83, 99, 64, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="sticky top-0 z-50 shadow-md">
+        <div class="drawer">
+            <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                <!-- Navbar Principal -->
+                <div class="navbar bg-[#5A7247] px-4 md:px-8">
+                    <!-- Botão Mobile -->
+                    <div class="flex-none lg:hidden">
+                        <label for="main-drawer" aria-label="Abrir menu" class="btn btn-ghost btn-square text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </label>
+                    </div>
+
+                    <!-- Logo -->
+                    <div class="flex-1">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#f4f4f4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                    </div>
+
+                    <!-- Itens da Direita -->
+                    <div class="navbar-end space-x-2">
+                        <!-- Campo de Busca (Desktop) -->
+                        <div class="hidden lg:block">
+                            <div class="relative">
+                                <input type="text" placeholder="Pesquisar..."
+                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                                <span class="absolute left-3 top-3 text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        {% if user_type == 'cliente' %}
+                            <!-- Carrinho -->
+                            <div class="dropdown dropdown-end">
+                                <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-[#2C3C1C]">
+                                    <div class="indicator">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                        <span
+                                            class="badge badge-sm indicator-item bg-white text-[#2C3C1C] border-0">3</span>
+                                    </div>
+                                </label>
+                                <div tabindex="0"
+                                    class="dropdown-content card card-compact mt-3 w-72 bg-[#f4f4f4] shadow-lg border-none border-gray-100">
+                                    <div class="card-body">
+                                        <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
+                                        <span class="text-[#536340]">Subtotal: R$ 1.240,00</span>
+                                        <div class="card-actions">
+                                            <a href="{{url_for('main.carrinho')}}"
+                                                class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
+                                                Carrinho</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <!-- Perfil do Usuário -->
+                        <div class="dropdown dropdown-end">
+                            <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
+                                <div
+                                    class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
+                                    <img src="{{user.avatar}}"
+                                        alt="Foto de perfil" />
+                                </div>
+                            </label>
+                            <ul tabindex="0"
+                                class="dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+                                {% if user_type == 'cliente' %}
+                                <li>
+                                    <a href="{{ url_for('main.perfil_cliente') }}"
+                                        class="text-[#2C3C1C] hover:bg-[#536340]/10 active:bg-[#536340]/20">Meu Perfil</a>
+                                </li>
+                                {% elif user_type == 'artista' %}
+                                <li>
+                                    <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                        class="text-[#2C3C1C] hover:bg-[#536340]/10 active:bg-[#536340]/20">Meu Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('artistas.painel_artista') }}"
+                                        class="text-[#2C3C1C] hover:bg-[#536340]/10 active:bg-[#536340]/20">Painel do Artista</a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a href="{{url_for('main.logout')}}"
+                                        class="text-red-500 hover:bg-[#536340]/10 active:bg-[#536340]/20">Sair</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navbar Secundária (Desktop) -->
+                <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
+                    <ul class="menu menu-horizontal gap-1 px-4 py-2">
+                        <li>
+                            <a href="{{url_for('main.loja')}}"
+                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Loja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Artistas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.exposicoes')}}"
+                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Exposições
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.sobre_nos')}}"
+                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Sobre Nós
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.contato')}}"
+                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Contato
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Drawer Side (Mobile Menu) -->
+            <div class="drawer-side">
+                <label for="main-drawer" aria-label="Fechar menu" class="drawer-overlay"></label>
+                <div class="menu p-4 w-80 min-h-full bg-[#536340] text-white">
+                    <!-- Cabeçalho do Drawer -->
+                    <div class="flex items-center justify-between mb-6">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#f4f4f4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                        <label for="main-drawer" class="btn btn-ghost btn-circle text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </label>
+                    </div>
+
+                    <!-- Campo de Busca (Mobile) -->
+                    <div class="relative mb-6">
+                        <input type="text" placeholder="Pesquisar..."
+                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                        <span class="absolute left-3 top-3 text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </span>
+                    </div>
+
+                    <!-- Menu Principal -->
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="{{url_for('main.loja')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Loja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Artistas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.exposicoes')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Exposições
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.sobre_nos')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Sobre Nós
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.contato')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Contato
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="divider my-4"></div>
+
+                    <!-- Menu Secundário -->
+                    <ul class="space-y-2">
+                        {% if user_type == 'cliente' %}
+                        <li>
+                            <a href="{{ url_for('artistas.painel_artista') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Meu Perfil
+                            </a>
+                        </li>
+                        {% elif user_type == 'artista' %}
+                        <li>
+                            <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Meu Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('artistas.painel_artista') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Painel do artista
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ url_for('main.logout') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Breadcrumbs melhorado -->
+        <nav class="text-sm breadcrumbs mb-6 px-2">
+            <ul>
+                <li><a href="{{url_for('main.home')}}"
+                        class="text-[#536340] hover:text-[#2C3C1C] hover:underline">Home</a></li>
+                <li><a href="{{url_for('artistas.artistas_comunidade')}}"
+                        class="text-[#536340] hover:text-[#2C3C1C] hover:underline">Artistas</a></li>
+                <li class="text-gray-600">{{ artista.nome_completo }}</li>
+            </ul>
+        </nav>
+
+        <!-- Seção do Perfil -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+            <div class="flex flex-col md:flex-row">
+                <!-- Sidebar do Artista -->
+                <div class="md:w-1/3 bg-[#F8F8F8] p-8 flex flex-col items-center border-r border-[#536340]/10">
+                    <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-[#536340] mb-6 shadow-md">
+                        <img src="{{ artista.url_avatar}}" alt="{{ artista.nome_completo }}"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+
+                    <h1 class="text-2xl font-bold text-[#2C3C1C] mb-2 text-center">{{ artista.nome_completo }}</h1>
+                    <div class="badge badge-outline border-[#536340] text-[#536340] mb-4">
+                        {{ artista.categoria_principal or 'Arte Visual' }}
+                    </div>
+
+                    <!-- Redes Sociais -->
+                    <div class="flex gap-4 mb-6">
+                        {% if artista.instagram %}
+                        <a href="{{ artista.instagram }}" target="_blank" class="social-icon text-[#536340] text-xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        {% endif %}
+                        {% if artista.facebook %}
+                        <a href="{{ artista.facebook }}" target="_blank" class="social-icon text-[#536340] text-xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        {% endif %}
+                        {% if artista.twitter %}
+                        <a href="{{ artista.twitter }}" target="_blank" class="social-icon text-[#536340] text-xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        {% endif %}
+                        {% if artista.site %}
+                        <a href="{{ artista.site }}" target="_blank" class="social-icon text-[#536340] text-xl">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Estatísticas -->
+                    <div class="stats stats-vertical shadow stats-card w-full">
+                        <div class="stat">
+                            <div class="stat-title text-[#536340]">Obras Vendidas</div>
+                            <div class="stat-value text-[#2C3C1C]">{{ artista.obras_vendidas or '0' }}</div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-title text-[#536340]">Avaliação</div>
+                            <div class="stat-value text-[#2C3C1C]">{{ artista.avaliacao or '5.0' }}</div>
+                            <div class="stat-desc">
+                                <div class="rating rating-sm">
+                                    {% for i in range(1,6) %}
+                                    <input type="radio" name="rating" class="mask mask-star-2 bg-[#536340]" {% if
+                                        (artista.avaliacao or 5)|round>= i %}checked{% endif %}/>
+                                    {% endfor %}
+                                </div>
+                                ({{ artista.total_avaliacoes or '0' }} avaliações)
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-title text-[#536340]">Na Plataforma</div>
+                            <div class="stat-value text-[#2C3C1C]">{{ artista.tempo_plataforma or '1 ano' }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Botão de Contato -->
+                    <div class="w-full mt-6">
+                        <button
+                            class="btn btn-outline border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white w-full">
+                            <i class="fas fa-envelope mr-2"></i> Enviar Mensagem
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Conteúdo Principal -->
+                <div class="md:w-2/3 p-8">
+                    <!-- Abas -->
+                    <div class="tabs tabs-boxed bg-[#F4F4F4] mb-8">
+                        <a class="tab tab-active text-[#2C3C1C]">Biografia</a>
+                        <a class="tab text-[#2C3C1C]">Obras</a>
+                        <a class="tab text-[#2C3C1C]">Exposições</a>
+                        <a class="tab text-[#2C3C1C]">Avaliações</a>
+                    </div>
+
+                    <!-- Biografia -->
+                    <div class="prose max-w-none">
+                        <h3 class="text-xl font-semibold text-[#2C3C1C] mb-4">Sobre o Artista</h3>
+                        <p class="text-gray-700 mb-6">
+                            {{ artista.biografia or 'Este artista ainda não adicionou uma biografia.' }}
+                        </p>
+
+                        <h3 class="text-xl font-semibold text-[#2C3C1C] mb-4">Técnicas e Materiais</h3>
+                        <p class="text-gray-700 mb-6">
+                            {{ artista.tecnica_descricao or 'Nenhuma informação sobre técnicas foi fornecida.' }}
+                        </p>
+
+                        <!-- Galeria de Destaques -->
+                        <h3 class="text-xl font-semibold text-[#2C3C1C] mb-4">Destaques</h3>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-[#F4F4F4] p-4 rounded-lg">
+                                <div class="text-[#536340] font-bold text-lg">Formação</div>
+                                <p class="text-gray-700">{{ artista.formacao or 'Não informado' }}</p>
+                            </div>
+                            <div class="bg-[#F4F4F4] p-4 rounded-lg">
+                                <div class="text-[#536340] font-bold text-lg">Exposições</div>
+                                <p class="text-gray-700">{{ artista.exposicoes_count or '0' }} participações</p>
+                            </div>
+                        </div>
+
+                        <!-- Contato -->
+                        <div class="bg-[#F4F4F4] p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-[#2C3C1C] mb-4">Informações de Contato</h3>
+                            <div class="space-y-3">
+                                {% if artista.email %}
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-envelope text-[#536340]"></i>
+                                    <span class="text-gray-700">{{ artista.email }}</span>
+                                </div>
+                                {% endif %}
+                                {% if artista.telefone %}
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-phone text-[#536340]"></i>
+                                    <span class="text-gray-700">{{ artista.telefone }}</span>
+                                </div>
+                                {% endif %}
+                                {% if artista.localizacao %}
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-map-marker-alt text-[#536340]"></i>
+                                    <span class="text-gray-700">{{ artista.localizacao }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Obras -->
+        <div class="mb-12">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <h2 class="text-2xl font-bold text-[#2C3C1C]">Obras Disponíveis</h2>
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-600">Ordenar por:</span>
+                    <select
+                        class="select select-bordered select-sm border-[#536340] focus:outline-none focus:ring-2 focus:ring-[#536340]/50">
+                        <option>Mais recentes</option>
+                        <option>Menor preço</option>
+                        <option>Maior preço</option>
+                        <option>Mais populares</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid de Obras -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for obra in obras %}
+                <div
+                    class="artwork-card card bg-base-100 shadow-md hover:shadow-lg border border-[#536340]/10 overflow-hidden">
+                    <!-- Imagem da obra -->
+                    <figure class="relative pt-[100%] overflow-hidden">
+                        <img src="{{obra.url_foto}}" alt="{{obra.titulo}}"
+                            class="absolute top-0 left-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                        <!-- Badge de status -->
+                        {% if obra.estoque > 0 %}
+                        <div class="absolute top-2 right-2 badge badge-success">
+                            {{ obra.estoque }} em estoque
+                        </div>
+                        {% else %}
+                        <div class="absolute top-2 right-2 badge badge-error">
+                            Esgotado
+                        </div>
+                        {% endif %}
+                    </figure>
+
+                    <!-- Corpo do card -->
+                    <div class="card-body p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="card-title text-lg font-bold text-[#2C3C1C] line-clamp-1">{{ obra.titulo }}</h3>
+                            {% if obra.ano_criacao %}
+                            <span class="badge badge-outline border-[#536340] text-[#536340]">{{ obra.ano_criacao
+                                }}</span>
+                            {% endif %}
+                        </div>
+
+                        <p class="text-gray-600 text-sm mt-2 line-clamp-2">{{ obra.descricao }}</p>
+
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            {% if obra.tecnica %}
+                            <span class="badge badge-ghost text-xs">{{ obra.tecnica }}</span>
+                            {% endif %}
+                            {% if obra.dimensoes %}
+                            <span class="badge badge-ghost text-xs">{{ obra.dimensoes }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-actions mt-4 flex items-center justify-between">
+                            <div class="text-lg font-bold text-[#2C3C1C]">
+                                R$ {{ "%.2f"|format(obra.preco)|replace(".", ",") }}
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="btn btn-ghost btn-sm btn-circle text-[#536340] hover:bg-[#536340]/10">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button
+                                    class="btn btn-sm bg-[#536340] text-white hover:bg-[#2C3C1C] {{ 'btn-disabled opacity-50' if obra.estoque <= 0 else '' }}">
+                                    <i class="fas fa-shopping-cart mr-1"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Paginação -->
+            <div class="flex justify-center mt-10">
+                <div class="join">
+                    <button
+                        class="join-item btn btn-sm border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">«</button>
+                    <button
+                        class="join-item btn btn-sm border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">1</button>
+                    <button
+                        class="join-item btn btn-sm border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">2</button>
+                    <button
+                        class="join-item btn btn-sm border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">3</button>
+                    <button
+                        class="join-item btn btn-sm border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">»</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Exposições -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-12">
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-[#2C3C1C] mb-6">Exposições Participantes</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for exposicao in exposicoes %}
+                    <div class="card card-side bg-[#F4F4F4] shadow-sm overflow-hidden">
+                        <figure class="w-1/3">
+                            <img src="{{ exposicao.imagem_url }}" alt="{{ exposicao.nome }}"
+                                class="h-full object-cover">
+                        </figure>
+                        <div class="card-body w-2/3">
+                            <h3 class="card-title">{{ exposicao.nome }}</h3>
+                            <p class="text-sm text-gray-600">
+                                <i class="fas fa-map-marker-alt mr-1"></i> {{ exposicao.local }}
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <i class="fas fa-calendar-alt mr-1"></i> {{ exposicao.data }}
+                            </p>
+                            <div class="card-actions justify-end">
+                                <button
+                                    class="btn btn-sm border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">
+                                    Detalhes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#F4F4F4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                    </div>
+                    <p class="mb-4">
+                        Conectando artistas talentosos do Cariri com amantes da arte em todo o mundo.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="footer-title text-lg font-semibold">Explorar</h6>
+                    <ul class="space-y-2">
+                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        </li>
+                        <li><a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
+                        <li><a href="{{url_for('main.exposicoes')}}"
+                                class="hover:text-[#AAB898] transition-colors">Exposições</a></li>
+                        <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
+                                Nós</a></li>
+                        <li><a href="{{url_for('main.contato')}}"
+                                class="hover:text-[#AAB898] transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="footer-title text-lg font-semibold">Suporte</h6>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Central de Ajuda</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Como Comprar</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Envios e Entregas</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Devoluções</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="footer-title text-lg font-semibold">Para Artistas</h6>
+                    <ul class="space-y-2">
+                        <li><a href="{{url_for('main.login_artist')}}"
+                                class="hover:text-[#AAB898] transition-colors">Cadastre-se</a></li>
+                        <li><a href="{{url_for('main.termos_servico')}}"
+                                class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Dicas para Vender Mais</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Eventos e Workshops</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-[#2C3C1C] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>© 2023 Muiddo Arts. Todos os direitos reservados.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos
+                        de Serviço</a>
+                    <a href="{{url_for('main.politica_privacidade')}}"
+                        class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

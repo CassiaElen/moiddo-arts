@@ -9,7 +9,7 @@ body {
 }
 
 .gradient-bg {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    background: linear-gradient(to bottom, #F4F4F4, #E3D9C6);
 }
 
 .menu-lateral {

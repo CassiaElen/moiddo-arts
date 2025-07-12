@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade | Muiddo Arts</title>
+    <meta name="description" content="Conheça nossa política de privacidade e como protegemos seus dados pessoais">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #536340;
+            --primary-dark: #2C3C1C;
+            --secondary: #AAB898;
+            --light: #F4F4F4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F8F8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .privacy-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 244, 244, 0.98) 100%);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#2C3C1C] shadow-md">
+        <div class="navbar px-4 md:px-8">
+            <div class="flex-1">
+                <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                    <span class="text-[#f4f4f4]">Muiddo</span>
+                    <span class="text-[#AAB898]">Arts</span>
+                </a>
+            </div>
+            <div class="flex-none">
+                <a href="{{url_for('main.home')}}" class="btn btn-ghost text-white">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar ao site
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="privacy-container rounded-xl shadow-sm p-8 md:p-10">
+            <!-- Title -->
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold text-[#2C3C1C] mb-4">Política de Privacidade</h1>
+                <p class="text-lg text-gray-600">Última atualização: 01 de Janeiro de 2023</p>
+            </div>
+
+            <!-- Introduction -->
+            <section>
+                <p>A Muiddo Arts valoriza a privacidade e a proteção de dados de seus usuários. Esta Política de
+                    Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas informações pessoais
+                    quando você utiliza nossos serviços.</p>
+                <p class="mt-4">Ao utilizar nosso site e serviços, você concorda com a coleta e uso de informações de
+                    acordo com esta política.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <section class="bg-[#F4F4F4] p-4 rounded-lg my-8">
+                <h3 class="font-semibold text-lg mb-2">Índice:</h3>
+                <ul>
+                    <li><a href="#dados-coletados" class="hover:text-[#2C3C1C]">1. Dados que Coletamos</a></li>
+                    <li><a href="#uso-dados" class="hover:text-[#2C3C1C]">2. Como Utilizamos Seus Dados</a></li>
+                    <li><a href="#compartilhamento" class="hover:text-[#2C3C1C]">3. Compartilhamento de Dados</a></li>
+                    <li><a href="#seguranca" class="hover:text-[#2C3C1C]">4. Segurança dos Dados</a></li>
+                    <li><a href="#direitos" class="hover:text-[#2C3C1C]">5. Seus Direitos</a></li>
+                    <li><a href="#cookies" class="hover:text-[#2C3C1C]">6. Cookies e Tecnologias Similares</a></li>
+                    <li><a href="#alteracoes" class="hover:text-[#2C3C1C]">7. Alterações nesta Política</a></li>
+                    <li><a href="#contato" class="hover:text-[#2C3C1C]">8. Contato</a></li>
+                </ul>
+            </section>
+
+            <!-- Sections -->
+            <section id="dados-coletados">
+                <h2>1. Dados que Coletamos</h2>
+                <p>Podemos coletar os seguintes tipos de informações:</p>
+
+                <h3>1.1 Informações fornecidas por você:</h3>
+                <ul>
+                    <li>Dados de cadastro (nome, e-mail, telefone, endereço)</li>
+                    <li>Informações de pagamento (para transações)</li>
+                    <li>Conteúdo que você envia (comentários, avaliações, obras de arte)</li>
+                    <li>Dados de comunicação (e-mails, mensagens de suporte)</li>
+                </ul>
+
+                <h3>1.2 Informações coletadas automaticamente:</h3>
+                <ul>
+                    <li>Dados de uso (páginas visitadas, tempo de permanência)</li>
+                    <li>Dados técnicos (endereço IP, tipo de navegador, dispositivo)</li>
+                    <li>Cookies e tecnologias similares</li>
+                </ul>
+            </section>
+
+            <section id="uso-dados">
+                <br>
+                <h2>2. Como Utilizamos Seus Dados</h2>
+                <p>Utilizamos seus dados pessoais para os seguintes fins:</p>
+                <ul>
+                    <li>Fornecer e melhorar nossos serviços</li>
+                    <li>Processar transações e enviar notificações</li>
+                    <li>Comunicar-se com você sobre sua conta e serviços</li>
+                    <li>Personalizar sua experiência no site</li>
+                    <li>Garantir a segurança e prevenir fraudes</li>
+                    <li>Cumprir obrigações legais</li>
+                    <li>Realizar análises e pesquisas para melhorar nossos serviços</li>
+                </ul>
+            </section>
+
+            <section id="compartilhamento">
+                <br>
+                <h2>3. Compartilhamento de Dados</h2>
+                <p>Seus dados podem ser compartilhados nas seguintes situações:</p>
+                <ul>
+                    <li><strong>Prestadores de serviço:</strong> Parceiros que nos auxiliam na operação do site
+                        (hospedagem, pagamentos, análise de dados)</li>
+                    <li><strong>Obrigações legais:</strong> Quando exigido por lei ou processo legal</li>
+                    <li><strong>Proteção de direitos:</strong> Para proteger nossos direitos, propriedade ou segurança
+                    </li>
+                    <li><strong>Com seu consentimento:</strong> Em outras situações, apenas com sua autorização
+                        explícita</li>
+                </ul>
+                <p class="mt-4">Nós não vendemos seus dados pessoais a terceiros.</p>
+            </section>
+
+            <section id="seguranca">
+                <br>
+                <h2>4. Segurança dos Dados</h2>
+                <p>Implementamos medidas técnicas e organizacionais para proteger seus dados pessoais, incluindo:</p>
+                <ul>
+                    <li>Criptografia de dados sensíveis</li>
+                    <li>Sistemas de segurança para prevenir acessos não autorizados</li>
+                    <li>Limitação de acesso apenas a pessoal autorizado</li>
+                    <li>Procedimentos para lidar com violações de dados</li>
+                </ul>
+                <p class="mt-4">Apesar de nossos esforços, nenhum sistema de segurança é infalível. Recomendamos que
+                    você use senhas fortes e as mantenha em sigilo.</p>
+            </section>
+
+            <section id="direitos">
+                <br>
+                <h2>5. Seus Direitos</h2>
+                <p>De acordo com a LAI (Lei de Acesso à Informação), você tem direito a:</p>
+                <ul>
+                    <li>Acessar seus dados pessoais</li>
+                    <li>Corrigir dados incompletos, inexatos ou desatualizados</li>
+                    <li>Solicitar a eliminação de dados desnecessários ou excessivos</li>
+                    <li>Revogar seu consentimento a qualquer momento</li>
+                    <li>Solicitar a portabilidade de dados para outro fornecedor de serviço</li>
+                    <li>Obter informações sobre compartilhamento de seus dados</li>
+                </ul>
+                <p class="mt-4">Para exercer esses direitos, entre em contato através do e-mail: <a
+                        href="mailto:privacidade@muiddoarts.com">privacidade@muiddoarts.com</a></p>
+            </section>
+
+            <section id="cookies">
+                <br>
+                <h2>6. Cookies e Tecnologias Similares</h2>
+                <p>Utilizamos cookies e tecnologias similares para:</p>
+                <ul>
+                    <li>Lembrar suas preferências</li>
+                    <li>Analisar o uso do site</li>
+                    <li>Personalizar conteúdo e anúncios</li>
+                    <li>Melhorar a segurança</li>
+                </ul>
+                <p class="mt-4">Você pode gerenciar suas preferências de cookies nas configurações do seu navegador.
+                    Algumas funcionalidades podem ficar limitadas se você desativar os cookies.</p>
+            </section>
+
+            <section id="alteracoes">
+                <br>
+                <h2>7. Alterações nesta Política</h2>
+                <p>Podemos atualizar esta Política de Privacidade periodicamente. A versão mais recente estará sempre
+                    disponível em nosso site, com a data da última revisão.</p>
+                <p class="mt-4">Alterações significativas serão comunicadas por e-mail ou através de aviso em nosso
+                    site.</p>
+            </section>
+
+            <section id="contato">
+                <br>
+                <h2>8. Contato</h2>
+                <p>Se tiver dúvidas sobre esta Política de Privacidade ou sobre o tratamento de seus dados pessoais,
+                    entre em contato conosco:</p>
+                <ul class="mt-2">
+                    <li><strong>E-mail:</strong> <a
+                            href="mailto:privacidade@muiddoarts.com">privacidade@muiddoarts.com</a></li>
+                    <li><strong>Endereço:</strong> Rua das Artes, 123 - Centro, Cidade/Estado - CEP 00000-000</li>
+                </ul>
+            </section>
+
+            <div class="mt-10 pt-6 border-t border-gray-200">
+                <p class="text-sm text-gray-600">Esta política está em conformidade com a Lei de Acesso à Informação
+                    (LAI - Lei nº 12.527/2011) e regulamentações aplicáveis.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#F4F4F4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                    </div>
+                    <p class="mb-4">
+                        Conectando artistas talentosos do Cariri com amantes da arte em todo o mundo.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="footer-title text-lg font-semibold">Explorar</h6>
+                    <ul class="space-y-2">
+                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        </li>
+                        <li><a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
+                        <li><a href="{{url_for('main.exposicoes')}}"
+                                class="hover:text-[#AAB898] transition-colors">Exposições</a></li>
+                        <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
+                                Nós</a></li>
+                        <li><a href="{{url_for('main.contato')}}"
+                                class="hover:text-[#AAB898] transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="footer-title text-lg font-semibold">Suporte</h6>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Central de Ajuda</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Como Comprar</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Envios e Entregas</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Devoluções</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="footer-title text-lg font-semibold">Para Artistas</h6>
+                    <ul class="space-y-2">
+                        <li><a href="{{url_for('main.login_artist')}}"
+                                class="hover:text-[#AAB898] transition-colors">Cadastre-se</a></li>
+                        <li><a href="{{url_for('main.termos_servico')}}"
+                                class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Dicas para Vender Mais</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Eventos e Workshops</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-[#2C3C1C] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>© 2023 Muiddo Arts. Todos os direitos reservados.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos
+                        de Serviço</a>
+                    <a href="{{url_for('main.politica_privacidade')}}"
+                        class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Back to top button
+        document.addEventListener('DOMContentLoaded', function () {
+            const backToTopButton = document.querySelector('.back-to-top');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'flex';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+
+            backToTopButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+
+</html>

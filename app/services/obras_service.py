@@ -1,6 +1,7 @@
 from flask import flash
 from datetime import datetime
 from ..database.models.model_obras import Obras
+from ..services.authmanager import auth_manager 
 
 class ObraService:
     def __init__(self, id_obra=None):
@@ -9,8 +10,11 @@ class ObraService:
             self.obra.buscar_obra_service()
     
     def salvar_obra(self, campos, nome_arquivo):
+        user_id = auth_manager.get_current_user_id()
+        if user_id is None:
+            raise Exception("Usuário não autenticado")
         salvar_obra = Obras(
-            artista_id=1,  # ← session ou login
+            artista_id=user_id,
             titulo=campos["titulo"],
             descricao=campos["descricao"],
             tecnica=campos["tecnica"],
@@ -26,13 +30,17 @@ class ObraService:
         salvar_obra.salvar()
         
     def editar_obra(self, campos, nome_arquivo):
+        user_id = auth_manager.get_current_user_id()
+        if user_id is None:
+            raise Exception("Usuário não autenticado")
+        
         if not nome_arquivo:
             self.obra.id_obra = campos['id_obra']
             obra_atual = self.obra.buscar_obra()
             nome_arquivo = obra_atual['url_foto'] if obra_atual else None
 
         editar_obra = Obras(
-            artista_id=1,  # session ou login
+            artista_id=user_id,  # session ou login
             titulo=campos["titulo"],
             descricao=campos["descricao"],
             tecnica=campos["tecnica"],

@@ -37,7 +37,7 @@
     </div>
 
     <!-- Formulário -->
-    <form action="{{ url_for('main.login_client') }}" method="POST" class="p-8">
+    <form action="{{ url_for('main.login_artist') }}" method="POST" class="p-8">
       <div class="space-y-4">
         <div class="form-control">
           <label class="label" for="email">
@@ -46,7 +46,7 @@
           <div class="relative">
             <input id="email" name="email" type="email" required class="input-field input input-bordered w-full pl-10"
               placeholder="exemplo@email.com">
-            <span class="absolute left-3 top-3 text-[#536340]">
+            <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-envelope"></i>
             </span>
           </div>
@@ -78,14 +78,14 @@
         <div class="divider text-[#536340]">ou</div>
 
         <div>
-          <a href="{{url_for('main.register_client') }}" class="btn btn-register text-[#536340] bg-transparent w-full">
+          <a href="{{url_for('main.register_artist') }}" class="btn btn-register text-[#536340] bg-transparent w-full">
             Criar nova conta
           </a>
         </div>
 
         <div class="text-center text-sm text-[#536340] mt-6">
-          <p>É artista? <a href="{{url_for('main.login_artist') }}" class="font-semibold hover:underline">Faça login
-              como artista</a></p>
+          <p>É cliente? <a href="{{url_for('main.login_client') }}" class="font-semibold hover:underline">Faça login
+              como cliente</a></p>
         </div>
       </div>
     </form>

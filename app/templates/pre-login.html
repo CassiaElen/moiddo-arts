@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo de volta | Muiddo Arts</title>
+    <meta name="description"
+        content="Faça login na Muiddo Arts como artista ou cliente para acessar nossa plataforma de arte e artesanato.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/bolhas.css">
+    <link rel="stylesheet" href="../static/css/auth.css">
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- Container das bolhas decorativas -->
+    <div class="bg-bolhas">
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+    </div>
+
+    <main class="conteudo w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Cabeçalho -->
+        <div class="bg-muiddo text-white p-8 text-center">
+            <p class="mb-8">Muiddo Arts</p>
+            <h1 class="text-2xl font-bold mb-2">Bem-vindo de volta</h1>
+            <p class="opacity-90">Você é artista ou cliente?</p>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="p-8">
+            <div class="flex flex-col space-y-4">
+                <!-- Botão Cliente -->
+                <a href="{{ url_for('main.login_client') }}"
+                    class="btn btn-client text-[#2C3C1C] border-none hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-user-tag mr-3"></i>
+                        <span class="font-semibold">Entrar como Cliente</span>
+                    </div>
+                </a>
+
+                <!-- Divisor -->
+                <div class="flex items-center my-4">
+                    <div class="flex-grow border-t border-gray-300"></div>
+                    <span class="mx-4 text-gray-500">ou</span>
+                    <div class="flex-grow border-t border-gray-300"></div>
+                </div>
+
+                <!-- Botão Artista -->
+                <a href="{{ url_for('main.login_artist') }}"
+                    class="btn btn-artist text-white border-none hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-palette mr-3"></i>
+                        <span class="font-semibold">Entrar como Artista</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>

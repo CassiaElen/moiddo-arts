@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session,get_flashed_messages
+from flask import render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3
-import hashlib
-from datetime import datetime, timedelta
+from datetime import datetime
 from ..services.authmanager import auth_manager
 
 main = Blueprint('main', __name__)
@@ -45,7 +44,7 @@ def CheckLoginArtist(email,senha):
     conn = sqlite3.connect("moiddo_arts.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM artistas WHERE email=? AND senha=?",(email,senha))
+    cursor.execute("SELECT id_artista, email, senha, status_artista, url_avatar FROM artistas WHERE email=? AND senha=?",(email,senha))
     usuario_artista = cursor.fetchone()
     conn.close()
     return usuario_artista
@@ -55,7 +54,7 @@ def CheckLoginClient(email,senha):
     conn = sqlite3.connect("moiddo_arts.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM cliente WHERE email=? AND senha=?",(email,senha))
+    cursor.execute("SELECT id_cliente, email, senha, status_cliente, url_avatar FROM cliente WHERE email=? AND senha=?",(email,senha))
     usuario_cliente = cursor.fetchone()
     conn.close()
     return usuario_cliente
@@ -63,16 +62,21 @@ def CheckLoginClient(email,senha):
 #Rota inicial:
 @main.route("/")
 def PreLogin():
-    return render_template("Pré-login.html")
+    return render_template("pre-login.html")
 
 @main.route("/home")
 def home():
+    from ..services.artista_service import ArtistaService
+    artista = ArtistaService()
+
     if not auth_manager.is_authenticated():
         flash("Você precisa estar logado para acessar esta página.","error")
         return redirect(url_for("main.PreLogin"))
-
+    
     user = auth_manager.current_user()
-    return render_template("index.html",user=user)
+    user_type = auth_manager.current_user_type()
+    artistas = artista.buscar_artistasHome()
+    return render_template("index.html",user=user, user_type=user_type, artistas=artistas)
 
 @main.route("/sobre-nós")
 def sobre_nos():
@@ -97,6 +101,22 @@ def artistas():
 @main.route("/carrinho")
 def carrinho():
     return render_template("carrinho.html")
+
+@main.route("/perfil-cliente")
+def perfil_cliente():
+    return render_template("perfil-cliente.html")
+
+@main.route("/trocar-senha")
+def trocar_senha():
+    return render_template("trocar-senha.html")
+
+@main.route("/politica-de-privacidade")
+def politica_privacidade():
+    return render_template("politica-privacidade.html")
+
+@main.route("/termos-de-servico")
+def termos_servico():
+    return render_template("termos-servico.html")
 
 @main.route("/deletar-conta")
 def animacao_deletar_conta():
@@ -144,7 +164,7 @@ def login_artist():
         else:
             flash("Email ou senha incorretos!","error")
             return redirect(url_for("main.login_artist"))
-    return render_template("login-artesao.html")
+    return render_template("login-artista.html")
 
 @main.route("/logout")
 def logout():
@@ -195,4 +215,4 @@ def register_artist():
             flash("Usuário já cadastrado!","error")
             return redirect(url_for("main.register_artist"))
         
-    return render_template("cadastro-artesao.html")
+    return render_template("cadastro-artista.html")
