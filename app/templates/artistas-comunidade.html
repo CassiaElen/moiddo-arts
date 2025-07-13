@@ -8,42 +8,20 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .artist-card {
-            transition: all 0.3s ease;
-        }
-
-        .loading-spinner {
-            color: #536340;
-        }
-
-        .dropdown-content .active {
-            background-color: #536340;
-            color: white;
-        }
-
-        .btn-disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
 <body class="min-h-screen flex flex-col bg-[#F4f4f4]">
 
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <!-- Drawer Mobile -->
+    <header class="sticky top-0 z-50 shadow-md">
         <div class="drawer">
             <input id="main-drawer" type="checkbox" class="drawer-toggle" />
-
-            <!-- Conteúdo Principal -->
             <div class="drawer-content flex flex-col">
                 <!-- Navbar Principal -->
-                <div class="navbar px-4 md:px-8">
+                <div class="navbar bg-[#5A7247] px-4 md:px-8">
                     <!-- Botão Mobile -->
                     <div class="flex-none lg:hidden">
-                        <label for="main-drawer" aria-label="Abrir menu"
-                            class="btn btn-ghost btn-square text-gray-700 hover:text-primary">
+                        <label for="main-drawer" aria-label="Abrir menu" class="btn btn-ghost btn-square text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,109 +33,103 @@
                     <!-- Logo -->
                     <div class="flex-1">
                         <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
-                            <span class="text-gray-800">Muiddo</span>
-                            <span class="text-primary">Arts</span>
+                            <span class="text-[#f4f4f4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
                         </a>
                     </div>
 
                     <!-- Itens da Direita -->
                     <div class="navbar-end space-x-2">
-                        <!-- Campo de Busca (Desktop) -->
-                        <div class="hidden lg:block">
-                            <div class="relative">
-                                <input type="text" placeholder="Pesquisar..."
-                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50" />
-                                <span class="absolute left-3 top-3 text-gray-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
+                        {% if user_type == 'cliente' %}
                         <!-- Carrinho -->
                         <div class="dropdown dropdown-end">
-                            <label tabindex="0" class="btn btn-ghost btn-circle hover:bg-gray-100">
+                            <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-[#2C3C1C]">
                                 <div class="indicator">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
-                                    <span class="badge badge-sm indicator-item bg-primary text-white border-0">3</span>
+                                    <span
+                                        class="badge badge-sm indicator-item bg-white text-[#2C3C1C] border-0">3</span>
                                 </div>
                             </label>
                             <div tabindex="0"
-                                class="dropdown-content card card-compact mt-3 w-72 bg-base-100 shadow-lg border border-gray-100">
-                                <div class="card-body">
-                                    <span class="font-bold text-lg">3 Itens no Carrinho</span>
-                                    <span class="text-primary">Subtotal: R$ 1.240,00</span>
+                                class="dropdown-content card card-compact mt-3 w-72 bg-[#f4f4f4] shadow-lg border-none border-gray-100">
+                                <div class="card-body border-2 border-solid border-[#5A7247] rounded-xl">
+                                    <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
+                                    <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
                                     <div class="card-actions">
-                                        <a href="{{url_for('main.carrinho')}}" class="btn btn-primary btn-block">Ver
+                                        <a href="{{url_for('main.carrinho')}}"
+                                            class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
                                             Carrinho</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        {% endif %}
                         <!-- Perfil do Usuário -->
                         <div class="dropdown dropdown-end">
-                            <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-gray-100">
+                            <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
                                 <div
-                                    class="w-10 rounded-full border-2 border-primary/20 hover:border-primary/50 transition-all">
-                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        alt="Foto de perfil" />
+                                    class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
+                                    <img src="{{user.avatar}}" alt="Foto de perfil" />
                                 </div>
                             </label>
                             <ul tabindex="0"
-                                class="dropdown-content menu menu-sm mt-3 w-52 bg-base-100 rounded-box shadow-lg border border-gray-100 p-2">
+                                class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+                                {% if user_type == 'cliente' %}
                                 <li>
-                                    <a class="hover:bg-primary/10 active:bg-primary/20">
-                                        Meu Perfil
-                                        <span class="badge badge-ghost bg-primary/10 text-primary">Novo</span>
-                                    </a>
+                                    <a href="{{ url_for('main.perfil_cliente') }}"
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                        Perfil</a>
                                 </li>
-                                <li><a class="hover:bg-primary/10 active:bg-primary/20">Minhas Compras</a></li>
-                                <li><a class="hover:bg-primary/10 active:bg-primary/20">Configurações</a></li>
-                                <li><a href="{{url_for('main.logout')}}"
-                                        class="text-red-500 hover:bg-red-50 active:bg-red-100">Sair</a></li>
+                                {% elif user_type == 'artista' %}
+                                <li>
+                                    <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                        Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('artistas.painel_artista') }}"
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Painel do
+                                        Artista</a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a href="{{url_for('main.logout')}}"
+                                        class="text-red-500 hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Sair</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Navbar Secundária (Desktop) -->
-                <div class="hidden lg:flex justify-center bg-white border-t border-gray-100">
+                <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
                     <ul class="menu menu-horizontal gap-1 px-4 py-2">
                         <li>
                             <a href="{{url_for('main.loja')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Loja
                             </a>
                         </li>
                         <li>
                             <a href="{{url_for('artistas.artistas_comunidade')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Artistas
                             </a>
                         </li>
-                        <li>
-                            <a href="{{url_for('main.exposicoes')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium transition-colors">
-                                Exposições
-                            </a>
-                        </li>
+
                         <li>
                             <a href="{{url_for('main.sobre_nos')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Sobre Nós
                             </a>
                         </li>
                         <li>
                             <a href="{{url_for('main.contato')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Contato
                             </a>
                         </li>
@@ -168,14 +140,14 @@
             <!-- Drawer Side (Mobile Menu) -->
             <div class="drawer-side">
                 <label for="main-drawer" aria-label="Fechar menu" class="drawer-overlay"></label>
-                <div class="menu p-4 w-80 min-h-full bg-white border-r border-gray-100">
+                <div class="menu p-4 w-80 min-h-full bg-[#5A7247] text-white">
                     <!-- Cabeçalho do Drawer -->
                     <div class="flex items-center justify-between mb-6">
                         <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
-                            <span class="text-gray-800">Muiddo</span>
-                            <span class="text-primary">Arts</span>
+                            <span class="text-[#f4f4f4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
                         </a>
-                        <label for="main-drawer" class="btn btn-ghost btn-circle">
+                        <label for="main-drawer" class="btn btn-ghost btn-circle text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -187,8 +159,8 @@
                     <!-- Campo de Busca (Mobile) -->
                     <div class="relative mb-6">
                         <input type="text" placeholder="Pesquisar..."
-                            class="input input-bordered w-full pl-10 pr-4 py-2 rounded-full" />
-                        <span class="absolute left-3 top-3 text-gray-400">
+                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                        <span class="absolute left-3 top-3 text-gray-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -198,59 +170,63 @@
                     </div>
 
                     <!-- Menu Principal -->
-                    <ul class="space-y-1">
+                    <ul class="space-y-2">
                         <li>
                             <a href="{{url_for('main.loja')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Loja
                             </a>
                         </li>
                         <li>
                             <a href="{{url_for('artistas.artistas_comunidade')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Artistas
                             </a>
                         </li>
-                        <li>
-                            <a href="{{url_for('main.exposicoes')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
-                                Exposições
-                            </a>
-                        </li>
+
                         <li>
                             <a href="{{url_for('main.sobre_nos')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Sobre Nós
                             </a>
                         </li>
                         <li>
                             <a href="{{url_for('main.contato')}}"
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Contato
                             </a>
                         </li>
                     </ul>
 
-                    <div class="divider my-2"></div>
+                    <div class="divider my-4"></div>
 
                     <!-- Menu Secundário -->
-                    <ul class="space-y-1">
+                    <ul class="space-y-2">
+                        {% if user_type == 'cliente' %}
                         <li>
-                            <a
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
-                                Minha Conta
+                            <a href="{{ url_for('artistas.painel_artista') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Meu Perfil
+                            </a>
+                        </li>
+                        {% elif user_type == 'artista' %}
+                        <li>
+                            <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Meu Perfil
                             </a>
                         </li>
                         <li>
-                            <a
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
-                                Favoritos
+                            <a href="{{ url_for('artistas.painel_artista') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Painel do artista
                             </a>
                         </li>
+                        {% endif %}
                         <li>
-                            <a
-                                class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">
-                                Histórico
+                            <a href="{{ url_for('main.logout') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Sair
                             </a>
                         </li>
                     </ul>
@@ -263,7 +239,7 @@
         <!-- Breadcrumbs -->
         <div class="text-sm breadcrumbs mb-6">
             <ul>
-                <li><a href="{{url_for('main.home')}}" class="text-[#536340] hover:text-[#2C3C1C]">Home</a></li>
+                <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Home</a></li>
                 <li class="text-gray-500">Artistas</li>
             </ul>
         </div>
@@ -285,11 +261,11 @@
         <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="w-full md:w-1/2">
-                    <label class="input input-bordered flex items-center gap-2">
-                        <input type="text" id="busca-artistas" class="grow" placeholder="Pesquisar artistas..."
-                            value="{{ busca if busca }}" />
+                    <label class="input bg-[#F5F5F0] input-bordered flex items-center gap-2">
+                        <input type="text" id="busca-artistas" class="place-color text-[#2C3C1C] grow"
+                            placeholder="Pesquisar artistas..." value="{{ busca if busca }}" />
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                            class="w-4 h-4 opacity-70">
+                            class="w-4 h-4 opacity-70 text-[#2C3C1C]">
                             <path fill-rule="evenodd"
                                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                                 clip-rule="evenodd" />
@@ -299,32 +275,37 @@
                 <div class="flex gap-2 w-full md:w-auto">
                     <div class="dropdown">
                         <div tabindex="0" role="button"
-                            class="btn btn-outline border-[#536340] text-[#2C3C1C] hover:bg-[#536340] hover:text-white">
+                            class="btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
                             <i class="fas fa-filter mr-2"></i> Filtrar
                         </div>
-                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <!--INTEGRAR SISTEMA DE AVALIAÇÃO SE POSSIVEL-->
+                        <ul tabindex="0"
+                            class="dropdown-content z-[1] menu p-2 shadow bg-[#f4f4f4] border-2 border-solid border-[#5A7247] rounded-xl rounded-box w-52">
                             <li><a class="filtro-option {% if filtro == 'todos' %}active{% endif %}"
                                     data-filtro="todos">Todos</a></li>
-                            <li><a class="filtro-option {% if filtro == 'recentes' %}active{% endif %}"
-                                    data-filtro="recentes">Mais recentes</a></li>
-                            <li><a class="filtro-option {% if filtro == 'populares' %}active{% endif %}"
-                                    data-filtro="populares">Mais populares</a></li>
-                            <li><a class="filtro-option {% if filtro == 'melhor_avaliados' %}active{% endif %}"
+                            <li><a class="filtro-option text-[#2C3C1C] {% if filtro == 'mais_populares' %}active:bg-[#5A7247]/20{% endif %}"
+                                    data-filtro="recentes">Mais populares</a></li>
+                            <li><a class="filtro-option text-[#2C3C1C] {% if filtro == 'melhor_avaliados' %}active:bg-[#5A7247]/20{% endif %}"
                                     data-filtro="melhor_avaliados">Melhor avaliados</a></li>
+                            <li><a class="filtro-option text-[#2C3C1C] {% if filtro == 'menos_avaliados' %}active:bg-[#5A7247]/20{% endif %}"
+                                    data-filtro="melhor_avaliados">Menos avaliados</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <div tabindex="0" role="button"
-                            class="btn btn-outline border-[#536340] text-[#2C3C1C] hover:bg-[#536340] hover:text-white">
+                            class="btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
                             <i class="fas fa-sort mr-2"></i> Ordenar
                         </div>
-                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a class="ordenacao-option {% if ordenacao == 'alfabetico' %}active{% endif %}"
+                        <ul tabindex="0"
+                            class="dropdown-content z-[1] menu p-2 shadow bg-[#f4f4f4] border-2 border-solid border-[#5A7247] rounded-xl rounded-box w-52">
+                            <li><a class="ordenacao-option hover:bg-[#5A7247]/10 {% if ordenacao == 'alfabetico' %}active:bg-[#5A7247]/20{% endif %}"
                                     data-ordenacao="alfabetico">Ordem alfabética</a></li>
-                            <li><a class="ordenacao-option {% if ordenacao == 'mais_obras' %}active{% endif %}"
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'recentes' %}active:bg-[#5A7247]/20{% endif %}"
+                                    data-ordenacao="recentes">Mais recentes</a></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'antigos' %}active:bg-[#5A7247]/20{% endif %}"
+                                    data-ordenacao="antigos">Mais antigos</a></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'mais_obras' %}active:bg-[#5A7247]/20{% endif %}"
                                     data-ordenacao="mais_obras">Mais obras</a></li>
-                            <li><a class="ordenacao-option {% if ordenacao == 'mais_vendidos' %}active{% endif %}"
-                                    data-ordenacao="mais_vendidos">Mais vendidos</a></li>
                         </ul>
                     </div>
                 </div>
@@ -339,24 +320,29 @@
 
                 <!-- Avatar -->
                 <div
-                    class="w-40 h-40 rounded-full overflow-hidden border-4 border-[#536340] group-hover:border-[#2C3C1C] transition-all duration-300 mb-4">
-                    <img src="{{ artista.url_avatar or '../static/assets/default-avatar.webp' }}"
-                        alt="{{ artista.nome_completo }}"
-                        class="w-full h-full object-cover transition-transform duration-500 transform group-hover:scale-110" />
+                    class="w-40 h-40 rounded-full bg-[#2C3C1C] group-hover:bg-gradient-to-r from-[#8C3B2D] to-[#5A7247] transition-all duration-300 p-1 mb-4">
+                    <div class="aw-full h-full rounded-full overflow-hidden">
+                        <img src="{{ artista.url_avatar or '../static/assets/default-avatar.webp' }}"
+                            alt="{{ artista.nome_completo }}"
+                            class="rounded-full object-cover w-full h-full items-center justify-center back transition-transform duration-500 transform group-hover:scale-110" />
+                    </div>
                 </div>
 
                 <!-- Nome -->
                 <h3
-                    class="text-2xl font-bold text-[#2C3C1C] mb-1 transition-colors duration-300 group-hover:text-[#536340]">
+                    class="text-2xl font-bold text-[#2C3C1C] mb-1 transition-colors duration-300 group-hover:text-[#5A7247]">
                     {{ artista.nome_completo }}
                 </h3>
+
+                <!-- Username opcional -->
+                <p class="text-gray-600 mb-3">{{artista.usuario}}</p>
 
                 <!-- Biografia resumida -->
                 <p class="text-gray-600 text-sm mb-3 px-2">
                     {{ artista.biografia.split('.')[0] if artista.biografia else 'Artista da comunidade' }}
                 </p>
 
-                <!-- Avaliação ou info opcional -->
+                <!-- Total de obras -->
                 <div class="text-sm text-gray-500 mb-3 italic">
                     {{ artista.total_obras or 0 }} obras disponíveis
                 </div>
@@ -364,7 +350,7 @@
                 <!-- Botão Ver Perfil -->
                 <div class="mt-auto">
                     <a href="{{ url_for('artistas.perfil_artista', id_artista=artista.id_artista) }}"
-                        class="btn btn-sm bg-[#536340] text-white hover:bg-[#2C3C1C] transition-colors">
+                        class="btn-gradient btn btn-sm">
                         <i class="fas fa-user mr-2"></i> Ver perfil
                     </a>
                 </div>
@@ -372,8 +358,8 @@
                 <!-- Ícones sociais opcionais -->
                 <div
                     class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <i class="fab fa-instagram text-[#536340] hover:text-[#2C3C1C] cursor-pointer"></i>
-                    <i class="fab fa-twitter text-[#536340] hover:text-[#2C3C1C] cursor-pointer"></i>
+                    <i class="fab fa-instagram text-[#5A7247] hover:text-[#2C3C1C] cursor-pointer"></i>
+                    <i class="fab fa-twitter text-[#5A7247] hover:text-[#2C3C1C] cursor-pointer"></i>
                 </div>
             </div>
             {% endfor %}
@@ -384,19 +370,19 @@
             <div class="join" id="pagination">
                 {% if total_paginas > 1 %}
                 <a href="?pagina={{ pagina_atual - 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
-                    class="join-item btn btn-outline border-[#536340] text-[#2C3C1C] hover:bg-[#536340] hover:text-white {% if pagina_atual == 1 %}btn-disabled pointer-events-none{% endif %}">
+                    class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == 1 %} opacity-[.5] pointer-events-none{% endif %}">
                     «
                 </a>
 
                 {% for pagina in range(1, total_paginas + 1) %}
                 <a href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
-                    class="join-item btn {% if pagina == pagina_atual %}btn-active bg-[#536340] text-white border-[#536340]{% else %}btn-outline border-[#536340] text-[#2C3C1C] hover:bg-[#536340] hover:text-white{% endif %}">
+                    class="join-item btn {% if pagina == pagina_atual %}btn-active bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">
                     {{ pagina }}
                 </a>
                 {% endfor %}
 
                 <a href="?pagina={{ pagina_atual + 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
-                    class="join-item btn btn-outline border-[#536340] text-[#2C3C1C] hover:bg-[#536340] hover:text-white {% if pagina_atual == total_paginas %}btn-disabled pointer-events-none{% endif %}">
+                    class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == total_paginas %}opacity-[.5] pointer-events-none{% endif %}">
                     »
                 </a>
                 {% endif %}
@@ -405,17 +391,19 @@
 
 
         <!-- Call to Action -->
-        <div class="bg-[#536340] rounded-xl shadow-sm p-8 text-center text-white mb-12">
+        <div class="bg-[#5A7247] rounded-xl shadow-sm p-8 text-center text-white mb-12">
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Você é um artista?</h2>
             <p class="text-lg mb-6 max-w-2xl mx-auto">
                 Junte-se à nossa comunidade de artistas e exponha suas obras para milhares de amantes da arte.
             </p>
-            <button class="btn btn-primary bg-white text-[#2C3C1C] hover:bg-[#2C3C1C] hover:text-white">
+            <a href="{{url_for('main.register_artist')}}"
+                class="btn btn-outline text-white border-white hover:bg-white hover:text-[#2C3C1C] px-8 py-3 font-semibold">
                 Cadastre-se como artista
-            </button>
+            </a>
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -451,8 +439,7 @@
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
-                        <li><a href="{{url_for('main.exposicoes')}}"
-                                class="hover:text-[#AAB898] transition-colors">Exposições</a></li>
+
                         <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
                                 Nós</a></li>
                         <li><a href="{{url_for('main.contato')}}"

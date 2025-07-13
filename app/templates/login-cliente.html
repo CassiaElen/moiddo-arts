@@ -10,11 +10,11 @@
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../static/css/bolhas.css">
-  <link rel="stylesheet" href="../static/css/auth.css">
+  <link rel="stylesheet" href="../static/css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="auth-body min-h-screen flex items-center justify-center p-4">
   <!-- Container das bolhas decorativas -->
   <div class="bg-bolhas">
     <div class="bolha"></div>
@@ -28,9 +28,9 @@
   </div>
 
   <main
-    class="conteudo auth-container w-full max-w-md rounded-xl shadow-2xl overflow-hidden border border-[#536340]/10">
+    class="conteudo auth-container w-full max-w-md rounded-xl shadow-2xl overflow-hidden border border-[#5A7247]/10">
     <!-- Cabeçalho -->
-    <div class="bg-[#536340] text-white p-8 text-center">
+    <div class="bg-[#5A7247] text-white p-8 text-center">
       <p class="mb-8">Muiddo Arts</p>
       <h1 class="text-2xl font-bold mb-2">Seja Bem-vindo à Muiddo Arts</h1>
       <p class="opacity-90">Insira seus dados para entrar</p>
@@ -44,9 +44,10 @@
             <span class="label-text text-[#2C3C1C]">E-Mail</span>
           </label>
           <div class="relative">
-            <input id="email" name="email" type="email" required class="input-field input input-bordered w-full pl-10"
+            <input id="email" name="email" type="email" required
+              class="place-color input-field text-[#2C3C1C] bg-[#F5F5F0] input input-bordered w-full pl-10"
               placeholder="exemplo@email.com">
-            <span class="absolute left-3 top-3 text-[#536340]">
+            <span class="absolute left-3 top-3 text-[#5A7247]">
               <i class="fas fa-envelope"></i>
             </span>
           </div>
@@ -58,32 +59,33 @@
           </label>
           <div class="relative">
             <input id="password" name="password" type="password" required
-              class="input-field input input-bordered w-full pl-10" placeholder="Sua senha">
-            <span class="absolute left-3 top-3 text-[#536340]">
+              class="place-color input-field text-[#2C3C1C] bg-[#F5F5F0] input input-bordered w-full pl-10"
+              placeholder="Sua senha">
+            <span class="absolute left-3 top-3 text-[#5A7247]">
               <i class="fas fa-lock"></i>
             </span>
           </div>
           <div class="text-right mt-2">
-            <a href="{{ url_for('main.trocar_senha') }}" class="text-sm text-[#536340] hover:underline">Esqueceu a
+            <a href="{{ url_for('main.trocar_senha') }}" class="text-sm text-[#5A7247] hover:underline">Esqueceu a
               senha?</a>
           </div>
         </div>
 
         <div class="pt-4">
-          <button type="submit" class="btn btn-primary-custom text-white w-full">
+          <button type="submit" class="btn btn-gradient text-white w-full">
             Entrar
           </button>
         </div>
 
-        <div class="divider text-[#536340]">ou</div>
+        <div class="divider text-[#5A7247]">ou</div>
 
         <div>
-          <a href="{{url_for('main.register_client') }}" class="btn btn-register text-[#536340] bg-transparent w-full">
+          <a href="{{url_for('main.register_client') }}" class="btn btn-register text-[#2C3C1C] bg-transparent w-full">
             Criar nova conta
           </a>
         </div>
 
-        <div class="text-center text-sm text-[#536340] mt-6">
+        <div class="text-center text-sm text-[#5A7247] mt-6">
           <p>É artista? <a href="{{url_for('main.login_artist') }}" class="font-semibold hover:underline">Faça login
               como artista</a></p>
         </div>

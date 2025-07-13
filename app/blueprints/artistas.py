@@ -198,6 +198,8 @@ def painel_artista():
 
 @artistas_bp.route("/artistas-comunidade", methods=["GET"])
 def artistas_comunidade():
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
     id_artista = auth_manager.get_current_user_id()
     service_artistas = ArtistaService(id_artista=id_artista)
     
@@ -232,12 +234,18 @@ def artistas_comunidade():
         total_paginas=total_paginas,
         busca=busca,
         filtro=filtro,
-        ordenacao=ordenacao
+        ordenacao=ordenacao,
+        user=user,
+        user_type=user_type
     )
 
 @artistas_bp.route("/perfil-artista/<int:id_artista>")
 def perfil_artista(id_artista):
     from ..database.models.model_artistas import Artistas
+
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+
     # Buscar dados do artista
     artista = Artistas(id_artista=id_artista)
     dados_artista = artista.buscar_artista()
@@ -252,5 +260,7 @@ def perfil_artista(id_artista):
     return render_template(
         'perfil-artista.html',
         artista=dados_artista,
-        obras=obras_artista
+        obras=obras_artista,
+        user=user,
+        user_type=user_type
     )

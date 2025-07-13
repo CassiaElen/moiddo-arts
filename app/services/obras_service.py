@@ -55,6 +55,10 @@ class ObraService:
         )
         editar_obra.salvar()
 
+    def buscar_obrasHome(self):
+        buscar_obras = Obras()
+        return buscar_obras.buscar_obrasHome()
+    
     def excluir_obra(self, id):
         deletar_obra = Obras(id_obra=id)
         deletar_obra.deletar_obra()

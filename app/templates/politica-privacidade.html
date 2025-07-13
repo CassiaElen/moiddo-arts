@@ -13,7 +13,7 @@
         rel="stylesheet">
     <style>
         :root {
-            --primary: #536340;
+            --primary: #5A7247;
             --primary-dark: #2C3C1C;
             --secondary: #AAB898;
             --light: #F4F4F4;
@@ -287,8 +287,7 @@
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
-                        <li><a href="{{url_for('main.exposicoes')}}"
-                                class="hover:text-[#AAB898] transition-colors">Exposições</a></li>
+
                         <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
                                 Nós</a></li>
                         <li><a href="{{url_for('main.contato')}}"
@@ -330,25 +329,8 @@
         </div>
     </footer>
 
-    <script>
-        // Back to top button
-        document.addEventListener('DOMContentLoaded', function () {
-            const backToTopButton = document.querySelector('.back-to-top');
+    <script src="{{ url_for('static', filename='js/back-top-button.js') }}"></script>
 
-            window.addEventListener('scroll', function () {
-                if (window.pageYOffset > 300) {
-                    backToTopButton.style.display = 'flex';
-                } else {
-                    backToTopButton.style.display = 'none';
-                }
-            });
-
-            backToTopButton.addEventListener('click', function (e) {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-    </script>
 </body>
 
 </html>

@@ -9,11 +9,11 @@
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../static/css/bolhas.css">
-  <link rel="stylesheet" href="../static/css/auth.css">
+  <link rel="stylesheet" href="../static/css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="auth-body min-h-screen flex items-center justify-center p-4">
   <!-- Container das bolhas decorativas -->
   <div class="bg-bolhas">
     <div class="bolha"></div>
@@ -27,9 +27,9 @@
   </div>
 
   <main
-    class="conteudo auth-container w-full max-w-md rounded-xl shadow-2xl overflow-hidden border border-[#536340]/10">
+    class="conteudo auth-container w-full max-w-md rounded-xl shadow-2xl overflow-hidden border border-[#5A7247]/10">
     <!-- Cabeçalho -->
-    <div class="bg-[#536340] text-white p-8 text-center">
+    <div class="bg-[#5A7247] text-white p-8 text-center">
       <p class="mb-8">Muiddo Arts</p>
       <h1 class="text-2xl font-bold mb-2">Cadastro de Cliente</h1>
       <p class="opacity-90">Preencha seus dados para criar sua conta</p>
@@ -42,7 +42,8 @@
             <span class="label-text text-[#2C3C1C]">E-Mail</span>
           </label>
           <div class="relative">
-            <input id="email" name="email" type="email" required class="input-field input input-bordered w-full pl-10"
+            <input id="email" name="email" type="email" required
+              class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
               placeholder="exemplo@email.com">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-envelope"></i>
@@ -55,7 +56,8 @@
             <span class="label-text text-[#2C3C1C]">Nome Completo</span>
           </label>
           <div class="relative">
-            <input id="name" name="name" type="text" required class="input-field input input-bordered w-full pl-10"
+            <input id="name" name="name" type="text" required
+              class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
               placeholder="João da Silva">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-user"></i>
@@ -68,7 +70,8 @@
             <span class="label-text text-[#2C3C1C]">Nome de Usuário</span>
           </label>
           <div class="relative">
-            <input id="username" name="user" type="text" required class="input-field input input-bordered w-full pl-10"
+            <input id="username" name="user" type="text" required
+              class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
               placeholder="joao_cliente">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-at"></i>
@@ -81,7 +84,8 @@
             <span class="label-text text-[#2C3C1C]">CPF</span>
           </label>
           <div class="relative">
-            <input id="cpf" name="cpf" type="text" required class="input-field input input-bordered w-full pl-10"
+            <input id="cpf" name="cpf" type="text" required
+              class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
               placeholder="000.000.000-00">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-id-card"></i>
@@ -95,7 +99,8 @@
           </label>
           <div class="relative">
             <input id="password" name="password" type="password" required
-              class="input-field input input-bordered w-full pl-10" placeholder="Crie uma senha segura">
+              class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
+              placeholder="Crie uma senha segura">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-lock"></i>
             </span>
@@ -108,12 +113,12 @@
         </div>
 
         <div class="pt-4">
-          <button type="submit" class="btn btn-primary-custom text-white w-full">
+          <button type="submit" class="btn btn-gradient text-white w-full">
             Cadastrar
           </button>
         </div>
 
-        <div class="text-center text-sm text-[#536340] mt-4">
+        <div class="text-center text-sm text-[#5A7247] mt-4">
           <p>Já tem uma conta? <a href="{{url_for('main.login_client') }}" class="font-semibold hover:underline">Faça
               login</a></p>
         </div>

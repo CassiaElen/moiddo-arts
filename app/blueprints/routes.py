@@ -67,7 +67,9 @@ def PreLogin():
 @main.route("/home")
 def home():
     from ..services.artista_service import ArtistaService
+    from ..services.obras_service import Obras
     artista = ArtistaService()
+    obra = Obras()
 
     if not auth_manager.is_authenticated():
         flash("Você precisa estar logado para acessar esta página.","error")
@@ -76,35 +78,38 @@ def home():
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
     artistas = artista.buscar_artistasHome()
-    return render_template("index.html",user=user, user_type=user_type, artistas=artistas)
+    obras_destaque = obra.buscar_obrasHome()
+    return render_template("index.html",user=user, user_type=user_type, artistas=artistas, obras_destaque=obras_destaque)
 
-@main.route("/sobre-nós")
+@main.route("/sobre-nos")
 def sobre_nos():
-    return render_template("sobre-nós.html")
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+    return render_template("sobre-nos.html",user=user, user_type=user_type)
 
 @main.route("/contatos")
 def contato():
-    return render_template("contato.html")
-
-@main.route("/exposições")
-def exposicoes():
-    return render_template("exposicoes.html")
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+    return render_template("contato.html",user=user, user_type=user_type)
 
 @main.route("/loja")
 def loja():
-    return render_template("loja.html")
-
-@main.route("/artistas.comunidade")
-def artistas():
-    return render_template("artistas.comunidade.html")
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+    return render_template("loja.html",user=user, user_type=user_type)
 
 @main.route("/carrinho")
 def carrinho():
-    return render_template("carrinho.html")
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+    return render_template("carrinho.html",user=user, user_type=user_type)
 
 @main.route("/perfil-cliente")
 def perfil_cliente():
-    return render_template("perfil-cliente.html")
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+    return render_template("perfil-cliente.html",user=user, user_type=user_type)
 
 @main.route("/trocar-senha")
 def trocar_senha():

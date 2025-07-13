@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muiddo Arts - Arte do Cariri para o mundo</title>
-    <meta name="description" content="Conectamos artistas locais do Cariri com amantes da arte regional. Compre arte autêntica e apoie os talentos da nossa região.">
+    <meta name="description"
+        content="Conectamos artistas locais do Cariri com amantes da arte regional. Compre arte autêntica e apoie os talentos da nossa região.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -76,62 +77,64 @@
                             </div>
                         </div>
                         {% if user_type == 'cliente' %}
-                            <!-- Carrinho -->
-                            <div class="dropdown dropdown-end">
-                                <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-[#2C3C1C]">
-                                    <div class="indicator">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                        <span
-                                            class="badge badge-sm indicator-item bg-white text-[#2C3C1C] border-0">3</span>
-                                    </div>
-                                </label>
-                                <div tabindex="0"
-                                    class="dropdown-content card card-compact mt-3 w-72 bg-[#f4f4f4] shadow-lg border-none border-gray-100">
-                                    <div class="card-body">
-                                        <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
-                                        <span class="text-[#536340]">Subtotal: R$ 1.240,00</span>
-                                        <div class="card-actions">
-                                            <a href="{{url_for('main.carrinho')}}"
-                                                class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
-                                                Carrinho</a>
-                                        </div>
+                        <!-- Carrinho -->
+                        <div class="dropdown dropdown-end">
+                            <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-[#2C3C1C]">
+                                <div class="indicator">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    <span
+                                        class="badge badge-sm indicator-item bg-white text-[#2C3C1C] border-0">3</span>
+                                </div>
+                            </label>
+                            <div tabindex="0"
+                                class="dropdown-content card card-compact mt-3 w-72 bg-[#f4f4f4] shadow-lg border-none border-gray-100">
+                                <div class="card-body border-2 border-solid border-[#5A7247] rounded-xl">
+                                    <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
+                                    <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
+                                    <div class="card-actions">
+                                        <a href="{{url_for('main.carrinho')}}"
+                                            class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
+                                            Carrinho</a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         {% endif %}
                         <!-- Perfil do Usuário -->
                         <div class="dropdown dropdown-end">
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
                                 <div
                                     class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
-                                    <img src="{{user.avatar}}"
-                                        alt="Foto de perfil" />
+                                    <img src="{{user.avatar}}" alt="Foto de perfil" />
                                 </div>
                             </label>
                             <ul tabindex="0"
-                                class="dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+                                class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
                                 {% if user_type == 'cliente' %}
                                 <li>
                                     <a href="{{ url_for('main.perfil_cliente') }}"
-                                        class="text-[#2C3C1C] hover:bg-[#536340]/10 active:bg-[#536340]/20">Meu Perfil</a>
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                        Perfil</a>
                                 </li>
                                 {% elif user_type == 'artista' %}
                                 <li>
                                     <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
-                                        class="text-[#2C3C1C] hover:bg-[#536340]/10 active:bg-[#536340]/20">Meu Perfil</a>
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                        Perfil</a>
                                 </li>
                                 <li>
                                     <a href="{{ url_for('artistas.painel_artista') }}"
-                                        class="text-[#2C3C1C] hover:bg-[#536340]/10 active:bg-[#536340]/20">Painel do Artista</a>
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Painel do
+                                        Artista</a>
                                 </li>
                                 {% endif %}
                                 <li>
                                     <a href="{{url_for('main.logout')}}"
-                                        class="text-red-500 hover:bg-[#536340]/10 active:bg-[#536340]/20">Sair</a>
+                                        class="text-red-500 hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Sair</a>
                                 </li>
                             </ul>
                         </div>
@@ -143,31 +146,26 @@
                     <ul class="menu menu-horizontal gap-1 px-4 py-2">
                         <li>
                             <a href="{{url_for('main.loja')}}"
-                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Loja
                             </a>
                         </li>
                         <li>
                             <a href="{{url_for('artistas.artistas_comunidade')}}"
-                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Artistas
                             </a>
                         </li>
-                        <li>
-                            <a href="{{url_for('main.exposicoes')}}"
-                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
-                                Exposições
-                            </a>
-                        </li>
+
                         <li>
                             <a href="{{url_for('main.sobre_nos')}}"
-                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Sobre Nós
                             </a>
                         </li>
                         <li>
                             <a href="{{url_for('main.contato')}}"
-                                class="text-white hover:bg-[#536340] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Contato
                             </a>
                         </li>
@@ -178,7 +176,7 @@
             <!-- Drawer Side (Mobile Menu) -->
             <div class="drawer-side">
                 <label for="main-drawer" aria-label="Fechar menu" class="drawer-overlay"></label>
-                <div class="menu p-4 w-80 min-h-full bg-[#536340] text-white">
+                <div class="menu p-4 w-80 min-h-full bg-[#5A7247] text-white">
                     <!-- Cabeçalho do Drawer -->
                     <div class="flex items-center justify-between mb-6">
                         <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
@@ -219,12 +217,6 @@
                             <a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Artistas
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{url_for('main.exposicoes')}}"
-                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
-                                Exposições
                             </a>
                         </li>
                         <li>
@@ -289,7 +281,7 @@
                         Arte do Cariri para o mundo. Conectamos artistas locais com amantes da arte regional.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="{{url_for('main.loja')}}" class="btn btn-gradient text-white px-8 py-3 font-semibold">
+                        <a href="{{url_for('main.loja')}}" class="btn btn-gradient px-8 py-3 font-semibold">
                             Ver Produtos
                         </a>
                         <a href="{{url_for('main.login_artist')}}"
@@ -316,8 +308,7 @@
                     <div class="grid gap-8">
                         <div class="card bg-[#F4F4F4] overflow-hidden rounded-xl shadow-sm">
                             <figure class="relative h-64">
-                                <img data-src="https://images.unsplash.com/photo-1579547945413-497e1b99dac0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-                                    alt="Obra em destaque"
+                                <img data-src="../static/assets/colecao-de-verao.jpg" alt="Obra em destaque"
                                     class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 <div
                                     class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
@@ -330,8 +321,7 @@
                         <div class="grid grid-cols-2 gap-8">
                             <div class="card bg-[#F4F4F4] overflow-hidden rounded-xl shadow-sm">
                                 <figure class="relative h-48">
-                                    <img data-src="https://images.unsplash.com/photo-1578926375605-eaf7559b1458?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-                                        alt="Artista em destaque"
+                                    <img data-src="../static/assets/artista-do-mes.jpg" alt="Artista em destaque"
                                         class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                     <div
                                         class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
@@ -342,8 +332,7 @@
 
                             <div class="card bg-[#F4F4F4] overflow-hidden rounded-xl shadow-sm">
                                 <figure class="relative h-48">
-                                    <img data-src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-                                        alt="Exposição"
+                                    <img data-src="../static/assets/exposicao.jpg" alt="Exposição"
                                         class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                     <div
                                         class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
@@ -356,8 +345,7 @@
 
                     <div class="card bg-[#F4F4F4] overflow-hidden rounded-xl shadow-sm">
                         <figure class="relative h-full">
-                            <img data-src="../static/assets/FeiradeArtesanato.jpg"
-                                alt="Evento especial"
+                            <img data-src="../static/assets/FeiradeArtesanato.jpg" alt="Evento especial"
                                 class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                             <div
                                 class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
@@ -382,29 +370,35 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                     {% for artista in artistas %}
-                        <div class="artist-card card bg-[#E3D9C6] shadow-sm hover:shadow-md transition-shadow duration-300 items-center p-6 text-center rounded-xl">
-                            <div class="avatar mb-4 group">
-                                <div class="w-24 h-24 rounded-full border-4 border-[#2C3C1C] overflow-hidden transition-transform duration-300 group-hover:scale-105">
-                                    <img data-src="{{artista.url_avatar}}"
-                                        alt="{{artista.nome_completo}} - Artista de Pintura Digital" class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-                                </div>
+                    <div
+                        class="artist-card card bg-[#E3D9C6] shadow-sm hover:shadow-md transition-shadow duration-300 items-center p-6 text-center rounded-xl">
+                        <div class="avatar mb-4 group">
+                            <div
+                                class="w-24 h-24 rounded-full border-4 border-[#2C3C1C] overflow-hidden transition-transform duration-300 group-hover:scale-105">
+                                <img data-src="{{artista.url_avatar}}"
+                                    alt="{{artista.nome_completo}} - Artista de Pintura Digital"
+                                    class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-110">
                             </div>
-                            <h3 class="text-xl font-bold text-[#2C3C1C] mb-1">{{artista.nome_completo}}</h3>
-                            <p class="text-sm text-[#536340] font-medium mb-3">Pintura Digital</p>
-                            <p class="text-gray-600 text-sm mb-4 px-2">{{artista.biografia}}</p>
-                            <a href="{{ url_for('artistas.perfil_artista', id_artista=artista.id_artista) }}" class="btn btn-sm bg-[#536340] hover:bg-[#2C3C1C] text-white mt-2 border-none transition-colors duration-300 transform hover:-translate-y-1">
-                                Ver Perfil
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </a>
                         </div>
+                        <h3 class="text-xl font-bold text-[#2C3C1C] mb-1">{{artista.nome_completo}}</h3>
+                        <p class="text-sm text-[#5A7247] font-medium mb-3">Pintura Digital</p>
+                        <p class="text-gray-600 text-sm mb-4 px-2">{{artista.biografia}}</p>
+                        <a href="{{ url_for('artistas.perfil_artista', id_artista=artista.id_artista) }}"
+                            class="btn btn-sm bg-[#5A7247] hover:bg-[#2C3C1C] text-white mt-2 border-none transition-colors duration-300 transform hover:-translate-y-1">
+                            Ver Perfil
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
                     {% endfor %}
                 </div>
 
                 <div class="text-center mt-10">
                     <a href="{{url_for('artistas.artistas_comunidade')}}"
-                        class="btn btn-outline border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white px-8 py-3 font-semibold">
+                        class="btn btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white px-8 py-3 font-semibold">
                         Ver Todos os Artistas
                     </a>
                 </div>
@@ -420,97 +414,58 @@
                 </p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-                    <!-- Produto 1 -->
+                    {% for obra in obras_destaque %}
                     <div class="artwork-card card bg-white shadow-sm overflow-hidden">
+                        <!-- Imagem da obra -->
                         <figure class="relative h-48">
-                            <img data-src="https://images.unsplash.com/photo-1579547945413-497e1b99dac0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-                                alt="Produto 1" class="lazy w-full h-full object-cover">
-                            <button
-                                class="absolute top-4 right-4 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold text-gray-800">Vaso Cerâmico</h3>
-                            <p class="text-gray-600 text-sm">por Ana Silva</p>
-                            <div class="flex items-center justify-between mt-3">
-                                <p class="text-lg font-bold text-[#536340]">R$ 320,00</p>
-                                <button
-                                    class="btn btn-sm btn-outline border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">
-                                    <i class="fas fa-shopping-cart mr-1"></i> Comprar
-                                </button>
+                            <img src="{{obra.url_foto}}" alt="{{obra.titulo}}"
+                                class="absolute top-0 left-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                            <!-- Badge de status -->
+                            {% if obra.estoque > 0 %}
+                            <div class="text-white border-none absolute top-2 right-2 badge bg-[#5A7247]">
+                                {{ obra.estoque }} em estoque
                             </div>
-                        </div>
-                    </div>
+                            {% else %}
+                            <div class="text-white border-none absolute top-2 right-2 badge badge-error">
+                                Esgotado
+                            </div>
+                            {% endif %}
+                        </figure>
+                        <!-- Corpo do card -->
+                        <div class="card-body p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="card-title text-lg font-bold text-[#2C3C1C] line-clamp-1">{{ obra.titulo }}
+                                </h3>
+                                {% if obra.ano_criacao %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.ano_criacao
+                                    }}</span>
+                                {% endif %}
+                            </div>
 
-                    <!-- Produto 2 -->
-                    <div class="artwork-card card bg-white shadow-sm overflow-hidden">
-                        <figure class="relative h-48">
-                            <img data-src="https://images.unsplash.com/photo-1578926375605-eaf7559b1458?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-                                alt="Produto 2" class="lazy w-full h-full object-cover">
-                            <button
-                                class="absolute top-4 right-4 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold text-gray-800">Pintura Digital</h3>
-                            <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                            <div class="flex items-center justify-between mt-3">
-                                <p class="text-lg font-bold text-[#536340]">R$ 1.250,00</p>
-                                <button
-                                    class="btn btn-sm btn-outline border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">
-                                    <i class="fas fa-shopping-cart mr-1"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                            <p class="text-gray-600 text-sm mt-2 line-clamp-2">{{ obra.descricao }}</p>
 
-                    <!-- Produto 3 -->
-                    <div class="artwork-card card bg-white shadow-sm overflow-hidden">
-                        <figure class="relative h-48">
-                            <img data-src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-                                alt="Produto 3" class="lazy w-full h-full object-cover">
-                            <button
-                                class="absolute top-4 right-4 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold text-gray-800">Tapete Artesanal</h3>
-                            <p class="text-gray-600 text-sm">por Maria Oliveira</p>
-                            <div class="flex items-center justify-between mt-3">
-                                <p class="text-lg font-bold text-[#536340]">R$ 580,00</p>
-                                <button
-                                    class="btn btn-sm btn-outline border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">
-                                    <i class="fas fa-shopping-cart mr-1"></i> Comprar
-                                </button>
+                            <div class="mt-2 flex flex-wrap gap-1">
+                                {% if obra.tecnica %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.tecnica
+                                    }}</span>
+                                {% endif %}
+                                {% if obra.dimensoes %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.dimensoes
+                                    }}</span>
+                                {% endif %}
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Produto 4 -->
-                    <div class="artwork-card card bg-white shadow-sm overflow-hidden">
-                        <figure class="relative h-48">
-                            <img data-src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=399&q=80"
-                                alt="Produto 4" class="lazy w-full h-full object-cover">
-                            <button
-                                class="absolute top-4 right-4 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold text-gray-800">Escultura em Madeira</h3>
-                            <p class="text-gray-600 text-sm">por João Santos</p>
                             <div class="flex items-center justify-between mt-3">
-                                <p class="text-lg font-bold text-[#536340]">R$ 890,00</p>
+                                <p class="text-lg font-bold text-[#5A7247]">R$ {{ "%.2f"|format(obra.preco)|replace(".",
+                                    ",") }}</p>
                                 <button
-                                    class="btn btn-sm btn-outline border-[#536340] text-[#536340] hover:bg-[#536340] hover:text-white">
+                                    class="btn btn-sm btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">
                                     <i class="fas fa-shopping-cart mr-1"></i> Comprar
                                 </button>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
 
                 <div class="text-center mt-10">
@@ -523,7 +478,8 @@
         </section>
 
         <!-- Missão Section -->
-        <section class="hero min-h-screen relative" style="background-image: url('../static/assets/artesanatojusto.jpg');">
+        <section class="hero min-h-screen relative"
+            style="background-image: url('../static/assets/artesanatojusto.jpg');">
             <div class="hero-overlay bg-black/50"></div>
             <div class="hero-content text-neutral-content">
                 <div class="max-w-2xl ml-auto mr-8 md:mr-16 fade-in">
@@ -585,6 +541,7 @@
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -620,8 +577,7 @@
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
-                        <li><a href="{{url_for('main.exposicoes')}}"
-                                class="hover:text-[#AAB898] transition-colors">Exposições</a></li>
+
                         <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
                                 Nós</a></li>
                         <li><a href="{{url_for('main.contato')}}"
@@ -643,7 +599,8 @@
                     <ul class="space-y-2">
                         <li><a href="{{url_for('main.login_artist')}}"
                                 class="hover:text-[#AAB898] transition-colors">Cadastre-se</a></li>
-                        <li><a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
+                        <li><a href="{{url_for('main.termos_servico')}}"
+                                class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
                         <li><a href="#" class="hover:text-[#AAB898] transition-colors">Dicas para Vender Mais</a></li>
                         <li><a href="#" class="hover:text-[#AAB898] transition-colors">Eventos e Workshops</a></li>
                     </ul>
@@ -653,13 +610,15 @@
             <div class="border-t border-[#2C3C1C] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p>© 2023 Muiddo Arts. Todos os direitos reservados.</p>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos de Serviço</a>
-                    <a href="{{url_for('main.politica_privacidade')}}" class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
+                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos
+                        de Serviço</a>
+                    <a href="{{url_for('main.politica_privacidade')}}"
+                        class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
                 </div>
             </div>
         </div>
     </footer>
-    
+
     <script src="{{ url_for('static', filename='js/alertas.js') }}"></script>
     <script>
         // Lazy loading

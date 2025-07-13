@@ -51,7 +51,7 @@ def seed_cliente():
             "senha202",
             "ativo",
             "2023-04-20",
-            "/static/assets/uploads/perfils/beatriz.jpg",
+            "/static/assets/uploads/perfils/beaoli.jpg",
         ),
         (
             "Lucas Martins",
@@ -61,7 +61,7 @@ def seed_cliente():
             "senha303",
             "ativo",
             "2023-05-12",
-            "/static/assets/uploads/perfils/lucas.jpg",
+            "/static/assets/uploads/perfils/lumartins.jpg",
         ),
         (
             "Isabela Santos",
@@ -71,7 +71,7 @@ def seed_cliente():
             "senha404",
             "desativado",
             "2023-06-25",
-            "/static/assets/uploads/perfils/isabela.jpg",
+            "/static/assets/uploads/perfils/isasantos.jpg",
         ),
         (
             "Gustavo Lima",
@@ -91,7 +91,7 @@ def seed_cliente():
             "senha606",
             "ativo",
             "2023-08-30",
-            "/static/assets/uploads/perfils/camila.jpg",
+            "/static/assets/uploads/perfils/camilocha.jpg",
         ),
         (
             "Bruno Carvalho",

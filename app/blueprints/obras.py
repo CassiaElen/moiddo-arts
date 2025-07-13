@@ -6,7 +6,7 @@ db = SQLAlchemy()
 obras_bp = Blueprint('obras', __name__)
 
 @obras_bp.route('/lojas', methods = ['GET'])
-#inicialmente, capturar as informações enviadas via formulário pelo usuário
+inicialmente, capturar as informações enviadas via formulário pelo usuário
 def filtrar_categorias():
     filtro1 = request.args.getlist('obras')
     resultado = Obras.query.filter(Obras.categoria.in_(filtro1)).all()

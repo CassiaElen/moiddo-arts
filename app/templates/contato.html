@@ -8,144 +8,261 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/css/contato.css">
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
-<body class="gradient-bg min-h-screen flex flex-col">
-    <header>
-        <div class="drawer shadow-sm">
-            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content flex flex-col">
-                <!-- Navbar -->
-                <div class="navbar bg-[#536340] w-full">
-                    <div class="flex-none lg:hidden">
-                        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block h-6 w-6 stroke-current">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </label>
-                    </div>
-                    <div class="mx-2 flex-1 px-2  ">
-                        <figure class="w-30 h-30">
-                            <a href="{{url_for(main.home)}}">
-                                <img src="../static/assets/muiddo.png " alt="Muiddo Arts">
-                            </a>
-                        </figure>
-                    </div>
-                    <div class="navbar-end flex gap-2">
-                        <div class="hidden flex-none lg:block">
-                            <div class="menu menu-horizontal">
-                                <label class="input w-100">
-                                    <input type="search" required placeholder="Search" />
-                                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24">
-                                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                                            stroke="currentColor">
-                                            <circle cx="11" cy="11" r="8"></circle>
-                                            <path d="m21 21-4.3-4.3"></path>
-                                        </g>
-                                    </svg>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="dropdown dropdown-end">
-                            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-                                <div class="indicator">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                    <span class="badge badge-sm indicator-item">8</span>
-                                </div>
-                            </div>
-                            <div tabindex="0"
-                                class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
-                                <div class="card-body">
-                                    <span class="text-lg font-bold ">8 Items</span>
-                                    <span class="text-info">Subtotal: $999</span>
-                                    <div class="card-actions">
-                                        <button class="btn btn-primary btn-block">View cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown dropdown-end">
-                            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                <div class="w-10 rounded-full">
-                                    <img alt="Foto de perfil"
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                                </div>
-                            </div>
-                            <ul tabindex="0"
-                                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                                <li>
-                                    <a class="justify-between" href="/app/templates/pre-login.html">
-                                        Perfil
-                                        <span class="badge">New</span>
-                                    </a>
-                                </li>
-                                <li><a>Settings</a></li>
-                                <li><a href="{{url_for('main.logout')}}">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
+<body class="auth-containermin-h-screen flex flex-col bg-[#F4F4F4]"">
+
+    <header class=" sticky top-0 z-50 shadow-md">
+    <div class="drawer">
+        <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <!-- Navbar Principal -->
+            <div class="navbar bg-[#5A7247] px-4 md:px-8">
+                <!-- Botão Mobile -->
+                <div class="flex-none lg:hidden">
+                    <label for="main-drawer" aria-label="Abrir menu" class="btn btn-ghost btn-square text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </label>
                 </div>
-                <!-- Page content here -->
-                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
-                    <ul class="menu menu-horizontal px-1 ">
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.loja')}}">Loja</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('artistas.artistas_comunidade')}}">Artistas</a>
-                        </li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.exposicoes')}}">Exposições</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.contato')}}">Contato</a></li>
-                    </ul>
+
+                <!-- Logo -->
+                <div class="flex-1">
+                    <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                        <span class="text-[#f4f4f4]">Muiddo</span>
+                        <span class="text-[#AAB898]">Arts</span>
+                    </a>
+                </div>
+
+                <!-- Itens da Direita -->
+                <div class="navbar-end space-x-2">
+                    <!-- Campo de Busca (Desktop) -->
+                    <div class="hidden lg:block">
+                        <div class="relative">
+                            <input type="text" placeholder="Pesquisar..."
+                                class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                            <span class="absolute left-3 top-3 text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    {% if user_type == 'cliente' %}
+                    <!-- Carrinho -->
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-[#2C3C1C]">
+                            <div class="indicator">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <span class="badge badge-sm indicator-item bg-white text-[#2C3C1C] border-0">3</span>
+                            </div>
+                        </label>
+                        <div tabindex="0"
+                            class="dropdown-content card card-compact mt-3 w-72 bg-[#f4f4f4] shadow-lg border-none border-gray-100">
+                            <div class="card-body border-2 border-solid border-[#5A7247] rounded-xl">
+                                <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
+                                <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
+                                <div class="card-actions">
+                                    <a href="{{url_for('main.carrinho')}}"
+                                        class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
+                                        Carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!-- Perfil do Usuário -->
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
+                            <div
+                                class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
+                                <img src="{{user.avatar}}" alt="Foto de perfil" />
+                            </div>
+                        </label>
+                        <ul tabindex="0"
+                            class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+                            {% if user_type == 'cliente' %}
+                            <li>
+                                <a href="{{ url_for('main.perfil_cliente') }}"
+                                    class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                    Perfil</a>
+                            </li>
+                            {% elif user_type == 'artista' %}
+                            <li>
+                                <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                    class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                    Perfil</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('artistas.painel_artista') }}"
+                                    class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Painel do
+                                    Artista</a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="{{url_for('main.logout')}}"
+                                    class="text-red-500 hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Sair</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="drawer-side ">
-                <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu bg-[#536340] min-h-full w-70 p-4">
-                    <label class="input">
-                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                                stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input type="search" required placeholder="Search" />
-                    </label>
-                    <ul class="mt-3">
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.loja')}}">Loja</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('artistas.artistas_comunidade')}}">Artistas</a>
-                        </li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.exposicoes')}}">Exposições</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.contato')}}">Contato</a></li>
-                    </ul>
-                </div>
+
+            <!-- Navbar Secundária (Desktop) -->
+            <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
+                <ul class="menu menu-horizontal gap-1 px-4 py-2">
+                    <li>
+                        <a href="{{url_for('main.loja')}}"
+                            class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                            Loja
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('artistas.artistas_comunidade')}}"
+                            class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                            Artistas
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{url_for('main.sobre_nos')}}"
+                            class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                            Sobre Nós
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.contato')}}"
+                            class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                            Contato
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
+
+        <!-- Drawer Side (Mobile Menu) -->
+        <div class="drawer-side">
+            <label for="main-drawer" aria-label="Fechar menu" class="drawer-overlay"></label>
+            <div class="menu p-4 w-80 min-h-full bg-[#5A7247] text-white">
+                <!-- Cabeçalho do Drawer -->
+                <div class="flex items-center justify-between mb-6">
+                    <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                        <span class="text-[#f4f4f4]">Muiddo</span>
+                        <span class="text-[#AAB898]">Arts</span>
+                    </a>
+                    <label for="main-drawer" class="btn btn-ghost btn-circle text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </label>
+                </div>
+
+                <!-- Campo de Busca (Mobile) -->
+                <div class="relative mb-6">
+                    <input type="text" placeholder="Pesquisar..."
+                        class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                    <span class="absolute left-3 top-3 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </span>
+                </div>
+
+                <!-- Menu Principal -->
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{{url_for('main.loja')}}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Loja
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('artistas.artistas_comunidade')}}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Artistas
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{url_for('main.sobre_nos')}}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Sobre Nós
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.contato')}}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Contato
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="divider my-4"></div>
+
+                <!-- Menu Secundário -->
+                <ul class="space-y-2">
+                    {% if user_type == 'cliente' %}
+                    <li>
+                        <a href="{{ url_for('artistas.painel_artista') }}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Meu Perfil
+                        </a>
+                    </li>
+                    {% elif user_type == 'artista' %}
+                    <li>
+                        <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Meu Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('artistas.painel_artista') }}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Painel do artista
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ url_for('main.logout') }}"
+                            class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     </header>
 
     <main class="flex-grow container mx-auto px-4 py-12">
 
         <div class="max-w-7xl mx-auto">
             <!-- Breadcrumbs -->
-            <div class="text-sm breadcrumbs mb-8">
+            <div class="text-sm breadcrumbs mb-6">
                 <ul>
-                    <li><a href="index.html" class="text-indigo-600 hover:text-indigo-800">Home</a></li>
+                    <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Home</a></li>
                     <li class="text-gray-500">Contato</li>
                 </ul>
             </div>
 
             <!-- Page Title -->
             <div class="text-center mb-12">
-                <h1 class="title-font text-4xl md:text-5xl font-bold text-gray-900 mb-4">Fale Conosco</h1>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                <h1 class="title-font text-4xl md:text-5xl font-bold text-[#2C3C1C] mb-4">Fale Conosco</h1>
+                <p class="text-lg text-[#5A7247] max-w-2xl mx-auto">
                     Tem alguma dúvida, sugestão ou quer saber mais sobre nossas obras? Entre em contato conosco, nossa
                     equipe está pronta para te ajudar.
                 </p>
@@ -155,23 +272,26 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
                 <!-- Contact Form -->
                 <div class="bg-white rounded-xl shadow-md p-6 md:p-8 contact-card">
-                    <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Envie sua mensagem</h2>
+                    <h2 class="text-2xl font-bold text-[#2C3C1C] mb-6">Envie sua mensagem</h2>
                     <form>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                                <input type="text" id="name" class="input input-bordered w-full input-focus"
+                                <label for="name" class="block text-sm font-medium text-[#2C3C1C] mb-1">Nome</label>
+                                <input type="text" id="name"
+                                    class="place-color text-[#2C3C1C] bg-[#F5F5F0] input input-bordered w-full input-focus"
                                     placeholder="Seu nome completo" required>
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
-                                <input type="email" id="email" class="input input-bordered w-full input-focus"
+                                <label for="email" class="block text-sm font-medium text-[#2C3C1C] mb-1">E-mail</label>
+                                <input type="email" id="email"
+                                    class="place-color text-[#2C3C1C] bg-[#F5F5F0] input input-bordered w-full input-focus"
                                     placeholder="seu@email.com" required>
                             </div>
                         </div>
                         <div class="mb-6">
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Assunto</label>
-                            <select id="subject" class="select select-bordered w-full input-focus">
+                            <label for="subject" class="block text-sm font-medium text-[#2C3C1C] mb-1">Assunto</label>
+                            <select id="subject"
+                                class="place-color text-[#2C3C1C] bg-[#F5F5F0] select select-bordered w-full input-focus">
                                 <option disabled selected>Selecione um assunto</option>
                                 <option>Dúvida sobre produtos</option>
                                 <option>Informações sobre artistas</option>
@@ -182,11 +302,12 @@
                             </select>
                         </div>
                         <div class="mb-6">
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
-                            <textarea id="message" rows="5" class="textarea textarea-bordered w-full input-focus"
+                            <label for="message" class="block text-sm font-medium text-[#2C3C1C] mb-1">Mensagem</label>
+                            <textarea id="message" rows="5"
+                                class="place-color text-[#2C3C1C] bg-[#F5F5F0] textarea textarea-bordered w-full input-focus"
                                 placeholder="Escreva sua mensagem aqui..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary w-full">
+                        <button type="submit" class="btn btn-gradient w-full">
                             <i class="fas fa-paper-plane mr-2"></i> Enviar Mensagem
                         </button>
                     </form>
@@ -197,12 +318,12 @@
                     <!-- Contact Card 1 -->
                     <div class="bg-white rounded-xl shadow-md p-6 contact-card">
                         <div class="flex items-start gap-4">
-                            <div class="bg-indigo-100 p-3 rounded-full text-indigo-700">
+                            <div class="bg-[#AAB898] text-[#2C3C1C] p-3 rounded-full">
                                 <i class="fas fa-map-marker-alt text-xl"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-lg text-gray-900 mb-1">Endereço</h3>
-                                <p class="text-gray-600">Rua das Artes, 123<br>Vila Criativa<br>São Paulo - SP<br>CEP:
+                                <h3 class="font-bold text-lg text-[#2C3C1C] mb-1">Endereço</h3>
+                                <p class="text-[#5A7247]">Rua das Artes, 123<br>Vila Criativa<br>São Paulo - SP<br>CEP:
                                     01234-567</p>
                             </div>
                         </div>
@@ -211,16 +332,16 @@
                     <!-- Contact Card 2 -->
                     <div class="bg-white rounded-xl shadow-md p-6 contact-card">
                         <div class="flex items-start gap-4">
-                            <div class="bg-indigo-100 p-3 rounded-full text-indigo-700">
+                            <div class="bg-[#AAB898] text-[#2C3C1C] p-3 rounded-full">
                                 <i class="fas fa-phone-alt text-xl"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-lg text-gray-900 mb-1">Telefones</h3>
-                                <p class="text-gray-600 mb-2">
+                                <h3 class="font-bold text-lg text-[#2C3C1C] mb-1">Telefones</h3>
+                                <p class="text-[#5A7247] mb-2">
                                     <span class="font-medium">Comercial:</span> (11) 1234-5678<br>
                                     <span class="font-medium">WhatsApp:</span> (11) 98765-4321
                                 </p>
-                                <a href="https://wa.me/5511987654321" class="btn btn-sm btn-success text-white mt-2">
+                                <a href="https://wa.me/5511987654321" class="btn btn-sm btn-gradient mt-2">
                                     <i class="fab fa-whatsapp mr-2"></i> Chamar no WhatsApp
                                 </a>
                             </div>
@@ -230,17 +351,18 @@
                     <!-- Contact Card 3 -->
                     <div class="bg-white rounded-xl shadow-md p-6 contact-card">
                         <div class="flex items-start gap-4">
-                            <div class="bg-indigo-100 p-3 rounded-full text-indigo-700">
+                            <div class="bg-[#AAB898] text-[#2C3C1C] p-3 rounded-full">
                                 <i class="fas fa-envelope text-xl"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-lg text-gray-900 mb-1">E-mail</h3>
-                                <p class="text-gray-600 mb-2">
+                                <h3 class="font-bold text-lg text-[#2C3C1C] mb-1">E-mail</h3>
+                                <p class="text-[#5A7247] mb-2">
                                     <span class="font-medium">Geral:</span> contato@moiddoarts.com.br<br>
                                     <span class="font-medium">Vendas:</span> vendas@moiddoarts.com.br<br>
                                     <span class="font-medium">Artistas:</span> artistas@moiddoarts.com.br
                                 </p>
-                                <a href="mailto:contato@moiddoarts.com.br" class="btn btn-sm btn-outline mt-2">
+                                <a href="mailto:contato@moiddoarts.com.br"
+                                    class="btn btn-outline border-[#2C3C1C] text-[#2C3C1C] hover:bg-[#2C3C1C] hover:text-white btn-sm font-semibold mt-2">
                                     <i class="fas fa-envelope mr-2"></i> Enviar E-mail
                                 </a>
                             </div>
@@ -253,23 +375,24 @@
             <div class="bg-white rounded-xl shadow-md overflow-hidden mb-16">
                 <div class="grid grid-cols-1 lg:grid-cols-2">
                     <div class="p-6 md:p-8">
-                        <h2 class="title-font text-2xl font-bold text-gray-900 mb-4">Visite nossa galeria</h2>
-                        <p class="text-gray-600 mb-4">
+                        <h2 class="title-font text-2xl font-bold text-[#2C3C1C] mb-4">Visite nossa galeria</h2>
+                        <p class="text-[#5A7247] mb-4">
                             Nossa galeria está aberta para visitação de terça a sábado, das 10h às 18h. Venha conhecer
                             nossas obras pessoalmente e sentir a energia que só a arte presencial pode proporcionar.
                         </p>
                         <ul class="space-y-2 text-gray-700">
                             <li class="flex items-center gap-2">
-                                <i class="fas fa-clock text-indigo-600"></i>
-                                <span><strong>Horário de funcionamento:</strong> Ter-Sáb, 10h-18h</span>
+                                <i class="fas fa-clock text-[#2C3C1C]"></i>
+                                <span class="text-[#5A7247]"><strong>Horário de funcionamento:</strong> Ter-Sáb,
+                                    10h-18h</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i class="fas fa-parking text-indigo-600"></i>
-                                <span>Estacionamento gratuito no local</span>
+                                <i class="fas fa-parking text-[#2C3C1C]"></i>
+                                <span class="text-[#5A7247]">Estacionamento gratuito no local</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i class="fas fa-wheelchair text-indigo-600"></i>
-                                <span>Acesso para pessoas com deficiência</span>
+                                <i class="fas fa-wheelchair text-[#2C3C1C]"></i>
+                                <span class="text-[#5A7247]">Acesso para pessoas com deficiência</span>
                             </li>
                         </ul>
                     </div>
@@ -284,58 +407,59 @@
 
             <!-- FAQ Section -->
             <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
-                <h2 class="title-font text-2xl font-bold text-gray-900 mb-6 text-center">Perguntas Frequentes</h2>
+                <h2 class="title-font text-2xl font-bold text-[#2C3C1C] mb-6 text-center">Perguntas Frequentes</h2>
                 <div class="space-y-4">
                     <div class="collapse collapse-plus bg-base-100">
                         <input type="radio" name="my-accordion-3" checked="checked" />
-                        <div class="collapse-title text-lg font-medium">
+                        <div class="collapse-title text-lg font-medium text-[#2C3C1C] bg-[#F5F5F0]">
                             Como faço para comprar uma obra de arte?
                         </div>
-                        <div class="collapse-content">
-                            <p class="text-gray-600">Você pode comprar diretamente pelo nosso site, adicionando as obras
+                        <div class="collapse-content bg-[#F5F5F0]">
+                            <p class="text-[#5A7247]">Você pode comprar diretamente pelo nosso site, adicionando as
+                                obras
                                 ao carrinho e finalizando o pedido, ou visitando nossa galeria física. Também atendemos
                                 por WhatsApp para negociações especiais.</p>
                         </div>
                     </div>
                     <div class="collapse collapse-plus bg-base-100">
                         <input type="radio" name="my-accordion-3" />
-                        <div class="collapse-title text-lg font-medium">
+                        <div class="collapse-title text-lg font-medium text-[#2C3C1C] bg-[#F5F5F0]">
                             Quais são as formas de pagamento aceitas?
                         </div>
-                        <div class="collapse-content">
-                            <p class="text-gray-600">Aceitamos cartões de crédito (em até 12x), débito, transferência
+                        <div class="collapse-content bg-[#F5F5F0]">
+                            <p class="text-[#5A7247]">Aceitamos cartões de crédito (em até 12x), débito, transferência
                                 bancária, PIX e boleto. Para compras na galeria, também aceitamos dinheiro.</p>
                         </div>
                     </div>
                     <div class="collapse collapse-plus bg-base-100">
                         <input type="radio" name="my-accordion-3" />
-                        <div class="collapse-title text-lg font-medium">
+                        <div class="collapse-title text-lg font-medium text-[#2C3C1C] bg-[#F5F5F0]">
                             Como funciona o envio das obras?
                         </div>
-                        <div class="collapse-content">
-                            <p class="text-gray-600">Todas as obras são embaladas com materiais especiais para proteção
+                        <div class="collapse-content bg-[#F5F5F0]">
+                            <p class="text-[#5A7247]">Todas as obras são embaladas com materiais especiais para proteção
                                 e enviadas por transportadoras especializadas em objetos de arte. O prazo de entrega
                                 varia conforme o tamanho da obra e local de entrega.</p>
                         </div>
                     </div>
                     <div class="collapse collapse-plus bg-base-100">
                         <input type="radio" name="my-accordion-3" />
-                        <div class="collapse-title text-lg font-medium">
+                        <div class="collapse-title text-lg font-medium text-[#2C3C1C] bg-[#F5F5F0]">
                             Posso devolver uma obra se não gostar?
                         </div>
-                        <div class="collapse-content">
-                            <p class="text-gray-600">Sim, aceitamos devoluções em até 7 dias após o recebimento, desde
+                        <div class="collapse-content bg-[#F5F5F0]">
+                            <p class="text-[#5A7247]">Sim, aceitamos devoluções em até 7 dias após o recebimento, desde
                                 que a obra esteja em perfeitas condições. O custo do frete de devolução fica por conta
                                 do cliente.</p>
                         </div>
                     </div>
                     <div class="collapse collapse-plus bg-base-100">
                         <input type="radio" name="my-accordion-3" />
-                        <div class="collapse-title text-lg font-medium">
+                        <div class="collapse-title text-lg font-medium text-[#2C3C1C] bg-[#F5F5F0]">
                             Como posso me tornar um artista representado pela Moiddo Arts?
                         </div>
-                        <div class="collapse-content">
-                            <p class="text-gray-600">Artistas interessados podem enviar portfólio para
+                        <div class="collapse-content bg-[#F5F5F0]">
+                            <p class="text-[#5A7247]">Artistas interessados podem enviar portfólio para
                                 artistas@moiddoarts.com.br. Nossa curadoria analisa mensalmente os materiais recebidos e
                                 entra em contato com os selecionados.</p>
                         </div>
@@ -380,8 +504,7 @@
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
-                        <li><a href="{{url_for('main.exposicoes')}}"
-                                class="hover:text-[#AAB898] transition-colors">Exposições</a></li>
+
                         <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
                                 Nós</a></li>
                         <li><a href="{{url_for('main.contato')}}"
@@ -403,7 +526,8 @@
                     <ul class="space-y-2">
                         <li><a href="{{url_for('main.login_artist')}}"
                                 class="hover:text-[#AAB898] transition-colors">Cadastre-se</a></li>
-                        <li><a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
+                        <li><a href="{{url_for('main.termos_servico')}}"
+                                class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
                         <li><a href="#" class="hover:text-[#AAB898] transition-colors">Dicas para Vender Mais</a></li>
                         <li><a href="#" class="hover:text-[#AAB898] transition-colors">Eventos e Workshops</a></li>
                     </ul>
@@ -413,8 +537,10 @@
             <div class="border-t border-[#2C3C1C] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p>© 2023 Muiddo Arts. Todos os direitos reservados.</p>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos de Serviço</a>
-                    <a href="{{url_for('main.politica_privacidade')}}" class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
+                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos
+                        de Serviço</a>
+                    <a href="{{url_for('main.politica_privacidade')}}"
+                        class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
                 </div>
             </div>
         </div>

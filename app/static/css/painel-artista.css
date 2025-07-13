@@ -8,7 +8,7 @@ body {
     font-family: 'Playfair Display', serif;
 }
 
-.gradient-bg {
+.auth-container {
     background: linear-gradient(to bottom, #F4F4F4, #E3D9C6);
 }
 

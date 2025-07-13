@@ -97,7 +97,14 @@ class Obras:
             cursor.execute("SELECT * FROM obras WHERE status_obras='ativa'")
             row = cursor.fetchone()
             return dict(row) if row else None
-        
+    
+    def buscar_obrasHome(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM obras WHERE status_obras='ativa' ORDER BY id_obra DESC LIMIT 4")
+            rows = cursor.fetchall() 
+            return [dict(row) for row in rows]
+
     def deletar_obra(self):
         try:
             with db.get_conn() as conn:

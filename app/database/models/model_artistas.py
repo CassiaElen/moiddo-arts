@@ -396,6 +396,7 @@ class Artistas:
         }
 
     def buscar_artistas_comunidade(self, busca='', filtro='todos', ordenacao='recentes', pagina=1, por_pagina=9):
+        #INTEGRAR SISTEMA DE AVALIAÇÃO SE POSSIVEL
         query = """
             SELECT 
                 artistas.*,
