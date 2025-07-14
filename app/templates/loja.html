@@ -118,35 +118,14 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Navbar Secundária (Desktop) -->
-                <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
-                    <ul class="menu menu-horizontal gap-1 px-4 py-2">
-                        <li>
-                            <a href="{{url_for('main.loja')}}"
-                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
-                                Loja
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{url_for('artistas.artistas_comunidade')}}"
-                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
-                                Artistas
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{url_for('main.sobre_nos')}}"
-                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
-                                Sobre Nós
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{url_for('main.contato')}}"
-                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
-                                Contato
-                            </a>
-                        </li>
+                <!-- Page content here -->
+                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1 ">
+                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.loja')}}">Loja</a></li>
+                        <li><a class="text-[#F4F4F4]" href="{{url_for('artistas.artistas_comunidade')}}">Artistas</a></li>
+                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.exposicoes')}}">Exposições</a></li>
+                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
+                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.contato')}}">Contato</a></li>
                     </ul>
                 </div>
             </div>
@@ -250,15 +229,14 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <form action="{{url_for('obras.filtrar_categorias')}}" method="POST">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <aside class="max-lg:hidden lg:w-1/4 w-full">
-                    <div class="bg-white p-6 rounded-lg shadow-sm sticky top-4">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-xl font-bold text-gray-800">Filtrar Obras</h2>
-                            <button class="btn btn-sm btn-ghost text-indigo-600 hover:text-indigo-800">Limpar
-                                tudo</button>
-                        </div>
+        <div class="flex flex-col lg:flex-row gap-8">
+            <aside class="max-lg:hidden lg:w-1/4 w-full">
+                <div class="bg-white p-6 rounded-lg shadow-sm sticky top-4">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800">Filtrar Obras</h2>
+                        <button class="btn btn-sm btn-ghost text-indigo-600 hover:text-indigo-800">Limpar tudo</button>
+                    </div>
+                    <form action="filtrar_categorias" method="post">
                         <!-- Filtro de Categorias (Accordion) -->
                         <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
                             <input type="checkbox" class="peer" checked />
@@ -268,82 +246,78 @@
                             </div>
                             <div class="collapse-content">
                                 <div class="space-y-2 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Xilogravura"
-                                            class="checkbox checkbox-primary" checked />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option1" value="xilogravura" class="checkbox checkbox-primary"  />
                                         <span class="label-text">Xilogravura</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Escultura em Barro"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option2" value="escultura-em-barro" class="checkbox checkbox-primary" />
                                         <span class="label-text">Escultura em Barro</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Escultura em Madeira"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option3" value="escultura-em-madeira" class="checkbox checkbox-primary" />
                                         <span class="label-text">Escultura em Madeira</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Pintura"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option4" value="pintura" class="checkbox checkbox-primary" />
                                         <span class="label-text">Pintura</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Ilustação Digital"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option5" value="ilustracao-digital" class="checkbox checkbox-primary" />
                                         <span class="label-text">Ilustração Digital</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Artesanato Têxtil"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option6" value="artesanato-textil" class="checkbox checkbox-primary" />
                                         <span class="label-text">Artesanato Têxtil</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Bijuterias e Acessórios"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option7" value="bijuterias-acessorios-artesanais" class="checkbox checkbox-primary" />
                                         <span class="label-text">Bijuterias e Acessórios</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Cerâmica"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option8" value="ceramica" class="checkbox checkbox-primary" />
                                         <span class="label-text">Cerâmica</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Cordel"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option9" value="cordel-literatura-visual" class="checkbox checkbox-primary" />
                                         <span class="label-text">Cordel</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Fotografia"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option10" value="fotografia-artistica" class="checkbox checkbox-primary" />
                                         <span class="label-text">Fotografia</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Arte Reciclada"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option11" value="arte-reciclada" class="checkbox checkbox-primary" />
                                         <span class="label-text">Arte Reciclada</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="categoria" value="Arte Popular"
-                                            class="checkbox checkbox-primary" />
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                        <input type="checkbox" name="option12" value="arte-popular" class="checkbox checkbox-primary" />
                                         <span class="label-text">Arte Popular</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
 
+
+                        <!-- Filtro de Preço (Com feedback dinâmico) -->
+                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
+                            <input type="checkbox" class="peer" checked />
+                            <div class="collapse-title font-medium flex items-center">
+                                <i class="fas fa-tags text-indigo-500 mr-2"></i>
+                                <span>Faixa de Preço</span>
+                            </div>
+                            <div class="collapse-content">
+                                <div class="flex justify-between mb-2 text-sm text-gray-600">
+                                    <span>R$0</span>
+                                    <span>R$10.000</span>
+                                </div>
+                                <input type="range" min="0" max="10000" value="5000"
+                                    class="range range-primary range-xs mb-2" id="priceRange" />
+                                <div class="text-center">
+                                    <span class="font-medium text-indigo-600" id="priceValue">Até R$5.000</span>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Filtro de Preço (Com feedback dinâmico) -->
                         <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
                             <input type="checkbox" class="peer" checked />
@@ -373,18 +347,15 @@
                             </div>
                             <div class="collapse-content">
                                 <div class="space-y-2 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
                                         <input type="checkbox" class="checkbox checkbox-primary" />
                                         <span class="label-text">Abstrato</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
                                         <input type="checkbox" class="checkbox checkbox-primary" />
                                         <span class="label-text">Realismo</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
                                         <input type="checkbox" class="checkbox checkbox-primary" />
                                         <span class="label-text">Surrealismo</span>
                                     </label>
@@ -401,8 +372,7 @@
                             </div>
                             <div class="collapse-content">
                                 <div class="space-y-3 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
                                         <input type="checkbox" class="checkbox checkbox-primary" />
                                         <div class="rating rating-xs">
                                             <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400"
@@ -418,8 +388,7 @@
                                         </div>
                                         <span class="text-sm text-gray-600">(5 estrelas)</span>
                                     </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
                                         <input type="checkbox" class="checkbox checkbox-primary" />
                                         <div class="rating rating-xs">
                                             <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400"
@@ -430,8 +399,7 @@
                                                 checked />
                                             <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400"
                                                 checked />
-                                            <input type="radio" name="rating-6"
-                                                class="mask mask-star-2 bg-orange-400" />
+                                            <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400" />
                                         </div>
                                         <span class="text-sm text-gray-600">(4+ estrelas)</span>
                                     </label>
@@ -439,37 +407,43 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary w-full mt-4">
+
+                        <button class="btn btn-primary w-full mt-4" type="submit">
                             <i class="fas fa-filter mr-2"></i> Aplicar Filtros
                         </button>
-                    </div>
-                </aside>
-                <div class="lg:w-3/4 w-full">
+                    </form>  
+                </div>
 
-        </form>
-        <!-- Barra de Ordenação e Contagem -->
-        <div class="bg-white p-4 rounded-lg shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-center">
-            <div class="mb-3 sm:mb-0">
-                <span class="text-gray-600">Mostrando <span class="font-medium">12</span> de <span
-                        class="font-medium">45</span>
-                    produtos</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="text-gray-600">Ordenar por:</span>
-                <select class="select select-bordered select-sm">
-                    <option>Mais relevante</option>
-                    <option>Menor preço</option>
-                    <option>Maior preço</option>
-                    <option>Melhor avaliado</option>
-                    <option>Mais vendido</option>
-                </select>
-            </div>
-            <div class="lg:hidden flex justify-center pt-5 mb-4">
-                <button class="btn btn-outline btn-primary" onclick="filterDrawer.showModal()">
-                    <i class="fas fa-filter mr-2"></i> Filtrar
-                </button>
-            </div>
-        </div>
+            </aside>
+
+            
+            <div class="lg:w-3/4 w-full">
+
+
+                <!-- Barra de Ordenação e Contagem -->
+                <div
+                    class="bg-white p-4 rounded-lg shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-center">
+                    <div class="mb-3 sm:mb-0">
+                        <span class="text-gray-600">Mostrando <span class="font-medium">12</span> de <span
+                                class="font-medium">45</span>
+                            produtos</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-600">Ordenar por:</span>
+                        <select class="select select-bordered select-sm">
+                            <option>Mais relevante</option>
+                            <option>Menor preço</option>
+                            <option>Maior preço</option>
+                            <option>Melhor avaliado</option>
+                            <option>Mais vendido</option>
+                        </select>
+                    </div>
+                    <div class="lg:hidden flex justify-center pt-5 mb-4">
+                        <button class="btn btn-outline btn-primary" onclick="filterDrawer.showModal()">
+                            <i class="fas fa-filter mr-2"></i> Filtrar
+                        </button>
+                    </div>
+                </div>
 
         <!-- Modal/Drawer (DaisyUI) -->
         <dialog id="filterDrawer" class="modal modal-bottom sm:modal-middle">
@@ -544,177 +518,54 @@
             </form>
         </dialog>
 
-        <!-- Grid de Produtos -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Produto 1 -->
-            <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <figure class="px-4 pt-4 relative">
-                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                    <button
-                        class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </figure>
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg font-semibold text-gray-800">Aurora Dourada</h3>
-                    <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        Uma composição suave de tons frios e formas difusas que evocam tranquilidade e
-                        introspecção.
-                    </p>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                        <button class="btn btn-sm btn-outline btn-primary">
-                            <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                        </button>
+                <!-- Grid de Produtos -->
+
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {%if obras%}
+                    {%for obra in obras%}
+                    <!-- Produto  -->
+                    <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                        <figure class="px-4 pt-4 relative">
+                            <img src="{{ obra.url_foto }}"
+                                alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
+                            <button
+                                class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-lg font-semibold text-gray-800">{{ obra.titulo }}</h3>
+                            <p class="text-gray-600 text-sm">nome obra</p>
+                            <p class="text-sm text-gray-600 mt-2">{{ obra.descricao }}</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <p class="text-lg font-bold text-indigo-700">{{obra.preco}}</p>
+                                <button class="btn btn-sm btn-outline btn-primary">
+                                    <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        {% endfor %}
+                        {% else %}
+                        <h1 class="px-6 py-4 position-center text-sm text-gray-500">
+                                Nenhuma obra encontrada com esses filtros.
+                        </h1>
+                        {% endif %}
+
+                    <!-- Paginação -->
+                    <div class="flex justify-center mt-10">
+                        <div class="join">
+                            <button class="join-item btn btn-sm">«</button>
+                            <button class="join-item btn btn-sm btn-active">1</button>
+                            <button class="join-item btn btn-sm">2</button>
+                            <button class="join-item btn btn-sm">3</button>
+                            <button class="join-item btn btn-sm">4</button>
+                            <button class="join-item btn btn-sm">»</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Produto 2 -->
-            <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <figure class="px-4 pt-4 relative">
-                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                    <button
-                        class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </figure>
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg font-semibold text-gray-800">Aurora Dourada</h3>
-                    <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        Uma composição suave de tons frios e formas difusas que evocam tranquilidade e
-                        introspecção.
-                    </p>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                        <button class="btn btn-sm btn-outline btn-primary">
-                            <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produto 3 -->
-            <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <figure class="px-4 pt-4 relative">
-                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                    <button
-                        class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </figure>
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg font-semibold text-gray-800">Aurora Dourada</h3>
-                    <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        Uma composição suave de tons frios e formas difusas que evocam tranquilidade e
-                        introspecção.
-                    </p>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                        <button class="btn btn-sm btn-outline btn-primary">
-                            <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produto 4 -->
-            <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <figure class="px-4 pt-4 relative">
-                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                    <button
-                        class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </figure>
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg font-semibold text-gray-800">Aurora Dourada</h3>
-                    <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        Uma composição suave de tons frios e formas difusas que evocam tranquilidade e
-                        introspecção.
-                    </p>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                        <button class="btn btn-sm btn-outline btn-primary">
-                            <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produto 5 -->
-            <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <figure class="px-4 pt-4 relative">
-                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                    <button
-                        class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </figure>
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg font-semibold text-gray-800">Aurora Dourada</h3>
-                    <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        Uma composição suave de tons frios e formas difusas que evocam tranquilidade e
-                        introspecção.
-                    </p>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                        <button class="btn btn-sm btn-outline btn-primary">
-                            <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produto 6 -->
-            <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <figure class="px-4 pt-4 relative">
-                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                    <button
-                        class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </figure>
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg font-semibold text-gray-800">Aurora Dourada</h3>
-                    <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        Uma composição suave de tons frios e formas difusas que evocam tranquilidade e
-                        introspecção.
-                    </p>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                        <button class="btn btn-sm btn-outline btn-primary">
-                            <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Paginação -->
-        <div class="flex justify-center mt-10">
-            <div class="join">
-                <button class="join-item btn btn-sm">«</button>
-                <button class="join-item btn btn-sm btn-active">1</button>
-                <button class="join-item btn btn-sm">2</button>
-                <button class="join-item btn btn-sm">3</button>
-                <button class="join-item btn btn-sm">4</button>
-                <button class="join-item btn btn-sm">»</button>
-            </div>
-        </div>
-        </div>
         </div>
     </main>
     <footer class="bg-[#2C3C1C] text-[#E3D9C6]">

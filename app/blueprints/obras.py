@@ -1,13 +1,38 @@
-from flask import Blueprint, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-from ..database.models.model_obras import Obras
-db = SQLAlchemy()
+from flask import Blueprint,render_template, request, redirect,  url_for
+import sqlite3
 
 obras_bp = Blueprint('obras', __name__)
 
-@obras_bp.route('/lojas', methods = ['GET'])
-inicialmente, capturar as informações enviadas via formulário pelo usuário
+
+def get_db_connection():
+    conn = sqlite3.connect('moiddo_arts.db')
+    conn.row_factory = sqlite3.Row  
+    return conn
+
+
+
+@obras_bp.route('/loja', methods=['POST'])
 def filtrar_categorias():
-    filtro1 = request.args.getlist('obras')
-    resultado = Obras.query.filter(Obras.categoria.in_(filtro1)).all()
-    return render_template('lojas.html', obras=resultado)
+    if request.method == 'POST':
+        filtro = request.form.getlist('obras')
+        selecionados = []
+
+        if filtro:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+
+            placeholders = ','.join(['?' for _ in filtro])
+            query = f"SELECT titulo,descricao,tecnica,dimensoes,preco,url_foto,status_obras  FROM obras WHERE nome IN ({placeholders})"
+
+            cursor.execute(query, filtro)
+            selecionados = cursor.fetchall()
+            conn.close()
+
+        else:
+            mensagem = "Você não selecionou nenhuma fruta."
+
+        # Passa as categorias para o template
+        return render_template('loja.html', obras=selecionados)
+    return redirect(url_for('loja'))
+
+

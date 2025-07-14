@@ -87,7 +87,7 @@ def sobre_nos():
     user_type = auth_manager.current_user_type()
     return render_template("sobre-nos.html",user=user, user_type=user_type)
 
-@main.route("/contatos")
+@main.route("/contato")
 def contato():
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
@@ -95,9 +95,11 @@ def contato():
 
 @main.route("/loja")
 def loja():
-    user = auth_manager.current_user()
-    user_type = auth_manager.current_user_type()
-    return render_template("loja.html",user=user, user_type=user_type)
+    return render_template("loja.html")
+
+@main.route("/artistas-comunidade")
+def artistas():
+    return render_template("artistas-comunidade.html")
 
 @main.route("/carrinho")
 def carrinho():
