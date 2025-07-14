@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for, flash
 import math
-from ..services.artista_service import service_artistas
+from ..services.artista_service import ArtistaService
+from ..services.authmanager import auth_manager
 from ..services.obras_service import service_obras
 from ..services.imagem_service import salvar_imagem
 from ..services.categoria_service import service_categorias
@@ -18,6 +19,8 @@ artistas_bp = Blueprint("artistas", __name__)
 
 @artistas_bp.route("/painel-artista", methods=["GET", "POST"])
 def painel_artista():
+    id_artista = auth_manager.get_current_user_id()
+    service_artistas = ArtistaService(id_artista=id_artista)
 
     """TODOS OS FORMULÁRIOS DA ROTA----------------------------------------------------------"""
 
@@ -164,7 +167,7 @@ def painel_artista():
     vendas = service_artistas.historico_vendas()
     porcentagem_vendas, vendas_mes = service_artistas.calcular_percentual_vendas_mes()
     categorias = service_categorias.buscar_categorias()
-    print(vendas)
+    
     
     return render_template("painel-artista.html",
         dados=dados,
@@ -195,6 +198,13 @@ def painel_artista():
 
 @artistas_bp.route("/artistas-comunidade", methods=["GET"])
 def artistas_comunidade():
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+    id_artista = auth_manager.get_current_user_id()
+    service_artistas = ArtistaService(id_artista=id_artista)
+    
+    """----------------------------------------------------------------------------------------------------"""
+    
     pagina = request.args.get('pagina', 1, type=int)
     por_pagina = 9
     busca = request.args.get('busca', '').strip()
@@ -224,5 +234,33 @@ def artistas_comunidade():
         total_paginas=total_paginas,
         busca=busca,
         filtro=filtro,
-        ordenacao=ordenacao
+        ordenacao=ordenacao,
+        user=user,
+        user_type=user_type
+    )
+
+@artistas_bp.route("/perfil-artista/<int:id_artista>")
+def perfil_artista(id_artista):
+    from ..database.models.model_artistas import Artistas
+
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+
+    # Buscar dados do artista
+    artista = Artistas(id_artista=id_artista)
+    dados_artista = artista.buscar_artista()
+    
+    if not dados_artista:
+        flash("Artista não encontrado", "alert-error")
+        return redirect(url_for("artistas.artistas_comunidade"))
+    
+    # Buscar obras do artista
+    obras_artista = artista.buscar_obras()
+    
+    return render_template(
+        'perfil-artista.html',
+        artista=dados_artista,
+        obras=obras_artista,
+        user=user,
+        user_type=user_type
     )

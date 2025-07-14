@@ -11,9 +11,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/painel-artista.css">
     <link rel="stylesheet" href="../static/css/alertas.css">
+    <style>
+        :root {
+            --primary: #2C3C1C;
+            /* Verde-escuro principal */
+            --primary-light: #5A7247;
+            /* Verde médio */
+            --secondary: #AAB898;
+            /* Verde-claro acinzentado */
+            --accent: #8C3B2D;
+            /* Terracota (destaque) */
+            --neutral: #E3D9C6;
+            /* Off-white (fundo suave) */
+            --light: #F4F4F4;
+            /* Branco (para contrastes) */
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5A7247;
+            /* Tom mais claro do verde */
+        }
+    </style>
 </head>
 
-<body class="gradient-bg min-h-screen flex">
+<body class="auth-containermin-h-screen flex">
     <!-- Notificação Flash (sobrepõe tudo) -->
     <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
         {% with mensagens = get_flashed_messages(with_categories=true) %}
@@ -37,37 +63,37 @@
     <!-- Menu Lateral -->
     <nav class="fixed left-0 top-0 w-64 h-screen bg-white shadow-lg z-10 menu-lateral">
         <div class="p-5 border-b">
-            <h1 class="text-2xl font-bold text-gray-800">Moiddo <span class="text-indigo-600">Arts</span></h1>
+            <h1 class="text-2xl font-bold text-gray-800">Moiddo <span class="text-[#2C3C1C]">Arts</span></h1>
             <p class="text-xs text-gray-500">Painel do Artista</p>
         </div>
         <ul class="menu p-4 w-full">
             <li class="nav-item ativo" data-secao="inicio">
-                <a class="flex items-center py-3 px-4 rounded-lg">
-                    <i class="fas fa-home mr-3 text-indigo-600"></i>
+                <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                    <i class="fas fa-home mr-3 text-[#2C3C1C]"></i>
                     <span class="font-medium">Início</span>
                 </a>
             </li>
             <li class="nav-item" data-secao="produtos">
-                <a class="flex items-center py-3 px-4 rounded-lg">
-                    <i class="fas fa-palette mr-3 text-indigo-600"></i>
+                <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                    <i class="fas fa-palette mr-3 text-[#2C3C1C]"></i>
                     <span class="font-medium">Obras</span>
                 </a>
             </li>
             <li class="nav-item" data-secao="pedidos">
-                <a class="flex items-center py-3 px-4 rounded-lg">
-                    <i class="fas fa-shopping-bag mr-3 text-indigo-600"></i>
+                <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                    <i class="fas fa-shopping-bag mr-3 text-[#2C3C1C]"></i>
                     <span class="font-medium">Pedidos</span>
                 </a>
             </li>
             <li class="nav-item" data-secao="vendas">
-                <a class="flex items-center py-3 px-4 rounded-lg">
-                    <i class="fas fa-chart-line mr-3 text-indigo-600"></i>
+                <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                    <i class="fas fa-chart-line mr-3 text-[#2C3C1C]"></i>
                     <span class="font-medium">Vendas</span>
                 </a>
             </li>
             <li class="nav-item" data-secao="configuracoes">
-                <a class="flex items-center py-3 px-4 rounded-lg">
-                    <i class="fas fa-cog mr-3 text-indigo-600"></i>
+                <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                    <i class="fas fa-cog mr-3 text-[#2C3C1C]"></i>
                     <span class="font-medium">Configurações</span>
                 </a>
             </li>
@@ -97,9 +123,9 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Total de Obras</p>
-                            <p class="text-3xl font-bold text-indigo-600">{{contar}}</p>
+                            <p class="text-3xl font-bold text-[#2C3C1C]">{{contar}}</p>
                         </div>
-                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
                             <i class="fas fa-palette text-xl"></i>
                         </div>
                     </div>
@@ -115,9 +141,9 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Total de Vendas no mês</p>
-                            <p class="text-3xl font-bold text-indigo-600">R$ {{vendas_mes}} </p>
+                            <p class="text-3xl font-bold text-[#2C3C1C]">R$ {{vendas_mes}} </p>
                         </div>
-                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
                             <i class="fas fa-chart-line text-xl"></i>
                         </div>
                     </div>
@@ -133,9 +159,9 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Visualizações</p>
-                            <p class="text-3xl font-bold text-indigo-600">1.248</p>
+                            <p class="text-3xl font-bold text-[#2C3C1C]">1.248</p>
                         </div>
-                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
                             <i class="fas fa-eye text-xl"></i>
                         </div>
                     </div>
@@ -150,13 +176,13 @@
 
             <!-- Ações Rápidas -->
             <div class="flex flex-wrap gap-4 mb-10">
-                <button class="btn btn-primary">
+                <button class="btn bg-[#2C3C1C] text-white hover:bg-[#5A7247]">
                     <i class="fas fa-plus mr-2"></i> Nova Obra
                 </button>
-                <button class="btn btn-outline border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                <button class="btn btn-outline border-[#2C3C1C] text-[#2C3C1C] hover:bg-[#AAB898]/20">
                     <i class="fas fa-edit mr-2"></i> Gerenciar Obras
                 </button>
-                <button class="btn btn-outline border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                <button class="btn btn-outline border-[#2C3C1C] text-[#2C3C1C] hover:bg-[#AAB898]/20">
                     <i class="fas fa-store mr-2"></i> Editar Loja
                 </button>
             </div>
@@ -255,9 +281,11 @@
 
                 <!-- Barra de Busca -->
                 <label class="input input-bordered flex items-center gap-2 w-full md:w-64">
-                    <input type="text" name="busca" class="grow" placeholder="Buscar obras..." value="{{ busca }}" />
+                    <input type="text" name="busca" class="grow w-full" placeholder="Buscar obras..."
+                        value="{{ busca }}" />
                     <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                            class="w-4 h-4 opacity-70">
                             <path fill-rule="evenodd"
                                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                                 clip-rule="evenodd" />
@@ -273,21 +301,22 @@
             <!-- Tabela de Obras -->
             <div class="overflow-x-auto bg-white rounded-xl shadow">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-[#E3D9C6]">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Obra</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Preço</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Visualizações</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Vendas</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Estoque</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th
+                                class="px-6 py-3 text-right text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Ações</th>
                         </tr>
                     </thead>
@@ -406,13 +435,13 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <div class="flex flex-wrap gap-2">
                     <a href="?status=todos#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'todos' %}btn-active{% endif %}">Todos</a>
+                        class="btn btn-sm {% if status_pedido == 'todos' %}btn-active{% else %}btn-ghost{% endif %}">Todos</a>
                     <a href="?status=pendente#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'pendente' %}btn-active{% endif %}">Pendentes</a>
+                        class="btn btn-sm {% if status_pedido == 'pendente' %}btn-active{% else %}btn-ghost{% endif %}">Pendentes</a>
                     <a href="?status=finalizado#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'finalizado' %}btn-active{% endif %}">Finalizado</a>
+                        class="btn btn-sm {% if status_pedido == 'finalizado' %}btn-active{% else %}btn-ghost{% endif %}">Finalizado</a>
                     <a href="?status=cancelado#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'cancelado' %}btn-active{% endif %}">Cancelados</a>
+                        class="btn btn-sm {% if status_pedido == 'cancelado' %}btn-active{% else %}btn-ghost{% endif %}">Cancelados</a>
 
                 </div>
 
@@ -428,19 +457,20 @@
             <!-- Tabela de Pedidos -->
             <div class="overflow-x-auto bg-white rounded-xl shadow">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-[#E3D9C6]">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Pedido</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Data</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Cliente</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Valor</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Status</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th
+                                class="px-6 py-3 text-right text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
                                 Ações</th>
                         </tr>
                     </thead>
@@ -452,17 +482,15 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {% if pedido.data_criacao %}
-                                    {{ pedido.data_criacao[:10].split('-') | reverse | join('/') }}
+                                {{ pedido.data_criacao[:10].split('-') | reverse | join('/') }}
                                 {% else %}
-                                    Não informado
+                                Não informado
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-full"
-                                            src="{{ pedido.cliente_avatar }}"
-                                            alt="">
+                                        <img class="h-10 w-10 rounded-full" src="{{ pedido.cliente_avatar }}" alt="">
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">{{ pedido.cliente_nome }}</div>
@@ -482,7 +510,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                <button class="text-[#8C3B2D] hover:text-[#6B2A20] mr-3">
                                     <i class="fas fa-eye"></i>
                                 </button>
                                 <button class="text-green-600 hover:text-green-900">
@@ -526,12 +554,11 @@
                     </a>
                     {% endfor %}
 
-                    {% if pagina_pedidos < total_paginas_pedidos %}
-                    <a class="join-item btn btn-sm"
+                    {% if pagina_pedidos < total_paginas_pedidos %} <a class="join-item btn btn-sm"
                         href="?status={{ status_pedido }}&pagina_pedidos={{ pagina_pedidos + 1 }}#pedidos">
                         »
-                    </a>
-                    {% endif %}
+                        </a>
+                        {% endif %}
                 </div>
             </div>
         </section>
@@ -551,7 +578,7 @@
                             <p class="text-gray-500">Total de Vendas</p>
                             <p class="text-2xl font-bold text-indigo-600">R$ {{contar_vendas}}</p>
                         </div>
-                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
                             <i class="fas fa-shopping-cart text-xl"></i>
                         </div>
                     </div>
@@ -659,7 +686,7 @@
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-[#E3D9C6]">
                             <tr>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -682,8 +709,10 @@
                             {% if vendas %}
                             {% for venda in vendas %}
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{venda.data_criacao}}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#MA{{venda.id_pedido}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{venda.data_criacao}}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    #MA{{venda.id_pedido}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{venda.titulo}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R${{venda.preco}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -851,12 +880,12 @@
 
     <!-- Modal Adicionar Obra -->
     <dialog id="modal_adicionar_obra" class="modal">
-        <div class="modal-box max-w-4xl">
+        <div class="modal-box max-w-4xl border-[#2C3C1C]">
 
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                 onclick="modal_adicionar_obra.close()">✕</button>
 
-            <h3 class="font-bold text-2xl mb-6">Adicionar Nova Obra</h3>
+            <h3 class="font-bold text-2xl mb-6 text-[#2C3C1C]">Adicionar Nova Obra</h3>
 
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -949,7 +978,8 @@
                 </div>
 
                 <div class="modal-action">
-                    <button type="submit" name="status-nova-obra" value="ativa" class="btn btn-primary">
+                    <button type="submit" name="status-nova-obra" value="ativa"
+                        class="btn bg-[#8C3B2D] text-white hover:bg-[#6B2A20]">
                         <i class="fas fa-save mr-2"></i> Publicar Obra
                     </button>
                     <button type="submit" name="status-nova-obra" value="rascunho" class="btn btn-ghost">
@@ -965,12 +995,12 @@
 
     <!-- Modal Editar Obra -->
     <dialog id="modal_editar_obra" class="modal">
-        <div class="modal-box max-w-4xl">
+        <div class="modal-box max-w-4xl border-[#2C3C1C]">
 
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                 onclick="modal_editar_obra.close()">✕</button>
 
-            <h3 class="font-bold text-2xl mb-6">Editar Obra</h3>
+            <h3 class="font-bold text-2xl mb-6 text-[#2C3C1C]">Editar Obra</h3>
 
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1066,7 +1096,8 @@
                 </div>
 
                 <div class="modal-action">
-                    <button type="submit" name="status-editar-obra" value="ativa" class="btn btn-primary">
+                    <button type="submit" name="status-editar-obra" value="ativa"
+                        class="btn bg-[#8C3B2D] text-white hover:bg-[#6B2A20]">
                         <i class="fas fa-save mr-2"></i> Salvar Alterações
                     </button>
                     <button type="submit" name="status-editar-obra" value="rascunho" class="btn btn-ghost">

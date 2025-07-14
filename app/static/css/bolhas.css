@@ -1,0 +1,273 @@
+/* Container principal das bolhas */
+.bg-bolhas {
+    position: fixed;
+    z-index: -10;
+    /* Fica atrás de todo o conteúdo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    /* Permite interação com elementos abaixo */
+}
+
+/* Estilo base para todas as bolhas */
+.bolha {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(5px);
+    /* Efeito de suavização */
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+/* Configurações individuais para cada bolha */
+.bolha:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 5%;
+    background-color: rgba(170, 184, 152, 0.15);
+    /* Verde claro */
+    animation: flutuar-1 18s infinite;
+}
+
+.bolha:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    bottom: 15%;
+    right: 10%;
+    background-color: rgba(83, 99, 64, 0.1);
+    /* Verde médio */
+    animation: flutuar-2 22s infinite;
+    animation-delay: 3s;
+}
+
+.bolha:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    top: 30%;
+    right: 20%;
+    background-color: rgba(44, 60, 28, 0.12);
+    /* Verde escuro */
+    animation: flutuar-3 20s infinite;
+    animation-delay: 5s;
+}
+
+.bolha:nth-child(4) {
+    width: 120px;
+    height: 120px;
+    bottom: 25%;
+    left: 15%;
+    background-color: rgba(170, 184, 152, 0.1);
+    animation: flutuar-4 25s infinite;
+    animation-delay: 2s;
+}
+
+.bolha:nth-child(5) {
+    width: 60px;
+    height: 60px;
+    top: 70%;
+    left: 30%;
+    background-color: rgba(83, 99, 64, 0.08);
+    animation: flutuar-5 17s infinite;
+}
+
+.bolha:nth-child(6) {
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(44, 60, 28, 0.05);
+    animation: pulsar 15s infinite;
+}
+
+.bolha:nth-child(7) {
+    width: 90px;
+    height: 90px;
+    top: 20%;
+    right: 5%;
+    background-color: rgba(170, 184, 152, 0.12);
+    animation: flutuar-6 19s infinite;
+    animation-delay: 4s;
+}
+
+.bolha:nth-child(8) {
+    width: 130px;
+    height: 130px;
+    bottom: 5%;
+    left: 25%;
+    background-color: rgba(83, 99, 64, 0.09);
+    animation: flutuar-7 23s infinite;
+    animation-delay: 6s;
+}
+
+/* Animações personalizadas para cada bolha */
+@keyframes flutuar-1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(20px, -15px);
+    }
+
+    50% {
+        transform: translate(-10px, 10px);
+    }
+
+    75% {
+        transform: translate(15px, -5px);
+    }
+}
+
+@keyframes flutuar-2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-25px, 10px);
+    }
+
+    50% {
+        transform: translate(15px, -20px);
+    }
+
+    75% {
+        transform: translate(-10px, 15px);
+    }
+}
+
+@keyframes flutuar-3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(15px, 10px);
+    }
+
+    50% {
+        transform: translate(-10px, -15px);
+    }
+
+    75% {
+        transform: translate(5px, 20px);
+    }
+}
+
+@keyframes flutuar-4 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-20px, -10px);
+    }
+
+    50% {
+        transform: translate(10px, 15px);
+    }
+
+    75% {
+        transform: translate(-15px, -5px);
+    }
+}
+
+@keyframes flutuar-5 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(10px, -5px);
+    }
+
+    50% {
+        transform: translate(-5px, 10px);
+    }
+
+    75% {
+        transform: translate(5px, -10px);
+    }
+}
+
+@keyframes flutuar-6 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-15px, 5px);
+    }
+
+    50% {
+        transform: translate(10px, -10px);
+    }
+
+    75% {
+        transform: translate(-5px, 15px);
+    }
+}
+
+@keyframes flutuar-7 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(25px, -5px);
+    }
+
+    50% {
+        transform: translate(-15px, 10px);
+    }
+
+    75% {
+        transform: translate(10px, -15px);
+    }
+}
+
+@keyframes pulsar {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.05;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.1;
+    }
+}
+
+/* Efeito responsivo - reduz movimento em telas pequenas */
+@media (max-width: 768px) {
+    .bolha {
+        animation-duration: 25s !important;
+        animation-timing-function: linear !important;
+    }
+
+    .bolha:nth-child(6) {
+        display: none;
+        /* Remove a bolha central em mobile */
+    }
+}

@@ -1,6 +1,5 @@
 from ..connection import db
 
-
 class Artistas:
 
     def __init__(
@@ -95,7 +94,7 @@ class Artistas:
                 "UPDATE obras SET status_obras = 'inativa' WHERE artista_id = ?",(self.id_artista,)
             )
             conn.commit()
-    
+
     def desativar_artista(self):
         with db.get_conn() as conn:
             cursor = conn.cursor()
@@ -107,6 +106,19 @@ class Artistas:
             )
             conn.commit()
 
+    def buscar_artistasHome(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id_artista, nome_completo, url_avatar, biografia
+                FROM artistas
+                ORDER BY id_artista ASC
+                LIMIT 4
+                """
+            )
+            return [Artistas(**dict(row)) for row in cursor.fetchall()]
+
     def buscar_obras(self):
         from .model_obras import Obras
 
@@ -116,10 +128,9 @@ class Artistas:
                 "SELECT * FROM obras WHERE artista_id = ?", (self.id_artista,)
             )
             return [Obras(**dict(row)) for row in cursor.fetchall()]
-    
+
     def buscar_ultimas_obras(self):
         from .model_obras import Obras
-
         with db.get_conn() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -282,7 +293,7 @@ class Artistas:
                 total = cursor.fetchone()[0]
 
                 return obras, total
-            
+
     def buscar_artista_service(self):
         try:
             with db.get_conn() as conn:
@@ -303,7 +314,7 @@ class Artistas:
         except Exception as e:
             print("Erro ao buscar artista:", e)
             return None
-        
+
     def buscar_pedidos_filtrados(self, status, pagina, por_pagina):
         with db.get_conn() as conn:
             cursor = conn.cursor()
@@ -385,6 +396,7 @@ class Artistas:
         }
 
     def buscar_artistas_comunidade(self, busca='', filtro='todos', ordenacao='recentes', pagina=1, por_pagina=9):
+        #INTEGRAR SISTEMA DE AVALIAÇÃO SE POSSIVEL
         query = """
             SELECT 
                 artistas.*,

@@ -1,8 +1,8 @@
 from flask import flash
-
 from ..database.models.model_artistas import Artistas
 
 class ArtistaService:
+
     def __init__(self, id_artista=None):
         self.artista = Artistas(id_artista=id_artista)
         if id_artista:
@@ -43,6 +43,9 @@ class ArtistaService:
     def dados_artista(self):
         return self.artista.buscar_artista()
 
+    def buscar_artistasHome(self):
+        return self.artista.buscar_artistasHome()
+
     def contar_obras(self):
         return self.artista.contar_obras()
 
@@ -72,5 +75,3 @@ class ArtistaService:
 
     def contar_artistas_comunidade(self, busca, filtro):
         return self.artista.contar_artistas_comunidade(busca, filtro)
-    
-service_artistas = ArtistaService(id_artista=1)

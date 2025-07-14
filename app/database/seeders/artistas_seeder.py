@@ -12,7 +12,7 @@ def seed_artistas():
             "ativo",
             "2023-02-15",
             "/static/assets/uploads/perfils/beatriz.jpeg",
-            "Ceramista premiada com obras em museus internacionais",
+            "Ceramista premiada com obras em museus internacionais e nacionais",
         ),
         (
             "Carlos Eduardo Santos",

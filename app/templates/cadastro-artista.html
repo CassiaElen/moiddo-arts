@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Cliente | Muiddo Arts</title>
-  <meta name="description" content="Cadastre-se como cliente na Muiddo Arts para explorar obras de arte exclusivas.">
+  <title>Cadastro de Artista | Muiddo Arts</title>
+  <meta name="description" content="Cadastre-se como artista na Muiddo Arts para compartilhar suas obras com o mundo.">
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../static/css/bolhas.css">
@@ -31,11 +31,13 @@
     <!-- Cabeçalho -->
     <div class="bg-[#5A7247] text-white p-8 text-center">
       <p class="mb-8">Muiddo Arts</p>
-      <h1 class="text-2xl font-bold mb-2">Cadastro de Cliente</h1>
+      <h1 class="text-2xl font-bold mb-2">Cadastro de Artista</h1>
       <p class="opacity-90">Preencha seus dados para criar sua conta</p>
     </div>
+
+
     <!-- Formulário -->
-    <form action="{{ url_for('main.register_client') }}" method="POST" class="p-6">
+    <form action="{{ url_for('main.register_artist') }}" method="POST" class="p-6">
       <div class="space-y-4">
         <div class="form-control">
           <label class="label" for="email">
@@ -72,7 +74,7 @@
           <div class="relative">
             <input id="username" name="user" type="text" required
               class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
-              placeholder="joao_cliente">
+              placeholder="joao_artista">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-at"></i>
             </span>
@@ -81,12 +83,12 @@
 
         <div class="form-control">
           <label class="label" for="cpf">
-            <span class="label-text text-[#2C3C1C]">CPF</span>
+            <span class="label-text text-[#2C3C1C]">CPF/CNPJ</span>
           </label>
           <div class="relative">
             <input id="cpf" name="cpf" type="text" required
               class="place-color text-[#2C3C1C] bg-[#F5F5F0] input-field input input-bordered w-full pl-10"
-              placeholder="000.000.000-00">
+              placeholder="000.000.000-00 ou 00.000.000/0001-00">
             <span class="absolute left-3 top-3 text-[#2C3C1C]">
               <i class="fas fa-id-card"></i>
             </span>
@@ -119,7 +121,7 @@
         </div>
 
         <div class="text-center text-sm text-[#5A7247] mt-4">
-          <p>Já tem uma conta? <a href="{{url_for('main.login_client') }}" class="font-semibold hover:underline">Faça
+          <p>Já tem uma conta? <a href="{{url_for('main.login_artist') }}" class="font-semibold hover:underline">Faça
               login</a></p>
         </div>
       </div>

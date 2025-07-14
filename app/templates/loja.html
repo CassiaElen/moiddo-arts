@@ -8,81 +8,111 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
 <body>
-    <header class="sticky top-0 z-50">
+    <header class="sticky top-0 z-50 shadow-md">
         <div class="drawer">
-            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <input id="main-drawer" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
-                <!-- Navbar -->
-                <div class="navbar bg-white shadow-sm">
+                <!-- Navbar Principal -->
+                <div class="navbar bg-[#5A7247] px-4 md:px-8">
+                    <!-- Botão Mobile -->
                     <div class="flex-none lg:hidden">
-                        <label for="my-drawer-3" aria-label="open sidebar"
-                            class="btn btn-square btn-ghost text-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="inline-block h-6 w-6 stroke-current">
+                        <label for="main-drawer" aria-label="Abrir menu" class="btn btn-ghost btn-square text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                                    d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </label>
-                    </div><div class="flex-1 px-2 mx-2">
-                        <a href="{{url_for('main.home')}}" class="text-xl font-bold text-gray-800">Moiddo <span
-                                class="text-indigo-600">Arts</span></a>
                     </div>
-                    <div class="navbar-end flex gap-2">
-                        <div class="hidden flex-none lg:block">
-                            <div class="menu menu-horizontal">
-                                <label class="input input-bordered flex items-center gap-2 rounded-full">
-                                    <input type="text" class="grow" placeholder="Pesquisar" />
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                                        class="w-4 h-4 opacity-70">
-                                        <path fill-rule="evenodd"
-                                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                            clip-rule="evenodd" />
+
+                    <!-- Logo -->
+                    <div class="flex-1">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#f4f4f4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                    </div>
+
+                    <!-- Itens da Direita -->
+                    <div class="navbar-end space-x-2">
+                        <!-- Campo de Busca (Desktop) -->
+                        <div class="hidden lg:block">
+                            <div class="relative">
+                                <input type="text" placeholder="Pesquisar..."
+                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                                <span class="absolute left-3 top-3 text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
-                                </label>
+                                </span>
                             </div>
                         </div>
+                        {% if user_type == 'cliente' %}
+                        <!-- Carrinho -->
                         <div class="dropdown dropdown-end">
-                            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-[#2C3C1C]">
                                 <div class="indicator">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
-                                    <span class="badge badge-sm indicator-item bg-indigo-600 border-none text-white">3</span>
+                                    <span
+                                        class="badge badge-sm indicator-item bg-white text-[#2C3C1C] border-0">3</span>
                                 </div>
-                            </div>
+                            </label>
                             <div tabindex="0"
-                                class="card card-compact dropdown-content bg-base-100 shadow-lg z-50 mt-3 w-72">
-                                <div class="card-body">
-                                    <span class="font-bold text-lg">3 Itens no Carrinho</span>
-                                    <span class="text-indigo-600">Subtotal: R$ 1.240,00</span>
+                                class="dropdown-content card card-compact mt-3 w-72 bg-[#f4f4f4] shadow-lg border-none border-gray-100">
+                                <div class="card-body border-2 border-solid border-[#5A7247] rounded-xl">
+                                    <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
+                                    <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
                                     <div class="card-actions">
-                                        <button class="btn btn-primary btn-block"><a href="{{url_for('main.carrinho')}}">Ver Carrinho</a></button>
+                                        <a href="{{url_for('main.carrinho')}}"
+                                            class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
+                                            Carrinho</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
+                        <!-- Perfil do Usuário -->
                         <div class="dropdown dropdown-end">
-                            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                <div class="w-10 rounded-full">
-                                    <img alt="Foto de perfil"
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
+                                <div
+                                    class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
+                                    <img src="{{user.avatar}}" alt="Foto de perfil" />
                                 </div>
-                            </div>
+                            </label>
                             <ul tabindex="0"
-                                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+                                {% if user_type == 'cliente' %}
                                 <li>
-                                    <a class="justify-between" href="/app/templates/Pré-login.html">
-                                        Perfil
-                                        <span class="badge">New</span>
-                                    </a>
+                                    <a href="{{ url_for('main.perfil_cliente') }}"
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                        Perfil</a>
                                 </li>
-                                <li><a>Settings</a></li>
-                                <li><a href="{{url_for('main.logout')}}">Logout</a></li>
+                                {% elif user_type == 'artista' %}
+                                <li>
+                                    <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
+                                        Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('artistas.painel_artista') }}"
+                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Painel do
+                                        Artista</a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a href="{{url_for('main.logout')}}"
+                                        class="text-red-500 hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Sair</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -98,25 +128,99 @@
                     </ul>
                 </div>
             </div>
-            <div class="drawer-side ">
-                <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu bg-[#536340] min-h-full w-70 p-4">
-                    <label class="input">
-                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+
+            <!-- Drawer Side (Mobile Menu) -->
+            <div class="drawer-side">
+                <label for="main-drawer" aria-label="Fechar menu" class="drawer-overlay"></label>
+                <div class="menu p-4 w-80 min-h-full bg-[#5A7247] text-white">
+                    <!-- Cabeçalho do Drawer -->
+                    <div class="flex items-center justify-between mb-6">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#f4f4f4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                        <label for="main-drawer" class="btn btn-ghost btn-circle text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input type="search" required placeholder="Search" />
-                    </label>
-                    <ul class="mt-3">
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.loja')}}">Loja</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('artistas.artistas_comunidade')}}">Artistas</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.exposicoes')}}">Exposições</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.contato')}}">Contato</a></li>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </label>
+                    </div>
+
+                    <!-- Campo de Busca (Mobile) -->
+                    <div class="relative mb-6">
+                        <input type="text" placeholder="Pesquisar..."
+                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                        <span class="absolute left-3 top-3 text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </span>
+                    </div>
+
+                    <!-- Menu Principal -->
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="{{url_for('main.loja')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Loja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Artistas
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{url_for('main.sobre_nos')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Sobre Nós
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.contato')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Contato
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="divider my-4"></div>
+
+                    <!-- Menu Secundário -->
+                    <ul class="space-y-2">
+                        {% if user_type == 'cliente' %}
+                        <li>
+                            <a href="{{ url_for('artistas.painel_artista') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Meu Perfil
+                            </a>
+                        </li>
+                        {% elif user_type == 'artista' %}
+                        <li>
+                            <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Meu Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('artistas.painel_artista') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Painel do artista
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ url_for('main.logout') }}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Sair
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -194,6 +298,25 @@
                         </div>
 
 
+                        <!-- Filtro de Preço (Com feedback dinâmico) -->
+                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
+                            <input type="checkbox" class="peer" checked />
+                            <div class="collapse-title font-medium flex items-center">
+                                <i class="fas fa-tags text-indigo-500 mr-2"></i>
+                                <span>Faixa de Preço</span>
+                            </div>
+                            <div class="collapse-content">
+                                <div class="flex justify-between mb-2 text-sm text-gray-600">
+                                    <span>R$0</span>
+                                    <span>R$10.000</span>
+                                </div>
+                                <input type="range" min="0" max="10000" value="5000"
+                                    class="range range-primary range-xs mb-2" id="priceRange" />
+                                <div class="text-center">
+                                    <span class="font-medium text-indigo-600" id="priceValue">Até R$5.000</span>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Filtro de Preço (Com feedback dinâmico) -->
                         <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
                             <input type="checkbox" class="peer" checked />
@@ -321,80 +444,78 @@
                     </div>
                 </div>
 
-                <!-- Modal/Drawer (DaisyUI) -->
-                <dialog id="filterDrawer" class="modal modal-bottom sm:modal-middle">
-                    <div class="modal-box max-h-[80vh] overflow-y-auto">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-lg">Filtrar Obras</h3>
-                            <button onclick="filterDrawer.close()" class="btn btn-ghost btn-circle">
-                                <i class="fas fa-times"></i>
-                            </button>
+        <!-- Modal/Drawer (DaisyUI) -->
+        <dialog id="filterDrawer" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg">Filtrar Obras</h3>
+                    <button onclick="filterDrawer.close()" class="btn btn-ghost btn-circle">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Conteúdo do Filtro (reutilizei o aside com pequenos ajustes) -->
+                <div class="space-y-4">
+                    <!-- Categorias -->
+                    <div class="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
+                        <input type="checkbox" class="peer" checked />
+                        <div class="collapse-title font-medium flex items-center">
+                            <i class="fas fa-palette text-indigo-500 mr-2"></i>
+                            <span>Categorias</span>
                         </div>
-
-                        <!-- Conteúdo do Filtro (reutilizei o aside com pequenos ajustes) -->
-                        <div class="space-y-4">
-                            <!-- Categorias -->
-                            <div class="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
-                                <input type="checkbox" class="peer" checked />
-                                <div class="collapse-title font-medium flex items-center">
-                                    <i class="fas fa-palette text-indigo-500 mr-2"></i>
-                                    <span>Categorias</span>
-                                </div>
-                                <div class="collapse-content">
-                                    <div class="space-y-2 pt-2">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                            <input type="checkbox" class="checkbox checkbox-primary" checked />
-                                            <span class="label-text">Pintura Digital</span>
-                                        </label>
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                            <input type="checkbox" class="checkbox checkbox-primary" />
-                                            <span class="label-text">Aquarela</span>
-                                        </label>
-                                        <!-- Adicione mais categorias -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Preço -->
-                            <div class="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
-                                <input type="checkbox" class="peer" checked />
-                                <div class="collapse-title font-medium flex items-center">
-                                    <i class="fas fa-tags text-indigo-500 mr-2"></i>
-                                    <span>Faixa de Preço</span>
-                                </div>
-                                <div class="collapse-content">
-                                    <div class="flex justify-between mb-2 text-sm text-gray-600">
-                                        <span>R$0</span>
-                                        <span>R$10.000</span>
-                                    </div>
-                                    <input type="range" min="0" max="10000" value="5000"
-                                        class="range range-primary range-xs mb-2" id="mobilePriceRange" />
-                                    <div class="text-center">
-                                        <span class="font-medium text-indigo-600" id="mobilePriceValue">Até
-                                            R$5.000</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Botões de Ação -->
-                            <div class="flex gap-2 mt-6">
-                                <button onclick="filterDrawer.close()" class="btn btn-ghost flex-1">
-                                    Cancelar
-                                </button>
-                                <button class="btn btn-primary flex-1">
-                                    <i class="fas fa-check mr-2"></i> Aplicar
-                                </button>
+                        <div class="collapse-content">
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" class="checkbox checkbox-primary" checked />
+                                    <span class="label-text">Pintura Digital</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
+                                    <input type="checkbox" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Aquarela</span>
+                                </label>
+                                <!-- Adicione mais categorias -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- Fechar ao clicar fora -->
-                    <form method="dialog" class="modal-backdrop">
-                        <button>close</button>
-                    </form>
-                </dialog>
+                    <!-- Preço -->
+                    <div class="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
+                        <input type="checkbox" class="peer" checked />
+                        <div class="collapse-title font-medium flex items-center">
+                            <i class="fas fa-tags text-indigo-500 mr-2"></i>
+                            <span>Faixa de Preço</span>
+                        </div>
+                        <div class="collapse-content">
+                            <div class="flex justify-between mb-2 text-sm text-gray-600">
+                                <span>R$0</span>
+                                <span>R$10.000</span>
+                            </div>
+                            <input type="range" min="0" max="10000" value="5000"
+                                class="range range-primary range-xs mb-2" id="mobilePriceRange" />
+                            <div class="text-center">
+                                <span class="font-medium text-indigo-600" id="mobilePriceValue">Até
+                                    R$5.000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="flex gap-2 mt-6">
+                        <button onclick="filterDrawer.close()" class="btn btn-ghost flex-1">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary flex-1">
+                            <i class="fas fa-check mr-2"></i> Aplicar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fechar ao clicar fora -->
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
 
                 <!-- Grid de Produtos -->
 
@@ -446,62 +567,78 @@
                 </div>
         </div>
     </main>
-   <footer class="bg-gray-900 text-gray-300">
+    <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold text-white mb-4">Moiddo Arts</h3>
-                    <p class="mb-4">Conectando artistas talentosos com amantes da arte em todo o mundo.</p>
+                    <div class="flex items-center mb-4">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                            <span class="text-[#F4F4F4]">Muiddo</span>
+                            <span class="text-[#AAB898]">Arts</span>
+                        </a>
+                    </div>
+                    <p class="mb-4">
+                        Conectando artistas talentosos do Cariri com amantes da arte em todo o mundo.
+                    </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f text-lg"></i>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram text-lg"></i>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-pinterest-p text-lg"></i>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-pinterest"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-youtube text-lg"></i>
+                        <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                            <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Explorar</h4>
+                    <h6 class="footer-title text-lg font-semibold">Explorar</h6>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-white transition-colors">Obras em Destaque</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Novos Artistas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Coleções Temáticas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Exposições Virtuais</a></li>
+                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        </li>
+                        <li><a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
+
+                        <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
+                                Nós</a></li>
+                        <li><a href="{{url_for('main.contato')}}"
+                                class="hover:text-[#AAB898] transition-colors">Contato</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Ajuda</h4>
+                    <h6 class="footer-title text-lg font-semibold">Suporte</h6>
                     <ul class="space-y-2">
-                        <li><a href="contato.html" class="hover:text-white transition-colors">Central de Ajuda</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Como Comprar</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Envios e Entregas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Devoluções</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Central de Ajuda</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Como Comprar</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Envios e Entregas</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Devoluções</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Perguntas Frequentes</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Newsletter</h4>
-                    <p class="mb-4">Inscreva-se para receber novidades e ofertas exclusivas.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Seu e-mail"
-                            class="input input-bordered w-full max-w-xs rounded-r-none bg-gray-800 border-gray-700 text-white" />
-                        <button class="btn btn-primary rounded-l-none">
-                            <i class="far fa-paper-plane"></i>
-                        </button>
-                    </div>
+                    <h6 class="footer-title text-lg font-semibold">Para Artistas</h6>
+                    <ul class="space-y-2">
+                        <li><a href="{{url_for('main.login_artist')}}"
+                                class="hover:text-[#AAB898] transition-colors">Cadastre-se</a></li>
+                        <li><a href="{{url_for('main.termos_servico')}}"
+                                class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Dicas para Vender Mais</a></li>
+                        <li><a href="#" class="hover:text-[#AAB898] transition-colors">Eventos e Workshops</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p>© 2023 Moiddo Arts. Todos os direitos reservados.</p>
+
+            <div class="border-t border-[#2C3C1C] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>© 2023 Muiddo Arts. Todos os direitos reservados.</p>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Termos de Serviço</a>
-                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
+                    <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos
+                        de Serviço</a>
+                    <a href="{{url_for('main.politica_privacidade')}}"
+                        class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
                 </div>
             </div>
         </div>
