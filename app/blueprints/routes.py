@@ -78,7 +78,7 @@ def home():
 def sobre_nos():
     return render_template("sobre-nós.html")
 
-@main.route("/contatos")
+@main.route("/contato")
 def contato():
     return render_template("contato.html")
 
@@ -90,9 +90,9 @@ def exposicoes():
 def loja():
     return render_template("loja.html")
 
-@main.route("/artistas.comunidade")
+@main.route("/artistas-comunidade")
 def artistas():
-    return render_template("artistas.comunidade.html")
+    return render_template("artistas-comunidade.html")
 
 @main.route("/carrinho")
 def carrinho():
