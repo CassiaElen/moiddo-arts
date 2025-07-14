@@ -41,6 +41,20 @@
 
                     <!-- Itens da Direita -->
                     <div class="navbar-end space-x-2">
+                        <!-- Campo de Busca (Desktop) -->
+                        <div class="hidden lg:block">
+                            <div class="relative">
+                                <input type="text" placeholder="Pesquisar..."
+                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
+                                <span class="absolute left-3 top-3 text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
                         {% if user_type == 'cliente' %}
                         <!-- Carrinho -->
                         <div class="dropdown dropdown-end">
@@ -173,16 +187,29 @@
                     <!-- Menu Principal -->
                     <ul class="space-y-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium"> Loja</a></li>
-                        <li>
-                            <a href="{{url_for('main.artistas')}}"class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">Artistas</a></li>
-                        <li>
-                            <a href="{{url_for('main.exposicoes')}}"class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">Exposições</a>
+                            <a href="{{url_for('main.loja')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Loja
+                            </a>
                         </li>
                         <li>
-                            <a href="{{url_for('main.sobre_nos')}}"class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">Sobre Nós</a></li>
+                            <a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Artistas
+                            </a>
+                        </li>
                         <li>
-                            <a href="{{url_for('main.contato')}}"class="text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 font-medium">Contato</a></li>
+                            <a href="{{url_for('main.sobre_nos')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Sobre Nós
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.contato')}}"
+                                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+                                Contato
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="divider my-4"></div>
@@ -221,7 +248,7 @@
             </div>
         </div>
     </header>
-
+    
     <main class="flex-grow container mx-auto px-4 py-8">
         <!-- Breadcrumbs -->
         <div class="text-sm breadcrumbs mb-6">

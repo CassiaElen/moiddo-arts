@@ -118,14 +118,35 @@
                         </div>
                     </div>
                 </div>
-                <!-- Page content here -->
-                <div class="navbar bg-[#2C3C1C] shadow-sm flex-col hidden lg:flex">
-                    <ul class="menu menu-horizontal px-1 ">
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.loja')}}">Loja</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('artistas.artistas_comunidade')}}">Artistas</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.exposicoes')}}">Exposições</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.sobre_nos')}}">Sobre Nós</a></li>
-                        <li><a class="text-[#F4F4F4]" href="{{url_for('main.contato')}}">Contato</a></li>
+
+                <!-- Navbar Secundária (Desktop) -->
+                <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
+                    <ul class="menu menu-horizontal gap-1 px-4 py-2">
+                        <li>
+                            <a href="{{url_for('main.loja')}}"
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Loja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('artistas.artistas_comunidade')}}"
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Artistas
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{url_for('main.sobre_nos')}}"
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Sobre Nós
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.contato')}}"
+                                class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
+                                Contato
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -176,7 +197,6 @@
                                 Artistas
                             </a>
                         </li>
-
                         <li>
                             <a href="{{url_for('main.sobre_nos')}}"
                                 class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
