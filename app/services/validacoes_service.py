@@ -44,12 +44,6 @@ def validar_campos(campos, regras):
             if not re.match(cpf_regex, valor or "") and not re.match(cnpj_regex, valor or ""):
                 erros.append(f"O campo '{nome_legivel}' deve estar no formato de CPF ou CNPJ válido.")
 
-        # Confirmação de senha
-        if regra.get("igual_a"):
-            outro_valor = campos.get(regra["igual_a"])
-            if valor != outro_valor:
-                erros.append(f"As senhas devem ser iguais.")
-
     # Adiciona mensagem geral para campos vazios
     if tem_campo_vazio:
         erros.insert(0, "Campos obrigatórios não podem ficar vazios.")
@@ -86,19 +80,6 @@ def regras_editar_perfil():
         "biografia": {"obrigatorio": False, "nome_legivel": "Biografia"},
     }
 
-
-# Regras para alterar senha
-def regras_alterar_senha():
-    return {
-        "senha_atual": {"obrigatorio": True, "nome_legivel": "Senha atual"},
-        "senha_nova": {"obrigatorio": True, "nome_legivel": "Nova senha"},
-        "senha_confirmar": {
-            "obrigatorio": True,
-            "igual_a": "senha_nova",
-            "igual_a_legivel": "Nova senha",
-            "nome_legivel": "Confirmação da senha",
-        },
-    }
 
 def regras_excluir_perfil():
     return {

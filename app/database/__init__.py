@@ -16,7 +16,9 @@ def init_db():
             status_artista VARCHAR(15) DEFAULT 'ativo' CHECK (status_artista IN ('ativo','desativado','bloqueado','inativo')),
             data_cadastro DATETIME NOT NULL,
             url_avatar VARCHAR(100),
-            biografia VARCHAR(200)
+            biografia VARCHAR(300),
+            especialidade VARCHAR(200),
+            tecnicasMateriais VARCHAR(300)
     )
 """
         )
@@ -28,7 +30,7 @@ def init_db():
             email VARCHAR(100) UNIQUE NOT NULL,
             cpf VARCHAR(18) UNIQUE NOT NULL,
             senha VARCHAR(100) NOT NULL,
-            status_cliente VARCHAR(15) DEFAULT 'ativo' CHECK (status_cliente IN ('ativo','desativado','bloqueado')),
+            status_cliente VARCHAR(15) DEFAULT 'ativo' CHECK (status_cliente IN ('ativo','desativado','bloqueado','inativo')),
             data_cadastro DATETIME NOT NULL,
             url_avatar VARCHAR(100)
     )
@@ -93,6 +95,7 @@ def init_db():
             carrinho_id INTEGER,
             cliente_id INTEGER,
             status_pedido VARCHAR(15) DEFAULT 'pendente' CHECK (status_pedido IN ('pendente','finalizado','cancelado')),
+            entregue VARCHAR(15) DEFAULT 'N' CHECK (entregue IN ('N','S')),
             total_pedido DECIMAL(5,2) NOT NULL,
             data_criacao DATETIME NOT NULL,
             FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),

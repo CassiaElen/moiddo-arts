@@ -12,7 +12,9 @@ class ArtistaService:
         # Atualiza os atributos do artista
         self.artista.nome_completo = campos["nome_completo"]
         self.artista.usuario = campos["usuario"]
+        self.artista.especialidade = campos["especialidade"]
         self.artista.biografia = campos.get("biografia", "")
+        self.artista.tecnicasMateriais = campos.get("tecnicasMateriais","")
         self.artista.email = campos["email"]
         self.artista.cpf_cnpj = campos["cpf_cnpj"]
         

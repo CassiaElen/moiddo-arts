@@ -10,7 +10,6 @@ from ..services.validacoes_service import (
     regras_nova_obra,
     regras_editar_obra,
     regras_editar_perfil,
-    regras_alterar_senha,
     regras_excluir_perfil
 )
 
@@ -81,7 +80,9 @@ def painel_artista():
             campos = {
                 "nome_completo": request.form.get("nome"),
                 "usuario": request.form.get("usuario"),
+                "especialidade":request.form.get("especialidade"),
                 "biografia": request.form.get("biografia"),
+                "tecnicasMateriais":request.form.get("tecnicasMateriais"),
                 "email": request.form.get("email"),
                 "cpf_cnpj": request.form.get("cpf-cnpj"),
             }
@@ -94,20 +95,6 @@ def painel_artista():
             nome_arquivo = salvar_imagem(imagem, "perfils") if imagem else None
             service_artistas.editar(campos, nome_arquivo)
             flash("Perfil editado com sucesso!", "alert-success")
-
-        elif acao == "alterar_senha":
-            campos = {
-                "senha_atual": request.form.get("senha-atual"),
-                "senha_nova": request.form.get("senha-nova"),
-                "senha_confirmar": request.form.get("confirmar-senha-nova"),
-            }
-            erros = validar_campos(campos, regras_alterar_senha())
-            if erros:
-                for erro in erros:
-                    flash(erro, "alert-error")
-                return redirect(url_for("artistas.painel_artista"))
-            # service_artistas.alterar_senha(campos)
-            service_artistas.alterar_senha(campos)
 
         elif acao == "excluir_perfil":
             campos = {

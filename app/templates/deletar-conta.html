@@ -4,44 +4,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deletando Conta</title>
+    <title>Exclusão de Conta</title>
+    <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- DaisyUI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 
-<body class="bg-red-500 flex items-center justify-center min-h-screen">
-    <div class="text-center">
-        <!-- Primeiro estado: "Deletando conta" com spinner -->
-        <div id="deleting-state">
-            <h1 class="text-4xl font-bold text-white mb-6">Deletando conta</h1>
-            <span class="loading loading-spinner loading-lg text-white"></span>
+<body class="bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center min-h-screen p-4">
+    <div class="text-center max-w-md w-full">
+        <!-- Primeiro estado: "Excluindo conta" com animação -->
+        <div id="deleting-state" class="fade-in">
+            <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-white/20">
+                <div class="pulse mb-6">
+                    <i class="fas fa-user-slash text-6xl text-white"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-4">Excluindo sua conta</h1>
+                <p class="text-white/80 mb-6">Estamos processando sua solicitação. Isso pode levar alguns instantes...</p>
+                <div class="flex justify-center">
+                    <span class="loading loading-spinner loading-lg text-white"></span>
+                </div>
+                <p class="text-xs text-white/50 mt-6">Por favor, não feche esta página</p>
+            </div>
         </div>
 
-        <!-- Segundo estado: "Conta deletada" (inicialmente escondido) -->
-        <div id="deleted-state" class="hidden">
-            <h1 class="text-4xl font-bold text-white mb-6">Conta deletada</h1>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 mx-auto text-white" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <p class="text-white mt-4">Sua conta foi removida com sucesso.</p>
-            <a href="{{url_for('main.logout')}}">
-                <button class="btn btn-outline btn-sm mt-6 text-white hover:bg-white hover:text-red-500">
-                    Voltar à página inicial
-                </button>
-            </a>
-
+        <!-- Segundo estado: "Conta excluída" (inicialmente escondido) -->
+        <div id="deleted-state" class="hidden fade-in">
+            <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-white/20">
+                <div class="mb-6">
+                    <div class="relative inline-block">
+                        <i class="fas fa-check-circle text-6xl text-white"></i>
+                        <div class="absolute inset-0 rounded-full bg-white/20 animate-ping"></div>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-3">Conta excluída</h1>
+                <p class="text-white mb-6">Sua conta e todos os dados associados foram removidos permanentemente.</p>
+                
+                <div class="bg-white/20 p-4 rounded-lg mb-6 text-left">
+                    <p class="text-white text-sm"><i class="fas fa-info-circle mr-2"></i> Todas as suas informações, obras e histórico foram apagados do nosso sistema.</p>
+                </div>
+                
+                <a href="{{url_for('main.logout')}}" class="inline-block w-full">
+                    <button class="btn btn-outline btn-block text-white hover:bg-white hover:text-red-600 transition-all">
+                        <i class="fas fa-home mr-2"></i> Voltar à página inicial
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        // Simula o processo de deleção
+        // Simula o processo de exclusão
         setTimeout(() => {
             document.getElementById('deleting-state').classList.add('hidden');
             document.getElementById('deleted-state').classList.remove('hidden');
+            
+            // Adiciona confetes após a transição
+            setTimeout(() => {
+                const confettiSettings = {
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ffffff', '#fecaca', '#fee2e2']
+                };
+                // Simulação de confetes (seria melhor usar uma lib como canvas-confetti)
+                console.log('Confetes animados apareceriam aqui na implementação real');
+            }, 500);
         }, 3000); // Troca após 3 segundos
+
+        // Mostra o tempo restante
+        let seconds = 3;
+        const timerElement = document.createElement('div');
+        timerElement.className = 'text-white/50 text-xs mt-2';
+        document.querySelector('#deleting-state p:nth-of-type(2)').after(timerElement);
+        
+        const timer = setInterval(() => {
+            seconds--;
+            timerElement.textContent = `Processando... ${seconds}s`;
+            if (seconds <= 0) clearInterval(timer);
+        }, 1000);
     </script>
 </body>
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha | Muiddo Arts</title>
+    <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
+    <meta name="description"
+        content="Recupere sua senha da Muiddo Arts para acessar sua conta de cliente e explorar obras de arte exclusivas.">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../static/css/bolhas.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="auth-body min-h-screen flex items-center justify-center p-4">
+    <!-- Container das bolhas decorativas -->
+    <div class="bg-bolhas">
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+    </div>
+
+    <main
+        class="conteudo auth-container w-full max-w-md rounded-xl shadow-2xl overflow-hidden border border-[#5A7247]/10">
+        <!-- Cabeçalho -->
+        <div class="bg-[#5A7247] text-white p-8 text-center">
+            <p class="mb-8">Muiddo Arts</p>
+            <h1 class="text-2xl font-bold mb-2">Recuperação de Senha</h1>
+            <p class="opacity-90">Insira seu e-mail para redefinir sua senha</p>
+        </div>
+
+        <!-- Formulário -->
+        <form action="{{ url_for('main.reset_password_request') }}" method="POST" class="p-8">
+            <div class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="email">
+                        <span class="label-text text-[#2C3C1C]">E-Mail</span>
+                    </label>
+                    <div class="relative">
+                        <input id="email" name="email" type="email" required
+                            class="place-color input-field text-[#2C3C1C] bg-[#F5F5F0] input input-bordered w-full pl-10"
+                            placeholder="exemplo@email.com">
+                        <span class="absolute left-3 top-3 text-[#5A7247]">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="btn btn-gradient text-white w-full">
+                        Enviar Link de Redefinição
+                    </button>
+                </div>
+
+                <div class="text-center text-sm text-[#5A7247] mt-6">
+                    <p>Lembrou sua senha? <a href="{{url_for('main.login_client') }}"
+                            class="font-semibold hover:underline">Faça login</a></p>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

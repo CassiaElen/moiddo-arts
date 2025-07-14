@@ -11,35 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/painel-artista.css">
     <link rel="stylesheet" href="../static/css/alertas.css">
-    <style>
-        :root {
-            --primary: #2C3C1C;
-            /* Verde-escuro principal */
-            --primary-light: #5A7247;
-            /* Verde médio */
-            --secondary: #AAB898;
-            /* Verde-claro acinzentado */
-            --accent: #8C3B2D;
-            /* Terracota (destaque) */
-            --neutral: #E3D9C6;
-            /* Off-white (fundo suave) */
-            --light: #F4F4F4;
-            /* Branco (para contrastes) */
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #5A7247;
-            /* Tom mais claro do verde */
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
-<body class="auth-containermin-h-screen flex">
+<body class="auth-container min-h-screen flex bg-[#f4f4f4]">
     <!-- Notificação Flash (sobrepõe tudo) -->
     <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
         {% with mensagens = get_flashed_messages(with_categories=true) %}
@@ -63,7 +38,8 @@
     <!-- Menu Lateral -->
     <nav class="fixed left-0 top-0 w-64 h-screen bg-white shadow-lg z-10 menu-lateral">
         <div class="p-5 border-b">
-            <h1 class="text-2xl font-bold text-gray-800">Moiddo <span class="text-[#2C3C1C]">Arts</span></h1>
+            <a href="{{url_for('main.home')}}" class="text-2xl font-bold text-[#2C3C1C]">Moiddo <span
+                    class="text-[#5A7247]">Arts</span></a>
             <p class="text-xs text-gray-500">Painel do Artista</p>
         </div>
         <ul class="menu p-4 w-full">
@@ -98,8 +74,7 @@
                 </a>
             </li>
             <li class="nav-item mt-auto border-t pt-2">
-                <a href="{{url_for('main.logout')}}"
-                    class="flex items-center py-3 px-4 rounded-lg text-red-500 hover:bg-red-50">
+                <a href="{{url_for('main.logout')}}" class="flex items-center py-3 px-4 rounded-lg text-[#8C3B2D] ">
                     <i class="fas fa-sign-out-alt mr-3"></i>
                     <span class="font-medium"> Sair</span>
                 </a>
@@ -111,375 +86,552 @@
     <main class="ml-64 p-8 w-full">
         <!-- Seção Início -->
         <section id="inicio" class="secao-conteudo ativo">
-            <div class="mb-8">
-                <h1 class="title-font text-3xl font-bold text-gray-900">Olá, <span
-                        class="text-indigo-600">{{dados.nome_completo}}</span>!</h1>
-                <p class="text-gray-600">Veja suas estatísticas e atividades recentes</p>
+            <!-- Conteúdo Principal-->
+            <div class="flex justify-between mb-8">
+                <div>
+                    <h1 class="text-4xl font-bold text-[#2C3C1C]">Olá, <span
+                            class="nome-artista">{{dados.nome_completo}}</span>!</h1>
+                    <p class="text-[#5A7247]">Veja suas estatísticas e obras recentes</p>
+                </div>
+                <!-- Botão de Notificações -->
+                <div class="dropdown dropdown-end">
+                    <!-- Ícone do botão com badge de contagem -->
+                    <button class="btn btn-ghost btn-circle hover:bg-[#AAB898]/20 relative">
+                        <i class="fas fa-bell text-[#5A7247] text-xl"></i>
+                        <span
+                            class="badge badge-sm badge-warning absolute -top-1 -right-1 bg-[#8C3B2D] border-[#8C3B2D] text-white">3</span>
+                    </button>
+
+                    <!-- Modal de Notificações -->
+                    <div
+                        class="dropdown-content mt-3 z-[1] card card-compact w-96 bg-[#f4f4f4] shadow-xl border border-[#E3D9C6]">
+                        <div class="card-body">
+                            <!-- Cabeçalho -->
+                            <div class="flex justify-between items-center border-b border-[#E3D9C6] pb-3">
+                                <h3 class="font-bold text-lg text-[#2C3C1C]">Notificações</h3>
+                                <button class="btn btn-xs btn-circle btn-ghost text-[#5A7247]">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                            </div>
+
+                            <!-- Lista de Notificações -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <!-- Item 1 -->
+                                <div
+                                    class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                    <div
+                                        class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-[#2C3C1C]">Novo favorito</p>
+                                        <p class="text-sm text-[#5A7247]">Sua obra "Paisagem Serrana" recebeu um
+                                            like</p>
+                                        <p class="text-xs text-[#AAB898] mt-1">há 15 minutos</p>
+                                    </div>
+                                    <div class="flex-none">
+                                        <button
+                                            class="btn btn-xs btn-ghost text-[#AAB898] hover:text-[#8C3B2D] hover:bg-[#8C3B2D]/20">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Item 2 -->
+                                <div
+                                    class="flex gap-4 p-3 hover:bg-[#F4F4F4] rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                    <div
+                                        class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-[#2C3C1C]">Venda realizada</p>
+                                        <p class="text-sm text-[#5A7247]">"Natureza Vibrante" foi vendido por R$
+                                            850,00</p>
+                                        <p class="text-xs text-[#AAB898] mt-1">há 2 horas</p>
+                                    </div>
+                                    <div class="flex-none">
+                                        <button class="btn btn-xs btn-ghost text-[#AAB898] hover:text-[#8C3B2D]">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Item 3 -->
+                                <div class="flex gap-4 p-3 hover:bg-[#F4F4F4] rounded-lg transition-colors">
+                                    <div
+                                        class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-[#2C3C1C]">Novo comentário</p>
+                                        <p class="text-sm text-[#5A7247]">@artlover: "Adorei sua técnica de
+                                            pintura!"</p>
+                                        <p class="text-xs text-[#AAB898] mt-1">ontem</p>
+                                    </div>
+                                    <div class="flex-none">
+                                        <button class="btn btn-xs btn-ghost text-[#AAB898] hover:text-[#8C3B2D]">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rodapé -->
+                            <div class="card-actions justify-center pt-3 border-t border-[#E3D9C6]">
+                                <button class="btn btn-sm btn-ghost text-[#5A7247] hover:text-[#8C3B2D]">
+                                    Marcar todas como lidas
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Cards de Estatísticas -->
+            <!-- Cards de estatisticas-->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                <!-- Card 1 - Total de Obras -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-[#5A7247] hover:border-[#8C3B2D]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Total de Obras</p>
-                            <p class="text-3xl font-bold text-[#2C3C1C]">{{contar}}</p>
+                            <p class="text-[#5A7247] text-sm font-medium uppercase tracking-wider">Total de
+                                Obras</p>
+                            <p class="text-4xl font-bold text-[#2C3C1C] mt-2">{{contar}}</p>
                         </div>
-                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
+                        <div
+                            class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-palette text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <div class="flex items-center text-sm text-green-600">
-                            <i class="fas fa-arrow-up mr-1"></i>
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm font-medium text-green-600">
+                            <i class="fas fa-arrow-up mr-2"></i>
                             <span>{{contar_mes}} novas este mês</span>
+                            <span
+                                class="ml-auto bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">+{{percent_obras}}%</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                <!-- Card 2 - Total de Vendas -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-[#5A7247] hover:border-[#2C3C1C]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Total de Vendas no mês</p>
-                            <p class="text-3xl font-bold text-[#2C3C1C]">R$ {{vendas_mes}} </p>
+                            <p class="text-[#5A7247] text-sm font-medium uppercase tracking-wider">Total de
+                                Vendas</p>
+                            <p class="text-4xl font-bold text-[#2C3C1C] mt-2">R$ <span class="counter"
+                                    data-target="{{vendas_mes}}">0</span></p>
                         </div>
-                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
+                        <div
+                            class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-chart-line text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <div class="flex items-center text-sm text-green-600">
-                            <i class="fas fa-arrow-up mr-1"></i>
-                            <span>{{porcentagem_vendas}}% em relação ao mês passado</span>
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm font-medium text-green-600">
+                            <i class="fas fa-arrow-up mr-2"></i>
+                            <span>{{porcentagem_vendas}}% vs mês anterior</span>
+                            <span
+                                class="ml-auto bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Destaque</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                <!-- Card 3 - Visualizações -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-[#5A7247] hover:border-[#AAB898]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Visualizações</p>
-                            <p class="text-3xl font-bold text-[#2C3C1C]">1.248</p>
+                            <p class="text-[#5A7247] text-sm font-medium uppercase tracking-wider">Visualizações
+                            </p>
+                            <p class="text-4xl font-bold text-[#2C3C1C] mt-2"><span class="counter"
+                                    data-target="1248">0</span></p>
                         </div>
-                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
+                        <div
+                            class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-eye text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <div class="flex items-center text-sm text-green-600">
-                            <i class="fas fa-arrow-up mr-1"></i>
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm font-medium text-green-600">
+                            <i class="fas fa-arrow-up mr-2"></i>
                             <span>32% mais visitas</span>
+                            <span
+                                class="ml-auto bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Recorde</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Ações Rápidas -->
-            <div class="flex flex-wrap gap-4 mb-10">
-                <button class="btn bg-[#2C3C1C] text-white hover:bg-[#5A7247]">
-                    <i class="fas fa-plus mr-2"></i> Nova Obra
-                </button>
-                <button class="btn btn-outline border-[#2C3C1C] text-[#2C3C1C] hover:bg-[#AAB898]/20">
-                    <i class="fas fa-edit mr-2"></i> Gerenciar Obras
-                </button>
-                <button class="btn btn-outline border-[#2C3C1C] text-[#2C3C1C] hover:bg-[#AAB898]/20">
-                    <i class="fas fa-store mr-2"></i> Editar Loja
-                </button>
-            </div>
-
             <!-- Últimas Obras -->
-            <div class="mb-10">
-                <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Suas Obras Recentes</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="mb-12">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#2C3C1C]">Suas Obras Recentes</h2>
+                    <a href="#"
+                        class="text-[#5A7247] hover:text-[#8C3B2D] font-medium flex items-center transition-colors">
+                        Ver todas
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {% for obra in ultimas_obras %}
-                    <div class="card-obra bg-white rounded-xl shadow-sm overflow-hidden">
-                        <div class="relative overflow-hidden h-48">
-                            <img class="w-full h-full object-cover obra-image" src="{{obra.url_foto}}"
-                                alt="{{obra.titulo}}">
+                    <div
+                        class="card-obra group bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300 border border-[#E3D9C6] hover:border-[#AAB898]">
+                        <!-- Imagem com overlay hover -->
+                        <div class="relative overflow-hidden h-56">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="{{obra.url_foto}}" alt="{{obra.titulo}}">
+
+                            <!-- Overlay de ações -->
+                            <div
+                                class="absolute inset-0 bg-[#2C3C1C]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
+                                <button class="action-btn bg-[#8C3B2D] hover:bg-[#6E2E24] text-white">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn bg-[#5A7247] hover:bg-[#485B3A] text-white">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn bg-white hover:bg-[#F4F4F4] text-[#2C3C1C]">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-semibold mb-2">{{obra.titulo}}</h3>
-                            <div class="flex justify-between items-center">
+
+                        <!-- Conteúdo do card -->
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3
+                                    class="text-xl font-bold text-[#2C3C1C] group-hover:text-[#8C3B2D] transition-colors">
+                                    {{obra.titulo}}
+                                </h3>
+                                <span class="bg-[#AAB898]/20 text-[#5A7247] text-xs font-medium px-2 py-1 rounded-full">
+                                    {{obra.categoria}}
+                                </span>
+                            </div>
+
+                            <p class="text-[#5A7247] text-sm mb-4 flex items-center">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                Adicionada em: {{obra.data_cadastro}}
+                            </p>
+
+                            <div class="flex justify-between items-center pt-4 border-t border-[#E3D9C6]">
                                 <div>
-                                    <p class="text-gray-600 text-sm">Adicionada em: {{obra.data_cadastro}}</p>
-                                    <p class="text-indigo-600 font-medium">R$ {{obra.preco}}</p>
+                                    <p class="text-xs text-[#5A7247]">Preço</p>
+                                    <p class="text-2xl font-bold text-[#2C3C1C]">R$ {{obra.preco}}</p>
+                                </div>
+
+                                <div class="flex space-x-2">
+                                    <span class="flex items-center text-[#5A7247] text-sm">
+                                        <i class="fas fa-heart mr-1"></i> {{obra.likes or 0}}
+                                    </span>
+                                    <span class="flex items-center text-[#5A7247] text-sm">
+                                        <i class="fas fa-eye mr-1"></i> {{obra.views or 0}}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                </div>
-            </div>
-
-            <!-- Atividades Recentes -->
-            <div>
-                <h2 class="title-font text-2xl font-bold text-gray-900 mb-6">Atividades Recentes</h2>
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 pb-4 border-b border-gray-100">
-                            <div class="bg-indigo-100 p-2 rounded-full text-indigo-600 mt-1">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium">Novo favorito em sua obra</p>
-                                <p class="text-gray-600 text-sm">Alguém favoritou "Itaquaquecetuba" há 2 horas</p>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-auto">10:45 AM</span>
-                        </div>
-
-                        <div class="flex items-start gap-4 pb-4 border-b border-gray-100">
-                            <div class="bg-green-100 p-2 rounded-full text-green-600 mt-1">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium">Nova venda realizada</p>
-                                <p class="text-gray-600 text-sm">"Horizonte Silencioso" foi vendido por R$ 650,00</p>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-auto">Ontem</span>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="bg-blue-100 p-2 rounded-full text-blue-600 mt-1">
-                                <i class="fas fa-comment"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium">Novo comentário recebido</p>
-                                <p class="text-gray-600 text-sm">"Adorei sua técnica de pintura!" em "Itaquaquecetuba"
-                                </p>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-auto">2 dias atrás</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Seção Obras -->
         <section id="produtos" class="secao-conteudo">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <!-- Cabeçalho -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
-                    <h1 class="title-font text-3xl font-bold text-gray-900 mb-2">Suas Obras</h1>
-                    <p class="text-gray-600">Gerencie todas as suas obras publicadas</p>
+                    <h1 class="text-3xl font-bold text-[#2C3C1C] mb-2">Suas Obras</h1>
+                    <p class="text-[#5A7247]">Gerencie todas as suas obras publicadas</p>
                 </div>
-                <button class="btn btn-primary mt-4 md:mt-0" onclick="modal_adicionar_obra.showModal()">
+                <button class="btn btn-gradient mt-4 md:mt-0" onclick="modal_adicionar_obra.showModal()">
                     <i class="fas fa-plus mr-2"></i> Adicionar Obra
                 </button>
             </div>
+
             <!-- Filtros e Busca -->
             <form method="get" action="{{ url_for('artistas.painel_artista') }}"
-                class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-
+                class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 p-4 bg-[#F4F4F4] rounded-lg">
                 <!-- Filtros -->
                 <div class="flex flex-wrap gap-2">
                     {% for f in ['todas', 'ativas', 'rascunhos', 'esgotadas'] %}
                     <button type="submit" name="filtro" value="{{ f }}"
-                        class="btn btn-sm {% if filtro == f %}btn-active{% else %}btn-ghost{% endif %}">
+                        class="btn btn-sm {% if filtro == f %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
                         {{ f.capitalize() }}
                     </button>
                     {% endfor %}
                 </div>
 
                 <!-- Barra de Busca -->
-                <label class="input input-bordered flex items-center gap-2 w-full md:w-64">
-                    <input type="text" name="busca" class="grow w-full" placeholder="Buscar obras..."
-                        value="{{ busca }}" />
-                    <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                            class="w-4 h-4 opacity-70">
-                            <path fill-rule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clip-rule="evenodd" />
-                        </svg>
+                <label class="input bg-white border-[#AAB898] flex items-center gap-2 w-full md:w-64">
+                    <input type="text" name="busca" class="grow w-full text-[#2C3C1C] placeholder-[#AAB898]"
+                        placeholder="Buscar obras..." value="{{ busca }}" />
+                    <button type="submit" class="text-[#5A7247] hover:text-[#8C3B2D]">
+                        <i class="fas fa-search"></i>
                     </button>
-
-                    <!-- Esses campos garantem que ao usar o input, o filtro atual seja mantido -->
                     <input type="hidden" name="filtro" value="{{ filtro }}">
                     <input type="hidden" name="pagina" value="1">
                 </label>
             </form>
+
             <!-- Tabela de Obras -->
-            <div class="overflow-x-auto bg-white rounded-xl shadow">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-[#E3D9C6]">
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg border border-[#E3D9C6]">
+                <table class="min-w-full divide-y divide-[#E3D9C6]">
+                    <thead class="bg-[#AAB898]/20">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Obra</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Preço</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Visualizações</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Vendas</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Estoque</th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Ações</th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Obra
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Preço
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Visualizações
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Vendas
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Estoque
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Ações
+                            </th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-[#E3D9C6]">
                         {% if obras %}
                         {% for obra in obras %}
-                        <tr>
+                        <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-md object-cover" src="{{ obra.url_foto }}"
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
+                                        <img class="h-full w-full object-cover" src="{{ obra.url_foto }}"
                                             alt="{{ obra.titulo }}">
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ obra.titulo }}</div>
-                                        <div class="text-sm text-gray-500">{{ obra.tecnica }}</div>
+                                        <div class="text-sm font-semibold text-[#2C3C1C]">{{ obra.titulo }}</div>
+                                        <div class="text-sm text-[#5A7247]">{{ obra.tecnica }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {% if obra.status_obras == 'ativa' %}
                                 <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ativa</span>
+                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Ativa
+                                </span>
                                 {% elif obra.status_obras == 'rascunho' %}
                                 <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Rascunho</span>
+                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    Rascunho
+                                </span>
                                 {% elif obra.status_obras == 'bloqueado' %}
                                 <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-700">Bloqueada</span>
+                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Bloqueada
+                                </span>
                                 {% endif %}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ {{
-                                "%.2f"|format(obra.preco|float) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.visualizacoes }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.vendas }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ obra.estoque }}</td>
-                            <td class="mt-3 px-6 py-4 flex items-end text-sm font-medium">
-                                <button class="text-indigo-600 hover:text-indigo-900 mr-3 modal_editar_obra"
-                                    data-id="{{ obra.id_obra }}" data-titulo="{{obra.titulo}}"
-                                    data-descricao="{{ obra.descricao }}" data-tecnica="{{ obra.tecnica }}"
-                                    data-dimensao="{{ obra.dimensoes }}" data-ano="{{ obra.ano_criacao }}"
-                                    data-preco="{{ obra.preco }}" data-estoque="{{ obra.estoque }}"
-                                    data-categoria="{{ obra.categoria_id }}" onclick="modal_editar_obra.showModal()">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <form action="{{ url_for('artistas.painel_artista') }}" method="post">
-                                    <input type="hidden" name="acao" value="excluir_obra">
-                                    <button type="submit" name="obra_id" value="{{ obra.id_obra }}"
-                                        class="text-red-600 hover:text-red-900">
-                                        <i class="fas fa-trash"></i>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                                R$ {{ "%.2f"|format(obra.preco|float) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                                <div class="flex items-center">
+                                    <i class="fas fa-eye mr-2 text-[#AAB898]"></i>
+                                    {{ obra.visualizacoes }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                                <div class="flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2 text-[#AAB898]"></i>
+                                    {{ obra.vendas }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                                {% if obra.estoque > 0 %}
+                                <span class="px-2 py-1 bg-[#AAB898]/20 text-[#5A7247] rounded-full">
+                                    {{ obra.estoque }} disponíveis
+                                </span>
+                                {% else %}
+                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full">
+                                    Esgotado
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end space-x-3">
+                                    <button class="text-[#5A7247] hover:text-[#2C3C1C] modal_editar_obra"
+                                        data-id="{{ obra.id_obra }}" data-titulo="{{obra.titulo}}"
+                                        data-descricao="{{ obra.descricao }}" data-tecnica="{{ obra.tecnica }}"
+                                        data-dimensao="{{ obra.dimensoes }}" data-ano="{{ obra.ano_criacao }}"
+                                        data-preco="{{ obra.preco }}" data-estoque="{{ obra.estoque }}"
+                                        data-categoria="{{ obra.categoria_id }}" data-imagem="{{ obra.url_foto }}"
+                                        onclick="modal_editar_obra.showModal()">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                </form>
+                                    <form action="{{ url_for('artistas.painel_artista') }}" method="post">
+                                        <input type="hidden" name="acao" value="excluir_obra">
+                                        <button type="submit" name="obra_id" value="{{ obra.id_obra }}"
+                                            class="text-[#8C3B2D] hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
                         {% else %}
                         <tr>
-                            <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
-                                Nenhuma obra encontrada com esses filtros.
+                            <td colspan="7" class="px-6 py-8 text-center">
+                                <div class="flex flex-col items-center justify-center text-[#5A7247]">
+                                    <i class="fas fa-palette text-4xl mb-4 text-[#AAB898]"></i>
+                                    <p class="text-lg font-medium">Nenhuma obra encontrada</p>
+                                    <p class="text-sm">Tente ajustar seus filtros de busca</p>
+                                </div>
                             </td>
                         </tr>
                         {% endif %}
                     </tbody>
-
                 </table>
             </div>
 
             <!-- Paginação -->
-            <div class="flex justify-between items-center mt-6">
-                <div class="text-sm text-gray-500">
-                    Mostrando
-                    <span class="font-medium">
-                        {{ (pagina - 1) * por_pagina + 1 if total > 0 else 0 }}
-                    </span>
-                    a
-                    <span class="font-medium">
-                        {{ (pagina - 1) * por_pagina + obras|length }}
-                    </span>
-                    de
-                    <span class="font-medium">{{ total }}</span> obras
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
+                <div class="text-sm text-[#5A7247]">
+                    Mostrando <span class="font-semibold text-[#2C3C1C]">{{ (pagina - 1) * por_pagina + 1 if total > 0
+                        else 0 }}</span>
+                    a <span class="font-semibold text-[#2C3C1C]">{{ (pagina - 1) * por_pagina + obras|length }}</span>
+                    de <span class="font-semibold text-[#2C3C1C]">{{ total }}</span> obras
                 </div>
 
                 <div class="join">
                     {% if pagina > 1 %}
-                    <a class="join-item btn btn-sm"
+                    <a class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
                         href="?pagina={{ pagina - 1 }}&busca={{ busca }}&filtro={{ filtro }}">
-                        «
+                        <i class="fas fa-chevron-left"></i>
                     </a>
                     {% endif %}
 
                     {% for p in range(1, total_paginas + 1) %}
-                    <a class="join-item btn btn-sm {% if p == pagina %}btn-active{% endif %}"
+                    <a class="join-item btn btn-sm {% if p == pagina %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C] {% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
                         href="?pagina={{ p }}&busca={{ busca }}&filtro={{ filtro }}">
                         {{ p }}
                     </a>
                     {% endfor %}
 
-                    {% if pagina < total_paginas %} <a class="join-item btn btn-sm"
+                    {% if pagina < total_paginas %} <a
+                        class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
                         href="?pagina={{ pagina + 1 }}&busca={{ busca }}&filtro={{ filtro }}">
-                        »
+                        <i class="fas fa-chevron-right"></i>
                         </a>
                         {% endif %}
                 </div>
             </div>
-
         </section>
 
         <!-- Seção Pedidos -->
         <section id="pedidos" class="secao-conteudo">
-            <div class="mb-8">
-                <h1 class="title-font text-3xl font-bold text-gray-900">Pedidos Recebidos</h1>
-                <p class="text-gray-600">Gerencie todos os pedidos dos seus clientes</p>
+            <!-- Cabeçalho -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-[#2C3C1C]">Pedidos Recebidos</h1>
+                    <p class="text-[#5A7247]">Gerencie todos os pedidos dos seus clientes</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="btn btn-gradient">
+                        <i class="fas fa-file-export mr-2"></i> Exportar
+                    </button>
+                </div>
             </div>
 
             <!-- Filtros de Pedidos -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+            <div
+                class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 p-4 bg-[#F4F4F4] rounded-lg">
                 <div class="flex flex-wrap gap-2">
                     <a href="?status=todos#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'todos' %}btn-active{% else %}btn-ghost{% endif %}">Todos</a>
+                        class="btn btn-sm {% if status_pedido == 'todos' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                        Todos
+                    </a>
                     <a href="?status=pendente#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'pendente' %}btn-active{% else %}btn-ghost{% endif %}">Pendentes</a>
+                        class="btn btn-sm {% if status_pedido == 'pendente' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                        Pendentes
+                    </a>
                     <a href="?status=finalizado#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'finalizado' %}btn-active{% else %}btn-ghost{% endif %}">Finalizado</a>
+                        class="btn btn-sm {% if status_pedido == 'finalizado' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                        Finalizados
+                    </a>
                     <a href="?status=cancelado#pedidos"
-                        class="btn btn-sm {% if status_pedido == 'cancelado' %}btn-active{% else %}btn-ghost{% endif %}">Cancelados</a>
-
+                        class="btn btn-sm {% if status_pedido == 'cancelado' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                        Cancelados
+                    </a>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-                    <input type="date" class="input input-bordered w-full md:w-40">
-                    <input type="date" class="input input-bordered w-full md:w-40">
-                    <button class="btn btn-sm btn-ghost">
+                    <div class="flex items-center gap-2">
+                        <input type="date" class="input bg-white border-[#AAB898] text-[#2C3C1C] w-full md:w-40">
+                        <span class="text-[#5A7247]">até</span>
+                        <input type="date" class="input bg-white border-[#AAB898] text-[#2C3C1C] w-full md:w-40">
+                    </div>
+                    <button
+                        class="btn bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-[#5A7247]">
                         <i class="fas fa-filter mr-2"></i> Filtrar
                     </button>
                 </div>
             </div>
 
             <!-- Tabela de Pedidos -->
-            <div class="overflow-x-auto bg-white rounded-xl shadow">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-[#E3D9C6]">
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg border border-[#E3D9C6]">
+                <table class="min-w-full divide-y divide-[#E3D9C6]">
+                    <thead class="bg-[#AAB898]/20">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Pedido</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Data</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Cliente</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Valor</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Status</th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
-                                Ações</th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Pedido
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Data
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Cliente
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Valor
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Ações
+                            </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg-white divide-y divide-[#E3D9C6]">
                         {% for pedido in pedidos %}
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                #MO{{ pedido.id_pedido }}
+                        <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{ pedido.id_pedido }}</div>
+                                <div class="text-xs text-[#5A7247] mt-1">{{ pedido.quantidade_itens }} itens</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                                 {% if pedido.data_criacao %}
                                 {{ pedido.data_criacao[:10].split('-') | reverse | join('/') }}
                                 {% else %}
@@ -488,74 +640,90 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-full" src="{{ pedido.cliente_avatar }}" alt="">
+                                    <div
+                                        class="flex-shrink-0 h-10 w-10 rounded-full overflow-hidden border border-[#E3D9C6]">
+                                        <img class="h-full w-full object-cover" src="{{ pedido.cliente_avatar }}"
+                                            alt="{{ pedido.cliente_nome }}">
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ pedido.cliente_nome }}</div>
-                                        <div class="text-sm text-gray-500">{{ pedido.cliente_email }}</div>
+                                        <div class="text-sm font-medium text-[#2C3C1C]">{{ pedido.cliente_nome }}</div>
+                                        <div class="text-sm text-[#5A7247]">{{ pedido.cliente_email }}</div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ {{ pedido.total_pedido }}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                                R$ {{ pedido.total_pedido }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                    {% if pedido.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
-                    {% elif pedido.status_pedido == 'cancelado' %}bg-red-100 text-red-800
-                    {% elif pedido.status_pedido == 'finalizado' %}bg-green-100 text-green-800
-                    {% endif %}">
-                                    {{ pedido.status_pedido }}
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            {% if pedido.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
+                            {% elif pedido.status_pedido == 'cancelado' %}bg-red-100 text-red-800
+                            {% elif pedido.status_pedido == 'finalizado' %}bg-green-100 text-green-800
+                            {% endif %}">
+                                    {{ pedido.status_pedido | capitalize }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-[#8C3B2D] hover:text-[#6B2A20] mr-3">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="text-green-600 hover:text-green-900">
-                                    <i class="fas fa-print"></i>
-                                </button>
+                                <div class="flex justify-end space-x-3">
+                                    {% if pedido.status_pedido == 'pendente' %}
+                                    <button class="text-green-600 hover:text-green-800 tooltip"
+                                        data-tip="Marcar como Finalizado">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                    {% endif %}
+                                    <button class="text-[#5A7247] hover:text-[#2C3C1C] tooltip" data-tip="Visualizar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-[#8C3B2D] hover:text-[#6B2A20] tooltip" data-tip="Imprimir">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="px-6 py-8 text-center">
+                                <div class="flex flex-col items-center justify-center text-[#5A7247]">
+                                    <i class="fas fa-box-open text-4xl mb-4 text-[#AAB898]"></i>
+                                    <p class="text-lg font-medium">Nenhum pedido encontrado</p>
+                                    <p class="text-sm">Quando receber pedidos, eles aparecerão aqui</p>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
-
                 </table>
             </div>
 
             <!-- Paginação -->
-            <div class="flex justify-between items-center mt-6">
-                <div class="text-sm text-gray-500">
-                    Mostrando
-                    <span class="font-medium">
-                        {{ (pagina_pedidos - 1) * por_pagina_pedidos + 1 if total_pedidos > 0 else 0 }}
-                    </span>
-                    a
-                    <span class="font-medium">
-                        {{ (pagina_pedidos - 1) * por_pagina_pedidos + pedidos|length }}
-                    </span>
-                    de
-                    <span class="font-medium">{{ total_pedidos }}</span> pedidos
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
+                <div class="text-sm text-[#5A7247]">
+                    Mostrando <span class="font-semibold text-[#2C3C1C]">{{ (pagina_pedidos - 1) * por_pagina_pedidos +
+                        1 if total_pedidos > 0 else 0 }}</span>
+                    a <span class="font-semibold text-[#2C3C1C]">{{ (pagina_pedidos - 1) * por_pagina_pedidos +
+                        pedidos|length }}</span>
+                    de <span class="font-semibold text-[#2C3C1C]">{{ total_pedidos }}</span> pedidos
                 </div>
 
                 <div class="join">
                     {% if pagina_pedidos > 1 %}
-                    <a class="join-item btn btn-sm"
+                    <a class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
                         href="?status={{ status_pedido }}&pagina_pedidos={{ pagina_pedidos - 1 }}#pedidos">
-                        «
+                        <i class="fas fa-chevron-left"></i>
                     </a>
                     {% endif %}
 
                     {% for p in range(1, total_paginas_pedidos + 1) %}
-                    <a class="join-item btn btn-sm {% if p == pagina_pedidos %}btn-active{% endif %}"
+                    <a class="join-item btn btn-sm {% if p == pagina_pedidos %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C] {% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
                         href="?status={{ status_pedido }}&pagina_pedidos={{ p }}#pedidos">
                         {{ p }}
                     </a>
                     {% endfor %}
 
-                    {% if pagina_pedidos < total_paginas_pedidos %} <a class="join-item btn btn-sm"
+                    {% if pagina_pedidos < total_paginas_pedidos %} <a
+                        class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
                         href="?status={{ status_pedido }}&pagina_pedidos={{ pagina_pedidos + 1 }}#pedidos">
-                        »
+                        <i class="fas fa-chevron-right"></i>
                         </a>
                         {% endif %}
                 </div>
@@ -564,166 +732,253 @@
 
         <!-- Seção Vendas -->
         <section id="vendas" class="secao-conteudo">
-            <div class="mb-8">
-                <h1 class="title-font text-3xl font-bold text-gray-900">Vendas e Pagamentos</h1>
-                <p class="text-gray-600">Acompanhe seu desempenho financeiro</p>
+            <!-- Cabeçalho -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-[#2C3C1C]">Vendas e Pagamentos</h1>
+                    <p class="text-[#5A7247]">Acompanhe seu desempenho financeiro</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="btn btn-gradient">
+                        <i class="fas fa-file-export mr-2"></i> Exportar Relatório
+                    </button>
+                </div>
             </div>
 
             <!-- Resumo Financeiro -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 - Total de Vendas -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-md border-l-4 border-[#8C3B2D] hover:border-[#691e11]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Total de Vendas</p>
-                            <p class="text-2xl font-bold text-indigo-600">R$ {{contar_vendas}}</p>
+                            <p class="text-sm text-[#5A7247] uppercase tracking-wider">Total de Vendas</p>
+                            <p class="text-2xl font-bold text-[#2C3C1C] mt-1">R$ {{contar_vendas}}</p>
                         </div>
-                        <div class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C]">
+                        <div
+                            class="bg-[#8C3B2D]/10 p-3 rounded-full text-[#8C3B2D] group-hover:bg-[#8C3B2D] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-shopping-cart text-xl"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                <!-- Card 2 - Vendas Este Mês -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-md border-l-4 border-[#2C3C1C] hover:border-[#8C3B2D]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Vendas Este Mês</p>
-                            <p class="text-2xl font-bold text-indigo-600">R$ {{vendas_mes}}</p>
+                            <p class="text-sm text-[#5A7247] uppercase tracking-wider">Vendas Este Mês</p>
+                            <p class="text-2xl font-bold text-[#2C3C1C] mt-1">R$ {{vendas_mes}}</p>
                         </div>
-                        <div class="bg-green-100 p-3 rounded-full text-green-600">
+                        <div
+                            class="bg-[#5A7247]/10 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-chart-line text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <span class="text-sm text-green-600">
-                            <i class="fas fa-arrow-up mr-1"></i> {{porcentagem_vendas}}% em relação ao mês passado
-                        </span>
+                    <div class="mt-3 pt-2 border-t border-[#E3D9C6]">
+                        <div class="flex items-center text-sm font-medium text-green-600">
+                            <i class="fas fa-arrow-up mr-2"></i>
+                            <span>{{porcentagem_vendas}}% vs mês anterior</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                <!-- Card 3 - Saldo Disponível -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-md border-l-4 border-[#5A7247] hover:border-[#2C3C1C]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Saldo Disponível</p>
-                            <p class="text-2xl font-bold text-indigo-600">R$ 3.450,00</p>
+                            <p class="text-sm text-[#5A7247] uppercase tracking-wider">Saldo Disponível</p>
+                            <p class="text-2xl font-bold text-[#2C3C1C] mt-1">R$ 3.450,00</p>
                         </div>
-                        <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                        <div
+                            class="bg-[#2C3C1C]/10 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-wallet text-xl"></i>
                         </div>
                     </div>
+                    <div class="mt-3 pt-2 border-t border-[#E3D9C6]">
+                        <button class="btn btn-sm btn-ghost text-[#5A7247] hover:text-[#8C3B2D] w-full">
+                            Solicitar Saque
+                        </button>
+                    </div>
                 </div>
 
-                <div class="card-dashboard bg-white p-6 rounded-xl shadow-sm">
+                <!-- Card 4 - Próximo Pagamento -->
+                <div
+                    class="stats-card group bg-white p-6 rounded-xl shadow-md border-l-4 border-[#AAB898] hover:border-[#5A7247]">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Próximo Pagamento</p>
-                            <p class="text-2xl font-bold text-indigo-600">R$ 1.250,00</p>
+                            <p class="text-sm text-[#5A7247] uppercase tracking-wider">Próximo Pagamento</p>
+                            <p class="text-2xl font-bold text-[#2C3C1C] mt-1">R$ 1.250,00</p>
                         </div>
-                        <div class="bg-purple-100 p-3 rounded-full text-purple-600">
+                        <div
+                            class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
                             <i class="fas fa-calendar-check text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <span class="text-sm text-gray-500">Previsto para: 05/07/2023</span>
+                    <div class="mt-3 pt-2 border-t border-[#E3D9C6]">
+                        <p class="text-sm text-[#5A7247]">
+                            <i class="fas fa-clock mr-1"></i> Previsto para: 05/07/2023
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Gráfico e Histórico -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                <!-- Gráfico (placeholder) -->
-                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-semibold mb-4">Desempenho de Vendas</h3>
-                    <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <p class="text-gray-500">Gráfico de vendas mensais</p>
+            <!-- Gráfico e Métodos de Pagamento -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Gráfico -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md border border-[#E3D9C6]">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-[#2C3C1C]">Desempenho de Vendas</h3>
+                        <div class="flex gap-2">
+                            <button
+                                class="btn btn-xs bg-[#F4F4F4] border-[#E3D9C6] text-[#5A7247] hover:bg-[#5A7247] hover:text-white hover:border-[#2C3C1C]/50">Mensal</button>
+                            <button
+                                class="btn btn-xs bg-[#F4F4F4] border-[#E3D9C6] text-[#5A7247] hover:bg-[#5A7247] hover:text-white hover:border-[#2C3C1C]/50">Anual</button>
+                        </div>
+                    </div>
+                    <div class="h-64 bg-[#F4F4F4] rounded-lg flex items-center justify-center">
+                        <div class="text-center text-[#5A7247]">
+                            <i class="fas fa-chart-bar text-4xl mb-2"></i>
+                            <p>Gráfico de desempenho</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Métodos de Pagamento -->
-                <div class="bg-white p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-semibold mb-4">Métodos de Pagamento</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-[#E3D9C6]">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-[#2C3C1C]">Métodos de Pagamento</h3>
+                        <button class="btn btn-xs btn-ghost text-[#5A7247] hover:text-[#8C3B2D]">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-[#F4F4F4] rounded-lg">
                             <div class="flex items-center">
-                                <i class="fas fa-credit-card text-blue-500 mr-3"></i>
-                                <span>Cartão de Crédito</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-credit-card text-sm"></i>
+                                </div>
+                                <span class="text-[#2C3C1C]">Cartão de Crédito</span>
                             </div>
-                            <span class="font-medium">Ativo</span>
+                            <span class="badge badge-sm bg-green-100 text-green-800 border-0">Ativo</span>
                         </div>
-                        <div class="flex items-center justify-between">
+
+                        <div class="flex items-center justify-between p-3 bg-[#F4F4F4] rounded-lg">
                             <div class="flex items-center">
-                                <i class="fas fa-barcode text-green-500 mr-3"></i>
-                                <span>Boleto Bancário</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-barcode text-sm"></i>
+                                </div>
+                                <span class="text-[#2C3C1C]">Boleto Bancário</span>
                             </div>
-                            <span class="font-medium">Ativo</span>
+                            <span class="badge badge-sm bg-green-100 text-green-800 border-0">Ativo</span>
                         </div>
-                        <div class="flex items-center justify-between">
+
+                        <div class="flex items-center justify-between p-3 bg-[#F4F4F4] rounded-lg">
                             <div class="flex items-center">
-                                <i class="fas fa-pix text-purple-500 mr-3"></i>
-                                <span>PIX</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-pix text-sm"></i>
+                                </div>
+                                <span class="text-[#2C3C1C]">PIX</span>
                             </div>
-                            <span class="font-medium">Ativo</span>
+                            <span class="badge badge-sm bg-green-100 text-green-800 border-0">Ativo</span>
                         </div>
-                        <div class="flex items-center justify-between">
+
+                        <div class="flex items-center justify-between p-3 bg-[#F4F4F4] rounded-lg">
                             <div class="flex items-center">
-                                <i class="fas fa-university text-yellow-500 mr-3"></i>
-                                <span>Transferência Bancária</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-university text-sm"></i>
+                                </div>
+                                <span class="text-[#2C3C1C]">Transferência Bancária</span>
                             </div>
-                            <span class="font-medium">Inativo</span>
+                            <span class="badge badge-sm bg-red-100 text-red-800 border-0">Inativo</span>
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-outline border-indigo-200 text-indigo-600 mt-4 w-full">
+
+                    <button class="btn btn-sm btn-gradient mt-4 w-full">
                         Configurar Pagamentos
                     </button>
                 </div>
             </div>
 
-            <!-- Últimas Vendas -->
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                <div class="px-6 py-4 border-b flex justify-between items-center">
-                    <h3 class="text-lg font-semibold">Histórico de Vendas</h3>
-                    <button class="btn btn-sm btn-ghost text-indigo-600">Ver todos</button>
+            <!-- Histórico de Vendas -->
+            <div class="bg-white rounded-xl shadow-md border border-[#E3D9C6] overflow-hidden">
+                <div class="px-6 py-4 border-b border-[#E3D9C6] flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-[#2C3C1C]">Histórico de Vendas</h3>
+                    <button class="btn btn-sm btn-ghost text-[#5A7247] hover:text-[#8C3B2D]">
+                        Ver todos <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
                 </div>
+
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-[#E3D9C6]">
+                    <table class="min-w-full divide-y divide-[#E3D9C6]">
+                        <thead class="bg-[#AAB898]/20">
                             <tr>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Data</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
+                                    Data
+                                </th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Pedido</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
+                                    Pedido
+                                </th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Obra</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
+                                    Obra
+                                </th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Valor</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
+                                    Valor
+                                </th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-[#2C3C1C] uppercase tracking-wider">
+                                    Status
+                                </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-white divide-y divide-[#E3D9C6]">
                             {% if vendas %}
                             {% for venda in vendas %}
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{venda.data_criacao}}
+                            <tr class="hover:bg-[#F4F4F4] transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                                    {% if venda.data_criacao %}
+                                    {{ venda.data_criacao[:10].split('-') | reverse | join('/') }}
+                                    {% else %}
+                                    Não informado
+                                    {% endif %}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    #MA{{venda.id_pedido}}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{venda.titulo}}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R${{venda.preco}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                                    #MO{{venda.id_pedido}}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-[#2C3C1C]">
+                                    {{venda.titulo}}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                                    R${{venda.preco}}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{venda.status_pedido}}</span>
+                                    <span class="px-2 py-1 inline-flex text-xs leading-4 font-semibold rounded-full 
+                                {% if venda.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
+                                {% elif venda.status_pedido == 'cancelado' %}bg-red-100 text-red-800
+                                {% else %}bg-green-100 text-green-800{% endif %}">
+                                        {{venda.status_pedido | capitalize}}
+                                    </span>
                                 </td>
                             </tr>
                             {% endfor %}
                             {% else %}
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    Nenhuma venda realizada.
+                                <td colspan="5" class="px-6 py-8 text-center">
+                                    <div class="flex flex-col items-center justify-center text-[#5A7247]">
+                                        <i class="fas fa-box-open text-4xl mb-4 text-[#AAB898]"></i>
+                                        <p class="text-lg font-medium">Nenhuma venda encontrada</p>
+                                        <p class="text-sm">Quando realizar vendas, elas aparecerão aqui</p>
+                                    </div>
                                 </td>
                             </tr>
                             {% endif %}
@@ -737,139 +992,224 @@
         <section id="configuracoes" class="secao-conteudo">
             <form action="" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="acao" value="editar_perfil">
-                <div class="mb-8">
-                    <h1 class="title-font text-3xl font-bold text-gray-900">Configurações</h1>
-                    <p class="text-gray-600">Gerencie suas preferências e informações da conta</p>
+
+                <!-- Cabeçalho -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-[#2C3C1C]">Configurações</h1>
+                        <p class="text-[#5A7247]">Gerencie suas preferências e informações da conta</p>
+                    </div>
+                    <button type="submit" class="btn btn-gradient">
+                        <i class="fas fa-save mr-2"></i> Salvar Alterações
+                    </button>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <!-- Perfil -->
-                    <div class="p-6 border-b">
-                        <h2 class="text-xl font-semibold mb-4">Perfil Público</h2>
-                        <div class="flex flex-col md:flex-row gap-6">
-                            <div class="flex flex-col items-center">
+                <!-- Container Principal -->
+                <div class="bg-white rounded-xl shadow-md border border-[#E3D9C6] overflow-hidden">
+                    <!-- Seção Perfil Público -->
+                    <div class="p-8 border-b border-[#E3D9C6]">
+                        <h2 class="text-xl font-semibold text-[#2C3C1C] mb-6 flex items-center gap-2">
+                            <i class="fas fa-user-circle text-[#5A7247]"></i>
+                            Perfil Público
+                        </h2>
+
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <!-- Seção do Avatar (lado esquerdo) -->
+                            <div class="flex flex-col items-center md:w-1/4">
                                 <div class="avatar mb-4">
-                                    <div class="w-24 rounded-full ring ring-indigo-200 ring-offset-2">
-                                        <img src='{{dados.url_avatar}}' />
+                                    <div class="w-32 rounded-full ring ring-[#AAB898] ring-offset-2">
+                                        <img src='{{dados.url_avatar}}' alt="Avatar do usuário" />
                                     </div>
                                 </div>
-                                <label class="btn btn-sm btn-outline border-indigo-200 text-indigo-600">
-                                    Alterar Foto
-                                    <input type="file" name="avatar" hidden />
+                                <label
+                                    class="btn btn-sm bg-[#F4F4F4] border-[#E3D9C6] text-[#5A7247] hover:bg-[#5A7247] hover:text-white hover:border-[#2C3C1C]/50">
+                                    <i class="fas fa-camera mr-2"></i> Alterar Foto
+                                    <input type="file" name="avatar" class="hidden" accept="image/*" />
                                 </label>
+                                <p class="text-xs text-[#AAB898] mt-2">JPG ou PNG, máximo 2MB</p>
                             </div>
 
-                            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
-                                    <input type="text" name="nome" class="input input-bordered w-full"
-                                        value='{{dados.nome_completo}}'>
+                            <!-- Seção de Informações (lado direito) -->
+                            <div class="flex-1 space-y-6">
+                                <!-- Linha 1: Nome e Usuário -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="form-control">
+                                        <label class="label">
+                                            <span class="label-text text-[#5A7247]">Nome Completo</span>
+                                        </label>
+                                        <input type="text" name="nome"
+                                            class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                            value='{{dados.nome_completo}}' required>
+                                    </div>
+
+                                    <div class="form-control">
+                                        <label class="label">
+                                            <span class="label-text text-[#5A7247]">Nome de Usuário</span>
+                                        </label>
+                                        <input type="text" name="usuario"
+                                            class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                            value='{{dados.usuario}}' required>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome de Usuário</label>
-                                    <input type="text" name="usuario" class="input input-bordered w-full"
-                                        value='{{dados.usuario}}'>
+
+                                <!-- Linha 2: Especialidade -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-[#5A7247]">Especialidade Artística</span>
+                                    </label>
+                                    <input type="text" name="especialidade"
+                                        class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                        value='{{dados.especialidade or "não informado"}}' required>
                                 </div>
-                                <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Biografia</label>
-                                    <textarea name="biografia" class="textarea textarea-bordered w-full h-32"
-                                        placeholder="Conte sobre você e seu trabalho artístico">{{dados.biografia}}</textarea>
+
+                                <!-- Linha 3: Biografia -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-[#5A7247]">Biografia</span>
+                                    </label>
+                                    <textarea name="biografia"
+                                        class="textarea textarea-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C] h-32"
+                                        placeholder="Conte sobre você e seu trabalho artístico">{{dados.biografia or "não informado"}}</textarea>
+                                    <label class="label">
+                                        <span class="label-text-alt text-[#AAB898]">Máximo 500 caracteres</span>
+                                    </label>
+                                </div>
+
+                                <!-- Linha 4: Técnicas e Materiais -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-[#5A7247]">Técnicas e Materiais</span>
+                                    </label>
+                                    <textarea name="tecnicasMateriais"
+                                        class="textarea textarea-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C] h-32"
+                                        placeholder="Descreva as técnicas e materiais que você utiliza">{{dados.tecnicasMateriais or "não informado"}}</textarea>
+                                    <label class="label">
+                                        <span class="label-text-alt text-[#AAB898]">Máximo 500 caracteres</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Informações da Conta -->
-                    <div class="p-6 border-b">
-                        <h2 class="text-xl font-semibold mb-4">Informações da Conta</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
-                                <input type="text" name="email" class="input input-bordered w-full"
-                                    value='{{dados.email}}'>
+                    <!-- Seção Informações da Conta -->
+                    <div class="p-8 border-b border-[#E3D9C6]">
+                        <h2 class="text-xl font-semibold text-[#2C3C1C] mb-6 flex items-center gap-2">
+                            <i class="fas fa-lock text-[#5A7247]"></i>
+                            Informações da Conta
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">E-mail</span>
+                                </label>
+                                <input type="email" name="email"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    value='{{dados.email}}' required>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">CPF/CNPJ</label>
-                                <input type="text" name="cpf-cnpj" class="input input-bordered w-full"
-                                    value='{{dados.cpf_cnpj}}' />
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">CPF/CNPJ</span>
+                                </label>
+                                <input type="text" name="cpf-cnpj"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    value='{{dados.cpf_cnpj}}' required>
                             </div>
                         </div>
 
-                        <div class="flex justify-between items-center mb-4">
+                        <div
+                            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#F4F4F4] rounded-lg mb-6">
                             <div>
-                                <p class="font-medium">Senha</p>
-                                <p class="text-sm text-gray-500">Última alteração: 15/05/2023</p>
+                                <h3 class="font-medium text-[#2C3C1C]">Senha</h3>
+                                <p class="text-sm text-[#5A7247]">Última alteração: 15/05/2023</p>
                             </div>
-                            <button type="button" class="btn btn-sm btn-outline border-indigo-200 text-indigo-600"
-                                onclick="modal_alterar_senha.showModal()">
-                                Alterar Senha
-                            </button>
+                            <a href="{{ url_for('main.trocar_senha') }}" type="button"
+                                class="btn btn-sm bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#5A7247] hover:text-white hover:border-[#2C3C1C]/50">
+                                <i class="fas fa-key mr-2"></i> Alterar Senha
+                            </a>
                         </div>
 
-                        <div class="flex justify-between items-center">
+                        <div
+                            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#F4F4F4] rounded-lg">
                             <div>
-                                <p class="font-medium">Autenticação de Dois Fatores</p>
-                                <p class="text-sm text-gray-500">Proteção adicional para sua conta</p>
+                                <h3 class="font-medium text-[#2C3C1C]">Autenticação de Dois Fatores</h3>
+                                <p class="text-sm text-[#5A7247]">Proteção adicional para sua conta</p>
                             </div>
                             <label class="cursor-pointer label">
-                                <input type="checkbox" class="toggle toggle-primary">
+                                <input type="checkbox" class="toggle bg-[#AAB898] border-[#AAB898] hover:bg-[#5A7247]">
+                                <span class="label-text text-[#5A7247] ml-2">Ativar</span>
                             </label>
                         </div>
                     </div>
 
-                    <!-- Configurações de Pagamento -->
-                    <div class="p-6 border-b">
-                        <h2 class="text-xl font-semibold mb-4">Configurações de Pagamento</h2>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Conta Bancária</label>
-                            <select class="select select-bordered w-full">
-                                <option>Banco do Brasil - ****4532</option>
-                                <option>Adicionar nova conta</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Dia de Pagamento</label>
-                            <select class="select select-bordered w-full">
-                                <option>Todo dia 5</option>
-                                <option>Todo dia 10</option>
-                                <option>Todo dia 15</option>
-                                <option selected>Todo dia 20</option>
-                            </select>
+                    <!-- Seção Configurações de Pagamento -->
+                    <div class="p-8 border-b border-[#E3D9C6]">
+                        <h2 class="text-xl font-semibold text-[#2C3C1C] mb-6 flex items-center gap-2">
+                            <i class="fas fa-credit-card text-[#5A7247]"></i>
+                            Configurações de Pagamento
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Conta Bancária</span>
+                                </label>
+                                <select class="select select-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]">
+                                    <option>Banco do Brasil - ****4532</option>
+                                    <option>Adicionar nova conta</option>
+                                </select>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Dia de Pagamento</span>
+                                </label>
+                                <select class="select select-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]">
+                                    <option>Todo dia 5</option>
+                                    <option>Todo dia 10</option>
+                                    <option>Todo dia 15</option>
+                                    <option selected>Todo dia 20</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Gerenciamento de Conta -->
-                    <div class="p-6">
-                        <h2 class="text-xl font-semibold mb-4">Gerenciamento de Conta</h2>
-                        <div class="flex justify-between items-center mb-6">
-                            <div>
-                                <p class="font-medium">Desativar Conta Temporariamente</p>
-                                <p class="text-sm text-gray-500">Oculte seu perfil e obras sem excluir dados</p>
-                            </div>
-                            <button type="button" class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
-                                onclick="modal_desativar_conta.showModal()">
-                                Desativar Conta
-                            </button>
-                        </div>
+                    <!-- Seção Gerenciamento de Conta -->
+                    <div class="p-8">
+                        <h2 class="text-xl font-semibold text-[#2C3C1C] mb-6 flex items-center gap-2">
+                            <i class="fas fa-cog text-[#5A7247]"></i>
+                            Gerenciamento de Conta
+                        </h2>
 
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="font-medium">Excluir Conta Permanentemente</p>
-                                <p class="text-sm text-gray-500">Todos os seus dados serão removidos</p>
+                        <div class="flex flex-col gap-6">
+                            <div
+                                class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#8C3B2D]/10 rounded-lg border border-red-100">
+                                <div>
+                                    <h3 class="font-medium text-[#2C3C1C]">Desativar Conta Temporariamente</h3>
+                                    <p class="text-sm text-[#5A7247]">Oculte seu perfil e obras sem excluir dados</p>
+                                </div>
+                                <button type="button"
+                                    class="btn btn-sm bg-white border-red-200 text-red-500 hover:bg-red-500 hover:text-white hover:border-none"
+                                    onclick="modal_desativar_conta.showModal()">
+                                    <i class="fas fa-eye-slash mr-2"></i> Desativar Conta
+                                </button>
                             </div>
-                            <button type="button" class="btn btn-outline border-red-200 text-red-500 hover:bg-red-50"
-                                onclick="modal_excluir_conta.showModal()">
-                                Excluir Conta
-                            </button>
+
+                            <div
+                                class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#8C3B2D]/10 rounded-lg border border-red-100">
+                                <div>
+                                    <h3 class="font-medium text-[#2C3C1C]">Excluir Conta Permanentemente</h3>
+                                    <p class="text-sm text-[#5A7247]">Todos os seus dados serão removidos</p>
+                                </div>
+                                <button type="button"
+                                    class="btn btn-sm bg-white border-red-200 text-red-500 hover:bg-red-500 hover:text-white hover:border-none"
+                                    onclick="modal_excluir_conta.showModal()">
+                                    <i class="fas fa-trash-alt mr-2"></i> Excluir Conta
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Botão Salvar -->
-                <div class="flex justify-end mt-6">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save mr-2"></i> Salvar Alterações
-                    </button>
                 </div>
             </form>
         </section>
@@ -879,367 +1219,605 @@
 
     <!-- Modal Adicionar Obra -->
     <dialog id="modal_adicionar_obra" class="modal">
-        <div class="modal-box max-w-4xl border-[#2C3C1C]">
-
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                onclick="modal_adicionar_obra.close()">✕</button>
-
-            <h3 class="font-bold text-2xl mb-6 text-[#2C3C1C]">Adicionar Nova Obra</h3>
-
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="hidden" name="acao" value="nova_obra">
-                    <!-- Coluna 1 -->
-                    <div>
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Imagem da Obra <span class="text-red-500">*</span>
-                            </legend>
-                            <div
-                                class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6">
-                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
-                                <p class="text-gray-500 mb-2">Arraste e solte a imagem aqui</p>
-                                <p class="text-gray-400 text-sm mb-4">ou</p>
-                                <label class="btn btn-outline border-indigo-200 text-indigo-600">
-                                    Selecione um arquivo
-                                    <input type="file" name="imagem-nova-obra" class="hidden" />
-                                </label>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
-                        </div>
-
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Detalhes Técnicos</legend>
-                            <div class="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
-                                    <input type="text" name="dimensao-nova-obra" class="input input-bordered w-full"
-                                        placeholder="Ex: 60x40cm" />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
-                                    <input type="text" name="tecnica-nova-obra" class="input input-bordered w-full"
-                                        placeholder="Ex: Óleo sobre tela" />
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                <input type="text" name="ano-nova-obra" class="input input-bordered w-full"
-                                    placeholder="Ex: 2023" />
-                            </div>
-                        </div>
+        <div class="modal-box max-w-7xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
+            <div class="bg-[#AAB898]/10">
+                <div class="sticky top-0 bg-[#5A7247] text-white p-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-2xl">Adicionar Nova Obra</h3>
+                        <button class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/10"
+                            onclick="modal_adicionar_obra.close()">
+                            ✕
+                        </button>
                     </div>
+                    <p class="text-white/80">Preencha os detalhes da sua obra de arte</p>
+                </div>
 
-                    <!-- Coluna 2 -->
-                    <div>
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Informações Básicas <span class="text-red-500">*</span>
-                            </legend>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
-                                        class="text-red-500">*</span></label>
-                                <input type="text" name="titulo-nova-obra" class="input input-bordered w-full"
-                                    placeholder="Nome da obra" />
+                <form action="" method="post" enctype="multipart/form-data" class="p-6">
+                    <input type="hidden" name="acao" value="nova_obra">
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <!-- Coluna 1 -- Upload de Imagem -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-[#5A7247] mb-2">
+                                Imagem da Obra
+                            </label>
+                            <div id="drop-area"
+                                class="border-2 border-dashed border-[#AAB898] rounded-xl p-6 text-center transition-all hover:border-[#5A7247] hover:bg-[#F4F4F4] cursor-pointer">
+                                <div id="preview-container" class="hidden mb-4">
+                                    <img id="preview-image" class="max-h-48 mx-auto rounded-lg" src=""
+                                        alt="Pré-visualização">
+                                    <button id="remove-image"
+                                        class="btn btn-circle btn-sm btn-error absolute -mt-4 -mr-4 hidden">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div id="upload-instructions">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-[#AAB898] mb-3"></i>
+                                    <p class="text-[#5A7247] mb-2">Arraste e solte a imagem aqui</p>
+                                    <p class="text-[#AAB898] text-sm mb-4">ou</p>
+                                    <label
+                                        class="btn bg-[#F4F4F4] border-[#E3D9C6] text-[#5A7247] hover:bg-[#AAB898]/20">
+                                        <i class="fas fa-folder-open mr-2"></i> Selecione um arquivo
+                                        <input type="file" id="file-input" name="imagem-nova-obra" class="hidden"
+                                            accept="image/*" />
+                                    </label>
+                                </div>
                             </div>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
-                                        class="text-red-500">*</span></label>
-                                <textarea class="textarea textarea-bordered w-full h-24" name="descricao-nova-obra"
-                                    placeholder="Descreva sua obra"></textarea>
+                            <p class="text-xs text-[#AAB898] mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
+                        </div>
+                        <!-- Coluna 2 -- Informações Básicas -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-[#2C3C1C] flex items-center gap-2">
+                                <i class="fas fa-info-circle text-[#5A7247]"></i>
+                                Informações Básicas
+                            </h4>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Título </span>
+                                </label>
+                                <input type="text" name="titulo-nova-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Nome da obra" required />
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-                                <select name="categoria-nova-obra" class="select select-bordered w-full">
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Descrição</span>
+                                </label>
+                                <textarea
+                                    class="textarea textarea-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C] h-32"
+                                    name="descricao-nova-obra" placeholder="Descreva sua obra" required></textarea>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Categoria</span>
+                                </label>
+                                <select name="categoria-nova-obra"
+                                    class="select select-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]">
                                     <option disabled selected>Selecione uma categoria</option>
                                     {% for categoria in categorias %}
-                                    <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
+                                    <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}
+                                    </option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
-
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Preço e Estoque <span class="text-red-500">*</span>
-                            </legend>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
-                                        class="text-red-500">*</span></label>
-                                <input type="number" name="preco-nova-obra" class="input input-bordered w-full"
-                                    placeholder="0,00" step="0.01" min="0" />
+                        <!-- Coluna 3 -- Detalhes Técnicos -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-[#2C3C1C] flex items-center gap-2">
+                                <i class="fas fa-ruler-combined text-[#5A7247]"></i>
+                                Detalhes Técnicos
+                            </h4>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Dimensões</span>
+                                </label>
+                                <input type="text" name="dimensao-nova-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Ex: 60x40cm" />
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
-                                    Disponível</label>
-                                <input type="number" name="estoque-nova-obra" class="input input-bordered w-full"
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Técnica</span>
+                                </label>
+                                <input type="text" name="tecnica-nova-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Ex: Óleo sobre tela" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Ano de Criação</span>
+                                </label>
+                                <input type="text" name="ano-nova-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Ex: 2023" />
+                            </div>
+                        </div>
+                        <!-- Coluna 4 -- Preço e Estoque -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-[#2C3C1C] flex items-center gap-2">
+                                <i class="fas fa-tag text-[#5A7247]"></i>
+                                Preço e Estoque
+                            </h4>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Preço (R$) </span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-3 text-[#5A7247]">R$</span>
+                                    <input type="number" name="preco-nova-obra"
+                                        class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C] pl-10 max-w-[18rem]"
+                                        placeholder="0,00" step="0.01" min="0" required />
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Quantidade Disponível</span>
+                                </label>
+                                <input type="number" name="estoque-nova-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
                                     placeholder="1" min="1" value="1" />
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-action">
-                    <button type="submit" name="status-nova-obra" value="ativa"
-                        class="btn bg-[#8C3B2D] text-white hover:bg-[#6B2A20]">
-                        <i class="fas fa-save mr-2"></i> Publicar Obra
-                    </button>
-                    <button type="submit" name="status-nova-obra" value="rascunho" class="btn btn-ghost">
-                        <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
-                    </button>
-                    <button type="button" class="btn btn-error text-white" onclick="modal_adicionar_obra.close()">
-                        <i class="fas fa-times mr-2"></i> Cancelar
-                    </button>
-                </div>
-            </form>
+                    <!-- Ações -->
+                    <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                            onclick="modal_adicionar_obra.close()">
+                            <i class="fas fa-times mr-2"></i> Cancelar
+                        </button>
+                        <button type="submit" name="status-nova-obra" value="rascunho"
+                            class="btn bg-[#AAB898] border-[#AAB898] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
+                            <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
+                        </button>
+                        <button type="submit" name="status-nova-obra" value="ativa"
+                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20]">
+                            <i class="fas fa-save mr-2"></i> Publicar Obra
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </dialog>
 
     <!-- Modal Editar Obra -->
     <dialog id="modal_editar_obra" class="modal">
-        <div class="modal-box max-w-4xl border-[#2C3C1C]">
+        <div class="modal-box max-w-7xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
+            <div class="bg-[#AAB898]/10">
+                <div class="sticky top-0 bg-[#5A7247] text-white p-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-2xl">Editar Obra</h3>
+                        <button class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/10"
+                            onclick="modal_editar_obra.close()">
+                            ✕
+                        </button>
+                    </div>
+                    <p class="text-white/80">Atualize os detalhes da sua obra de arte</p>
+                </div>
 
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                onclick="modal_editar_obra.close()">✕</button>
-
-            <h3 class="font-bold text-2xl mb-6 text-[#2C3C1C]">Editar Obra</h3>
-
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form action="" method="post" enctype="multipart/form-data" class="p-6">
                     <input type="hidden" name="acao" value="editar_obra">
                     <input type="hidden" name="id-obra-editar" id="id-obra-editar" value="">
-                    <!-- Coluna 1 -->
-                    <div>
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Imagem da Obra <span class="text-red-500">*</span>
-                            </legend>
-                            <div
-                                class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6">
-                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
-                                <p class="text-gray-500 mb-2">Arraste e solte a imagem aqui</p>
-                                <p class="text-gray-400 text-sm mb-4">ou</p>
-                                <label class="btn btn-outline border-indigo-200 text-indigo-600">
-                                    Selecione um arquivo
-                                    <input type="file" name="imagem-editar-obra" class="hidden" />
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <!-- Coluna 1 -- Upload de Imagem -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-[#5A7247] mb-2">
+                                Imagem da Obra
+                            </label>
+                            <div id="drop-area-editar"
+                                class="border-2 border-dashed border-[#AAB898] rounded-xl p-6 text-center transition-all hover:border-[#5A7247] hover:bg-[#F4F4F4] cursor-pointer">
+                                <div id="preview-container-editar" class="mb-4">
+                                    <img id="preview-image-editar" class="max-h-48 mx-auto rounded-lg" src=""
+                                        alt="Pré-visualização">
+                                    <button id="remove-image-editar"
+                                        class="btn btn-circle btn-sm btn-error absolute -mt-4 -mr-4 hidden">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div id="upload-instructions-editar">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-[#AAB898] mb-3"></i>
+                                    <p class="text-[#5A7247] mb-2">Arraste e solte a nova imagem aqui</p>
+                                    <p class="text-[#AAB898] text-sm mb-4">ou</p>
+                                    <label
+                                        class="btn bg-[#F4F4F4] border-[#E3D9C6] text-[#5A7247] hover:bg-[#AAB898]/20">
+                                        <i class="fas fa-folder-open mr-2"></i> Selecione um arquivo
+                                        <input type="file" id="file-input-editar" name="imagem-editar-obra"
+                                            class="hidden" accept="image/*" />
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="text-xs text-[#AAB898] mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
+                        </div>
+                        <!-- Coluna 2 -- Informações Básicas -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-[#2C3C1C] flex items-center gap-2">
+                                <i class="fas fa-info-circle text-[#5A7247]"></i>
+                                Informações Básicas
+                            </h4>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Título </span>
                                 </label>
+                                <input type="text" name="titulo-editar-obra" id="titulo-editar-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Nome da obra" required />
                             </div>
-                            <p class="text-xs text-gray-500 mt-2">Formatos: JPG, PNG (Máx. 5MB)</p>
-                        </div>
 
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Detalhes Técnicos</legend>
-                            <div class="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Dimensões</label>
-                                    <input type="text" name="dimensao-editar-obra" id="dimensao-editar-obra" value=""
-                                        class="input input-bordered w-full" placeholder="Ex: 60x40cm" />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Técnica</label>
-                                    <input type="text" name="tecnica-editar-obra" id="tecnica-editar-obra" value=""
-                                        class="input input-bordered w-full" placeholder="Ex: Óleo sobre tela" />
-                                </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Descrição </span>
+                                </label>
+                                <textarea
+                                    class="textarea textarea-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C] h-32"
+                                    name="descricao-editar-obra" id="descricao-editar-obra"
+                                    placeholder="Descreva sua obra" required></textarea>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Ano de Criação</label>
-                                <input type="text" name="ano-editar-obra" id="ano-editar-obra" value=""
-                                    class="input input-bordered w-full" placeholder="Ex: 2023" />
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Coluna 2 -->
-                    <div>
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Informações Básicas <span class="text-red-500">*</span>
-                            </legend>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Título <span
-                                        class="text-red-500">*</span></label>
-                                <input type="text" name="titulo-editar-obra" id="titulo-editar-obra" value=""
-                                    class="input input-bordered w-full" placeholder="Nome da obra" />
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Descrição <span
-                                        class="text-red-500">*</span></label>
-                                <textarea name="descricao-editar-obra" id="descricao-editar-obra"
-                                    class="textarea textarea-bordered w-full h-24"
-                                    placeholder="Descreva sua obra"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Categoria</span>
+                                </label>
                                 <select name="categoria-editar-obra" id="categoria-editar-obra"
-                                    class="select select-bordered w-full">
+                                    class="select select-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]">
                                     <option disabled selected>Selecione uma categoria</option>
                                     {% for categoria in categorias %}
-                                    <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}</option>
+                                    <option value="{{ categoria.id_categoria }}">{{ categoria.nome_categoria }}
+                                    </option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
-
-                        <div class="fieldset">
-                            <legend class="fieldset-legend">Preço e Estoque <span class="text-red-500">*</span>
-                            </legend>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Preço (R$) <span
-                                        class="text-red-500">*</span></label>
-                                <input type="number" name="preco-editar-obra" id="preco-editar-obra" value=""
-                                    class="input input-bordered w-full" placeholder="0,00" step="0.01" min="0" />
+                        <!--Coluna 3 -- Detalhes Técnicos -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-[#2C3C1C] flex items-center gap-2">
+                                <i class="fas fa-ruler-combined text-[#5A7247]"></i>
+                                Detalhes Técnicos
+                            </h4>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Dimensões</span>
+                                </label>
+                                <input type="text" name="dimensao-editar-obra" id="dimensao-editar-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Ex: 60x40cm" />
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade
-                                    Disponível</label>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Técnica</span>
+                                </label>
+                                <input type="text" name="tecnica-editar-obra" id="tecnica-editar-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Ex: Óleo sobre tela" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Ano de Criação</span>
+                                </label>
+                                <input type="text" name="ano-editar-obra" id="ano-editar-obra"
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="Ex: 2023" />
+                            </div>
+                        </div>
+                        <!-- Coluna 4 -- Preço e Estoque -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-[#2C3C1C] flex items-center gap-2">
+                                <i class="fas fa-tag text-[#5A7247]"></i>
+                                Preço e Estoque
+                            </h4>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Preço (R$) </span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-3 text-[#5A7247]">R$</span>
+                                    <input type="number" name="preco-editar-obra" id="preco-editar-obra"
+                                        class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C] pl-10 max-w-[18rem]"
+                                        placeholder="0,00" step="0.01" min="0" required />
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-[#5A7247]">Quantidade Disponível</span>
+                                </label>
                                 <input type="number" name="estoque-editar-obra" id="estoque-editar-obra"
-                                    class="input input-bordered w-full" placeholder="1" min="1" value="" />
+                                    class="input input-bordered bg-[#F4F4F4] border-[#E3D9C6] text-[#2C3C1C]"
+                                    placeholder="1" min="1" />
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-action">
-                    <button type="submit" name="status-editar-obra" value="ativa"
-                        class="btn bg-[#8C3B2D] text-white hover:bg-[#6B2A20]">
-                        <i class="fas fa-save mr-2"></i> Salvar Alterações
-                    </button>
-                    <button type="submit" name="status-editar-obra" value="rascunho" class="btn btn-ghost">
-                        <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
-                    </button>
-                    <button type="button" class="btn btn-error text-white" onclick="modal_editar_obra.close()">
-                        <i class="fas fa-times mr-2"></i> Cancelar
-                    </button>
-                </div>
-            </form>
-
-        </div>
-    </dialog>
-
-    <!-- Modal Alterar Senha -->
-    <dialog id="modal_alterar_senha" class="modal">
-        <form action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="acao" value="alterar_senha">
-            <div class="modal-box max-w-md">
-
-                <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                    onclick="modal_alterar_senha.close()">✕</button>
-
-                <h3 class="font-bold text-xl mb-6">Alterar Senha</h3>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
-                        <input type="password" name="senha-atual" class="input input-bordered w-full"
-                            placeholder="Digite sua senha atual">
-                        <a href="#" class="text-sm text-indigo-600 hover:underline mt-1 block">Esqueceu sua senha?</a>
+                    <!-- Ações -->
+                    <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                            onclick="modal_editar_obra.close()">
+                            <i class="fas fa-times mr-2"></i> Cancelar
+                        </button>
+                        <button type="submit" name="status-editar-obra" value="rascunho"
+                            class="btn bg-[#AAB898] border-[#AAB898] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
+                            <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
+                        </button>
+                        <button type="submit" name="status-editar-obra" value="ativa"
+                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20]">
+                            <i class="fas fa-save mr-2"></i> Salvar Alterações
+                        </button>
                     </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
-                        <input type="password" name="senha-nova" class="input input-bordered w-full"
-                            placeholder="Digite a nova senha">
-                        <p class="text-xs text-gray-500 mt-1">Mínimo de 8 caracteres</p>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar Nova Senha</label>
-                        <input type="password" name="confirmar-senha-nova" class="input input-bordered w-full"
-                            placeholder="Digite novamente a nova senha">
-                    </div>
-                </div>
-
-                <div class="modal-action">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-check mr-2"></i> Confirmar
-                    </button>
-                    <button type="button" class="btn btn-error text-white" onclick="modal_alterar_senha.close()">
-                        <i class="fas fa-times mr-2"></i> Cancelar
-                    </button>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </dialog>
 
     <!-- Modal Desativar Conta -->
     <dialog id="modal_desativar_conta" class="modal">
-        <form action="" method="post">
-            <input type="hidden" name="acao" value="desativar_perfil">
-            <div class="modal-box max-w-md">
+        <div class="modal-box max-w-md border-2 border-[#8C3B2D] bg-[#f4f4f4] rounded-xl p-0">
+            <div class="bg-[#F4F4F4]">
+                <div class="sticky top-0 bg-[#8C3B2D] text-white p-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-2xl">Desativar Conta</h3>
+                        <button class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/10"
+                            onclick="modal_desativar_conta.close()">
+                            ✕
+                        </button>
+                    </div>
+                    <p class="text-white/80">Confirme a desativação temporária da sua conta</p>
+                </div>
 
-                <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                    onclick="modal_desativar_conta.close()">✕</button>
+                <form action="" method="post" class="p-6">
+                    <input type="hidden" name="acao" value="desativar_perfil">
 
-                <h3 class="font-bold text-xl mb-2">Desativar Sua Conta</h3>
-                <p class="text-gray-600 mb-6">Tem certeza que deseja desativar temporariamente sua conta?</p>
-
-                <div class="bg-gray-50 p-4 rounded-lg mb-6">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="avatar">
-                            <div class="w-16 rounded-full">
-                                <img src="{{dados.url_avatar}}" />
+                    <div class="space-y-6">
+                        <!-- Informações do Usuário -->
+                        <div class="bg-[#F8F8F8] p-5 rounded-lg border border-[#E3D9C6]">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="avatar">
+                                    <div class="w-16 rounded-full ring-2 ring-[#8C3B2D] ring-offset-2">
+                                        <img src="{{dados.url_avatar}}" alt="Avatar do usuário" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-[#2C3C1C]">{{dados.nome_completo}}</p>
+                                    <p class="text-sm text-[#5A7247]">{{dados.email}}</p>
+                                </div>
                             </div>
+                            <p class="text-sm text-[#5A7247]">
+                                <i class="fas fa-info-circle mr-2 text-[#8C3B2D]"></i>
+                                Ao desativar sua conta, seu perfil e obras não estarão visíveis publicamente.
+                            </p>
                         </div>
-                        <div>
-                            <p class="font-medium">{{dados.nome_completo}}</p>
-                            <p class="text-sm text-gray-500">{{dados.email}}</p>
+
+                        <!-- Confirmação -->
+                        <div class="form-control">
+                            <label class="label cursor-pointer justify-start gap-3">
+                                <input type="checkbox" id="confirmar-desativacao" class="checkbox checkbox-error"
+                                    required />
+                                <span class="label-text text-[#2C3C1C]">
+                                    Eu entendo que minha conta será desativada temporariamente e posso reativá-la quando
+                                    desejar.
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Motivo (opcional) -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text text-[#5A7247]">Motivo (opcional)</span>
+                            </label>
+                            <select name="motivo"
+                                class="select select-bordered bg-white border-[#E3D9C6] text-[#2C3C1C]">
+                                <option disabled selected>Selecione um motivo</option>
+                                <option value="privacidade">Quero mais privacidade</option>
+                                <option value="nao-uso">Não estou usando a conta</option>
+                                <option value="problemas">Estou com problemas técnicos</option>
+                                <option value="outro">Outro motivo</option>
+                            </select>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600">Ao desativar sua conta, seu perfil e obras não estarão visíveis
-                        publicamente até que você reative sua conta.</p>
-                </div>
 
-                <div class="modal-action">
-                    <button type="submit" name="desativar" value="desativado" class="btn btn-primary">
-                        <i class="fas fa-power-off mr-2"></i> Desativar
-                    </button>
-                    <button type="button" class="btn btn-error text-white" onclick="modal_desativar_conta.close()">
-                        <i class="fas fa-times mr-2"></i> Cancelar
-                    </button>
-                </div>
+                    <!-- Ações -->
+                    <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                            onclick="modal_desativar_conta.close()">
+                            <i class="fas fa-times mr-2"></i> Cancelar
+                        </button>
+                        <button type="submit" name="desativar" value="desativado" id="submit-desativar"
+                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20] disabled:opacity-50"
+                            disabled>
+                            <i class="fas fa-power-off mr-2"></i> Confirmar Desativação
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </dialog>
 
     <!-- Modal Excluir Conta -->
     <dialog id="modal_excluir_conta" class="modal">
-        <form action="" method="post">
-            <input type="hidden" name="acao" value="excluir_perfil">
-            <div class="modal-box max-w-md">
+        <div class="modal-box max-w-md border-2 border-[#8C3B2D] bg-[#f4f4f4] rounded-xl p-0">
+            <div class="bg-[#F4F4F4]">
+                <div class="sticky top-0 bg-[#8C3B2D] text-white p-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-2xl">Excluir Conta Permanentemente</h3>
+                        <button class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/10"
+                            onclick="modal_excluir_conta.close()">
+                            ✕
+                        </button>
+                    </div>
+                    <p class="text-white/80">Esta ação é irreversível</p>
+                </div>
 
-                <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                    onclick="modal_excluir_conta.close()">✕</button>
+                <form action="" method="post" class="p-6">
+                    <input type="hidden" name="acao" value="excluir_perfil">
 
-                <h3 class="font-bold text-xl mb-2">Excluir Sua Conta Permanentemente</h3>
-                <p class="text-red-500 mb-6">Esta ação não pode ser desfeita!</p>
+                    <div class="space-y-6">
+                        <!-- Aviso de Destruição -->
+                        <div class="bg-[#FEE2E2] p-5 rounded-lg border border-[#FECACA]">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-skull-crossbones text-[#8C3B2D] mt-1 text-xl"></i>
+                                <div>
+                                    <p class="font-medium text-[#8C3B2D]">Atenção: Destruição de Dados</p>
+                                    <ul class="text-sm text-[#8C3B2D] list-disc pl-5 mt-2 space-y-1">
+                                        <li>Todos os seus dados pessoais serão apagados</li>
+                                        <li>Todas as suas obras serão removidas permanentemente</li>
+                                        <li>Seu histórico e atividades serão eliminados</li>
+                                        <li>Esta ação não pode ser desfeita</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="bg-red-50 p-4 rounded-lg mb-6 border border-red-100">
-                    <div class="flex items-start gap-3">
-                        <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
-                        <div>
-                            <p class="font-medium text-red-700">Atenção</p>
-                            <p class="text-sm text-red-600">Ao excluir sua conta, todos os seus dados, obras e histórico
-                                serão permanentemente removidos e não poderão ser recuperados.</p>
+                        <!-- Confirmações -->
+                        <div class="space-y-4">
+                            <div class="form-control">
+                                <label class="label cursor-pointer justify-start gap-3">
+                                    <input type="checkbox" id="confirmar-exclusao-1" class="checkbox checkbox-error"
+                                        required />
+                                    <span class="label-text text-[#2C3C1C]">
+                                        Entendo que todos meus dados serão permanentemente apagados
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label cursor-pointer justify-start gap-3">
+                                    <input type="checkbox" id="confirmar-exclusao-2" class="checkbox checkbox-error"
+                                        required />
+                                    <span class="label-text text-[#2C3C1C]">
+                                        Estou ciente que não poderei recuperar minha conta depois
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Verificação de Senha -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text text-[#5A7247]">Digite sua senha para confirmar <span
+                                        class="text-[#8C3B2D]">*</span></span>
+                            </label>
+                            <div class="relative">
+                                <input type="password" name="senha_excluir" id="senha-excluir"
+                                    class="input input-bordered bg-white border-[#E3D9C6] text-[#2C3C1C] w-full pr-10"
+                                    placeholder="Sua senha atual" required>
+                                <button type="button"
+                                    class="absolute right-3 top-3 text-[#5A7247] hover:text-[#8C3B2D] toggle-password"
+                                    data-target="senha-excluir">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Digite sua senha para confirmar</label>
-                    <input type="password" name="senha_excluir" class="input input-bordered w-full"
-                        placeholder="Digite sua senha">
-                </div>
-
-                <div class="modal-action">
-                    <button type="submit" class="btn btn-error text-white">
-                        <i class="fas fa-trash mr-2"></i> Excluir Conta
-                    </button>
-                    <button type="button" class="btn btn-ghost" onclick="modal_excluir_conta.close()">
-                        <i class="fas fa-times mr-2"></i> Cancelar
-                    </button>
-                </div>
+                    <!-- Ações -->
+                    <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                            onclick="modal_excluir_conta.close()">
+                            <i class="fas fa-times mr-2"></i> Cancelar
+                        </button>
+                        <button type="submit" id="submit-excluir"
+                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20] disabled:opacity-50"
+                            disabled>
+                            <i class="fas fa-trash mr-2"></i> Excluir Permanentemente
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </dialog>
 
-    <script src="{{ url_for('static', filename='js/preencher-form-editar-obra.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pre-visualizacao-imagem.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script-painel-artista.js') }}"></script>
     <script src="{{ url_for('static', filename='js/alertas.js') }}"></script>
+    <!--Animação de contagem para os números-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    const updateCount = () => {
+                        const current = +counter.innerText;
+                        const newCount = Math.ceil(current + increment);
+
+                        if (newCount < target) {
+                            counter.innerText = newCount;
+                            setTimeout(updateCount, 1);
+                        } else {
+                            counter.innerText = target.toLocaleString();
+                        }
+                    };
+
+                    updateCount();
+                }
+            });
+        });
+    </script>
+    <!--MODAL DE DESATIVAR CONTA-->
+    <script>
+        // Habilitar botão apenas quando checkbox estiver marcado
+        document.getElementById('confirmar-desativacao').addEventListener('change', function () {
+            document.getElementById('submit-desativar').disabled = !this.checked;
+        });
+
+        // Resetar modal ao fechar
+        modal_desativar_conta.addEventListener('close', function () {
+            document.getElementById('confirmar-desativacao').checked = false;
+            document.getElementById('submit-desativar').disabled = true;
+        });
+    </script>
+    <!--MODAL DE DELETAR CONTA-->
+    <script>
+        // Habilitar botão apenas quando todos os checkboxes estiverem marcados e senha preenchida
+        const checkboxes = document.querySelectorAll('#confirmar-exclusao-1, #confirmar-exclusao-2');
+        const senhaInput = document.getElementById('senha-excluir');
+        const submitBtn = document.getElementById('submit-excluir');
+
+        function validateForm() {
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            const hasPassword = senhaInput.value.length > 0;
+            submitBtn.disabled = !(allChecked && hasPassword);
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', validateForm);
+        });
+
+        senhaInput.addEventListener('input', validateForm);
+
+        // Mostrar/ocultar senha
+        document.querySelector('.toggle-password').addEventListener('click', function () {
+            const targetId = this.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            const icon = this.querySelector('i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+
+        // Resetar modal ao fechar
+        modal_excluir_conta.addEventListener('close', function () {
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            senhaInput.value = '';
+            submitBtn.disabled = true;
+        });
+    </script>
 
 </body>
 

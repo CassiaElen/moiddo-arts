@@ -14,6 +14,8 @@ class Artistas:
         data_cadastro=None,
         url_avatar=None,
         biografia=None,
+        especialidade=None,
+        tecnicasMateriais=None,
         total_obras=0
     ):
         self.id_artista = id_artista
@@ -26,6 +28,8 @@ class Artistas:
         self.data_cadastro = data_cadastro
         self.url_avatar = url_avatar
         self.biografia = biografia
+        self.especialidade = especialidade
+        self.tecnicasMateriais = tecnicasMateriais
         self.total_obras = total_obras
 
     def salvar(self):
@@ -48,7 +52,7 @@ class Artistas:
                 self.id_artista = cursor.lastrowid
             else:
                 cursor.execute(
-                    """UPDATE artistas SET nome_completo=?, usuario=?, email=?, cpf_cnpj=?, url_avatar=?, biografia=? WHERE id_artista=?""",
+                    """UPDATE artistas SET nome_completo=?, usuario=?, email=?, cpf_cnpj=?, url_avatar=?, biografia=?, especialidade=?, tecnicasMateriais=? WHERE id_artista=?""",
                     (
                         self.nome_completo,
                         self.usuario,
@@ -56,6 +60,8 @@ class Artistas:
                         self.cpf_cnpj,
                         self.url_avatar,
                         self.biografia,
+                        self.especialidade,
+                        self.tecnicasMateriais,
                         self.id_artista,
                     ),
                 )
@@ -111,7 +117,7 @@ class Artistas:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT id_artista, nome_completo, url_avatar, biografia
+                SELECT id_artista, nome_completo, url_avatar, biografia, especialidade
                 FROM artistas
                 ORDER BY id_artista ASC
                 LIMIT 4

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muiddo Arts - Arte do Cariri para o mundo</title>
+    <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
     <meta name="description"
         content="Conectamos artistas locais do Cariri com amantes da arte regional. Compre arte autêntica e apoie os talentos da nossa região.">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
-<body class="min-h-screen flex flex-col bg-[#F4F4F4]">
+<body class="index-body min-h-screen flex flex-col bg-[#F4F4F4]">
 
     <!-- Notificação Flash (sobrepõe tudo) -->
     <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
@@ -376,12 +377,12 @@
                             <div
                                 class="w-24 h-24 rounded-full border-4 border-[#2C3C1C] overflow-hidden transition-transform duration-300 group-hover:scale-105">
                                 <img data-src="{{artista.url_avatar}}"
-                                    alt="{{artista.nome_completo}} - Artista de Pintura Digital"
+                                    alt="{{artista.nome_completo}} - {{artista.especialidade}}"
                                     class="lazy w-full h-full object-cover transition-transform duration-500 hover:scale-110">
                             </div>
                         </div>
                         <h3 class="text-xl font-bold text-[#2C3C1C] mb-1">{{artista.nome_completo}}</h3>
-                        <p class="text-sm text-[#5A7247] font-medium mb-3">Pintura Digital</p>
+                        <p class="text-sm text-[#5A7247] font-medium mb-3">{{artista.especialidade or "não informado"}}</p>
                         <p class="text-gray-600 text-sm mb-4 px-2">{{artista.biografia}}</p>
                         <a href="{{ url_for('artistas.perfil_artista', id_artista=artista.id_artista) }}"
                             class="btn btn-sm bg-[#5A7247] hover:bg-[#2C3C1C] text-white mt-2 border-none transition-colors duration-300 transform hover:-translate-y-1">
