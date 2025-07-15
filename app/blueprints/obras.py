@@ -22,7 +22,7 @@ def filtrar_categorias():
             cursor = conn.cursor()
 
             placeholders = ','.join(['?' for _ in filtro])
-            query = f"SELECT titulo,descricao,tecnica,dimensoes,preco,url_foto,status_obras  FROM obras WHERE nome IN ({placeholders})"
+            query = f"SELECT titulo,descricao,tecnica,dimensoes,preco,url_foto,status_obras  FROM obras WHERE titulo IN ({placeholders})"
 
             cursor.execute(query, filtro)
             selecionados = cursor.fetchall()
@@ -32,7 +32,7 @@ def filtrar_categorias():
             mensagem = "Você não selecionou nenhuma fruta."
 
         # Passa as categorias para o template
-        return render_template('loja.html', obras=selecionados)
-    return redirect(url_for('loja'))
+        return render_template('loja.html', obras=selecionados, user='user.avatar')
+    return redirect(url_for('obras.filtrar_categorias'))
 
 
