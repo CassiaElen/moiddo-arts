@@ -11,10 +11,10 @@ def get_db_connection():
 
 
 
-@obras_bp.route('/loja', methods=['POST'])
+@obras_bp.route('/loja', methods=['GET','POST'])
 def filtrar_categorias():
-    if request.method == 'POST':
-        filtro = request.form.getlist('obras')
+    if request.method == 'GET':
+        filtro = request.args.getlist('obras')
         selecionados = []
 
         if filtro:
@@ -22,7 +22,7 @@ def filtrar_categorias():
             cursor = conn.cursor()
 
             placeholders = ','.join(['?' for _ in filtro])
-            query = f"SELECT titulo,descricao,tecnica,dimensoes,preco,url_foto,status_obras  FROM obras WHERE titulo IN ({placeholders})"
+            query = f"SELECT titulo,descricao,tecnica,dimensoes,preco,url_foto,status_obras,ano_criacao,data_cadastro FROM obras WHERE categoria IN ({placeholders})"
 
             cursor.execute(query, filtro)
             selecionados = cursor.fetchall()
@@ -30,9 +30,14 @@ def filtrar_categorias():
 
         else:
             mensagem = "Você não selecionou nenhuma fruta."
+            conn = get_db_connection
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM obras")
+            selecionados = cursor.fetchall()
+            conn.close()
 
         # Passa as categorias para o template
-        return render_template('loja.html', obras=selecionados, user='user.avatar')
-    return redirect(url_for('obras.filtrar_categorias'))
+        return render_template('/loja.html', obras=selecionados, user='user.avatar')
+    #return redirect(url_for('obras.filtrar_categorias'))
 
 
