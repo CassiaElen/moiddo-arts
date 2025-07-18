@@ -267,19 +267,23 @@
         <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
             <div class="flex flex-col md:flex-row">
                 <!-- Sidebar do Artista -->
-                <div class="md:w-1/3 bg-[#F8F8F8] p-8 flex flex-col items-center border-r border-[#5A7247]/10">
-                    <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-[#5A7247] mb-6 shadow-md">
-                        <img src="{{ artista.url_avatar}}" alt="{{ artista.nome_completo }}"
-                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                <div class="group md:w-1/3 bg-[#F8F8F8] p-8 flex flex-col items-center border-r border-[#5A7247]/10">
+                    <!-- Avatar -->
+                    <div class="w-48 h-48 rounded-full bg-[#2C3C1C] group-hover:bg-gradient-to-r from-[#8C3B2D] to-[#5A7247] transition-all duration-300 p-1 mb-4">
+                        <div class="aw-full h-full rounded-full overflow-hidden">
+                            <img src="{{ artista.url_avatar or '../static/assets/default-avatar.webp' }}"
+                                alt="{{ artista.nome_completo }}"
+                                class="rounded-full object-cover w-full h-full items-center justify-center back transition-transform duration-500 transform group-hover:scale-110" />
+                        </div>
                     </div>
 
-                    <h1 class="text-2xl font-bold text-[#2C3C1C] mb-2 text-center">{{ artista.nome_completo }}</h1>
-                    <div class="badge badge-outline border-[#5A7247] text-[#5A7247] mb-4">
+                    <h1 class="text-2xl font-bold text-[#2C3C1C] group-hover:text-[#5A7247] mb-2 text-center">{{ artista.nome_completo }}</h1>
+                    <div class="badge badge-outline border-[#5A7247] text-[#5A7247] group-hover:border-[#8C3B2D] group-hover:text-[#8C3B2D] mb-4">
                         {{ artista.especialidade or 'não informado' }}
                     </div>
 
                     <!-- Estatísticas -->
-                    <div class="stats stats-vertical shadow stats-card w-full">
+                    <div class="stats stats-vertical shadow stats-card w-full bg-[#AAB898]/20">
                         <div class="stat">
                             <div class="stat-title text-[#5A7247]">Obras Vendidas</div>
                             <div class="stat-value text-[#2C3C1C]">{{ artista.obras_vendidas or '0' }}</div>
@@ -309,7 +313,6 @@
                     <div class="tabs tabs-boxed bg-[#F4F4F4] mb-8">
                         <a class="tab text-[#2C3C1C]">Biografia</a>
                         <a class="tab text-[#2C3C1C]">Obras</a>
-                        <a class="tab text-[#2C3C1C]">Exposições</a>
                         <a class="tab text-[#2C3C1C]">Avaliações</a>
                     </div>
 
@@ -328,7 +331,7 @@
                         <!-- Galeria de Destaques -->
                         <h3 class="text-xl font-semibold text-[#2C3C1C] mb-4">Destaques Obras destaques</h3>
                         <div class="grid grid-cols-2 gap-4 mb-6">
-                            
+
                         </div>
 
                         <!-- Contato -->
@@ -354,18 +357,20 @@
                 <h2 class="text-2xl font-bold text-[#2C3C1C]">Obras Disponíveis</h2>
                 <div class="flex items-center gap-2">
                     <span class="text-gray-600">Ordenar por:</span>
-                    <select
-                        class="select select-bordered select-sm border-[#5A7247] focus:outline-none focus:ring-2 focus:ring-[#5A7247]/50">
-                        <option>Mais recentes</option>
-                        <option>Menor preço</option>
-                        <option>Maior preço</option>
-                        <option>Mais populares</option>
+                    <select class="btn btn-sm text-[#5A7247] bg-[#F4F4F4] border-[#5A7247] hover:text-white hover:bg-[#5A7247] hover:border-none" onchange="atualizarOrdenacao(this.value)">
+                        <option value="recentes" {% if ordenacao=='recentes' %}selected{% endif %}>Mais recentes
+                        </option>
+                        <option value="menor_preco" {% if ordenacao=='menor_preco' %}selected{% endif %}>Menor preço
+                        </option>
+                        <option value="maior_preco" {% if ordenacao=='maior_preco' %}selected{% endif %}>Maior preço
+                        </option>
                     </select>
                 </div>
             </div>
 
             <!-- Grid de Obras -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% if obras %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {% for obra in obras %}
                 <div class="artwork-card card bg-white shadow-sm overflow-hidden">
                     <!-- Imagem da obra -->
@@ -417,20 +422,30 @@
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+            <div class="text-center py-10">
+                <p class="text-gray-500">Nenhuma obra disponível no momento.</p>
+            </div>
+            {% endif %}
 
-            <!-- Paginação -->
-            <div class="flex justify-center mt-10">
-                <div class="join">
-                    <button
-                        class="join-item btn btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">«</button>
-                    <button
-                        class="join-item btn btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">1</button>
-                    <button
-                        class="join-item btn btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">2</button>
-                    <button
-                        class="join-item btn btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">3</button>
-                    <button
-                        class="join-item btn btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">»</button>
+            <!-- Pagination -->
+            <div class="flex justify-center mb-12">
+                <div class="join" id="pagination">
+                    {% if total_paginas > 1 %}
+                    <a href="?pagina={{ pagina - 1 }}&ordenacao={{ ordenacao }}"
+                        class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina == 1 %}opacity-[.5] pointer-events-none{% endif %}">«</a>
+
+
+                    {% for p in range(1, total_paginas + 1) %}
+                    <a href="?pagina={{ p }}&ordenacao={{ ordenacao }}"
+                        class="join-item btn {% if p == pagina %}btn-active bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">
+                        {{ p }}
+                    </a>
+                    {% endfor %}
+
+                    <a href="?pagina={{ pagina + 1 }}&ordenacao={{ ordenacao }}"
+                        class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina == total_paginas %}opacity-[.5] pointer-events-none{% endif %}">»</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -513,7 +528,14 @@
             </div>
         </div>
     </footer>
-
+    <script>
+        function atualizarOrdenacao(ordenacao) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('ordenacao', ordenacao);
+            url.searchParams.set('pagina', 1); // Reinicia na página 1
+            window.location.href = url.toString();
+        }
+    </script>
 </body>
 
 </html>

@@ -36,7 +36,7 @@
     </div>
 
     <!-- Menu Lateral -->
-    <nav class="fixed left-0 top-0 w-64 h-screen bg-white shadow-lg z-10 menu-lateral">
+    <nav class="fixed left-0 top-0 w-64 h-full bg-white shadow-lg z-10 menu-lateral">
         <div class="p-5 border-b">
             <a href="{{url_for('main.home')}}" class="text-2xl font-bold text-[#2C3C1C]">Moiddo <span
                     class="text-[#5A7247]">Arts</span></a>
@@ -117,8 +117,7 @@
                             <!-- Lista de Notificações -->
                             <div class="max-h-96 overflow-y-auto">
                                 <!-- Item 1 -->
-                                <div
-                                    class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                <div class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
                                     <div
                                         class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
                                         <i class="fas fa-heart"></i>
@@ -138,8 +137,7 @@
                                 </div>
 
                                 <!-- Item 2 -->
-                                <div
-                                    class="flex gap-4 p-3 hover:bg-[#F4F4F4] rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                <div class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
                                     <div
                                         class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
                                         <i class="fas fa-shopping-cart"></i>
@@ -158,7 +156,7 @@
                                 </div>
 
                                 <!-- Item 3 -->
-                                <div class="flex gap-4 p-3 hover:bg-[#F4F4F4] rounded-lg transition-colors">
+                                <div class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
                                     <div
                                         class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
                                         <i class="fas fa-comment"></i>
@@ -550,11 +548,12 @@
                     <h1 class="text-3xl font-bold text-[#2C3C1C]">Pedidos Recebidos</h1>
                     <p class="text-[#5A7247]">Gerencie todos os pedidos dos seus clientes</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <a href="{{ url_for('artistas.exportar_pedidos') }}?status={{ status_pedido }} "
+                    class="flex items-center gap-2">
                     <button class="btn btn-gradient">
                         <i class="fas fa-file-export mr-2"></i> Exportar
                     </button>
-                </div>
+                </a>
             </div>
 
             <!-- Filtros de Pedidos -->
@@ -603,6 +602,10 @@
                             </th>
                             <th scope="col"
                                 class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Obra
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
                                 Data
                             </th>
                             <th scope="col"
@@ -618,6 +621,10 @@
                                 Status
                             </th>
                             <th scope="col"
+                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                                Entregue
+                            </th>
+                            <th scope="col"
                                 class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
                                 Ações
                             </th>
@@ -628,7 +635,10 @@
                         <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{ pedido.id_pedido }}</div>
-                                <div class="text-xs text-[#5A7247] mt-1">{{ pedido.quantidade_itens }} itens</div>
+                                <div class="text-xs text-[#5A7247] mt-1">{{ pedido.quantidade }} itens</div>
+                            </td>
+                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                                {{pedido.titulo}}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                                 {% if pedido.data_criacao %}
@@ -661,6 +671,15 @@
                             {% endif %}">
                                     {{ pedido.status_pedido | capitalize }}
                                 </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                                {% if pedido.entregue == 'S' %}
+                                    SIM
+                                {% elif pedido.entregue == 'N' %}
+                                    NÃO
+                                {% else %}
+                                    Não informado
+                                {% endif %}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-3">
@@ -737,11 +756,11 @@
                     <h1 class="text-3xl font-bold text-[#2C3C1C]">Vendas e Pagamentos</h1>
                     <p class="text-[#5A7247]">Acompanhe seu desempenho financeiro</p>
                 </div>
-                <div class="flex gap-2">
+                <a href="{{ url_for('artistas.exportar_vendas') }}" class="flex gap-2">
                     <button class="btn btn-gradient">
                         <i class="fas fa-file-export mr-2"></i> Exportar Relatório
                     </button>
-                </div>
+                </a>
             </div>
 
             <!-- Resumo Financeiro -->
@@ -909,9 +928,6 @@
             <div class="bg-white rounded-xl shadow-md border border-[#E3D9C6] overflow-hidden">
                 <div class="px-6 py-4 border-b border-[#E3D9C6] flex justify-between items-center">
                     <h3 class="text-lg font-semibold text-[#2C3C1C]">Histórico de Vendas</h3>
-                    <button class="btn btn-sm btn-ghost text-[#5A7247] hover:text-[#8C3B2D]">
-                        Ver todos <i class="fas fa-chevron-right ml-1"></i>
-                    </button>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -983,6 +999,42 @@
                             {% endif %}
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <!-- Paginação -->
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
+                <div class="text-sm text-[#5A7247]">
+                    Mostrando <span class="font-semibold text-[#2C3C1C]">{{ (pagina_vendas - 1) * por_pagina_vendas + 1
+                        if total_vendas >
+                        0
+                        else 0 }}</span>
+                    a <span class="font-semibold text-[#2C3C1C]">{{ (pagina_vendas - 1) * por_pagina_vendas +
+                        vendas|length
+                        }}</span>
+                    de <span class="font-semibold text-[#2C3C1C]">{{ total_vendas }}</span> vendas
+                </div>
+
+                <div class="join">
+                    {% if pagina_vendas > 1 %}
+                    <a class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
+                        href="?pagina_vendas={{ pagina_vendas - 1 }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    {% endif %}
+
+                    {% for p in range(1, total_paginas_vendas + 1) %}
+                    <a class="join-item btn btn-sm {% if p == pagina %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C] {% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
+                        href="?pagina_vendas={{ p }}">
+                        {{ p }}
+                    </a>
+                    {% endfor %}
+
+                    {% if pagina_vendas < total_paginas_vendas %} <a
+                        class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
+                        href="?pagina_vendas={{ pagina + 1 }}">
+                        <i class="fas fa-chevron-right"></i>
+                        </a>
+                        {% endif %}
                 </div>
             </div>
         </section>
@@ -1366,16 +1418,17 @@
 
                     <!-- Ações -->
                     <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
-                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                        <button type="button"
+                            class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
                             onclick="modal_adicionar_obra.close()">
                             <i class="fas fa-times mr-2"></i> Cancelar
                         </button>
                         <button type="submit" name="status-nova-obra" value="rascunho"
-                            class="btn bg-[#AAB898] border-[#AAB898] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
+                            class="btn bg-[#AAB898] border-none text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
                             <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
                         </button>
                         <button type="submit" name="status-nova-obra" value="ativa"
-                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20]">
+                            class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]">
                             <i class="fas fa-save mr-2"></i> Publicar Obra
                         </button>
                     </div>
@@ -1536,16 +1589,17 @@
 
                     <!-- Ações -->
                     <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
-                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                        <button type="button"
+                            class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
                             onclick="modal_editar_obra.close()">
                             <i class="fas fa-times mr-2"></i> Cancelar
                         </button>
                         <button type="submit" name="status-editar-obra" value="rascunho"
-                            class="btn bg-[#AAB898] border-[#AAB898] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
+                            class="btn bg-[#AAB898] border-none text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
                             <i class="fas fa-file-alt mr-2"></i> Salvar como Rascunho
                         </button>
                         <button type="submit" name="status-editar-obra" value="ativa"
-                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20]">
+                            class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]">
                             <i class="fas fa-save mr-2"></i> Salvar Alterações
                         </button>
                     </div>
@@ -1622,12 +1676,13 @@
 
                     <!-- Ações -->
                     <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
-                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                        <button type="button"
+                            class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
                             onclick="modal_desativar_conta.close()">
                             <i class="fas fa-times mr-2"></i> Cancelar
                         </button>
                         <button type="submit" name="desativar" value="desativado" id="submit-desativar"
-                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20] disabled:opacity-50"
+                            class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20] disabled:opacity-50"
                             disabled>
                             <i class="fas fa-power-off mr-2"></i> Confirmar Desativação
                         </button>
@@ -1716,12 +1771,13 @@
 
                     <!-- Ações -->
                     <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
-                        <button type="button" class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4]"
+                        <button type="button"
+                            class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
                             onclick="modal_excluir_conta.close()">
                             <i class="fas fa-times mr-2"></i> Cancelar
                         </button>
                         <button type="submit" id="submit-excluir"
-                            class="btn bg-[#8C3B2D] border-[#8C3B2D] text-white hover:bg-[#6B2A20] disabled:opacity-50"
+                            class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20] disabled:opacity-50"
                             disabled>
                             <i class="fas fa-trash mr-2"></i> Excluir Permanentemente
                         </button>
@@ -1734,6 +1790,7 @@
     <script src="{{ url_for('static', filename='js/pre-visualizacao-imagem.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script-painel-artista.js') }}"></script>
     <script src="{{ url_for('static', filename='js/alertas.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modais.js') }}"></script>
     <!--Animação de contagem para os números-->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1761,60 +1818,6 @@
                     updateCount();
                 }
             });
-        });
-    </script>
-    <!--MODAL DE DESATIVAR CONTA-->
-    <script>
-        // Habilitar botão apenas quando checkbox estiver marcado
-        document.getElementById('confirmar-desativacao').addEventListener('change', function () {
-            document.getElementById('submit-desativar').disabled = !this.checked;
-        });
-
-        // Resetar modal ao fechar
-        modal_desativar_conta.addEventListener('close', function () {
-            document.getElementById('confirmar-desativacao').checked = false;
-            document.getElementById('submit-desativar').disabled = true;
-        });
-    </script>
-    <!--MODAL DE DELETAR CONTA-->
-    <script>
-        // Habilitar botão apenas quando todos os checkboxes estiverem marcados e senha preenchida
-        const checkboxes = document.querySelectorAll('#confirmar-exclusao-1, #confirmar-exclusao-2');
-        const senhaInput = document.getElementById('senha-excluir');
-        const submitBtn = document.getElementById('submit-excluir');
-
-        function validateForm() {
-            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-            const hasPassword = senhaInput.value.length > 0;
-            submitBtn.disabled = !(allChecked && hasPassword);
-        }
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', validateForm);
-        });
-
-        senhaInput.addEventListener('input', validateForm);
-
-        // Mostrar/ocultar senha
-        document.querySelector('.toggle-password').addEventListener('click', function () {
-            const targetId = this.getAttribute('data-target');
-            const input = document.getElementById(targetId);
-            const icon = this.querySelector('i');
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        });
-
-        // Resetar modal ao fechar
-        modal_excluir_conta.addEventListener('close', function () {
-            checkboxes.forEach(checkbox => checkbox.checked = false);
-            senhaInput.value = '';
-            submitBtn.disabled = true;
         });
     </script>
 

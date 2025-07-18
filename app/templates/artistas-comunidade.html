@@ -312,7 +312,7 @@
                         </div>
                         <ul tabindex="0"
                             class="dropdown-content z-[1] menu p-2 shadow bg-[#f4f4f4] border-2 border-solid border-[#5A7247] rounded-xl rounded-box w-52">
-                            <li><a class="ordenacao-option hover:bg-[#5A7247]/10 {% if ordenacao == 'alfabetico' %}active:bg-[#5A7247]/20{% endif %}"
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'alfabetico' %}active:bg-[#5A7247]/20{% endif %}"
                                     data-ordenacao="alfabetico">Ordem alfabética</a></li>
                             <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'recentes' %}active:bg-[#5A7247]/20{% endif %}"
                                     data-ordenacao="recentes">Mais recentes</a></li>
@@ -380,7 +380,7 @@
         </div>
 
         <!-- Pagination -->
-        <div class="flex justify-center mb-12" id="pagination-container">
+        <div class="flex justify-center mb-12">
             <div class="join" id="pagination">
                 {% if total_paginas > 1 %}
                 <a href="?pagina={{ pagina_atual - 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
@@ -389,7 +389,7 @@
                 </a>
 
                 {% for pagina in range(1, total_paginas + 1) %}
-                <a href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                <a href="?pagina={{ pagina }}&busca{{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
                     class="join-item btn {% if pagina == pagina_atual %}btn-active bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">
                     {{ pagina }}
                 </a>

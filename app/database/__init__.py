@@ -84,6 +84,7 @@ def init_db():
             obra_id INTEGER,
             preco DECIMAL(5,2) NOT NULL,
             data_adicao DATETIME NOT NULL,
+            quantidade INTEGER DEFAULT 1,
             FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
     )

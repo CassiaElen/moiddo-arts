@@ -63,8 +63,8 @@ class ArtistaService:
     def calcular_percentual_vendas_mes(self):
         return self.artista.calcular_percentual_vendas_mes()
     
-    def historico_vendas(self):
-        return self.artista.historico_vendas()
+    def historico_vendas(self, pagina, por_pagina):
+        return self.artista.historico_vendas(pagina, por_pagina)
     
     def buscar_obras_filtradas(self, busca, filtro, pagina, por_pagina):
         return self.artista.buscar_obras_filtradas(busca, filtro, pagina, por_pagina )
@@ -77,3 +77,6 @@ class ArtistaService:
 
     def contar_artistas_comunidade(self, busca, filtro):
         return self.artista.contar_artistas_comunidade(busca, filtro)
+
+    def buscar_obras_ordenadas(self,ordenacao, pagina, por_pagina):
+        return self.artista.buscar_obras_ordenadas(ordenacao, pagina, por_pagina)

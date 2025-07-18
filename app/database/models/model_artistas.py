@@ -300,6 +300,43 @@ class Artistas:
 
                 return obras, total
 
+    def buscar_obras_ordenadas(self, ordenacao, pagina, por_pagina):
+            from .model_obras import Obras
+            try:
+                with db.get_conn() as conn:
+                    cursor = conn.cursor()
+                    order_by = ""
+                    if ordenacao == "recentes":
+                        order_by = " ORDER BY data_cadastro DESC"
+                    elif ordenacao == "menor_preco":
+                        order_by = " ORDER BY preco ASC"
+                    elif ordenacao == "maior_preco":
+                        order_by = " ORDER BY preco DESC"
+
+                    query = f""" 
+                        SELECT * FROM obras
+                        WHERE status_obras='ativa' AND artista_id = ?
+                        {order_by}
+                        LIMIT ? OFFSET ?
+                    """
+
+                    offset = (pagina - 1) * por_pagina
+                    cursor.execute(query, (self.id_artista, por_pagina, offset))
+                    obras = [Obras(**dict(row)) for row in cursor.fetchall()]
+
+                    # Contagem total
+                    count_query = """
+                    SELECT COUNT(*) FROM obras
+                    WHERE status_obras='ativa' AND artista_id = ?
+                    """
+                    cursor.execute(count_query, (self.id_artista,))
+                    total = cursor.fetchone()[0]
+
+                    return obras, total
+            except Exception as e:
+                print(f"Erro ao buscar obras: {e}")
+                return [],0
+
     def buscar_artista_service(self):
         try:
             with db.get_conn() as conn:
@@ -327,8 +364,9 @@ class Artistas:
             
             # Base da query
             query = """
-                SELECT p.id_pedido, p.data_criacao, p.status_pedido, p.total_pedido,
-                    c.nome_completo AS cliente_nome, c.email AS cliente_email, c.url_avatar AS cliente_avatar
+                SELECT p.id_pedido, p.data_criacao, p.status_pedido, p.total_pedido, p.entregue,
+                    c.nome_completo AS cliente_nome, c.email AS cliente_email, c.url_avatar AS cliente_avatar,
+                    o.titulo, ip.quantidade
                 FROM pedido p
                 JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
                 JOIN cliente c ON ca.cliente_id = c.id_cliente
@@ -371,10 +409,10 @@ class Artistas:
 
             return pedidos, total
 
-    def historico_vendas(self):
+    def historico_vendas(self,pagina, por_pagina):
         with db.get_conn() as conn:
             cursor = conn.cursor()
-            
+            offset = (pagina - 1) * por_pagina
             cursor.execute("""
                 SELECT p.id_pedido, p.data_criacao, p.status_pedido, ip.preco, o.titulo
                 FROM pedido p
@@ -384,10 +422,22 @@ class Artistas:
                 WHERE o.artista_id = ? 
                 AND p.status_pedido = 'finalizado'
                 ORDER BY p.data_criacao DESC, p.id_pedido
-            """, (self.id_artista,))
+                LIMIT ? OFFSET ?
+            """, (self.id_artista, por_pagina, offset))
 
             vendas = [dict(row) for row in cursor.fetchall()]
-        return vendas
+
+            # Contagem total
+            count_query = """
+                SELECT COUNT(*) FROM pedido p
+                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
+                JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
+                JOIN obras o ON ip.obra_id = o.id_obra
+                WHERE status_pedido='finalizado' AND artista_id = ?
+                """
+            cursor.execute(count_query, (self.id_artista,))
+            total = cursor.fetchone()[0]
+        return vendas, total
 
     def to_dict(self):
         return {

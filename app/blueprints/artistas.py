@@ -1,5 +1,4 @@
-from flask import Blueprint, jsonify, render_template, request, redirect, url_for, flash
-import math
+from flask import Blueprint, jsonify, render_template, request, redirect, url_for, flash, send_file
 from ..services.artista_service import ArtistaService
 from ..services.authmanager import auth_manager
 from ..services.obras_service import service_obras
@@ -18,6 +17,7 @@ artistas_bp = Blueprint("artistas", __name__)
 
 @artistas_bp.route("/painel-artista", methods=["GET", "POST"])
 def painel_artista():
+    import math
     id_artista = auth_manager.get_current_user_id()
     service_artistas = ArtistaService(id_artista=id_artista)
 
@@ -144,6 +144,13 @@ def painel_artista():
         por_pagina=por_pagina_pedidos
     )    
     total_paginas_pedidos = math.ceil(total_pedidos / por_pagina_pedidos)
+    """SEÇÃO VENDAS---------------------------------------------------------------------------"""
+    pagina_vendas =int(request.args.get('pagina_vendas', 1)) 
+    por_pagina_vendas = 5
+    vendas, total_vendas = service_artistas.historico_vendas(pagina_vendas, por_pagina_vendas)
+    
+    total_paginas_vendas = math.ceil(total_vendas / por_pagina_vendas)
+
     """Dados do painel--------------------------------------------------------"""
 
     dados = service_artistas.dados_artista()
@@ -151,7 +158,6 @@ def painel_artista():
     contar_mes = service_artistas.contar_obras_mes()
     ultimas_obras = service_artistas.ultimas_obras()
     contar_vendas = service_artistas.calcular_total_vendas()
-    vendas = service_artistas.historico_vendas()
     porcentagem_vendas, vendas_mes = service_artistas.calcular_percentual_vendas_mes()
     categorias = service_categorias.buscar_categorias()
     
@@ -165,7 +171,7 @@ def painel_artista():
         porcentagem_vendas=porcentagem_vendas,
         vendas_mes=vendas_mes,
         total = total,
-        vendas = vendas,
+
         obras = obras,
         por_pagina = por_pagina,
         pagina=pagina,
@@ -179,7 +185,13 @@ def painel_artista():
         total_pedidos=total_pedidos,
         total_paginas_pedidos=total_paginas_pedidos,
         status_pedido=status_pedido,
-        
+
+        vendas = vendas,
+        total_vendas = total_vendas,
+        por_pagina_vendas = por_pagina_vendas,
+        pagina_vendas = pagina_vendas,
+        total_paginas_vendas= total_paginas_vendas,
+
         categorias = categorias
     )
 
@@ -241,13 +253,136 @@ def perfil_artista(id_artista):
         flash("Artista não encontrado", "alert-error")
         return redirect(url_for("artistas.artistas_comunidade"))
     
-    # Buscar obras do artista
-    obras_artista = artista.buscar_obras()
-    
+    #----------------------------------------
+
+    service_artistas = ArtistaService(id_artista=id_artista)
+
+    pagina = max(1, request.args.get('pagina', 1, type=int))
+    por_pagina = 6
+    ordenacao = request.args.get('ordenacao', 'recentes')
+
+    obras_artista, obras_total = service_artistas.buscar_obras_ordenadas(
+        ordenacao=ordenacao, pagina=pagina, por_pagina=por_pagina
+    )
+
+    total_paginas = max(1, (obras_total + por_pagina - 1) // por_pagina) 
     return render_template(
         'perfil-artista.html',
         artista=dados_artista,
         obras=obras_artista,
+        obras_total=obras_total,
+        pagina=pagina,
+        por_pagina=por_pagina,
+        total_paginas=total_paginas,
+        ordenacao=ordenacao,
         user=user,
         user_type=user_type
+    )
+
+@artistas_bp.route("/painel-artista/exportar-pedidos?status=todos")
+def exportar_pedidos():
+    id_artista = auth_manager.get_current_user_id()
+    status_pedido = request.args.get("status", "todos")
+    
+    service_artistas = ArtistaService(id_artista=id_artista)
+
+    # Pegue tudo de uma vez, sem paginação
+    pedidos, _ = service_artistas.buscar_pedidos_filtrados(
+        status=status_pedido,
+        pagina=1,
+        por_pagina=999
+    )
+
+    # DataFrame para Excel
+    import pandas as pd
+    import io
+
+    dados_formatados = []
+    for pedido in pedidos:
+        dados_formatados.append({
+            "Nº Pedido": f"MO{pedido['id_pedido']}",
+            "Obra": pedido['titulo'],
+            "Cliente": pedido['cliente_nome'],
+            "E-mail": pedido['cliente_email'],
+            "Valor Total": f"R$ {pedido['total_pedido']:.2f}",
+            "Status": pedido['status_pedido'].capitalize(),
+            "Entregue": pedido['entregue'],
+            "Qtd. Itens": pedido.get('quantidade', 0)
+        })
+
+    # Criar arquivo Excel
+    df = pd.DataFrame(dados_formatados)
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Pedidos')
+
+        worksheet = writer.sheets['Pedidos']
+
+        for col_num, value in enumerate(df.columns.values):
+            worksheet.write(0, col_num, value)
+
+        for i, col in enumerate(df.columns):
+            max_len = max(df[col].astype(str).map(len).max(), len(col)) + 2
+            worksheet.set_column(i, i, max_len)
+
+    output.seek(0)
+    # Nome do arquivo
+    nome_arquivo = f"pedidos_{status_pedido}.xlsx"
+    return send_file(
+        output,
+        as_attachment=True,
+        download_name=nome_arquivo,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+
+@artistas_bp.route("/painel-artista/exportar-vandas")
+def exportar_vendas():
+    id_artista = auth_manager.get_current_user_id()
+    
+    service_artistas = ArtistaService(id_artista=id_artista)
+
+    # Pegue tudo de uma vez, sem paginação
+    vendas, _ = service_artistas.historico_vendas(
+        pagina=1,
+        por_pagina=999
+    )
+
+    # DataFrame para Excel
+    import pandas as pd
+    import io
+    
+
+    dados_formatados = []
+    for venda in vendas:
+        dados_formatados.append({
+            "Nº Pedido": f"MO{venda['id_pedido']}",
+            "Data": venda['data_criacao'],
+            "Obra": venda['titulo'],
+            "Valor": f"R$ {venda['preco']:.2f}",
+            "Status": venda['status_pedido'].capitalize(),
+        })
+
+    # Criar arquivo Excel
+    df = pd.DataFrame(dados_formatados)
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Vendas')
+
+        worksheet = writer.sheets['Vendas']
+
+        for col_num, value in enumerate(df.columns.values):
+            worksheet.write(0, col_num, value)
+
+        for i, col in enumerate(df.columns):
+            max_len = max(df[col].astype(str).map(len).max(), len(col)) + 2
+            worksheet.set_column(i, i, max_len)
+
+    output.seek(0)
+    # Nome do arquivo
+    nome_arquivo = f"vendas.xlsx"
+    return send_file(
+        output,
+        as_attachment=True,
+        download_name=nome_arquivo,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )

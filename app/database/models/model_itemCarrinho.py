@@ -8,12 +8,14 @@ class ItemCarrinho:
         obra_id=None,
         preco=None,
         data_adicao=None,
+        quantidade=None
     ):
         self.id_itemCarrinho = id_itemCarrinho
         self.carrinho_id = carrinho_id
         self.obra_id = obra_id
         self.preco = preco
         self.data_adicao = data_adicao
+        self.quantidade = quantidade
 
     def salvar(self):
             """Método para salvar ou editar o objeto no banco"""
@@ -21,12 +23,13 @@ class ItemCarrinho:
                 cursor = conn.cursor()
                 if self.id_itemCarrinho is None:
                     cursor.execute(
-                        """INSERT INTO ItemCarrinho (carrinho_id, obra_id, preco, data_adicao) VALUES (?, ?,?,?)""",
+                        """INSERT INTO ItemCarrinho (carrinho_id, obra_id, preco, data_adicao, quantidade) VALUES (?, ?,?,?,?)""",
                         (
                             self.carrinho_id,
                             self.obra_id,
                             self.preco,
-                            self.data_adicao
+                            self.data_adicao,
+                            self.quantidade
                         ),
                     )
                     conn.commit()
