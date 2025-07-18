@@ -1,4 +1,5 @@
 from ..connection import db
+import sqlite3
 
 class Obras:
     def __init__(
@@ -142,10 +143,10 @@ class Obras:
                 print("Erro ao buscar obra:", e)
                 return None
 
-    def buscar_categoria(self, categoria):
+''' def buscar_categoria(self, categoria):
         with db.get_conn as conn:
             cursor = conn.cursor()
             query = f""" 
             SELECT * FROM obras
             WHERE 
-            """
+            """'''
