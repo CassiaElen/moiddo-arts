@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
-<body class="auth-container min-h-screen flex bg-[#f4f4f4]">
+<body class="auth-container min-h-screen flex bg-[#f4f4f4] max-md:flex-col">
     <!-- Notificação Flash (sobrepõe tudo) -->
-    <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
+    <div id="flash-container" class="fixed top-4 right-4 z-51 space-y-2 w-80">
         {% with mensagens = get_flashed_messages(with_categories=true) %}
         {% if mensagens %}
         {% for categoria, mensagem in mensagens %}
@@ -34,9 +34,79 @@
         {% endif %}
         {% endwith %}
     </div>
-
+    <div class="sticky top-0 z-50 shadow-md lg:hidden">
+        <div class="drawer">
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                <!-- Navbar -->
+                <div class="navbar bg-white w-full">
+                    <div class="flex-none">
+                        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="inline-block h-6 w-6 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </label>
+                    </div>
+                    <div class="flex flex-col place-items-start">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold text-[#2C3C1C]">Moiddo <span
+                                class="text-[#5A7247]">Arts</span></a>
+                        <p class="text-xs text-gray-500">Painel do Artista</p>
+                    </div>
+                </div>
+            </div>
+            <div class="drawer-side">
+                <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+                <ul class="menu bg-white min-h-full w-80 p-4">
+                    <div class="p-5 border-b">
+                        <a href="{{url_for('main.home')}}" class="text-2xl font-bold text-[#2C3C1C]">Moiddo <span
+                                class="text-[#5A7247]">Arts</span></a>
+                        <p class="text-xs text-gray-500">Painel do Artista</p>
+                    </div>
+                    <li class="nav-item ativo" data-secao="inicio">
+                        <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                            <i class="fas fa-home mr-3 text-[#2C3C1C]"></i>
+                            <span class="font-medium">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-secao="produtos">
+                        <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                            <i class="fas fa-palette mr-3 text-[#2C3C1C]"></i>
+                            <span class="font-medium">Obras</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-secao="pedidos">
+                        <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                            <i class="fas fa-shopping-bag mr-3 text-[#2C3C1C]"></i>
+                            <span class="font-medium">Pedidos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-secao="vendas">
+                        <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                            <i class="fas fa-chart-line mr-3 text-[#2C3C1C]"></i>
+                            <span class="font-medium">Vendas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-secao="configuracoes">
+                        <a class="flex items-center py-3 px-4 rounded-lg hover:bg-[#AAB898]/20">
+                            <i class="fas fa-cog mr-3 text-[#2C3C1C]"></i>
+                            <span class="font-medium">Configurações</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-auto border-t pt-2">
+                        <a href="{{url_for('main.logout')}}"
+                            class="flex items-center py-3 px-4 rounded-lg text-[#8C3B2D] ">
+                            <i class="fas fa-sign-out-alt mr-3"></i>
+                            <span class="font-medium"> Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <!-- Menu Lateral -->
-    <nav class="fixed left-0 top-0 w-64 h-full bg-white shadow-lg z-10 menu-lateral">
+    <nav class="fixed left-0 top-0 w-64 h-full bg-white shadow-lg z-10 menu-lateral max-md:hidden">
         <div class="p-5 border-b">
             <a href="{{url_for('main.home')}}" class="text-2xl font-bold text-[#2C3C1C]">Moiddo <span
                     class="text-[#5A7247]">Arts</span></a>
@@ -83,7 +153,7 @@
     </nav>
 
     <!-- Conteúdo Principal -->
-    <main class="ml-64 p-8 w-full">
+    <main class="ml-64 p-8 w-full max-md:ml-0">
         <!-- Seção Início -->
         <section id="inicio" class="secao-conteudo ativo">
             <!-- Conteúdo Principal-->
@@ -117,7 +187,8 @@
                             <!-- Lista de Notificações -->
                             <div class="max-h-96 overflow-y-auto">
                                 <!-- Item 1 -->
-                                <div class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                <div
+                                    class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
                                     <div
                                         class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
                                         <i class="fas fa-heart"></i>
@@ -137,7 +208,8 @@
                                 </div>
 
                                 <!-- Item 2 -->
-                                <div class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                <div
+                                    class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
                                     <div
                                         class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
                                         <i class="fas fa-shopping-cart"></i>
@@ -156,7 +228,8 @@
                                 </div>
 
                                 <!-- Item 3 -->
-                                <div class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
+                                <div
+                                    class="flex gap-4 p-3 hover:bg-[#5A7247]/10 rounded-lg transition-colors border-b border-[#E3D9C6]/50">
                                     <div
                                         class="flex-none w-10 h-10 rounded-full bg-[#AAB898]/20 text-[#5A7247] flex items-center justify-center">
                                         <i class="fas fa-comment"></i>
@@ -637,7 +710,7 @@
                                 <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{ pedido.id_pedido }}</div>
                                 <div class="text-xs text-[#5A7247] mt-1">{{ pedido.quantidade }} itens</div>
                             </td>
-                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
                                 {{pedido.titulo}}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
@@ -674,11 +747,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
                                 {% if pedido.entregue == 'S' %}
-                                    SIM
+                                SIM
                                 {% elif pedido.entregue == 'N' %}
-                                    NÃO
+                                NÃO
                                 {% else %}
-                                    Não informado
+                                Não informado
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -1612,7 +1685,7 @@
     <dialog id="modal_desativar_conta" class="modal">
         <div class="modal-box max-w-md border-2 border-[#8C3B2D] bg-[#f4f4f4] rounded-xl p-0">
             <div class="bg-[#F4F4F4]">
-                <div class="sticky top-0 bg-[#8C3B2D] text-white p-6">
+                <div class="sticky top-0 z-50 bg-[#8C3B2D] text-white p-6">
                     <div class="flex justify-between items-center">
                         <h3 class="font-bold text-2xl">Desativar Conta</h3>
                         <button class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/10"

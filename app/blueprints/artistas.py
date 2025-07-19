@@ -8,7 +8,7 @@ from ..services.validacoes_service import (
     validar_campos,
     regras_nova_obra,
     regras_editar_obra,
-    regras_editar_perfil,
+    regras_editar_perfil_artista,
     regras_excluir_perfil
 )
 
@@ -17,6 +17,10 @@ artistas_bp = Blueprint("artistas", __name__)
 
 @artistas_bp.route("/painel-artista", methods=["GET", "POST"])
 def painel_artista():
+    if not auth_manager.is_artist():
+        flash("Você precisa estar logado para acessar esta página.","alert-error")
+        return redirect(url_for("main.PreLogin"))
+    
     import math
     id_artista = auth_manager.get_current_user_id()
     service_artistas = ArtistaService(id_artista=id_artista)
@@ -86,7 +90,7 @@ def painel_artista():
                 "email": request.form.get("email"),
                 "cpf_cnpj": request.form.get("cpf-cnpj"),
             }
-            erros = validar_campos(campos, regras_editar_perfil())
+            erros = validar_campos(campos, regras_editar_perfil_artista())
             if erros:
                 for erro in erros:
                     flash(erro, "alert-error")
@@ -197,6 +201,10 @@ def painel_artista():
 
 @artistas_bp.route("/artistas-comunidade", methods=["GET"])
 def artistas_comunidade():
+    if not auth_manager.is_artist():
+        flash("Você precisa estar logado para acessar esta página.","alert-error")
+        return redirect(url_for("main.PreLogin"))
+    
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
     id_artista = auth_manager.get_current_user_id()
@@ -240,6 +248,10 @@ def artistas_comunidade():
 
 @artistas_bp.route("/perfil-artista/<int:id_artista>")
 def perfil_artista(id_artista):
+    if not auth_manager.is_authenticated():
+        flash("Você precisa estar logado para acessar esta página.","alert-error")
+        return redirect(url_for("main.PreLogin"))
+    
     from ..database.models.model_artistas import Artistas
 
     user = auth_manager.current_user()
@@ -281,6 +293,10 @@ def perfil_artista(id_artista):
 
 @artistas_bp.route("/painel-artista/exportar-pedidos?status=todos")
 def exportar_pedidos():
+    if not auth_manager.is_artist():
+        flash("Você precisa estar logado para acessar esta página.","alert-error")
+        return redirect(url_for("main.PreLogin"))
+    
     id_artista = auth_manager.get_current_user_id()
     status_pedido = request.args.get("status", "todos")
     
@@ -337,6 +353,10 @@ def exportar_pedidos():
 
 @artistas_bp.route("/painel-artista/exportar-vandas")
 def exportar_vendas():
+    if not auth_manager.is_authenticated():
+        flash("Você precisa estar logado para acessar esta página.","alert-error")
+        return redirect(url_for("main.PreLogin"))
+    
     id_artista = auth_manager.get_current_user_id()
     
     service_artistas = ArtistaService(id_artista=id_artista)

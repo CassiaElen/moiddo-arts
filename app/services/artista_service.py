@@ -8,6 +8,17 @@ class ArtistaService:
         if id_artista:
             self.artista.buscar_artista_service()
 
+    def salvar(self, campos):
+        from datetime import datetime
+        data_cadastro = datetime.now().strftime("%Y-%m-%d")
+        self.artista.nome_completo = campos["nome_completo"]
+        self.artista.usuario = campos["usuario"]
+        self.artista.email = campos["email"]
+        self.artista.cpf_cnpj = campos["cpf_cnpj"]
+        self.artista.senha = campos["senha"]
+        self.artista.data_cadastro = data_cadastro
+        self.artista.salvar()
+
     def editar(self, campos, imagem):
         # Atualiza os atributos do artista
         self.artista.nome_completo = campos["nome_completo"]
@@ -23,13 +34,22 @@ class ArtistaService:
 
         self.artista.salvar()
 
-    def alterar_senha(self, campos):
-        if self.artista.senha != campos["senha_atual"]:
-            return flash("Senha atual incorreta!", "alert-error")
-        else:
-            self.artista.senha = campos["senha_nova"]
-            self.artista.editar_senha()
-            return flash("Senha alterada com sucesso!", "alert-success")
+    def CheckLoginArtist(self, email, senha):
+        return self.artista.CheckLoginArtist(email, senha)
+
+    def alterar_senha(self, senha_atual, nova_senha):
+        if len(nova_senha) < 8:
+            raise ValueError("A senha deve ter pelo menos 8 caracteres")
+        if not any(char.isdigit() for char in nova_senha):
+            raise ValueError("A senha deve conter pelo menos 1 número")
+        if not any(char in '!@#$%^&*()_+' for char in nova_senha):
+            raise ValueError("A senha deve conter pelo menos 1 caractere especial")
+        
+        if self.artista.senha != senha_atual:
+            raise ValueError("Senha atual incorreta!")
+        self.artista.senha = nova_senha
+        self.artista.editar_senha()
+        return "Senha alterada com sucesso!"
 
     def excluir_perfil(self, campos):
         if self.artista.senha != campos["senha"]:

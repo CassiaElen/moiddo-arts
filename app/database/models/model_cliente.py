@@ -29,7 +29,7 @@ class Cliente:
             cursor = conn.cursor()
             if self.id_cliente is None:
                 cursor.execute(
-                    """INSERT INTO clinte (nome_completo, usuario, email, cpf, senha, data_cadastro) VALUES (?, ?, ?, ?, ?, ?)""",
+                    """INSERT INTO cliente (nome_completo, usuario, email, cpf, senha, data_cadastro) VALUES (?, ?, ?, ?, ?, ?)""",
                     (
                         self.nome_completo,
                         self.usuario,
@@ -57,6 +57,41 @@ class Cliente:
                 )
                 conn.commit()
 
+    def CheckLoginClient(self, email, senha):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                        SELECT id_cliente as id, email, senha, status_cliente as status, url_avatar as avatar
+                        FROM cliente 
+                        WHERE email=? AND senha=?
+                        """,
+                        (
+                            email,
+                            senha
+                        ))
+            row = cursor.fetchone()
+            if not row:
+                return None
+        
+            return {
+                'id': row['id'],
+                'email': row['email'],
+                'status': row['status'],
+                'avatar': row['avatar']
+            }
+
+    def editar_senha(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                    """UPDATE cliente SET senha=? WHERE id_cliente=?""",
+                    (
+                        self.senha,
+                        self.id_cliente,
+                    ),
+                )
+            conn.commit()
+
     def buscar_cliente(self):
             with db.get_conn() as conn:
                 cursor = conn.cursor()
@@ -65,7 +100,7 @@ class Cliente:
                 )
                 row = cursor.fetchone()
                 return dict(row) if row else None
-            
+
     def deletar_cliente(self):
             try:
                 with db.get_conn() as conn:
@@ -78,3 +113,23 @@ class Cliente:
             except Exception as e:
                 print(f"Erro ao deletar cliente: {e}")
                 return False
+
+    def buscar_cliente_service(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM cliente WHERE id_cliente = ?", (self.id_cliente,))
+                row = cursor.fetchone()
+                if row:
+                    self.nome_completo = row["nome_completo"]
+                    self.usuario = row["usuario"]
+                    self.email = row["email"]
+                    self.cpf = row["cpf"]
+                    self.senha = row["senha"]
+                    self.status_cliente = row["status_cliente"]
+                    self.url_avatar = row["url_avatar"]
+                    return dict(row)
+                return None
+        except Exception as e:
+            print("Erro ao buscar cliente:", e)
+            return None

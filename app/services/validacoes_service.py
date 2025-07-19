@@ -71,7 +71,7 @@ def regras_editar_obra():
 
 
 # Regras para editar perfil
-def regras_editar_perfil():
+def regras_editar_perfil_artista():
     return {
         "nome_completo": {"obrigatorio": True, "nome_legivel": "Nome completo"},
         "usuario": {"obrigatorio": True, "nome_legivel": "Usuário"},
@@ -80,6 +80,34 @@ def regras_editar_perfil():
         "biografia": {"obrigatorio": False, "nome_legivel": "Biografia"},
     }
 
+# Regras para editar perfil
+def regras_registrar_perfil_artista():
+    return {
+        "nome_completo": {"obrigatorio": True, "nome_legivel": "Nome completo"},
+        "usuario": {"obrigatorio": True, "nome_legivel": "Usuário"},
+        "email": {"obrigatorio": True, "email": True, "nome_legivel": "E-mail"},
+        "cpf_cnpj": {"obrigatorio": True, "cpf_cnpj_formatado": True},
+        "senha": {"obrigatorio": True, "nome_legivel": "Senha"},
+    }
+
+# Regras para editar perfil
+def regras_editar_perfil_cliente():
+    return {
+        "nome_completo": {"obrigatorio": True, "nome_legivel": "Nome completo"},
+        "usuario": {"obrigatorio": True, "nome_legivel": "Usuário"},
+        "email": {"obrigatorio": True, "email": True, "nome_legivel": "E-mail"},
+        "cpf": {"obrigatorio": True, "cpf_formatado": True},
+    }
+
+# Regras para editar perfil
+def regras_registrar_perfil_cliente():
+    return {
+        "nome_completo": {"obrigatorio": True, "nome_legivel": "Nome completo"},
+        "usuario": {"obrigatorio": True, "nome_legivel": "Usuário"},
+        "email": {"obrigatorio": True, "email": True, "nome_legivel": "E-mail"},
+        "cpf": {"obrigatorio": True, "cpf_formatado": True},
+        "senha": {"obrigatorio": True, "nome_legivel": "Senha"},
+    }
 
 def regras_excluir_perfil():
     return {

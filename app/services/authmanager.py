@@ -35,6 +35,12 @@ class AuthManager:
     def is_authenticated(self):
         return 'user' in session
 
+    def is_artist(self):
+        return self.is_authenticated() and session.get('user_type') == "artista"
+
+    def is_client(self):
+        return self.is_authenticated() and session.get('user_type') == "cliente"
+
     def current_user(self):
         return session.get('user')
     
@@ -43,7 +49,7 @@ class AuthManager:
 
     def get_current_user_id(self):
         user = session.get('user')
-        return user['id'] if user else None
+        return user.get('id') if user else None
 
 # Instância do AuthManager (será associada à aplicação principal depois)
 auth_manager = AuthManager()

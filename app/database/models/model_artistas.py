@@ -67,6 +67,30 @@ class Artistas:
                 )
                 conn.commit()
 
+    def CheckLoginArtist(self, email, senha):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                        SELECT id_artista as id, email, status_artista as status, url_avatar as avatar
+                        FROM artistas 
+                        WHERE email=? AND senha=?
+                        """,
+                        (
+                            email,
+                            senha
+                        ))
+            row = cursor.fetchone()
+
+            if not row:
+                return None
+            
+            return {
+                'id': row['id'],
+                'email': row['email'],
+                'status': row['status'],
+                'avatar': row['avatar']
+            }
+
     def editar_senha(self):
         with db.get_conn() as conn:
             cursor = conn.cursor()

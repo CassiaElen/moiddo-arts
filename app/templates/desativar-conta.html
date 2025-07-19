@@ -71,9 +71,6 @@
                             <i class="fas fa-home mr-2"></i> Voltar à página inicial
                         </button>
                     </a>
-                    <button class="btn btn-block bg-white text-amber-600 hover:bg-amber-100 transition-all">
-                        <i class="fas fa-redo mr-2"></i> Reativar conta agora
-                    </button>
                 </div>
                 
                 <p class="text-xs text-white/50 mt-4">Você pode reativar sua conta a qualquer momento fazendo login novamente.</p>
@@ -86,12 +83,6 @@
         setTimeout(() => {
             document.getElementById('deleting-state').classList.add('hidden');
             document.getElementById('deleted-state').classList.remove('hidden');
-            
-            // Mostra opção de reativação
-            document.querySelector('#deleted-state button:nth-of-type(2)').addEventListener('click', function() {
-                alert('Funcionalidade de reativação será implementada aqui');
-                // Aqui você pode adicionar a lógica para reativar a conta
-            });
         }, 3000); // Troca após 3 segundos
 
         // Mostra o tempo restante

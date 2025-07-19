@@ -78,18 +78,6 @@
         setTimeout(() => {
             document.getElementById('deleting-state').classList.add('hidden');
             document.getElementById('deleted-state').classList.remove('hidden');
-            
-            // Adiciona confetes após a transição
-            setTimeout(() => {
-                const confettiSettings = {
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ffffff', '#fecaca', '#fee2e2']
-                };
-                // Simulação de confetes (seria melhor usar uma lib como canvas-confetti)
-                console.log('Confetes animados apareceriam aqui na implementação real');
-            }, 500);
         }, 3000); // Troca após 3 segundos
 
         // Mostra o tempo restante
