@@ -20,7 +20,7 @@ def init_db():
             especialidade VARCHAR(200),
             tecnicasMateriais VARCHAR(300)
     )
-"""
+"""         
         )
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS cliente(
@@ -28,6 +28,7 @@ def init_db():
             nome_completo VARCHAR(100) NOT NULL,
             usuario VARCHAR(100) UNIQUE NOT NULL,
             email VARCHAR(100) UNIQUE NOT NULL,
+            telefone VARCHAR(16) NOT NULL,
             cpf VARCHAR(18) UNIQUE NOT NULL,
             senha VARCHAR(100) NOT NULL,
             status_cliente VARCHAR(15) DEFAULT 'ativo' CHECK (status_cliente IN ('ativo','desativado','bloqueado','inativo')),
@@ -62,6 +63,24 @@ def init_db():
             FOREIGN KEY(artista_id) REFERENCES artistas(id_artista),
             FOREIGN KEY(categoria_id) REFERENCES categoria(id_categoria)
             )
+""" 
+        )
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS enderecos(
+            id_endereco INTEGER PRIMARY KEY AUTOINCREMENT,
+            cliente_id INTEGER NOT NULL,
+            apelido VARCHAR(50) NOT NULL,
+            rua VARCHAR(50) NOT NULL,
+            cep VARCHAR(9) NOT NULL,
+            logradouro VARCHAR(100) NOT NULL,
+            numero VARCHAR(10) NOT NULL,
+            complemento VARCHAR(50),
+            bairro VARCHAR(50) NOT NULL,
+            cidade VARCHAR(50) NOT NULL,
+            estado VARCHAR(2) NOT NULL,
+            principal BOOLEAN DEFAULT FALSE,
+            FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
+    )
 """
         )
         cursor.execute(
@@ -96,7 +115,7 @@ def init_db():
             carrinho_id INTEGER,
             cliente_id INTEGER,
             status_pedido VARCHAR(15) DEFAULT 'pendente' CHECK (status_pedido IN ('pendente','finalizado','cancelado')),
-            entregue VARCHAR(15) DEFAULT 'N' CHECK (entregue IN ('N','S')),
+            entregue BOOLEAN DEFAULT FALSE,
             total_pedido DECIMAL(5,2) NOT NULL,
             data_criacao DATETIME NOT NULL,
             FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),
@@ -114,6 +133,18 @@ def init_db():
             FOREIGN KEY(pedido_id) REFERENCES pedido(id_pedido),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
 )
+"""
+        )
+        cursor.execute(
+            """CREATE TRIGGER IF NOT EXISTS verifica_limite_enderecos
+            BEFORE INSERT ON enderecos
+            FOR EACH ROW
+            BEGIN
+                SELECT CASE
+                    WHEN (SELECT COUNT(*) FROM enderecos WHERE cliente_id = NEW.cliente_id) >= 6
+                    THEN RAISE(ABORT, 'Limite de 6 endereços por cliente atingido')
+                END;
+            END;
 """
         )
         conn.commit()

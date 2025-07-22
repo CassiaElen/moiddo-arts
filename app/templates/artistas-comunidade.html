@@ -81,7 +81,7 @@
                                 class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
                                 {% if user_type == 'cliente' %}
                                 <li>
-                                    <a href="{{ url_for('main.perfil_cliente') }}"
+                                    <a href="{{ url_for('clientes.perfil_cliente', id_cliente=user.id) }}"
                                         class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
                                         Perfil</a>
                                 </li>

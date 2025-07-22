@@ -117,7 +117,7 @@
                                 class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
                                 {% if user_type == 'cliente' %}
                                 <li>
-                                    <a href="{{ url_for('main.perfil_cliente') }}"
+                                    <a href="{{ url_for('clientes.perfil_cliente', id_cliente=user.id) }}"
                                         class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
                                         Perfil</a>
                                 </li>
@@ -382,7 +382,8 @@
                             </div>
                         </div>
                         <h3 class="text-xl font-bold text-[#2C3C1C] mb-1">{{artista.nome_completo}}</h3>
-                        <p class="text-sm text-[#5A7247] font-medium mb-3">{{artista.especialidade or "não informado"}}</p>
+                        <p class="text-sm text-[#5A7247] font-medium mb-3">{{artista.especialidade or "não informado"}}
+                        </p>
                         <p class="text-gray-600 text-sm mb-4 px-2">{{artista.biografia}}</p>
                         <a href="{{ url_for('artistas.perfil_artista', id_artista=artista.id_artista) }}"
                             class="btn btn-sm bg-[#5A7247] hover:bg-[#2C3C1C] text-white mt-2 border-none transition-colors duration-300 transform hover:-translate-y-1">

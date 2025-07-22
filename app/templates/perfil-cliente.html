@@ -6,15 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meu Perfil | Muiddo Arts</title>
   <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
-  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
-<body class="bg-[#f5f5f5] min-h-screen flex flex-col">
-
-  <!-- Navbar padrão -->
+<body class="min-h-screen flex flex-col bg-[#F4f4f4]">
+  <!-- Notificação Flash (sobrepõe tudo) -->
+  <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% if mensagens %}
+    {% for categoria, mensagem in mensagens %}
+    <div class="alert {{ categoria }} shadow-lg animate-fade-in-out">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{ mensagem }}</span>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
   <header class="sticky top-0 z-40 shadow-md">
     <div class="drawer">
       <input id="main-drawer" type="checkbox" class="drawer-toggle" />
@@ -89,10 +106,11 @@
                   <img src="{{user.avatar}}" alt="Foto de perfil" />
                 </div>
               </label>
-              <ul tabindex="0" class="dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+              <ul tabindex="0"
+                class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
                 {% if user_type == 'cliente' %}
                 <li>
-                  <a href="{{ url_for('main.perfil_cliente') }}"
+                  <a href="{{ url_for('clientes.perfil_cliente', id_cliente=user.id)}}"
                     class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu Perfil</a>
                 </li>
                 {% elif user_type == 'artista' %}
@@ -241,70 +259,648 @@
   </header>
 
   <!-- Conteúdo principal -->
-  <main class="container mx-auto px-4 py-8 flex-grow">
+  <main class="container mx-auto px-4 py-8 flex-grow max-w-7xl">
+    <!-- Breadcrumbs -->
+    <div class="text-sm breadcrumbs mb-6">
+      <ul>
+        <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C] hover:underline">Home</a></li>
+        <li class="text-gray-500">{{ dados_cliente.nome_completo }}</li>
+      </ul>
+    </div>
+
     <!-- Título -->
-    <h1 class="text-3xl font-bold mb-8 text-gray-800">Meu Perfil</h1>
-
-    <!-- Perfil Card -->
-    <div class="bg-white rounded-xl shadow-sm p-6 mb-8 flex flex-col md:flex-row gap-8">
-      <div class="flex flex-col items-center md:w-1/3">
-        <div class="avatar mb-4">
-          <div class="w-32 rounded-full ring ring-indigo-200 ring-offset-base-100 ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="Perfil">
-          </div>
-        </div>
-        <h2 class="text-xl font-semibold text-gray-800"></h2>
-        <p class="text-gray-500"></p>
-      </div>
-      <div class="md:w-2/3">
-        <h3 class="text-lg font-semibold mb-4 text-gray-700">Informações Pessoais</h3>
-        <form method="POST" action="" class="space-y-4">
-          <div class="form-control">
-            <label class="label">Nome</label>
-            <input type="text" name="nome" value="" class="input input-bordered w-full" />
-          </div>
-          <div class="form-control">
-            <label class="label">E-mail</label>
-            <input type="email" name="email" value="" class="input input-bordered w-full" />
-          </div>
-          <div class="form-control">
-            <label class="label">Telefone</label>
-            <input type="text" name="telefone" value="" class="input input-bordered w-full" />
-          </div>
-          <button class="btn btn-primary">Salvar Alterações</button>
-        </form>
-        <div class="mt-6">
-          <a href="" class="text-indigo-600 hover:underline">Alterar Senha</a>
-        </div>
-      </div>
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-[#2C3C1C]">Meu Perfil</h1>
     </div>
 
-    <!-- Endereços -->
+    <!-- Seção de Dados Pessoais -->
     <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
-      <h3 class="text-lg font-semibold mb-4 text-gray-700">Endereços de Entrega</h3>
+      <!-- Avatar e Upload -->
+      <form method="POST" action="" class="flex flex-col md:flex-row gap-8 " enctype="multipart/form-data">
+        <input type="hidden" name="acao" value="editar_perfil">
+        <div class="flex flex-col items-center md:w-1/3">
+          <div class="avatar mb-4">
+            <div class="w-40 rounded-full ring ring-[#5A7247] ring-offset-base-100 ring-offset-2">
+              <img src="{{ dados_cliente.url_avatar }}" alt="{{dados_cliente.nome_completo}}">
+            </div>
+          </div>
+          <label
+            class="btn btn-sm bg-[#F4F4F4] border-[#E3D9C6] text-[#5A7247] hover:bg-[#5A7247] hover:text-white hover:border-[#2C3C1C]/50">
+            <i class="fas fa-camera mr-2"></i> Alterar Foto
+            <input type="file" name="avatar" class="hidden" accept="image/*" />
+          </label>
+          <p class="text-xs text-[#AAB898] mt-2">JPG ou PNG, máximo 2MB</p>
+        </div>
 
-      <div class="border p-4 rounded-lg mb-2">
-        <p>endereco.rua , endereco.numero - endereco.bairro </p>
-        <p> endereco.cidade - endereco.estado , CEP: endereco.cep </p>
-      </div>
+        <!-- Formulário de Dados -->
+        <div class="md:w-2/3">
+          <h3 class="text-xl font-semibold mb-6 text-[#2C3C1C]">Informações Pessoais</h3>
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 gap-4">
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text text-[#2C3C1C]">Nome Completo</span>
+                </label>
+                <input type="text" name="nome" value="{{ dados_cliente.nome_completo }}"
+                  class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text text-[#2C3C1C]">Usuário</span>
+                </label>
+                <input type="text" name="usuario" value="{{ dados_cliente.usuario }}"
+                  class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text text-[#2C3C1C]">CPF</span>
+                </label>
+                <input type="text" name="cpf" value="{{ dados_cliente.cpf }}"
+                  class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              </div>
+            </div>
 
-      <button class="btn btn-outline btn-sm text-indigo-600 border-indigo-200">Adicionar Novo Endereço</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text text-[#2C3C1C]">E-mail</span>
+                </label>
+                <input type="email" name="email" value="{{ dados_cliente.email }}"
+                  class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text text-[#2C3C1C]">Telefone</span>
+                </label>
+                <input type="text" name="telefone" value="{{ dados_cliente.telefone }}"
+                  class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              </div>
+            </div>
+
+            <div class="form-control mt-6">
+              <button type="submit" class="btn btn-gradient w-full md:w-auto">
+                <i class="fas fa-save mr-2"></i> Salvar Alterações
+              </button>
+            </div>
+          </div>
+
+          <div class="divider my-6"></div>
+
+          <!-- Alterar Senha -->
+          <h4 class="text-lg font-semibold mb-4 text-[#2C3C1C]">Alterar Senha</h4>
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#F4F4F4] rounded-lg mb-6">
+            <div>
+              <h3 class="font-medium text-[#2C3C1C]">Senha</h3>
+              <p class="text-sm text-[#5A7247]">Última alteração: 15/05/2023</p>
+            </div>
+            <a href="{{ url_for('main.trocar_senha') }}" type="button"
+              class="btn btn-sm bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#5A7247] hover:text-white hover:border-[#2C3C1C]/50">
+              <i class="fas fa-key mr-2"></i> Alterar Senha
+            </a>
+          </div>
+
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#F4F4F4] rounded-lg">
+            <div>
+              <h3 class="font-medium text-[#2C3C1C]">Autenticação de Dois Fatores</h3>
+              <p class="text-sm text-[#5A7247]">Proteção adicional para sua conta</p>
+            </div>
+            <label class="cursor-pointer label">
+              <input type="checkbox" class="toggle bg-[#AAB898] border-[#AAB898] hover:bg-[#5A7247]">
+              <span class="label-text text-[#5A7247] ml-2">Ativar</span>
+            </label>
+          </div>
+        </div>
+      </form>
     </div>
 
-    <!-- Pedidos Recentes -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-semibold mb-4 text-gray-700">Pedidos Recentes</h3>
-
-      <div class="border p-4 rounded-lg mb-2">
-        <p><strong>Pedido #</strong> — </p>
-        <p>Status: <span class="badge badge-outline badge-info"></span></p>
-        <p>Valor: R$ </p>
+    <!-- Seção de Endereços -->
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-semibold text-[#2C3C1C]">Meus Endereços</h3>
+        {% if enderecos %}
+        <button class="btn btn-gradient" onclick="document.getElementById('modal_endereco_adicionar').showModal()">
+          <i class="fas fa-plus mr-2"></i> Adicionar Endereço
+        </button>
+        {% endif %}
       </div>
 
-      <a href="" class="text-indigo-600 hover:underline">Ver Todos os Pedidos</a>
-    </div>
+      <!-- Lista de Endereços -->
+      <div class="grid grid-cols-1 m-4 lg:grid-cols-2">
+        {% if enderecos %}
+        {% for endereco in enderecos %}
+        <div
+          class="bg-white rounded-xl shadow-sm border border-[#E3D9C6] overflow-hidden transition-all duration-300 hover:shadow-md m-2">
+          <div class="p-5">
+            <div class="flex justify-between items-start">
+              <div class="flex items-center gap-3">
+                {% if endereco.principal == 1 %}
+                <div class="bg-[#5A7247] text-white p-2 rounded-full">
+                  <i class="fas fa-home text-sm"></i>
+                </div>
+                {% endif %}
+                <div>
+                  <h4 class="font-semibold text-lg text-[#2C3C1C]">{{ endereco.apelido }}</h4>
+                  {% if endereco.principal == 1 %}
+                  <span class="text-xs text-[#5A7247]">Endereço principal</span>
+                  {% endif %}
+                </div>
+              </div>
 
+              <div class="flex gap-2">
+                <button class="btn btn-circle btn-sm btn-ghost text-[#5A7247] hover:bg-[#5A7247]/10 editar-endereco-btn"
+                  data-id="{{ endereco.id_endereco }}" data-apelido="{{ endereco.apelido }}"
+                  data-cep="{{ endereco.cep }}" data-rua="{{ endereco.rua }}"
+                  data-logradouro="{{ endereco.logradouro }}" data-numero="{{ endereco.numero }}"
+                  data-complemento="{{ endereco.complemento or '' }}" data-bairro="{{ endereco.bairro }}"
+                  data-cidade="{{ endereco.cidade }}" data-estado="{{ endereco.estado }}"
+                  data-principal="{{ 1 if endereco.principal else 0 }}">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <form method="POST" action="" class="inline">
+                  <input type="hidden" name="endereco_id" value="{{ endereco.id_endereco }}">
+                  <button type="submit" class="btn btn-circle btn-sm btn-ghost text-[#8C3B2D] hover:bg-[#8C3B2D]/10"
+                    onclick="return confirm('Tem certeza que deseja excluir este endereço?')">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="m-4 space-y-1 text-[#5A7247]">
+            <div class="flex items-start gap-2">
+              <i class="fas fa-map-marker-alt mt-1 text-[#AAB898]"></i>
+              <div>
+                <p>{{ endereco.rua }}, {{ endereco.numero }}</p>
+                {% if endereco.complemento %}
+                <p class="text-sm">Complemento: {{ endereco.complemento }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <i class="fas fa-map-pin text-[#AAB898]"></i>
+              <p>{{ endereco.bairro }} - {{ endereco.cidade }}/{{ endereco.estado }}</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <i class="fas fa-mail-bulk text-[#AAB898]"></i>
+              <p>CEP: {{ endereco.cep }}</p>
+            </div>
+          </div>
+
+          {% if endereco.principal != 1 %}
+          <div class="mt-4">
+            <form method="POST" action="" class="inline">
+              <input type="hidden" name="endereco_id" value="{{ endereco.id_endereco }}">
+              <button type="submit"
+                class="btn btn-outline btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">
+                <i class="fas fa-star mr-1"></i> Tornar Principal
+              </button>
+            </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="bg-white rounded-xl shadow-sm border border-[#E3D9C6] p-8 text-center">
+        <div class="flex flex-col items-center justify-center text-[#5A7247]">
+          <div class="bg-[#AAB898]/20 p-4 rounded-full mb-4">
+            <i class="fas fa-map-marker-alt text-3xl text-[#5A7247]"></i>
+          </div>
+          <p class="text-lg font-medium mb-2">Nenhum endereço cadastrado</p>
+          <p class="text-sm mb-4">Adicione seu primeiro endereço para receber suas compras</p>
+          <button class="btn btn-gradient" onclick="document.getElementById('modal_endereco_adicionar').showModal()">
+            <i class="fas fa-plus mr-2"></i> Adicionar Endereço
+          </button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    </div>
+    <!-- Seção de Pedidos -->
+    <div class="bg-white rounded-xl shadow-lg border border-[#E3D9C6]">
+      <div class="flex justify-between items-center p-6">
+        <h3 class="text-xl font-semibold text-[#2C3C1C]">Meus Pedidos</h3>
+        <div class="form-control">
+          <select
+            class="select select-bordered border-[#5A7247] text-[#5A7247] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
+            <option disabled selected>Filtrar por status</option>
+            <option>Todos</option>
+            <option>Pendentes</option>
+            <option>Em processamento</option>
+            <option>Enviados</option>
+            <option>Entregues</option>
+            <option>Cancelados</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Lista de Pedidos -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-[#E3D9C6]">
+          <thead class="bg-[#AAB898]/20">
+            <tr>
+              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                Pedido
+              </th>
+              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                Data
+              </th>
+              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                Valor
+              </th>
+              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                Status
+              </th>
+              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                Entregue
+              </th>
+              <th scope="col"
+                class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                Ações
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-[#E3D9C6]">
+            <!-- Pedido 1 -->
+            <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
+                    <img class="h-full w-full object-cover"
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      alt="Avatar do pedido">
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-semibold text-[#2C3C1C]">#MU12345</div>
+                    <div class="text-sm text-[#5A7247]">3 itens</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                15/05/2023
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                R$ 1.240,00
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                  <i class="fas fa-spinner mr-1"></i>
+                  Em processamento
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
+                  <i class="fas fa-check-circle mr-1"></i> Entregue
+                </button>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end space-x-3">
+                  <button class="text-[#5A7247] hover:text-[#2C3C1C]">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Pedido 2 -->
+            <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
+                    <img class="h-full w-full object-cover"
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      alt="Avatar do pedido">
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-semibold text-[#2C3C1C]">#MU12344</div>
+                    <div class="text-sm text-[#5A7247]">1 item</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                10/05/2023
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                R$ 450,00
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                  <i class="fas fa-truck mr-1"></i>
+                  Enviado
+                </span>
+              </td>
+              <td class="px-3 py-1 whitespace-nowrap">
+                <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
+                  <i class="fas fa-check mr-1"></i> Confirmar Entrega
+                </button>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end space-x-3">
+                  <button class="text-[#5A7247] hover:text-[#2C3C1C]">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="text-green-600 hover:text-green-800">
+                    <i class="fas fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Pedido 3 -->
+            <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
+                    <img class="h-full w-full object-cover"
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      alt="Avatar do pedido">
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-semibold text-[#2C3C1C]">#MU12343</div>
+                    <div class="text-sm text-[#5A7247]">2 itens</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
+                05/05/2023
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
+                R$ 780,00
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                  <i class="fas fa-spinner mr-1"></i>
+                  Em processamento
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end space-x-3">
+                  <button class="text-[#5A7247] hover:text-[#2C3C1C]">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <div class="flex justify-center p-6 border-t border-[#E3D9C6]">
+        <div class="join">
+          <button
+            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">«</button>
+          <button
+            class="join-item btn btn-active bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]">1</button>
+          <button
+            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">2</button>
+          <button
+            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">3</button>
+          <button
+            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">»</button>
+        </div>
+      </div>
+    </div>
   </main>
+
+  <!-- Modal para Adicionar endereco -->
+  <dialog id="modal_endereco_adicionar" class="modal">
+    <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
+      <div class="bg-[#AAB898]/10">
+        <div class="sticky top-0 bg-[#5A7247] text-white p-6">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-2xl">Adicionar Novo Endereço</h3>
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+          </div>
+          <p class="text-white/80">Preencha os detalhes do Endereço</p>
+        </div>
+
+        <form od="POST" action="" class="mt-6 space-y-4 p-6">
+          <input type="hidden" name="acao" value="adicionar_endereco">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text text-[#2C3C1C]">Apelido (Ex: Casa, Trabalho)</span>
+            </label>
+            <input type="text"
+              class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">CEP</span>
+              </label>
+              <div class="relative">
+                <input type="text"
+                  class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+                <button class="absolute right-3 top-3 text-[#5A7247] hover:text-[#2C3C1C]">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Estado</span>
+              </label>
+              <select class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
+                <option disabled selected>Selecione</option>
+                <option>São Paulo</option>
+                <option>Rio de Janeiro</option>
+                <!-- outros estados -->
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Cidade</span>
+              </label>
+              <input type="text"
+                class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Bairro</span>
+              </label>
+              <input type="text"
+                class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="form-control md:col-span-2">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Rua/Avenida</span>
+              </label>
+              <input type="text"
+                class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Número</span>
+              </label>
+              <input type="text"
+                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text text-[#2C3C1C]">Complemento</span>
+            </label>
+            <input type="text" class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+          </div>
+
+          <div class="form-control mt-6">
+            <label class="label cursor-pointer justify-start gap-4">
+              <input type="checkbox" checked="checked" value="1" class="checkbox checkbox-primary border-[#5A7247]" />
+              <span class="label-text text-[#2C3C1C]">Tornar este endereço principal</span>
+            </label>
+          </div>
+
+          <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+            <button type="button"
+              class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
+              onclick="modal_endereco_adicionar.close()">
+              <i class="fas fa-times mr-2"></i> Cancelar
+            </button>
+            <button type="submit" class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]">
+              <i class="fas fa-save mr-2"></i> Salvar endereço
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Modal para Editar Endereço -->
+  <dialog id="modal_endereco_editar" class="modal">
+    <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
+      <div class="bg-[#AAB898]/10">
+        <div class="sticky top-0 bg-[#5A7247] text-white p-6">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-2xl">Editar Endereço</h3>
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+          </div>
+          <p class="text-white/80">Edite os detalhes do Endereço</p>
+        </div>
+
+        <form method="POST" action="" class="mt-6 space-y-4 p-6">
+          <input type="hidden" name="acao" value="editar_endereco">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text text-[#2C3C1C]">Apelido (Ex: Casa, Trabalho)</span>
+            </label>
+            <input id="apelido-editar-endereco" name="apelido-editar-endereco" type="text"
+              class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">CEP</span>
+              </label>
+              <div class="relative">
+                <input type="text" id="cep-editar-endereco" name="cep-editar-endereco"
+                  class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+                <button class="absolute right-3 top-3 text-[#5A7247] hover:text-[#2C3C1C]">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Estado</span>
+              </label>
+              <select id="estado-endereco-editar" name="estado-endereco-editar"
+                class="select select-bordered bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
+                <option disabled selected>Selecione</option>
+                <option>São Paulo</option>
+                <option>Rio de Janeiro</option>
+                <!-- outros estados -->
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Cidade</span>
+              </label>
+              <input type="text" id="cidade-endereco-editar" name="cidade-endereco-editar"
+                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Bairro</span>
+              </label>
+              <input type="text" id="bairro-endereco-editar" name="bairro-endereco-editar"
+                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="form-control md:col-span-2">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Rua/Avenida</span>
+              </label>
+              <input type="text" id="rua-endereco-editar" name="rua-endereco-editar"
+                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text text-[#2C3C1C]">Número</span>
+              </label>
+              <input type="text" id="numero-endereco-editar" name="numero-endereco-editar"
+                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text text-[#2C3C1C]">Complemento</span>
+            </label>
+            <input type="text" id="complemento-endereco-editar" name="complemento-endereco-editar"
+              class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+          </div>
+
+          <div class="form-control mt-6">
+            <label class="label cursor-pointer justify-start gap-4">
+              <input type="checkbox" id="principal-endereco-editar" name="principal-endereco-editar" value="1"
+                checked="checked" class="checkbox checkbox-primary border-[#5A7247]" />
+              <span class="label-text text-[#2C3C1C]">Tornar este endereço principal</span>
+            </label>
+          </div>
+
+          <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+            <button type="button"
+              class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
+              onclick="modal_endereco_editar.close()">
+              <i class="fas fa-times mr-2"></i> Cancelar
+            </button>
+            <button type="submit" class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]">
+              <i class="fas fa-save mr-2"></i> Salvar endereço
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </dialog>
 
   <!-- Footer -->
   <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
@@ -381,7 +977,42 @@
       </div>
     </div>
   </footer>
+  <script src="{{ url_for('static', filename='js/alertas.js') }}"></script>
+  <script>
+    // Adiciona evento de clique aos botões de edição
+    document.querySelectorAll('.editar-endereco-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const dados = this.dataset;
+        const modal = document.getElementById('modal_endereco_editar');
 
+        // Preenche os campos do modal
+        document.getElementById('apelido-editar-endereco').value = dados.apelido || '';
+        document.getElementById('cep-editar-endereco').value = dados.cep || '';
+        document.getElementById('cidade-endereco-editar').value = dados.cidade || '';
+        document.getElementById('bairro-endereco-editar').value = dados.bairro || '';
+        document.getElementById('rua-endereco-editar').value = dados.rua || '';
+        document.getElementById('numero-endereco-editar').value = dados.numero || '';
+        document.getElementById('complemento-endereco-editar').value = dados.complemento || '';
+
+        // Define se é o endereço principal
+        document.getElementById('principal-endereco-editar').checked = dados.principal === '1';
+
+        // Seleciona o estado correto
+        const selectEstado = document.getElementById('estado-endereco-editar');
+        if (selectEstado) selectEstado.value = dados.estado || '';
+
+        // Adiciona o ID do endereço ao formulário (se necessário)
+        const inputId = document.createElement('input');
+        inputId.type = 'hidden';
+        inputId.name = 'id_endereco';
+        inputId.value = dados.id;
+        modal.querySelector('form').appendChild(inputId);
+
+        // Abre o modal
+        modal.showModal();
+      });
+    });
+  </script>
 </body>
 
 </html>

@@ -252,14 +252,14 @@ def perfil_artista(id_artista):
         flash("Você precisa estar logado para acessar esta página.","alert-error")
         return redirect(url_for("main.PreLogin"))
     
-    from ..database.models.model_artistas import Artistas
+    from ..services.artista_service import ArtistaService
 
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
 
     # Buscar dados do artista
-    artista = Artistas(id_artista=id_artista)
-    dados_artista = artista.buscar_artista()
+    artista = ArtistaService(id_artista=id_artista)
+    dados_artista = artista.dados_artista()
     
     if not dados_artista:
         flash("Artista não encontrado", "alert-error")

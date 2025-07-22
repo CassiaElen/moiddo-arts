@@ -16,7 +16,7 @@
 
 <body class="auth-container min-h-screen flex bg-[#f4f4f4] max-md:flex-col">
     <!-- Notificação Flash (sobrepõe tudo) -->
-    <div id="flash-container" class="fixed top-4 right-4 z-51 space-y-2 w-80">
+    <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
         {% with mensagens = get_flashed_messages(with_categories=true) %}
         {% if mensagens %}
         {% for categoria, mensagem in mensagens %}
@@ -34,7 +34,7 @@
         {% endif %}
         {% endwith %}
     </div>
-    <div class="sticky top-0 z-50 shadow-md lg:hidden">
+    <div class="sticky top-0 z-40 shadow-md lg:hidden">
         <div class="drawer">
             <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col">
@@ -553,7 +553,7 @@
                                         onclick="modal_editar_obra.showModal()">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <form action="{{ url_for('artistas.painel_artista') }}" method="post">
+                                    <form action="{{ url_for('artistas.painel_artista') }}" method="POST">
                                         <input type="hidden" name="acao" value="excluir_obra">
                                         <button type="submit" name="obra_id" value="{{ obra.id_obra }}"
                                             class="text-[#8C3B2D] hover:text-red-800">
@@ -1356,7 +1356,7 @@
                     <p class="text-white/80">Preencha os detalhes da sua obra de arte</p>
                 </div>
 
-                <form action="" method="post" enctype="multipart/form-data" class="p-6">
+                <form action="" method="POST" enctype="multipart/form-data" class="p-6">
                     <input type="hidden" name="acao" value="nova_obra">
 
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -1525,7 +1525,7 @@
                     <p class="text-white/80">Atualize os detalhes da sua obra de arte</p>
                 </div>
 
-                <form action="" method="post" enctype="multipart/form-data" class="p-6">
+                <form action="" method="POST" enctype="multipart/form-data" class="p-6">
                     <input type="hidden" name="acao" value="editar_obra">
                     <input type="hidden" name="id-obra-editar" id="id-obra-editar" value="">
 
@@ -1696,7 +1696,7 @@
                     <p class="text-white/80">Confirme a desativação temporária da sua conta</p>
                 </div>
 
-                <form action="" method="post" class="p-6">
+                <form action="" method="POST" class="p-6">
                     <input type="hidden" name="acao" value="desativar_perfil">
 
                     <div class="space-y-6">
@@ -1780,7 +1780,7 @@
                     <p class="text-white/80">Esta ação é irreversível</p>
                 </div>
 
-                <form action="" method="post" class="p-6">
+                <form action="" method="POST" class="p-6">
                     <input type="hidden" name="acao" value="excluir_perfil">
 
                     <div class="space-y-6">

@@ -21,11 +21,13 @@ def create_app():
     from .blueprints.obras import obras_bp
     from .blueprints.carrinho import carrinho_bp
     from .blueprints.pedidos import pedidos_bp
+    from .blueprints.cliente import cliente_bp
 
     app.register_blueprint(main)
     app.register_blueprint(artistas_bp)
     app.register_blueprint(obras_bp)
     app.register_blueprint(carrinho_bp)
     app.register_blueprint(pedidos_bp)
+    app.register_blueprint(cliente_bp)
 
     return app

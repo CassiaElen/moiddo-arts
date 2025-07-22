@@ -102,16 +102,6 @@ def animacao_desativar_conta():
     
     return render_template("desativar-conta.html")
 
-@main.route("/perfil-cliente")
-def perfil_cliente():
-    if not auth_manager.is_client():
-        flash("Você precisa estar logado para acessar esta página.","alert-error")
-        return redirect(url_for("main.PreLogin"))
-
-    user = auth_manager.current_user()
-    user_type = auth_manager.current_user_type()
-    return render_template("perfil-cliente.html",user=user, user_type=user_type)
-
 @main.route("/trocar-senha", methods=["GET", "POST"]) 
 def trocar_senha():
     if not auth_manager.is_authenticated():

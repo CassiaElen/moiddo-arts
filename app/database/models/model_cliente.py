@@ -7,6 +7,7 @@ class Cliente:
         nome_completo=None,
         usuario=None,
         email=None,
+        telefone = None,
         cpf=None,
         senha=None,
         status_cliente=None,
@@ -17,6 +18,7 @@ class Cliente:
         self.nome_completo = nome_completo
         self.usuario = usuario
         self.email = email
+        self.telefone = telefone
         self.cpf = cpf
         self.senha = senha
         self.status_cliente = status_cliente
@@ -29,11 +31,12 @@ class Cliente:
             cursor = conn.cursor()
             if self.id_cliente is None:
                 cursor.execute(
-                    """INSERT INTO cliente (nome_completo, usuario, email, cpf, senha, data_cadastro) VALUES (?, ?, ?, ?, ?, ?)""",
+                    """INSERT INTO cliente (nome_completo, usuario, email, telefone, cpf, senha, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?)""",
                     (
                         self.nome_completo,
                         self.usuario,
                         self.email,
+                        self.telefone,
                         self.cpf,
                         self.senha,
                         self.data_cadastro,
@@ -43,14 +46,13 @@ class Cliente:
                 self.id_cliente = cursor.lastrowid
             else:
                 cursor.execute(
-                    """UPDATE cliente SET nome_completo=?, usuario=?, email=?, cpf=?, senha=?, status_cliente=?, url_avatar=? WHERE id_cliente=?""",
+                    """UPDATE cliente SET nome_completo=?, usuario=?, email=?, telefone=?, cpf=?, url_avatar=? WHERE id_cliente=?""",
                     (
                         self.nome_completo,
                         self.usuario,
                         self.email,
+                        self.telefone,
                         self.cpf,
-                        self.senha,
-                        self.status_cliente,
                         self.url_avatar,
                         self.id_cliente,
                     ),
@@ -125,6 +127,7 @@ class Cliente:
                     self.usuario = row["usuario"]
                     self.email = row["email"]
                     self.cpf = row["cpf"]
+                    self.telefone = row["telefone"]
                     self.senha = row["senha"]
                     self.status_cliente = row["status_cliente"]
                     self.url_avatar = row["url_avatar"]

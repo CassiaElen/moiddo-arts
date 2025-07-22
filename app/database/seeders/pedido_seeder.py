@@ -21,7 +21,7 @@ def seed_pedido():
         carrinhos = cursor.fetchall()
 
         if not carrinhos:
-            # Primeiro vamos finalizar alguns carrinhos
+            # finalizar alguns carrinhos
             cursor.execute("""
                 SELECT id_carrinho, cliente_id, qtd_item 
                 FROM carrinho 

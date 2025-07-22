@@ -18,6 +18,18 @@ class ClienteService:
         self.cliente.data_cadastro = data_cadastro
         self.cliente.salvar()
 
+    def editar(self, campos, imagem):
+        self.cliente.nome_completo = campos["nome_completo"]
+        self.cliente.usuario = campos["usuario"]
+        self.cliente.telefone = campos["telefone"]
+        self.cliente.email = campos["email"]
+        self.cliente.cpf = campos["cpf"]
+
+        if imagem:
+            self.cliente.url_avatar = imagem
+
+        self.cliente.salvar()
+        
     def CheckLoginClient(self, email, senha):
         return self.cliente.CheckLoginClient(email, senha)
     
@@ -36,3 +48,6 @@ class ClienteService:
         self.cliente.editar_senha()
 
         return "Senha alterada com sucesso!"
+    
+    def buscar_cliente(self):
+        return self.cliente.buscar_cliente()
