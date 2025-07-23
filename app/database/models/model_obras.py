@@ -1,5 +1,4 @@
 from ..connection import db
-import sqlite3
 
 class Obras:
     def __init__(
@@ -106,6 +105,15 @@ class Obras:
             rows = cursor.fetchall() 
             return [dict(row) for row in rows]
 
+    def buscar_obras_recomendacoes(self):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT * FROM obras WHERE status_obras='ativa' AND categoria_id = ? AND id_obra NOT IN (?) ORDER BY id_obra DESC LIMIT 3", (self.categoria_id, self.id_obra,)
+                )
+            rows = cursor.fetchall() 
+            return [dict(row) for row in rows]
+
     def deletar_obra(self):
         try:
             with db.get_conn() as conn:
@@ -143,10 +151,76 @@ class Obras:
                 print("Erro ao buscar obra:", e)
                 return None
 
-''' def buscar_categoria(self, categoria):
-        with db.get_conn as conn:
+    def buscar_obras_filtradas(self, busca='', filtro='', ordenacao='recentes', pagina=1, por_pagina=9, preco_maximo=None):
+        query = """
+            SELECT * FROM obras WHERE status_obras = 'ativa'
+        """
+        params = []
+
+        count_query = """ 
+            SELECT COUNT(*) FROM obras WHERE status_obras = 'ativa'
+        """
+        count_params = []
+
+        if filtro:
+            query += f" AND categoria_id = {filtro}"
+            
+            count_query += f" AND categoria_id = {filtro}"
+
+        if busca:
+            query += " AND (titulo LIKE ? OR tecnica LIKE ? OR descricao LIKE ?)"
+            params.extend([f"%{busca}%"] * 3)
+
+            count_query += " AND (titulo LIKE ? OR tecnica LIKE ? OR descricao LIKE ?)"
+            count_params.extend([f"%{busca}%"] * 3)
+        
+        if preco_maximo:
+            query += " AND preco <= ?"
+            params.append(float(preco_maximo))
+            
+            count_query += " AND preco <= ?"
+            count_params.append(float(preco_maximo))
+
+        # Correção na ordenação por preço
+        if ordenacao == 'recentes':
+            query += " ORDER BY data_cadastro DESC"
+        elif ordenacao == 'antigos':
+            query += " ORDER BY data_cadastro ASC"
+        elif ordenacao == 'alfabetico':
+            query += " ORDER BY titulo ASC"
+        elif ordenacao == 'menor_preco':
+            query += " ORDER BY preco ASC"  # Corrigido de total_obras para preco
+        elif ordenacao == 'maior_preco':
+            query += " ORDER BY preco DESC"  # Corrigido de total_obras para preco
+
+        offset = (pagina - 1) * por_pagina
+        query += " LIMIT ? OFFSET ?"
+        params.extend([por_pagina, offset])
+        
+        with db.get_conn() as conn:
             cursor = conn.cursor()
-            query = f""" 
-            SELECT * FROM obras
-            WHERE 
-            """'''
+            cursor.execute(query, params)
+            obras = [Obras(**dict(row)) for row in cursor.fetchall()]
+
+            cursor.execute(count_query, count_params)
+            total = cursor.fetchone()[0]
+
+            return obras, total        
+    def to_dict(self):
+        try:
+            preco = float(self.preco) if self.preco is not None else None
+            
+            return {
+                'id_obra': self.id_obra,
+                'titulo': self.titulo,
+                'descricao': self.descricao,
+                'tecnica': self.tecnica,
+                'dimensoes': self.dimensoes,
+                'preco': preco,
+                'ano_criacao': self.ano_criacao,
+                'estoque': self.estoque,
+                'url_foto': self.url_foto
+            }
+        except (ValueError, TypeError) as e:
+            print(f"Erro ao converter obra para dicionário: {e}")
+            return None

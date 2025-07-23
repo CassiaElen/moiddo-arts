@@ -4,16 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moiddo Arts - Horizonte Silencioso</title>
+    <title>{{ obra.titulo }} | Muiddo Arts</title>
     <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/obra_detalhes.css">
     <link rel="stylesheet" href="../static/css/index.css">
+    <style>
+        .gallery-thumbnail {
+            transition: all 0.2s ease;
+        }
+
+        .gallery-thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #5A7247;
+        }
+
+        .gallery-thumbnail.active {
+            border-color: #5A7247;
+            box-shadow: 0 0 0 2px #5A7247;
+        }
+
+        .artwork-info dt {
+            color: #5A7247;
+        }
+
+        .artwork-info dd {
+            color: #2C3C1C;
+        }
+
+        .tab-button.active {
+            border-bottom: 2px solid #5A7247;
+            color: #5A7247;
+        }
+    </style>
 </head>
 
-<body class="auth-containermin-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-[#F4f4f4]">
 
     <header class="sticky top-0 z-40 shadow-md">
         <div class="drawer">
@@ -42,20 +70,6 @@
 
                     <!-- Itens da Direita -->
                     <div class="navbar-end space-x-2">
-                        <!-- Campo de Busca (Desktop) -->
-                        <div class="hidden lg:block">
-                            <div class="relative">
-                                <input type="text" placeholder="Pesquisar..."
-                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                                <span class="absolute left-3 top-3 text-gray-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
                         {% if user_type == 'cliente' %}
                         <!-- Carrinho -->
                         <div class="dropdown dropdown-end">
@@ -125,7 +139,7 @@
                 <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
                     <ul class="menu menu-horizontal gap-1 px-4 py-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Loja
                             </a>
@@ -171,24 +185,10 @@
                             </svg>
                         </label>
                     </div>
-
-                    <!-- Campo de Busca (Mobile) -->
-                    <div class="relative mb-6">
-                        <input type="text" placeholder="Pesquisar..."
-                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                        <span class="absolute left-3 top-3 text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </span>
-                    </div>
-
                     <!-- Menu Principal -->
                     <ul class="space-y-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Loja
                             </a>
@@ -253,130 +253,165 @@
 
     <main class="flex-grow container mx-auto px-4 py-8">
         <div class="max-w-7xl mx-auto">
-            <!-- Breadcrumbs -->
+            <!-- Breadcrumbs melhorado -->
             <div class="text-sm breadcrumbs mb-6">
                 <ul>
-                    <li><a href="#" class="text-indigo-600 hover:text-indigo-800">Home</a></li>
-                    <li><a href="#" class="text-indigo-600 hover:text-indigo-800">Loja</a></li>
-                    <li class="text-gray-500">Horizonte Silencioso</li>
+                    <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Home</a></li>
+                    <li><a href="{{url_for('obras.loja')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Loja</a></li>
+                    <li class="text-gray-500">{{ obra.titulo|truncate(20) }}</li>
                 </ul>
             </div>
 
-            <!-- Product Section -->
-            <section class="bg-white rounded-xl shadow-md overflow-hidden">
+            <!-- Seção Principal -->
+            <section class="bg-white rounded-xl shadow-md overflow-hidden mb-12">
                 <div class="flex flex-col lg:flex-row">
-                    <!-- Artwork Image -->
-                    <div class="lg:w-1/2 p-6 flex justify-center">
+                    <!-- Galeria de Imagens -->
+                    <div class="lg:w-1/2 p-6">
                         <div class="relative group">
-                            <img src="https://images.pexels.com/photos/15202105/pexels-photo-15202105/free-photo-of-a-melhor-foto-das-botas-de-sempre.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="Obra Horizonte Silencioso"
-                                class="rounded-lg shadow-lg artwork-image max-h-[500px] w-auto">
-                            <button
-                                class="absolute top-4 right-4 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-md">
-                                <i class="far fa-heart text-lg"></i>
-                            </button>
+                            <!-- Imagem Principal -->
+                            <img src="{{ obra.url_foto }}" alt="{{ obra.titulo }}"
+                                class="rounded-lg shadow-lg w-full h-auto max-h-[500px] object-cover transition-transform duration-300 hover:scale-105 cursor-zoom-in"
+                                id="mainImage">
+
+                            <!-- Badge de Status -->
+                            <div class="absolute top-4 left-4">
+                                {% if obra.estoque > 0 %}
+                                <div class="badge bg-[#5A7247] border-none text-white">
+                                    {{ obra.estoque }} em estoque
+                                </div>
+                                {% else %}
+                                <div class="badge badge-error border-none text-white">
+                                    Esgotado
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Product Details -->
+                    <!-- Detalhes do Produto -->
                     <div class="lg:w-1/2 p-6 lg:p-8 flex flex-col justify-center">
-                        <h1 class="text-4xl font-bold text-gray-800 mb-2">Horizonte Silencioso</h1>
-                        <p class="text-gray-600 mb-4">por <a href="#"
-                                class="text-indigo-600 hover:underline font-medium">Lúcia Campos</a></p>
-
-                        <div class="flex items-center mb-6">
-                            <div class="rating rating-sm">
-                                <input type="radio" name="rating-1" class="mask mask-star-2 bg-yellow-400" checked />
-                                <input type="radio" name="rating-1" class="mask mask-star-2 bg-yellow-400" checked />
-                                <input type="radio" name="rating-1" class="mask mask-star-2 bg-yellow-400" checked />
-                                <input type="radio" name="rating-1" class="mask mask-star-2 bg-yellow-400" checked />
-                                <input type="radio" name="rating-1" class="mask mask-star-2 bg-yellow-400" />
-                            </div>
-                            <span class="text-gray-500 ml-2">(24 avaliações)</span>
+                        <div class="mb-6">
+                            <h1 class="text-3xl md:text-4xl font-bold text-[#2C3C1C] mb-2">{{ obra.titulo }}</h1>
+                            <p class="text-gray-600">por
+                                <a href="{{ url_for('artistas.perfil_artista', id_artista=obra.artista_id) }}"
+                                    class="text-[#5A7247] hover:underline font-medium">{{artista.nome_completo}}</a>
+                            </p>
                         </div>
 
-                        <p class="text-3xl font-bold text-indigo-700 mb-6">R$ 480,00</p>
+                        <!-- Preço -->
+                        <div class="mb-6">
+                            <p class="text-3xl font-bold text-[#5A7247]">R$ {{ "%.2f"|format(obra.preco)|replace(".",
+                                ",") }}</p>
+                            {% if obra.estoque > 0 %}
+                            <p class="text-green-600 text-sm mt-1"><i class="fas fa-check-circle mr-1"></i> Disponível
+                                para envio imediato</p>
+                            {% else %}
+                            <p class="text-red-600 text-sm mt-1"><i class="fas fa-exclamation-circle mr-1"></i> Esgotado
+                                - Entre em contato para encomenda</p>
+                            {% endif %}
+                        </div>
 
-                        <p class="text-gray-700 mb-6 leading-relaxed">
-                            "Horizonte Silencioso" é uma representação poética da natureza em repouso, capturando a
-                            serenidade
-                            de um pôr-do-sol em tons suaves e pinceladas delicadas. Esta obra em técnica mista sobre
-                            tela
-                            convida à contemplação e introspecção.
-                        </p>
+                        <!-- Descrição -->
+                        <div class="mb-6">
+                            <p class="text-gray-700 leading-relaxed">{{ obra.descricao }}</p>
+                        </div>
 
+                        <!-- Informações Técnicas -->
                         <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div>
-                                <p class="text-sm text-gray-500">Técnica</p>
-                                <p class="font-medium">Acrílica sobre tela</p>
+                            <div class="artwork-info">
+                                <dt class="text-sm font-medium">Técnica</dt>
+                                <dd class="font-medium">{{ obra.tecnica or 'Não informado' }}</dd>
                             </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Tamanho</p>
-                                <p class="font-medium">60cm x 40cm</p>
+                            <div class="artwork-info">
+                                <dt class="text-sm font-medium">Dimensões</dt>
+                                <dd class="font-medium">{{ obra.dimensoes or 'Não informado' }}</dd>
                             </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Ano</p>
-                                <p class="font-medium">2023</p>
+                            <div class="artwork-info">
+                                <dt class="text-sm font-medium">Ano de Criação</dt>
+                                <dd class="font-medium">{{ obra.ano_criacao or 'Não informado' }}</dd>
                             </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Disponibilidade</p>
-                                <p class="font-medium text-green-600">Em estoque</p>
+                            <div class="artwork-info">
+                                <dt class="text-sm font-medium">Material</dt>
+                                <dd class="font-medium">{{ obra.material or 'Não informado' }}</dd>
                             </div>
                         </div>
 
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <div class="join">
-                                <button
-                                    class="btn join-item bg-gray-100 border-gray-200 text-gray-800 hover:bg-gray-200">-</button>
-                                <button class="btn join-item bg-white border-gray-200 text-gray-800">1</button>
-                                <button
-                                    class="btn join-item bg-gray-100 border-gray-200 text-gray-800 hover:bg-gray-200">+</button>
+                        <!-- Adicionar ao Carrinho -->
+                        <div class="mb-8">
+                            {% if obra.estoque > 0 %}
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="join">
+                                    <button
+                                        class="btn join-item bg-gray-100 border-gray-200 text-gray-800 hover:bg-gray-200">-</button>
+                                    <button class="btn join-item bg-white border-gray-200 text-gray-800">1</button>
+                                    <button
+                                        class="btn join-item bg-gray-100 border-gray-200 text-gray-800 hover:bg-gray-200">+</button>
+                                </div>
+                                <button class="btn btn-gradient flex-grow text-white">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho
+                                </button>
                             </div>
-                            <button class="btn btn-primary flex-grow">
-                                <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho
+                            {% else %}
+                            <button
+                                class="btn btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white w-full">
+                                <i class="fas fa-envelope mr-2"></i> Consultar disponibilidade
                             </button>
+                            {% endif %}
                         </div>
 
-                        <div class="mt-6 pt-6 border-t border-gray-100">
-                            <div class="flex items-center gap-2 text-sm text-gray-600">
-                                <i class="fas fa-shield-alt text-indigo-500"></i>
-                                <span>Compra segura | Entrega garantida</span>
+                        <!-- Informações de Entrega -->
+                        <div class="pt-6 border-t border-gray-100">
+                            <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-truck text-[#5A7247]"></i>
+                                    <span>Frete calculado no checkout</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-shield-alt text-[#5A7247]"></i>
+                                    <span>Compra segura</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-undo text-[#5A7247]"></i>
+                                    <span>Devolução em 7 dias</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Artist Section -->
-            <section class="mt-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Sobre a Artista</h2>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden artist-card">
-                    <div class="flex flex-col md:flex-row">
-                        <div class="md:w-1/4 p-6 flex justify-center items-center bg-indigo-50">
-                            <div class="avatar">
-                                <div
-                                    class="min-w-32 max-xl:w-[10rem] max-xl:h-[10rem]  rounded-full ring-2 ring-indigo-200 ring-offset-4">
-                                    <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
-                                        alt="Lúcia Campos" />
+            <!-- Seção do Artista -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-[#2C3C1C]">Sobre o Artista</h2>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="group flex flex-col md:flex-row">
+                        <div class="md:w-1/4 p-6 flex justify-center items-center bg-[#F4F4F4]">
+                            <div
+                                class="w-48 h-48 rounded-full bg-[#2C3C1C] group-hover:bg-gradient-to-r from-[#8C3B2D] to-[#5A7247] transition-all duration-300 p-1 mb-4">
+                                <div class="aw-full h-full rounded-full overflow-hidden">
+                                    <img src="{{ artista.url_avatar or '../static/assets/default-avatar.webp' }}"
+                                        alt="{{ artista.nome_completo }}"
+                                        class="rounded-full object-cover w-full h-full items-center justify-center back transition-transform duration-500 transform group-hover:scale-110" />
                                 </div>
                             </div>
                         </div>
                         <div class="md:w-3/4 p-6 md:p-8">
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">Lúcia Campos</h3>
-                            <p class="text-gray-600 mb-4">Artista Visual | São Paulo, Brasil</p>
-                            <p class="text-gray-700 mb-4">
-                                Lúcia Campos é uma artista visual brasileira com formação em Belas Artes pela
-                                Universidade de São Paulo.
-                                Suas obras minimalistas buscam evocar sentimentos de paz e introspecção, explorando a
-                                relação entre
-                                luz, espaço e silêncio. Com exposições em galerias nacionais e internacionais, Lúcia já
-                                participou
-                                de diversas mostras coletivas e duas individuais.
-                            </p>
-                            <div>
-                                <a href="#"
-                                    class="btn btn-outline btn-sm border-indigo-200 text-indigo-600 hover:bg-indigo-50">
-                                    <i class="fas fa-palette mr-2"></i> Ver mais obras
+                            <h3 class="text-xl font-bold text-[#2C3C1C] mb-2 group-hover:text-[#5A7247]">
+                                {{artista.nome_completo}}</h3>
+                            <p class="text-gray-600 mb-4">{{artista.usuario}}</p>
+                            <p class="text-gray-700 mb-4">{{artista.biografia}}</p>
+
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="badge badge-outline border-[#5A7247] text-[#5A7247] group-hover:border-[#8C3B2D] group-hover:text-[#8C3B2D]">
+                                    {{artista.especialidade or 'Não informado'}}
+                                </span>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <a href="{{ url_for('artistas.perfil_artista', id_artista=obra.artista_id) }}"
+                                    class="btn btn-gradient text-white">
+                                    <i class="fas fa-user mr-2"></i> Ver perfil completo
                                 </a>
                             </div>
                         </div>
@@ -384,75 +419,66 @@
                 </div>
             </section>
 
-            <!-- Related Products -->
-            <section class="mt-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Obras Relacionadas</h2>
+            <!-- Obras Relacionadas -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-[#2C3C1C]">Você também pode gostar</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Related Product 1 -->
-                    <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                        <figure class="px-4 pt-4 relative">
-                            <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                            <button
-                                class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold">Aurora Dourada</h3>
-                            <p class="text-gray-600 text-sm">por Carlos Mendes</p>
-                            <div class="flex items-center justify-between mt-2">
-                                <p class="text-lg font-bold text-indigo-700">R$ 620,00</p>
-                                <button class="btn btn-sm btn-ghost text-indigo-600">
-                                    <i class="fas fa-shopping-cart mr-1"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {% for obra in obras_recomendadas %}
+                    <div
+                        class="artwork-card card bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 overflow-hidden">
+                        <figure class="relative h-48 overflow-hidden">
+                            <img src="{{obra.url_foto}}" alt="{{obra.titulo}}"
+                                class="artwork-image w-full h-full object-cover transition-transform duration-300">
 
-                    <!-- Related Product 2 -->
-                    <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                        <figure class="px-4 pt-4 relative">
-                            <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                            <button
-                                class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold">Maré Noturna</h3>
-                            <p class="text-gray-600 text-sm">por Ana Beatriz</p>
-                            <div class="flex items-center justify-between mt-2">
-                                <p class="text-lg font-bold text-indigo-700">R$ 550,00</p>
-                                <button class="btn btn-sm btn-ghost text-indigo-600">
-                                    <i class="fas fa-shopping-cart mr-1"></i>
-                                </button>
+                            <!-- Badge de status -->
+                            {% if obra.estoque > 0 %}
+                            <div class="absolute top-2 right-2 badge bg-[#5A7247] border-none text-white">
+                                {{ obra.estoque }} em estoque
                             </div>
-                        </div>
-                    </div>
+                            {% else %}
+                            <div class="absolute top-2 right-2 badge badge-error border-none text-white">
+                                Esgotado
+                            </div>
+                            {% endif %}
+                        </figure>
 
-                    <!-- Related Product 3 -->
-                    <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                        <figure class="px-4 pt-4 relative">
-                            <img src="https://images.pexels.com/photos/1671324/pexels-photo-1671324.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
-                            <button
-                                class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </figure>
                         <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold">Caminho de Flores</h3>
-                            <p class="text-gray-600 text-sm">por Lúcia Campos</p>
-                            <div class="flex items-center justify-between mt-2">
-                                <p class="text-lg font-bold text-indigo-700">R$ 480,00</p>
-                                <button class="btn btn-sm btn-ghost text-indigo-600">
-                                    <i class="fas fa-shopping-cart mr-1"></i>
-                                </button>
+                            <div class="flex justify-between items-start">
+                                <h3 class="card-title text-lg font-bold text-[#2C3C1C] line-clamp-1">
+                                    <a href="" class="hover:text-[#5A7247]">
+                                        {{ obra.titulo }}
+                                    </a>
+                                </h3>
+                                {% if obra.ano_criacao %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.ano_criacao
+                                    }}</span>
+                                {% endif %}
+                            </div>
+
+                            <p class="text-gray-600 text-sm mt-2 line-clamp-2">{{ obra.descricao }}</p>
+
+                            <div class="mt-2 flex flex-wrap gap-1">
+                                {% if obra.tecnica %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.tecnica
+                                    }}</span>
+                                {% endif %}
+                                {% if obra.dimensoes %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.dimensoes
+                                    }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="flex items-center justify-between mt-3">
+                                <p class="text-lg font-bold text-[#5A7247]">R$ {{ "%.2f"|format(obra.preco)|replace(".",
+                                    ",") }}</p>
+                                <a href="{{ url_for('obras.obra_detalhes', id_obra=obra.id_obra) }}"
+                                    class="btn btn-sm btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">
+                                    <i class="fas fa-shopping-cart mr-1"></i> Comprar
+                                </a>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </section>
         </div>
@@ -490,7 +516,7 @@
                 <div>
                     <h6 class="footer-title text-lg font-semibold">Explorar</h6>
                     <ul class="space-y-2">
-                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        <li><a href="{{url_for('obras.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>

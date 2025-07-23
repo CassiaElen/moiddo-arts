@@ -332,6 +332,10 @@ class Artistas:
                     order_by = ""
                     if ordenacao == "recentes":
                         order_by = " ORDER BY data_cadastro DESC"
+                    elif ordenacao == "antigos":
+                        order_by = " ORDER BY data_cadastro ASC"
+                    elif ordenacao == "alfabetico":
+                        order_by = " ORDER BY titulo ASC"
                     elif ordenacao == "menor_preco":
                         order_by = " ORDER BY preco ASC"
                     elif ordenacao == "maior_preco":

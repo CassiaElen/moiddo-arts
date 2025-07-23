@@ -110,7 +110,7 @@
                 <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
                     <ul class="menu menu-horizontal gap-1 px-4 py-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Loja
                             </a>
@@ -156,24 +156,10 @@
                             </svg>
                         </label>
                     </div>
-
-                    <!-- Campo de Busca (Mobile) -->
-                    <div class="relative mb-6">
-                        <input type="text" placeholder="Pesquisar..."
-                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                        <span class="absolute left-3 top-3 text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </span>
-                    </div>
-
                     <!-- Menu Principal -->
                     <ul class="space-y-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Loja
                             </a>
@@ -273,39 +259,68 @@
                     </label>
                 </div>
                 <div class="flex gap-2 w-full md:w-auto">
-                    <div class="dropdown">
+                    <div class="dropdown dropdown-end">
                         <div tabindex="0" role="button"
                             class="btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
                             <i class="fas fa-filter mr-2"></i> Filtrar
                         </div>
-                        <!--INTEGRAR SISTEMA DE AVALIAÇÃO SE POSSIVEL-->
+
                         <ul tabindex="0"
-                            class="dropdown-content z-[1] menu p-2 shadow bg-[#f4f4f4] border-2 border-solid border-[#5A7247] rounded-xl rounded-box w-52">
-                            <li><a class="filtro-option {% if filtro == 'todos' %}active{% endif %}"
-                                    data-filtro="todos">Todos</a></li>
-                            <li><a class="filtro-option text-[#2C3C1C] {% if filtro == 'mais_populares' %}active:bg-[#5A7247]/20{% endif %}"
-                                    data-filtro="recentes">Mais populares</a></li>
-                            <li><a class="filtro-option text-[#2C3C1C] {% if filtro == 'melhor_avaliados' %}active:bg-[#5A7247]/20{% endif %}"
-                                    data-filtro="melhor_avaliados">Melhor avaliados</a></li>
-                            <li><a class="filtro-option text-[#2C3C1C] {% if filtro == 'menos_avaliados' %}active:bg-[#5A7247]/20{% endif %}"
-                                    data-filtro="melhor_avaliados">Menos avaliados</a></li>
+                            class="dropdown-content z-[1] menu p-2 shadow-lg bg-white border-2 border-[#5A7247] rounded-box w-52 mt-1">
+                            <li>
+                                <a class="filtro-option {% if filtro == 'todos' %}bg-[#5A7247] text-white{% else %}text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %} rounded-lg flex justify-between items-center"
+                                    data-filtro="todos">
+                                    Todos
+                                    {% if filtro == 'todos' %}<i class="fas fa-check"></i>{% endif %}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="filtro-option {% if filtro == 'mais_populares' %}bg-[#5A7247] text-white{% else %}text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %} rounded-lg flex justify-between items-center"
+                                    data-filtro="mais_populares">
+                                    Mais populares
+                                    {% if filtro == 'mais_populares' %}<i class="fas fa-check"></i>{% endif %}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="filtro-option {% if filtro == 'melhor_avaliados' %}bg-[#5A7247] text-white{% else %}text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %} rounded-lg flex justify-between items-center"
+                                    data-filtro="melhor_avaliados">
+                                    Melhor avaliados
+                                    {% if filtro == 'melhor_avaliados' %}<i class="fas fa-check"></i>{% endif %}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="filtro-option {% if filtro == 'menos_avaliados' %}bg-[#5A7247] text-white{% else %}text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %} rounded-lg flex justify-between items-center"
+                                    data-filtro="menos_avaliados">
+                                    Menos avaliados
+                                    {% if filtro == 'menos_avaliados' %}<i class="fas fa-check"></i>{% endif %}
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown dropdown-end">
                         <div tabindex="0" role="button"
                             class="btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">
                             <i class="fas fa-sort mr-2"></i> Ordenar
                         </div>
                         <ul tabindex="0"
-                            class="dropdown-content z-[1] menu p-2 shadow bg-[#f4f4f4] border-2 border-solid border-[#5A7247] rounded-xl rounded-box w-52">
-                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'alfabetico' %}active:bg-[#5A7247]/20{% endif %}"
+                            class="dropdown-content z-[1] menu p-2 shadow-lg bg-white border-2 border-[#5A7247] rounded-xl w-52 mt-1">
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
                                     data-ordenacao="alfabetico">Ordem alfabética</a></li>
-                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'recentes' %}active:bg-[#5A7247]/20{% endif %}"
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
                                     data-ordenacao="recentes">Mais recentes</a></li>
-                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'antigos' %}active:bg-[#5A7247]/20{% endif %}"
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
                                     data-ordenacao="antigos">Mais antigos</a></li>
-                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247]/10 {% if ordenacao == 'mais_obras' %}active:bg-[#5A7247]/20{% endif %}"
-                                    data-ordenacao="mais_obras">Mais obras</a></li>
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
+                                    data-ordenacao="maior_preco">Maior preço</a></li>
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
+                                    data-ordenacao="menor_preco">Menor preço</a></li>
                         </ul>
                     </div>
                 </div>
@@ -435,7 +450,7 @@
                 <div>
                     <h6 class="footer-title text-lg font-semibold">Explorar</h6>
                     <ul class="space-y-2">
-                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        <li><a href="{{url_for('obras.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>

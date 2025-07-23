@@ -58,20 +58,6 @@
 
           <!-- Itens da Direita -->
           <div class="navbar-end space-x-2">
-            <!-- Campo de Busca (Desktop) -->
-            <div class="hidden lg:block">
-              <div class="relative">
-                <input type="text" placeholder="Pesquisar..."
-                  class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                <span class="absolute left-3 top-3 text-gray-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </span>
-              </div>
-            </div>
             {% if user_type == 'cliente' %}
             <!-- Carrinho -->
             <div class="dropdown dropdown-end">
@@ -136,7 +122,7 @@
         <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
           <ul class="menu menu-horizontal gap-1 px-4 py-2">
             <li>
-              <a href="{{url_for('main.loja')}}"
+              <a href="{{url_for('obras.loja')}}"
                 class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                 Loja
               </a>
@@ -180,24 +166,11 @@
               </svg>
             </label>
           </div>
-
-          <!-- Campo de Busca (Mobile) -->
-          <div class="relative mb-6">
-            <input type="text" placeholder="Pesquisar..."
-              class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-            <span class="absolute left-3 top-3 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </span>
-          </div>
-
           <!-- Menu Principal -->
           <ul class="space-y-2">
             <li>
-              <a href="{{url_for('main.loja')}}" class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
+              <a href="{{url_for('obras.loja')}}"
+                class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                 Loja
               </a>
             </li>
@@ -389,29 +362,32 @@
       </div>
 
       <!-- Lista de Endereços -->
-      <div class="grid grid-cols-1 m-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {% if enderecos %}
         {% for endereco in enderecos %}
-        <div
-          class="bg-white rounded-xl shadow-sm border border-[#E3D9C6] overflow-hidden transition-all duration-300 hover:shadow-md m-2">
-          <div class="p-5">
+        <div class="card bg-[#F4F4F4] border border-[#E3D9C6] shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="card-body p-5">
+            <!-- Cabeçalho do cartão -->
             <div class="flex justify-between items-start">
               <div class="flex items-center gap-3">
                 {% if endereco.principal == 1 %}
-                <div class="bg-[#5A7247] text-white p-2 rounded-full">
+                <div class="bg-[#2C3C1C] text-white p-3 rounded-full w-10 h-10 flex items-center justify-center">
                   <i class="fas fa-home text-sm"></i>
                 </div>
                 {% endif %}
                 <div>
-                  <h4 class="font-semibold text-lg text-[#2C3C1C]">{{ endereco.apelido }}</h4>
+                  <h3 class="card-title text-[#2C3C1C] font-semibold">{{ endereco.apelido }}</h3>
                   {% if endereco.principal == 1 %}
-                  <span class="text-xs text-[#5A7247]">Endereço principal</span>
+                  <span class="badge bg-[#AAB898]/20 text-[#2C3C1C] border-none text-xs py-1 px-2">
+                    Endereço principal
+                  </span>
                   {% endif %}
                 </div>
               </div>
 
-              <div class="flex gap-2">
-                <button class="btn btn-circle btn-sm btn-ghost text-[#5A7247] hover:bg-[#5A7247]/10 editar-endereco-btn"
+              <!-- Botões de ação -->
+              <div class="flex gap-1">
+                <button class="btn btn-circle btn-sm btn-ghost text-[#5A7247] hover:bg-[#AAB898]/20 editar-endereco-btn"
                   data-id="{{ endereco.id_endereco }}" data-apelido="{{ endereco.apelido }}"
                   data-cep="{{ endereco.cep }}" data-rua="{{ endereco.rua }}"
                   data-logradouro="{{ endereco.logradouro }}" data-numero="{{ endereco.numero }}"
@@ -429,58 +405,63 @@
                 </form>
               </div>
             </div>
-          </div>
 
-          <div class="m-4 space-y-1 text-[#5A7247]">
-            <div class="flex items-start gap-2">
-              <i class="fas fa-map-marker-alt mt-1 text-[#AAB898]"></i>
-              <div>
-                <p>{{ endereco.rua }}, {{ endereco.numero }}</p>
-                {% if endereco.complemento %}
-                <p class="text-sm">Complemento: {{ endereco.complemento }}</p>
-                {% endif %}
+            <!-- Detalhes do endereço -->
+            <div class="space-y-2 mt-4 text-[#5A7247]">
+              <div class="flex items-start gap-2">
+                <i class="fas fa-map-marker-alt mt-1 text-[#AAB898]"></i>
+                <div>
+                  <p class="font-medium">{{ endereco.rua }}, {{ endereco.numero }}</p>
+                  {% if endereco.complemento %}
+                  <p class="text-sm opacity-85">Complemento: {{ endereco.complemento }}</p>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <i class="fas fa-map-pin text-[#AAB898]"></i>
+                <p>{{ endereco.bairro }} - {{ endereco.cidade }}/{{ endereco.estado }}</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <i class="fas fa-mail-bulk text-[#AAB898]"></i>
+                <p>CEP: {{ endereco.cep }}</p>
               </div>
             </div>
 
-            <div class="flex items-center gap-2">
-              <i class="fas fa-map-pin text-[#AAB898]"></i>
-              <p>{{ endereco.bairro }} - {{ endereco.cidade }}/{{ endereco.estado }}</p>
+            <!-- Botão para tornar principal -->
+            {% if endereco.principal != 1 %}
+            <div class="card-actions justify-end mt-4">
+              <form method="POST" action="" class="inline">
+                <input type="hidden" name="endereco_id" value="{{ endereco.id_endereco }}">
+                <button type="submit" class="btn btn-sm bg-[#5A7247] text-white hover:bg-[#2C3C1C] border-none">
+                  <i class="fas fa-star mr-1"></i> Tornar Principal
+                </button>
+              </form>
             </div>
-
-            <div class="flex items-center gap-2">
-              <i class="fas fa-mail-bulk text-[#AAB898]"></i>
-              <p>CEP: {{ endereco.cep }}</p>
-            </div>
+            {% endif %}
           </div>
-
-          {% if endereco.principal != 1 %}
-          <div class="mt-4">
-            <form method="POST" action="" class="inline">
-              <input type="hidden" name="endereco_id" value="{{ endereco.id_endereco }}">
-              <button type="submit"
-                class="btn btn-outline btn-sm border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">
-                <i class="fas fa-star mr-1"></i> Tornar Principal
+        </div>
+        {% endfor %}
+        {% else %}
+        <!-- Estado vazio -->
+        <div class="col-span-full">
+          <div class="card bg-[#F4F4F4] border border-[#E3D9C6]">
+            <div class="card-body items-center text-center py-12">
+              <div class="bg-[#AAB898]/20 p-4 rounded-full mb-4">
+                <i class="fas fa-map-marker-alt text-3xl text-[#5A7247]"></i>
+              </div>
+              <h3 class="card-title text-[#2C3C1C] mb-2">Nenhum endereço cadastrado</h3>
+              <p class="mb-6 text-[#5A7247]">Adicione seu primeiro endereço para receber suas compras</p>
+              <button class="btn bg-[#5A7247] text-white hover:bg-[#2C3C1C] border-none"
+                onclick="document.getElementById('modal_endereco_adicionar').showModal()">
+                <i class="fas fa-plus mr-2"></i> Adicionar Endereço
               </button>
-            </form>
+            </div>
           </div>
-          {% endif %}
         </div>
+        {% endif %}
       </div>
-      {% endfor %}
-      {% else %}
-      <div class="bg-white rounded-xl shadow-sm border border-[#E3D9C6] p-8 text-center">
-        <div class="flex flex-col items-center justify-center text-[#5A7247]">
-          <div class="bg-[#AAB898]/20 p-4 rounded-full mb-4">
-            <i class="fas fa-map-marker-alt text-3xl text-[#5A7247]"></i>
-          </div>
-          <p class="text-lg font-medium mb-2">Nenhum endereço cadastrado</p>
-          <p class="text-sm mb-4">Adicione seu primeiro endereço para receber suas compras</p>
-          <button class="btn btn-gradient" onclick="document.getElementById('modal_endereco_adicionar').showModal()">
-            <i class="fas fa-plus mr-2"></i> Adicionar Endereço
-          </button>
-        </div>
-      </div>
-      {% endif %}
     </div>
     </div>
     <!-- Seção de Pedidos -->
@@ -934,7 +915,7 @@
         <div>
           <h6 class="footer-title text-lg font-semibold">Explorar</h6>
           <ul class="space-y-2">
-            <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+            <li><a href="{{url_for('obras.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
             </li>
             <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>

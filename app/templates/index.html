@@ -63,20 +63,6 @@
 
                     <!-- Itens da Direita -->
                     <div class="navbar-end space-x-2">
-                        <!-- Campo de Busca (Desktop) -->
-                        <div class="hidden lg:block">
-                            <div class="relative">
-                                <input type="text" placeholder="Pesquisar..."
-                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                                <span class="absolute left-3 top-3 text-gray-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
                         {% if user_type == 'cliente' %}
                         <!-- Carrinho -->
                         <div class="dropdown dropdown-end">
@@ -146,7 +132,7 @@
                 <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
                     <ul class="menu menu-horizontal gap-1 px-4 py-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Loja
                             </a>
@@ -192,24 +178,10 @@
                             </svg>
                         </label>
                     </div>
-
-                    <!-- Campo de Busca (Mobile) -->
-                    <div class="relative mb-6">
-                        <input type="text" placeholder="Pesquisar..."
-                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                        <span class="absolute left-3 top-3 text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </span>
-                    </div>
-
                     <!-- Menu Principal -->
                     <ul class="space-y-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Loja
                             </a>
@@ -282,7 +254,7 @@
                         Arte do Cariri para o mundo. Conectamos artistas locais com amantes da arte regional.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="{{url_for('main.loja')}}" class="btn btn-gradient px-8 py-3 font-semibold">
+                        <a href="{{url_for('obras.loja')}}" class="btn btn-gradient px-8 py-3 font-semibold">
                             Ver Produtos
                         </a>
                         <a href="{{url_for('main.login_artist')}}"
@@ -400,7 +372,7 @@
 
                 <div class="text-center mt-10">
                     <a href="{{url_for('artistas.artistas_comunidade')}}"
-                        class="btn btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white px-8 py-3 font-semibold">
+                        class="btn btn-ghost flex-1 border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247]/10 px-8 py-3 font-semibold">
                         Ver Todos os Artistas
                     </a>
                 </div>
@@ -471,8 +443,8 @@
                 </div>
 
                 <div class="text-center mt-10">
-                    <a href="{{url_for('main.loja')}}"
-                        class="btn btn-outline border-[#2C3C1C] text-[#2C3C1C] hover:bg-[#2C3C1C] hover:text-white px-8 py-3 font-semibold">
+                    <a href="{{url_for('obras.loja')}}"
+                        class="btn btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white px-8 py-3 font-semibold">
                         Ver Todos os Produtos
                     </a>
                 </div>
@@ -575,7 +547,7 @@
                 <div>
                     <h6 class="footer-title text-lg font-semibold">Explorar</h6>
                     <ul class="space-y-2">
-                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        <li><a href="{{url_for('obras.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>

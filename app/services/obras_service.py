@@ -55,13 +55,21 @@ class ObraService:
         )
         editar_obra.salvar()
 
+    def buscar_obra(self):
+        return self.obra.buscar_obra()
+
     def buscar_obrasHome(self):
         buscar_obras = Obras()
         return buscar_obras.buscar_obrasHome()
-    
+
+    def buscar_obras_recomendacoes(self):
+        return self.obra.buscar_obras_recomendacoes()
+
     def excluir_obra(self, id):
         deletar_obra = Obras(id_obra=id)
         deletar_obra.deletar_obra()
         return flash("Obra deletada com sucesso!", "alert-success")
 
-service_obras = ObraService()
+    def buscar_obras_filtradas(self, busca, filtro, ordenacao, pagina, por_pagina, preco_maximo):
+        return self.obra.buscar_obras_filtradas(busca, filtro, ordenacao, pagina, por_pagina, preco_maximo)
+

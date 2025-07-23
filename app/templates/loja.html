@@ -1,18 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muiddo Arts</title>
+    <title>Loja | Muiddo Arts</title>
     <link rel="icon" href="../static/assets/ico/letra-m.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/index.css">
+    <style>
+        .artwork-card:hover .artwork-image {
+            transform: scale(1.03);
+        }
+
+        .price-range .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .price-range:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .filter-tag {
+            transition: all 0.2s ease;
+        }
+
+        .filter-tag:hover {
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 
-<body>
+<body class="min-h-screen flex flex-col bg-[#F4f4f4]">
+    <!-- Notificação Flash -->
+    <div id="flash-container" class="fixed top-4 right-4 z-50 space-y-2 w-80">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+        {% for categoria, mensagem in mensagens %}
+        <div class="alert {{ categoria }} shadow-lg animate-fade-in-out">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ mensagem }}</span>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Header (mantido igual) -->
     <header class="sticky top-0 z-40 shadow-md">
         <div class="drawer">
             <input id="main-drawer" type="checkbox" class="drawer-toggle" />
@@ -40,20 +85,6 @@
 
                     <!-- Itens da Direita -->
                     <div class="navbar-end space-x-2">
-                        <!-- Campo de Busca (Desktop) -->
-                        <div class="hidden lg:block">
-                            <div class="relative">
-                                <input type="text" placeholder="Pesquisar..."
-                                    class="input input-bordered w-64 pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                                <span class="absolute left-3 top-3 text-gray-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
                         {% if user_type == 'cliente' %}
                         <!-- Carrinho -->
                         <div class="dropdown dropdown-end">
@@ -123,7 +154,7 @@
                 <div class="bg-[#2C3C1C] hidden lg:flex justify-center">
                     <ul class="menu menu-horizontal gap-1 px-4 py-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#5A7247] hover:text-white rounded-lg px-4 py-2 font-medium transition-colors">
                                 Loja
                             </a>
@@ -169,24 +200,10 @@
                             </svg>
                         </label>
                     </div>
-
-                    <!-- Campo de Busca (Mobile) -->
-                    <div class="relative mb-6">
-                        <input type="text" placeholder="Pesquisar..."
-                            class="text-gray-500 input input-bordered w-full pl-10 pr-4 py-2 rounded-full bg-white/90 focus:bg-white focus:ring-2 focus:ring-[#2C3C1C]/50" />
-                        <span class="absolute left-3 top-3 text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </span>
-                    </div>
-
                     <!-- Menu Principal -->
                     <ul class="space-y-2">
                         <li>
-                            <a href="{{url_for('main.loja')}}"
+                            <a href="{{url_for('obras.loja')}}"
                                 class="text-white hover:bg-[#2C3C1C] rounded-lg px-4 py-2 font-medium">
                                 Loja
                             </a>
@@ -249,357 +266,319 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <div class="flex flex-col lg:flex-row gap-8">
-            <aside class="max-lg:hidden lg:w-1/4 w-full">
-                <div class="bg-white p-6 rounded-lg shadow-sm sticky top-4">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold text-gray-800">Filtrar Obras</h2>
-                        <button class="btn btn-sm btn-ghost text-indigo-600 hover:text-indigo-800">Limpar tudo</button>
+        <!-- Breadcrumbs melhorado -->
+        <div class="text-sm breadcrumbs mb-6 px-2">
+            <ul>
+                <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Home</a></li>
+                <li class="text-gray-500">Loja</li>
+            </ul>
+        </div>
+
+        <!-- Filtros ativos (novo) -->
+        <div id="active-filters" class="flex flex-wrap gap-2 mb-4 px-2 bg-pink-400">
+            {% if filtro %}
+            <div class="filter-tag badge badge-outline border-[#5A7247] text-[#5A7247] flex items-center gap-1">
+                {{ filtro }}
+                <button class="text-xs" onclick="removeFilter('{{filtro}}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- pesquisa e ordenacao -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="w-full md:w-1/2 relative">
+                    <label class="input bg-[#F5F5F0] input-bordered flex items-center gap-2">
+                        <input type="text" id="busca-obras" class="grow text-[#2C3C1C]" placeholder="Pesquisar obras..."
+                            value="{{ busca if busca }}" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                            class="w-4 h-4 opacity-70 text-[#2C3C1C]">
+                            <path fill-rule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </label>
+                    <div id="search-suggestions" class="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-lg hidden">
                     </div>
-                    <form action="/loja" method="GET">
-                        <!-- Filtro de Categorias (Accordion) -->
-                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
-                            <input type="checkbox" class="peer" checked />
-                            <div class="collapse-title font-medium flex items-center">
-                                <i class="fas fa-palette text-indigo-500 mr-2"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <div class="collapse-content">
-                                <div class="space-y-2 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="1"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Xilogravura</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="2"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Escultura em Barro</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="3"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Escultura em Madeira</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="4"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Pintura</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="5"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Ilustração Digital</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="6"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Artesanato Têxtil</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="7"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Bijuterias e Acessórios</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="8"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Cerâmica</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="9"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Cordel</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="10"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Fotografia</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="11"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Arte Reciclada</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" name="obras" value="12"
-                                            class="checkbox checkbox-primary" />
-                                        <span class="label-text">Arte Popular</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Filtro de Preço (Com feedback dinâmico) -->
-                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
-                            <input type="checkbox" class="peer" checked />
-                            <div class="collapse-title font-medium flex items-center">
-                                <i class="fas fa-tags text-indigo-500 mr-2"></i>
-                                <span>Faixa de Preço</span>
-                            </div>
-                            <div class="collapse-content">
-                                <div class="flex justify-between mb-2 text-sm text-gray-600">
-                                    <span>R$0</span>
-                                    <span>R$10.000</span>
-                                </div>
-                                <input type="range" min="0" max="10000" value="5000"
-                                    class="range range-primary range-xs mb-2" id="priceRange" />
-                                <div class="text-center">
-                                    <span class="font-medium text-indigo-600" id="priceValue">Até R$5.000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Filtro de Estilo (Novo!) -->
-                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
-                            <input type="checkbox" class="peer" />
-                            <div class="collapse-title font-medium flex items-center">
-                                <i class="fas fa-brush text-indigo-500 mr-2"></i>
-                                <span>Estilo Artístico</span>
-                            </div>
-                            <div class="collapse-content">
-                                <div class="space-y-2 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" class="checkbox checkbox-primary" />
-                                        <span class="label-text">Abstrato</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" class="checkbox checkbox-primary" />
-                                        <span class="label-text">Realismo</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" class="checkbox checkbox-primary" />
-                                        <span class="label-text">Surrealismo</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Filtro de Avaliação (Simplificado) -->
-                        <div class="collapse collapse-arrow bg-base-100 mb-4 border border-gray-200 rounded-lg">
-                            <input type="checkbox" class="peer" />
-                            <div class="collapse-title font-medium flex items-center">
-                                <i class="fas fa-star text-indigo-500 mr-2"></i>
-                                <span>Avaliação</span>
-                            </div>
-                            <div class="collapse-content">
-                                <div class="space-y-3 pt-2">
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" class="checkbox checkbox-primary" />
-                                        <div class="rating rating-xs">
-                                            <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                        </div>
-                                        <span class="text-sm text-gray-600">(5 estrelas)</span>
-                                    </label>
-                                    <label
-                                        class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                        <input type="checkbox" class="checkbox checkbox-primary" />
-                                        <div class="rating rating-xs">
-                                            <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400"
-                                                checked />
-                                            <input type="radio" name="rating-6"
-                                                class="mask mask-star-2 bg-orange-400" />
-                                        </div>
-                                        <span class="text-sm text-gray-600">(4+ estrelas)</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <button class="btn btn-primary w-full mt-4" type="submit">
-                            <i class="fas fa-filter mr-2"></i> Aplicar Filtros
-                        </button>
-                    </form>
                 </div>
 
-            </aside>
-
-
-            <div class="lg:w-3/4 w-full">
-
-
-                <!-- Barra de Ordenação e Contagem -->
-                <div
-                    class="bg-white p-4 rounded-lg shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-center">
-                    <div class="mb-3 sm:mb-0">
-                        <span class="text-gray-600">Mostrando <span class="font-medium">12</span> de <span
-                                class="font-medium">45</span>
-                            produtos</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="text-gray-600">Ordenar por:</span>
-                        <select class="select select-bordered select-sm">
-                            <option>Mais relevante</option>
-                            <option>Menor preço</option>
-                            <option>Maior preço</option>
-                            <option>Melhor avaliado</option>
-                            <option>Mais vendido</option>
-                        </select>
-                    </div>
-                    <div class="lg:hidden flex justify-center pt-5 mb-4">
-                        <button class="btn btn-outline btn-primary" onclick="filterDrawer.showModal()">
+                <div class="flex gap-2 w-full md:w-auto">
+                    <div class="lg:hidden">
+                        <button
+                            class="btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white"
+                            onclick="filterDrawer.showModal()">
                             <i class="fas fa-filter mr-2"></i> Filtrar
                         </button>
                     </div>
-                </div>
-
-                <!-- Modal/Drawer (DaisyUI) -->
-                <dialog id="filterDrawer" class="modal modal-bottom sm:modal-middle">
-                    <div class="modal-box max-h-[80vh] overflow-y-auto">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-lg">Filtrar Obras</h3>
-                            <button onclick="filterDrawer.close()" class="btn btn-ghost btn-circle">
-                                <i class="fas fa-times"></i>
-                            </button>
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button"
+                            class="btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white transition-colors duration-200 ease-in-out transform hover:scale-[1.02] active:scale-95">
+                            <i class="fas fa-sort mr-2"></i> Ordenar
                         </div>
+                        <ul tabindex="0"
+                            class="dropdown-content z-[1] menu p-2 shadow-lg bg-white border-2 border-solid border-[#5A7247] rounded-xl w-52 mt-1 transition-all duration-200 origin-top">
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white transition-colors duration-150 rounded-lg"
+                                    data-ordenacao="alfabetico">Ordem alfabética</a></li>
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white transition-colors duration-150 rounded-lg"
+                                    data-ordenacao="recentes">Mais recentes</a></li>
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white transition-colors duration-150 rounded-lg"
+                                    data-ordenacao="antigos">Mais antigos</a></li>
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white transition-colors duration-150 rounded-lg"
+                                    data-ordenacao="maior_preco">Maior preço</a></li>
+                            <li class="border-t border-[#5A7247]/20 my-1"></li>
+                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white transition-colors duration-150 rounded-lg"
+                                    data-ordenacao="menor_preco">Menor preço</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <!-- Conteúdo do Filtro (reutilizei o aside com pequenos ajustes) -->
-                        <div class="space-y-4">
-                            <!-- Categorias -->
-                            <div class="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
-                                <input type="checkbox" class="peer" checked />
-                                <div class="collapse-title font-medium flex items-center">
-                                    <i class="fas fa-palette text-indigo-500 mr-2"></i>
-                                    <span>Categorias</span>
-                                </div>
-                                <div class="collapse-content">
-                                    <div class="space-y-2 pt-2">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                            <input type="checkbox" class="checkbox checkbox-primary" checked />
-                                            <span class="label-text">Pintura Digital</span>
-                                        </label>
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer hover:bg-indigo-50 p-2 rounded-lg">
-                                            <input type="checkbox" class="checkbox checkbox-primary" />
-                                            <span class="label-text">Aquarela</span>
-                                        </label>
-                                        <!-- Adicione mais categorias -->
-                                    </div>
-                                </div>
-                            </div>
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar de Filtros -->
+            <aside class="lg:w-1/4 w-full max-sm:hidden">
+                <div class="bg-white p-6 rounded-xl shadow-sm sticky top-4">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-[#2C3C1C]">Filtrar Obras</h2>
+                        <button id="clear-filters" class="btn btn-sm btn-ghost text-[#5A7247] hover:text-[#2C3C1C]">
+                            <i class="fas fa-broom mr-1"></i> Limpar
+                        </button>
+                    </div>
 
-                            <!-- Preço -->
-                            <div class="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
-                                <input type="checkbox" class="peer" checked />
-                                <div class="collapse-title font-medium flex items-center">
-                                    <i class="fas fa-tags text-indigo-500 mr-2"></i>
-                                    <span>Faixa de Preço</span>
-                                </div>
-                                <div class="collapse-content">
-                                    <div class="flex justify-between mb-2 text-sm text-gray-600">
-                                        <span>R$0</span>
-                                        <span>R$10.000</span>
-                                    </div>
-                                    <input type="range" min="0" max="10000" value="5000"
-                                        class="range range-primary range-xs mb-2" id="mobilePriceRange" />
-                                    <div class="text-center">
-                                        <span class="font-medium text-indigo-600" id="mobilePriceValue">Até
-                                            R$5.000</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Botões de Ação -->
-                            <div class="flex gap-2 mt-6">
-                                <button onclick="filterDrawer.close()" class="btn btn-ghost flex-1">
-                                    Cancelar
+                    <!-- Filtro de Categorias -->
+                    <div class="collapse collapse-arrow bg-[#f4f4f4] mb-4 border border-gray-200 rounded-lg">
+                        <input type="checkbox" class="peer" checked />
+                        <div class="collapse-title font-medium flex items-center text-[#2C3C1C]">
+                            <i class="fas fa-palette text-[#5A7247] mr-2"></i>
+                            <span>Categorias</span>
+                        </div>
+                        <div class="collapse-content">
+                            <div class="space-y-2 pt-2">
+                                {% for categoria in categorias %}
+                                <button type="submit" name="filtro-option" value="{{categoria.id_categoria}}"
+                                    data-filtro="{{categoria.id_categoria}}"
+                                    class="filtro-option btn btn-sm w-full {% if filtro == categoria %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                                    {{ categoria.nome_categoria }}
                                 </button>
-                                <button class="btn btn-primary flex-1">
-                                    <i class="fas fa-check mr-2"></i> Aplicar
-                                </button>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
 
-                    <!-- Fechar ao clicar fora -->
-                    <form method="dialog" class="modal-backdrop">
-                        <button>close</button>
-                    </form>
-                </dialog>
+                    <!-- Filtro de Preço -->
+                    <div class="collapse collapse-arrow bg-[#f4f4f4] mb-4 border border-gray-200 rounded-lg">
+                        <input type="checkbox" class="peer" checked />
+                        <div class="collapse-title font-medium flex items-center text-[#2C3C1C]">
+                            <i class="fas fa-tags text-[#5A7247] mr-2"></i>
+                            <span>Faixa de Preço</span>
+                        </div>
+                        <div class="collapse-content">
+                            <div class="price-range relative pt-4 pb-6">
+                                <input type="range" min="0" max="10000" value="5000"
+                                    class="range range-xs range-primary [--range-shdw:#5A7247]" id="priceRange"
+                                    oninput="updatePriceValue(this.value)" />
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>R$0</span>
+                                    <span>R$10.000</span>
+                                </div>
+                                <div
+                                    class="tooltip absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-[#5A7247] text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                                    Até R$<span id="priceValue">5000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
 
-                <!-- Grid de Produtos -->
+            <!-- Conteúdo Principal -->
+            <div class="lg:w-3/4 w-full">
+                {% if obras %}
+                <!-- Grid de Produtos melhorado -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="obras-grid">
+                    {% for obra in obras %}
+                    <div
+                        class="artwork-card card bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 overflow-hidden">
+                        <figure class="relative h-48 overflow-hidden">
+                            <img src="{{obra.url_foto}}" alt="{{obra.titulo}}"
+                                class="artwork-image w-full h-full object-cover transition-transform duration-300">
 
-
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {%if obras%}
-                    {%for obra in obras%}
-                    <!-- Produto  -->
-                    <div class="card bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                        <figure class="px-4 pt-4 relative">
-                            <img src="{{ obra.url_foto }}" alt="Obra relacionada"
-                                class="rounded-xl h-48 w-full object-cover" />
-                            <button
-                                class="absolute top-6 right-6 btn btn-circle btn-sm bg-white/90 hover:bg-white text-gray-800 border-none shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
+                            <!-- Badge de status -->
+                            {% if obra.estoque > 0 %}
+                            <div class="absolute top-2 right-2 badge bg-[#5A7247] border-none text-white">
+                                {{ obra.estoque }} em estoque
+                            </div>
+                            {% else %}
+                            <div class="absolute top-2 right-2 badge badge-error border-none text-white">
+                                Esgotado
+                            </div>
+                            {% endif %}
                         </figure>
+
                         <div class="card-body p-4">
-                            <h3 class="card-title text-lg font-semibold text-gray-800">{{ obra.titulo }}</h3>
-                            <p class="text-gray-600 text-sm">nome obra</p>
-                            <p class="text-sm text-gray-600 mt-2">{{ obra.descricao }}</p>
-                            <div class="flex items-center justify-between mt-2">
-                                <p class="text-lg font-bold text-indigo-700">{{obra.preco}}</p>
-                                <button class="btn btn-sm btn-outline btn-primary">
-                                    <i class="fas fa-shopping-cart mr-1"></i> Ver Obra
-                                </button>
+                            <div class="flex justify-between items-start">
+                                <h3 class="card-title text-lg font-bold text-[#2C3C1C] line-clamp-1">
+                                    <a href="" class="hover:text-[#5A7247]">
+                                        {{ obra.titulo }}
+                                    </a>
+                                </h3>
+                                {% if obra.ano_criacao %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.ano_criacao
+                                    }}</span>
+                                {% endif %}
+                            </div>
+
+                            <p class="text-gray-600 text-sm mt-2 line-clamp-2">{{ obra.descricao }}</p>
+
+                            <div class="mt-2 flex flex-wrap gap-1">
+                                {% if obra.tecnica %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.tecnica
+                                    }}</span>
+                                {% endif %}
+                                {% if obra.dimensoes %}
+                                <span class="badge badge-outline border-[#5A7247] text-[#5A7247]">{{ obra.dimensoes
+                                    }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="flex items-center justify-between mt-3">
+                                <p class="text-lg font-bold text-[#5A7247]">R$ {{ "%.2f"|format(obra.preco)|replace(".",
+                                    ",") }}</p>
+                                <a href="{{ url_for('obras.obra_detalhes', id_obra=obra.id_obra) }}"
+                                    class="btn btn-sm btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white">
+                                    <i class="fas fa-shopping-cart mr-1"></i> Comprar
+                                </a>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                    {% else %}
-                    <h1 class="px-6 py-4 position-center text-sm text-gray-500">
-                        Nenhuma obra encontrada com esses filtros.
-                    </h1>
-                    {% endif %}
+                </div>
+                {% else %}
+                <!-- Estado vazio -->
+                <div class="flex flex-col items-center justify-center py-12 bg-white rounded-xl shadow-sm">
+                    <img src="../static/assets/empty-state.svg" alt="Nenhuma obra encontrada" class="w-48 h-48 mb-6">
+                    <h3 class="text-xl font-bold text-[#2C3C1C] mb-2">Nenhuma obra encontrada</h3>
+                    <p class="text-gray-600 mb-6 max-w-md text-center">Tente ajustar seus filtros ou buscar por termos
+                        diferentes.</p>
+                    <button id="reset-filters" class="btn btn-gradient text-white">
+                        <i class="fas fa-broom mr-2"></i> Limpar filtros
+                    </button>
+                </div>
+                {% endif %}
 
-                    <!-- Paginação -->
-                    <div class="flex justify-center mt-10">
-                        <div class="join">
-                            <button class="join-item btn btn-sm">«</button>
-                            <button class="join-item btn btn-sm btn-active">1</button>
-                            <button class="join-item btn btn-sm">2</button>
-                            <button class="join-item btn btn-sm">3</button>
-                            <button class="join-item btn btn-sm">4</button>
-                            <button class="join-item btn btn-sm">»</button>
+                <!-- Paginação melhorada -->
+                <div class="flex flex-col sm:flex-row justify-between items-center mt-8">
+                    <div class="mb-4 sm:mb-0 text-sm text-[#5A7247]">
+                        Mostrando <span class="font-semibold text-[#2C3C1C]">{{ (pagina_atual - 1) * por_pagina + 1 if
+                            total > 0 else 0 }}</span>
+                        a <span class="font-semibold text-[#2C3C1C]">{{ (pagina_atual - 1) * por_pagina + obras|length
+                            }}</span>
+                        de <span class="font-semibold text-[#2C3C1C]">{{ total }}</span> obras
+                    </div>
+
+                    {% if total_paginas > 1 %}
+                    <div class="join">
+                        <a href="?pagina={{ pagina_atual - 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == 1 %}btn-disabled{% endif %}">
+                            «
+                        </a>
+
+                        {% for pagina in range(1, total_paginas + 1) %}
+                        <a href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                            class="join-item btn {% if pagina == pagina_atual %}bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">
+                            {{ pagina }}
+                        </a>
+                        {% endfor %}
+
+                        <a href="?pagina={{ pagina_atual + 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == total_paginas %}btn-disabled{% endif %}">
+                            »
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Filtros para Mobile -->
+    <dialog id="filterDrawer" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box max-h-[80vh] overflow-y-auto bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-lg text-[#2C3C1C]">Filtrar Obras</h3>
+                <button onclick="filterDrawer.close()" class="btn btn-ghost btn-circle text-[#5A7247]">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Conteúdo do Filtro -->
+            <div class="space-y-4">
+                <!-- Categorias -->
+                <div class="collapse collapse-arrow bg-[#f4f4f4] border border-gray-200 rounded-lg">
+                    <input type="checkbox" class="peer" checked />
+                    <div class="collapse-title font-medium flex items-center text-[#2C3C1C]">
+                        <i class="fas fa-palette text-[#5A7247] mr-2"></i>
+                        <span>Categorias</span>
+                    </div>
+                    <div class="collapse-content">
+                        <div class="space-y-2 pt-2">
+                            {% for categoria in categorias %}
+                                <button type="submit" name="filtro-option" value="{{categoria.id_categoria}}"
+                                    data-filtro="{{categoria.id_categoria}}"
+                                    class="filtro-option btn btn-sm w-full {% if filtro == categoria %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                                    {{ categoria.nome_categoria }}
+                                </button>
+                                {% endfor %}
                         </div>
                     </div>
                 </div>
+
+                <!-- Preço -->
+                <div class="collapse collapse-arrow bg-[#f4f4f4] border border-gray-200 rounded-lg">
+                    <input type="checkbox" class="peer" checked />
+                    <div class="collapse-title font-medium flex items-center text-[#2C3C1C]">
+                        <i class="fas fa-tags text-[#5A7247] mr-2"></i>
+                        <span>Faixa de Preço</span>
+                    </div>
+                    <div class="collapse-content">
+                        <div class="price-range relative pt-4 pb-6">
+                            <input type="range" min="0" max="10000" value="5000"
+                                class="range range-xs range-primary [--range-shdw:#5A7247]" id="mobilePriceRange"
+                                oninput="updateMobilePriceValue(this.value)" />
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>R$0</span>
+                                <span>R$10.000</span>
+                            </div>
+                            <div
+                                class="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-[#5A7247] text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                                <span id="mobilePriceValue">5000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botões de Ação -->
+                <div class="flex gap-2 mt-6">
+                    <button onclick="filterDrawer.close()"
+                        class="btn btn-ghost flex-1 border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247]/10">
+                        Cancelar
+                    </button>
+                    <button class="btn btn-gradient flex-1 text-white" onclick="applyMobileFilters()">
+                        <i class="fas fa-check mr-2"></i> Aplicar
+                    </button>
+                </div>
             </div>
-    </main>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Footer -->
     <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -631,7 +610,7 @@
                 <div>
                     <h6 class="footer-title text-lg font-semibold">Explorar</h6>
                     <ul class="space-y-2">
-                        <li><a href="{{url_for('main.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                        <li><a href="{{url_for('obras.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
                         </li>
                         <li><a href="{{url_for('artistas.artistas_comunidade')}}"
                                 class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
@@ -676,6 +655,25 @@
             </div>
         </div>
     </footer>
+    <script src="{{ url_for('static', filename='js/loja.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/alertas.js') }}"></script>
+    <script>
+        // Limpar filtros
+        document.getElementById('clear-filters').addEventListener('click', function () {
+            window.location.href = "{{url_for('obras.loja')}}";
+        });
+
+        // Aplicar filtros mobile
+        function applyMobileFilters() {
+            // Lógica para aplicar filtros
+            filterDrawer.close();
+        }
+
+        // Remover filtro específico
+        function removeFilter(filter) {
+            // Lógica para remover filtro específico
+        }
+    </script>
 </body>
 
 </html>

@@ -31,7 +31,7 @@ ordenacaoOptions.forEach(option => {
 });
 
 function atualizarGrid() {
-    const busca = buscaInput.value.trim();
+    const busca = buscaInput ? buscaInput.value.trim() : '';
     const url = `/artistas-comunidade?busca=${encodeURIComponent(busca)}&filtro=${filtroAtual}&ordenacao=${ordenacaoAtual}`;
 
     fetch(url, {
@@ -80,12 +80,6 @@ function atualizarGrid() {
                     class="btn-gradient btn btn-sm">
                     <i class="fas fa-user mr-2"></i> Ver perfil
                 </a>
-            </div>
-
-            <!-- Ícones sociais decorativos -->
-            <div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <i class="fab fa-instagram text-[#5A7247] hover:text-[#2C3C1C] cursor-pointer"></i>
-                <i class="fab fa-twitter text-[#5A7247] hover:text-[#2C3C1C] cursor-pointer"></i>
             </div>
 
         </div>

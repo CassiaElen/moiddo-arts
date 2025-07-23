@@ -1,9 +1,8 @@
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for, flash, send_file
 from ..services.artista_service import ArtistaService
 from ..services.authmanager import auth_manager
-from ..services.obras_service import service_obras
+from ..services.obras_service import ObraService
 from ..services.imagem_service import salvar_imagem
-from ..services.categoria_service import service_categorias
 from ..services.validacoes_service import (
     validar_campos,
     regras_nova_obra,
@@ -50,6 +49,7 @@ def painel_artista():
                 return redirect(url_for("artistas.painel_artista"))
 
             nome_arquivo = salvar_imagem(imagem[0], "obras") if imagem else None
+            service_obras = ObraService()
             service_obras.salvar_obra(campos, nome_arquivo)
             flash("Obra criada com sucesso!", "alert-success")
 
@@ -74,6 +74,7 @@ def painel_artista():
                 return redirect(url_for("artistas.painel_artista"))
 
             nome_arquivo = salvar_imagem(imagem[0], "obras") if imagem else None
+            service_obras = ObraService()
             service_obras.editar_obra(campos, nome_arquivo)
             flash("Obra editada com sucesso!", "alert-success")
 
@@ -125,6 +126,7 @@ def painel_artista():
             if not id_obra:
                 flash("ID da obra não enviado.", "alert-error")
                 return redirect(url_for("artistas.painel_artista"))
+            service_obras = ObraService()
             service_obras.excluir_obra(id_obra)
     
     """SEÇÃO PRODUTOS-------------------------------------------------------------------------"""
@@ -163,8 +165,9 @@ def painel_artista():
     ultimas_obras = service_artistas.ultimas_obras()
     contar_vendas = service_artistas.calcular_total_vendas()
     porcentagem_vendas, vendas_mes = service_artistas.calcular_percentual_vendas_mes()
+
+    from ..services.categoria_service import service_categorias
     categorias = service_categorias.buscar_categorias()
-    
     
     return render_template("painel-artista.html",
         dados=dados,
@@ -201,14 +204,13 @@ def painel_artista():
 
 @artistas_bp.route("/artistas-comunidade", methods=["GET"])
 def artistas_comunidade():
-    if not auth_manager.is_artist():
+    if not auth_manager.is_authenticated():
         flash("Você precisa estar logado para acessar esta página.","alert-error")
         return redirect(url_for("main.PreLogin"))
     
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
-    id_artista = auth_manager.get_current_user_id()
-    service_artistas = ArtistaService(id_artista=id_artista)
+    service_artistas = ArtistaService(id_artista=auth_manager.get_current_user_id())
     
     """----------------------------------------------------------------------------------------------------"""
     

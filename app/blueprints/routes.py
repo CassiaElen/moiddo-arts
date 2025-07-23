@@ -50,16 +50,6 @@ def contato():
     user_type = auth_manager.current_user_type()
     return render_template("contato.html",user=user, user_type=user_type)
 
-@main.route("/loja")
-def loja():
-    if not auth_manager.is_authenticated():
-        flash("Você precisa estar logado para acessar esta página.","alert-error")
-        return redirect(url_for("main.PreLogin"))
-    
-    user = auth_manager.current_user()
-    user_type = auth_manager.current_user_type()
-    return render_template("loja.html",user=user, user_type=user_type)
-
 @main.route("/carrinho")
 def carrinho():
     if not auth_manager.is_client():
