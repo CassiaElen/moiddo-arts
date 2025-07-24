@@ -180,8 +180,8 @@ class Artistas:
             cursor.execute(
                 "SELECT COUNT(*) FROM obras WHERE artista_id = ?", (self.id_artista,)
             )
-            quantidade = cursor.fetchone()[0]
-            return quantidade
+            
+            return cursor.fetchone()[0]
 
     def contar_obras_mes_atual(self):
         from datetime import datetime

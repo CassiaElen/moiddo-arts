@@ -10,30 +10,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../static/css/index.css">
-    <style>
-        .artwork-card:hover .artwork-image {
-            transform: scale(1.03);
-        }
-
-        .price-range .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .price-range:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .filter-tag {
-            transition: all 0.2s ease;
-        }
-
-        .filter-tag:hover {
-            transform: translateY(-2px);
-        }
-    </style>
 </head>
 
 <body class="min-h-screen flex flex-col bg-[#F4f4f4]">
@@ -266,7 +242,7 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <!-- Breadcrumbs melhorado -->
+        <!-- Breadcrumbs -->
         <div class="text-sm breadcrumbs mb-6 px-2">
             <ul>
                 <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Home</a></li>
@@ -274,27 +250,15 @@
             </ul>
         </div>
 
-        <!-- Filtros ativos (novo) -->
-        <div id="active-filters" class="flex flex-wrap gap-2 mb-4 px-2 bg-pink-400">
-            {% if filtro %}
-            <div class="filter-tag badge badge-outline border-[#5A7247] text-[#5A7247] flex items-center gap-1">
-                {{ filtro }}
-                <button class="text-xs" onclick="removeFilter('{{filtro}}')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            {% endif %}
-        </div>
-
         <!-- pesquisa e ordenacao -->
         <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="w-full md:w-1/2 relative">
                     <label class="input bg-[#F5F5F0] input-bordered flex items-center gap-2">
-                        <input type="text" id="busca-obras" class="grow text-[#2C3C1C]" placeholder="Pesquisar obras..."
+                        <input type="text" id="busca-obras" class="grow text-[#5A7247]" placeholder="Pesquisar obras..."
                             value="{{ busca if busca }}" />
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                            class="w-4 h-4 opacity-70 text-[#2C3C1C]">
+                            class="w-4 h-4 opacity-70 text-[#5A7247]">
                             <path fill-rule="evenodd"
                                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                                 clip-rule="evenodd" />
@@ -480,19 +444,20 @@
                             }}</span>
                         de <span class="font-semibold text-[#2C3C1C]">{{ total }}</span> obras
                     </div>
-
-                    {% if total_paginas > 1 %}
+                    
                     <div class="join">
-                        <a href="?pagina={{ pagina_atual - 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                        <a href="?pagina={{ pagina_atual - 1 }}&busca={{ busca }}&filtro={{ filtro }}"
                             class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == 1 %}btn-disabled{% endif %}">
                             «
                         </a>
 
-                        {% for pagina in range(1, total_paginas + 1) %}
-                        <a href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                        {% for pagina in range([1, pagina_atual - 1] | max, [pagina_atual + 2, total_paginas + 1] | min) %}
+                        {% if loop.index <= 3 or p == total_paginas or p == 1 %}
+                        <a href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}"
                             class="join-item btn {% if pagina == pagina_atual %}bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">
                             {{ pagina }}
                         </a>
+                        {% endif %}
                         {% endfor %}
 
                         <a href="?pagina={{ pagina_atual + 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
@@ -500,7 +465,6 @@
                             »
                         </a>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -528,12 +492,12 @@
                     <div class="collapse-content">
                         <div class="space-y-2 pt-2">
                             {% for categoria in categorias %}
-                                <button type="submit" name="filtro-option" value="{{categoria.id_categoria}}"
-                                    data-filtro="{{categoria.id_categoria}}"
-                                    class="filtro-option btn btn-sm w-full {% if filtro == categoria %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
-                                    {{ categoria.nome_categoria }}
-                                </button>
-                                {% endfor %}
+                            <button type="submit" name="filtro-option" value="{{categoria.id_categoria}}"
+                                data-filtro="{{categoria.id_categoria}}"
+                                class="filtro-option btn btn-sm w-full {% if filtro == categoria %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+                                {{ categoria.nome_categoria }}
+                            </button>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

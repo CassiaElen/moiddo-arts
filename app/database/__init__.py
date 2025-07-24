@@ -136,6 +136,20 @@ def init_db():
 """
         )
         cursor.execute(
+            """CREATE TABLE IF NOT EXISTS visualizacoes(
+            id_visualizacao INTEGER PRIMARY KEY AUTOINCREMENT,
+            artista_id INTEGER,
+            obra_id INTEGER,
+            id_visitante INTEGER,
+            tipo_user VARCHAR(8) CHECK (tipo_user IN ('artista','cliente')),
+            ip_visitante VARCHAR(45),
+            data_visualizacao DATETIME NOT NULL,
+            FOREIGN KEY (artista_id) REFERENCES artistas(id_artista),
+            FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
+)
+"""
+        )
+        cursor.execute(
             """CREATE TRIGGER IF NOT EXISTS verifica_limite_enderecos
             BEFORE INSERT ON enderecos
             FOR EACH ROW
