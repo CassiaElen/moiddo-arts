@@ -1,5 +1,4 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-
 from app.services.imagem_service import salvar_imagem
 from app.services.validacoes_service import validar_campos, regras_editar_perfil_cliente
 from ..services.authmanager import auth_manager
@@ -52,8 +51,6 @@ def perfil_cliente(id_cliente):
         "perfil-cliente.html",
         user=user,
         user_type=user_type,
-
         dados_cliente = dados_cliente,
         enderecos= enderecos
-
         )

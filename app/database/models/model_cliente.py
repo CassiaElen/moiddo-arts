@@ -1,4 +1,5 @@
 from ..connection import db
+from datetime import datetime
 
 class Cliente:
     def __init__(
@@ -39,7 +40,7 @@ class Cliente:
                         self.telefone,
                         self.cpf,
                         self.senha,
-                        self.data_cadastro,
+                        self.data_cadastro
                     ),
                 )
                 conn.commit()
@@ -56,7 +57,8 @@ class Cliente:
                         self.telefone,
                         self.cpf,
                         self.url_avatar,
-                        self.id_cliente,
+                        self.id_cliente
+                        
                     ),
                 )
                 conn.commit()
