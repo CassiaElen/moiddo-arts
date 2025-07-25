@@ -7,6 +7,7 @@ from .carrinho_seeder import seed_carrinho
 from .item_carrinho_seeder import seed_item_carrinho
 from .pedido_seeder import seed_pedido
 from .item_pedido_seeder import seed_item_pedido
+from .visualizacoes_seeder import seed_visualizacoes
 
 def popular_tabelas_inciais():
     seed_artistas()
@@ -18,3 +19,4 @@ def popular_tabelas_inciais():
     seed_item_carrinho()
     seed_pedido()
     seed_item_pedido()
+    seed_visualizacoes()

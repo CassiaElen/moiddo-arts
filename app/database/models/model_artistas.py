@@ -209,7 +209,7 @@ class Artistas:
             cursor.execute(
                 """
                 SELECT 
-                    SUM(ip.preco * ip.quantidade) AS total_vendas
+                    SUM(ip.preco_unitario * ip.quantidade) AS total_vendas
                 FROM 
                     obras o
                 JOIN 
@@ -242,7 +242,7 @@ class Artistas:
 
             # Vendas mês atual
             cursor.execute("""
-                SELECT SUM(ip.preco * ip.quantidade)
+                SELECT SUM(ip.preco_unitario * ip.quantidade)
                 FROM obras o
                 JOIN ItemPedido ip ON o.id_obra = ip.obra_id
                 JOIN pedido p ON p.id_pedido = ip.pedido_id
@@ -254,7 +254,7 @@ class Artistas:
             
             # Vendas mês passado
             cursor.execute("""
-                SELECT SUM(ip.preco * ip.quantidade)
+                SELECT SUM(ip.preco_unitario * ip.quantidade)
                 FROM obras o
                 JOIN ItemPedido ip ON o.id_obra = ip.obra_id
                 JOIN pedido p ON p.id_pedido = ip.pedido_id
@@ -392,12 +392,11 @@ class Artistas:
             
             # Base da query
             query = """
-                SELECT p.id_pedido, p.data_criacao, p.status_pedido, p.total_pedido, p.entregue,
+                SELECT p.id_pedido, p.data_criacao, p.status_pedido, p.total_pedido,
                     c.nome_completo AS cliente_nome, c.email AS cliente_email, c.url_avatar AS cliente_avatar,
                     o.titulo, ip.quantidade
                 FROM pedido p
-                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
-                JOIN cliente c ON ca.cliente_id = c.id_cliente
+                JOIN cliente c ON p.cliente_id = c.id_cliente
                 JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
                 JOIN obras o ON ip.obra_id = o.id_obra
                 WHERE o.artista_id = ?
@@ -421,7 +420,6 @@ class Artistas:
             count_query = """
                 SELECT COUNT(DISTINCT p.id_pedido)
                 FROM pedido p
-                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
                 JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
                 JOIN obras o ON ip.obra_id = o.id_obra
                 WHERE o.artista_id = ?
@@ -442,9 +440,8 @@ class Artistas:
             cursor = conn.cursor()
             offset = (pagina - 1) * por_pagina
             cursor.execute("""
-                SELECT p.id_pedido, p.data_criacao, p.status_pedido, ip.preco, o.titulo
+                SELECT p.id_pedido, p.data_criacao, p.status_pedido, ip.preco_unitario, o.titulo
                 FROM pedido p
-                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
                 JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
                 JOIN obras o ON ip.obra_id = o.id_obra
                 WHERE o.artista_id = ? 
@@ -458,7 +455,6 @@ class Artistas:
             # Contagem total
             count_query = """
                 SELECT COUNT(*) FROM pedido p
-                JOIN carrinho ca ON ca.id_carrinho = p.carrinho_id
                 JOIN ItemPedido ip ON p.id_pedido = ip.pedido_id
                 JOIN obras o ON ip.obra_id = o.id_obra
                 WHERE status_pedido='finalizado' AND artista_id = ?

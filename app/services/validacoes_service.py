@@ -96,6 +96,7 @@ def regras_editar_perfil_cliente():
         "nome_completo": {"obrigatorio": True, "nome_legivel": "Nome completo"},
         "usuario": {"obrigatorio": True, "nome_legivel": "Usuário"},
         "email": {"obrigatorio": True, "email": True, "nome_legivel": "E-mail"},
+        "telefone": {"obrigatorio": True, "telefone": True, "nome_legivel": "telefone"},
         "cpf": {"obrigatorio": True, "cpf_formatado": True},
     }
 
@@ -105,6 +106,7 @@ def regras_registrar_perfil_cliente():
         "nome_completo": {"obrigatorio": True, "nome_legivel": "Nome completo"},
         "usuario": {"obrigatorio": True, "nome_legivel": "Usuário"},
         "email": {"obrigatorio": True, "email": True, "nome_legivel": "E-mail"},
+        "telefone": {"obrigatorio": True, "telefone": True, "nome_legivel": "telefone"},
         "cpf": {"obrigatorio": True, "cpf_formatado": True},
         "senha": {"obrigatorio": True, "nome_legivel": "Senha"},
     }

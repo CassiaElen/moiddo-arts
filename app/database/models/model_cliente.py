@@ -44,6 +44,8 @@ class Cliente:
                 )
                 conn.commit()
                 self.id_cliente = cursor.lastrowid
+                cursor.execute("""INSERT INTO carrinho (cliente_id, data_criacao) VALUES (?, ?)""",(self.id_cliente, self.data_cadastro,))
+                conn.commit()
             else:
                 cursor.execute(
                     """UPDATE cliente SET nome_completo=?, usuario=?, email=?, telefone=?, cpf=?, url_avatar=? WHERE id_cliente=?""",

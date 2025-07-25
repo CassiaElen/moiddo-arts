@@ -185,6 +185,7 @@ def register_client():
             "nome_completo": request.form.get("name"),
             "usuario": request.form.get("user"),
             "email": request.form.get("email"),
+            "telefone": request.form.get("telefone"),
             "cpf": request.form.get("cpf"),
             "senha": request.form.get("password")
         }

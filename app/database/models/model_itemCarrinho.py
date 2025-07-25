@@ -6,15 +6,11 @@ class ItemCarrinho:
         id_itemCarrinho=None,
         carrinho_id=None,
         obra_id=None,
-        preco=None,
-        data_adicao=None,
         quantidade=None
     ):
         self.id_itemCarrinho = id_itemCarrinho
         self.carrinho_id = carrinho_id
         self.obra_id = obra_id
-        self.preco = preco
-        self.data_adicao = data_adicao
         self.quantidade = quantidade
 
     def salvar(self):
@@ -23,26 +19,15 @@ class ItemCarrinho:
                 cursor = conn.cursor()
                 if self.id_itemCarrinho is None:
                     cursor.execute(
-                        """INSERT INTO ItemCarrinho (carrinho_id, obra_id, preco, data_adicao, quantidade) VALUES (?, ?,?,?,?)""",
+                        """INSERT INTO ItemCarrinho (carrinho_id, obra_id, quantidade) VALUES (?, ?, ?)""",
                         (
                             self.carrinho_id,
                             self.obra_id,
-                            self.preco,
-                            self.data_adicao,
                             self.quantidade
                         ),
                     )
                     conn.commit()
                     self.id_itemCarrinho = cursor.lastrowid
-                else:
-                    cursor.execute(
-                        """UPDATE ItemCarrinho SET preco=? WHERE id_itemCarrinho=?""",
-                        (
-                            self.preco,
-                            self.id_itemCarrinho
-                        ),
-                    )
-                    conn.commit()
 
     def buscar_itemCarrinho(self):
         with db.get_conn() as conn:
@@ -53,7 +38,7 @@ class ItemCarrinho:
             row = cursor.fetchone()
             return dict(row) if row else None
         
-    def deletar_categoria(self):
+    def deletar_itemCarrinho(self):
         try:
             with db.get_conn() as conn:
                 cursor = conn.cursor()

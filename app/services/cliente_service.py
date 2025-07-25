@@ -1,4 +1,3 @@
-from flask import flash
 from ..database.models.model_cliente import Cliente
 
 class ClienteService:
@@ -13,6 +12,7 @@ class ClienteService:
         self.cliente.nome_completo = campos["nome_completo"]
         self.cliente.usuario = campos["usuario"]
         self.cliente.email = campos["email"]
+        self.cliente.telefone = campos["telefone"]
         self.cliente.cpf = campos["cpf"]
         self.cliente.senha = campos["senha"]
         self.cliente.data_cadastro = data_cadastro

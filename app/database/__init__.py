@@ -87,10 +87,7 @@ def init_db():
             """CREATE TABLE IF NOT EXISTS carrinho (
             id_carrinho INTEGER PRIMARY KEY AUTOINCREMENT,
             cliente_id INTEGER NOT NULL,
-            sessao_id INTEGER,
-            status_carrinho VARCHAR(15) DEFAULT 'ativo' CHECK (status_carrinho IN ('ativo','finalizado','cancelado')),
-            qtd_item INTEGER NOT NULL DEFAULT 0 CHECK (qtd_item >= 0),
-            data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+            data_criacao DATETIME,
             FOREIGN KEY (cliente_id) REFERENCES cliente(id_cliente)
 )
 
@@ -101,9 +98,7 @@ def init_db():
             id_itemCarrinho INTEGER PRIMARY KEY AUTOINCREMENT,
             carrinho_id INTEGER,
             obra_id INTEGER,
-            preco DECIMAL(5,2) NOT NULL,
-            data_adicao DATETIME NOT NULL,
-            quantidade INTEGER DEFAULT 1,
+            quantidade INTEGER,
             FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
     )
@@ -112,13 +107,10 @@ def init_db():
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS pedido(
             id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,
-            carrinho_id INTEGER,
             cliente_id INTEGER,
-            status_pedido VARCHAR(15) DEFAULT 'pendente' CHECK (status_pedido IN ('pendente','finalizado','cancelado')),
-            entregue BOOLEAN DEFAULT FALSE,
+            status_pedido VARCHAR(15) DEFAULT 'pendente' CHECK (status_pedido IN ('pendente','finalizado','cancelado', 'entregue')),
             total_pedido DECIMAL(5,2) NOT NULL,
             data_criacao DATETIME NOT NULL,
-            FOREIGN KEY(carrinho_id) REFERENCES carrinho(id_carrinho),
             FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
     )
 """
@@ -128,8 +120,8 @@ def init_db():
             id_itemPedido INTEGER PRIMARY KEY AUTOINCREMENT,
             pedido_id INTEGER,
             obra_id INTEGER,
-            preco DECIMAL(5,2) NOT NULL,
-            quantidade INTEGER DEFAULT 1,
+            preco_unitario DECIMAL(5,2) NOT NULL,
+            quantidade INTEGER,
             FOREIGN KEY(pedido_id) REFERENCES pedido(id_pedido),
             FOREIGN KEY(obra_id) REFERENCES obras(id_obra)
 )

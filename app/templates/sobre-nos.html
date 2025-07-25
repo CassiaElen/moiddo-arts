@@ -76,7 +76,7 @@
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
                                 <div
                                     class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
-                                    <img src="{{user.avatar}}" alt="Foto de perfil" />
+                                    <img src="{{user.avatar or '../static/assets/perfil.png'}}" alt="Foto de perfil" />
                                 </div>
                             </label>
                             <ul tabindex="0"
@@ -150,7 +150,7 @@
                             <span class="text-[#f4f4f4]">Muiddo</span>
                             <span class="text-[#AAB898]">Arts</span>
                         </a>
-<label for="main-drawer" class="btn btn-ghost btn-circle text-white">
+                        <label for="main-drawer" class="btn btn-ghost btn-circle text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

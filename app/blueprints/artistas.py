@@ -327,7 +327,6 @@ def exportar_pedidos():
             "E-mail": pedido['cliente_email'],
             "Valor Total": f"R$ {pedido['total_pedido']:.2f}",
             "Status": pedido['status_pedido'].capitalize(),
-            "Entregue": pedido['entregue'],
             "Qtd. Itens": pedido.get('quantidade', 0)
         })
 
@@ -383,7 +382,7 @@ def exportar_vendas():
             "Nº Pedido": f"MO{venda['id_pedido']}",
             "Data": venda['data_criacao'],
             "Obra": venda['titulo'],
-            "Valor": f"R$ {venda['preco']:.2f}",
+            "Valor": f"R$ {venda['preco_unitario']:.2f}",
             "Status": venda['status_pedido'].capitalize(),
         })
 
