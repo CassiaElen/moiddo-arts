@@ -254,10 +254,13 @@ def perfil_artista(id_artista):
         flash("Você precisa estar logado para acessar esta página.","alert-error")
         return redirect(url_for("main.PreLogin"))
     
-    from ..services.artista_service import ArtistaService
+    from ..services.tratar_visualizacao import tratar_visualizacao
+    tratar_visualizacao(artista_id = id_artista, obra_id=None)
 
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
+
+    from ..services.artista_service import ArtistaService
 
     # Buscar dados do artista
     artista = ArtistaService(id_artista=id_artista)

@@ -522,13 +522,12 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                                 <div class="flex items-center">
                                     <i class="fas fa-eye mr-2 text-[#AAB898]"></i>
-                                    {{ obra.visualizacoes }}
+                                    <!--ONDE EU QUERO MOSTRAR AS VISUALIZAÇÕES-->
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                                 <div class="flex items-center">
                                     <i class="fas fa-shopping-cart mr-2 text-[#AAB898]"></i>
-                                    {{ obra.vendas }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
@@ -596,11 +595,13 @@
                     </a>
                     {% endif %}
 
-                    {% for p in range(1, total_paginas + 1) %}
+                    {% for p in range([1, pagina - 1] | max, [pagina + 2, total_paginas + 1] | min) %}
+                        {% if loop.index <= 3 or p == total_paginas or p == 1 %}
                     <a class="join-item btn btn-sm {% if p == pagina %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C] {% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
                         href="?pagina={{ p }}&busca={{ busca }}&filtro={{ filtro }}">
                         {{ p }}
                     </a>
+                        {% endif %}
                     {% endfor %}
 
                     {% if pagina < total_paginas %} <a
@@ -750,9 +751,6 @@
                                         <i class="fas fa-check-circle"></i>
                                     </button>
                                     {% endif %}
-                                    <button class="text-[#5A7247] hover:text-[#2C3C1C] tooltip" data-tip="Visualizar">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
                                     <button class="text-[#8C3B2D] hover:text-[#6B2A20] tooltip" data-tip="Imprimir">
                                         <i class="fas fa-print"></i>
                                     </button>
@@ -792,11 +790,13 @@
                     </a>
                     {% endif %}
 
-                    {% for p in range(1, total_paginas_pedidos + 1) %}
+                    {% for p in range([1, pagina_pedidos - 1] | max, [pagina_pedidos + 2, total_paginas_pedidos + 1] | min) %}
+                        {% if loop.index <= 3 or p == total_paginas_pedidos or p == 1 %}
                     <a class="join-item btn btn-sm {% if p == pagina_pedidos %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C] {% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
                         href="?status={{ status_pedido }}&pagina_pedidos={{ p }}#pedidos">
                         {{ p }}
                     </a>
+                        {% endif %}
                     {% endfor %}
 
                     {% if pagina_pedidos < total_paginas_pedidos %} <a
@@ -1083,11 +1083,13 @@
                     </a>
                     {% endif %}
 
-                    {% for p in range(1, total_paginas_vendas + 1) %}
+                    {% for p in range([1, pagina_vendas - 1] | max, [pagina_vendas + 2, total_paginas_vendas + 1] | min) %}
+                        {% if loop.index <= 3 or p == total_paginas_vendas or p == 1 %}
                     <a class="join-item btn btn-sm {% if p == pagina %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C] {% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
                         href="?pagina_vendas={{ p }}">
                         {{ p }}
                     </a>
+                        {% endif %}
                     {% endfor %}
 
                     {% if pagina_vendas < total_paginas_vendas %} <a

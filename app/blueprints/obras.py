@@ -70,6 +70,9 @@ def obra_detalhes(id_obra):
         flash("Você precisa estar logado para acessar esta página.","alert-error")
         return redirect(url_for("main.PreLogin"))
     
+    from ..services.tratar_visualizacao import tratar_visualizacao
+    tratar_visualizacao(artista_id=None, obra_id=id_obra)
+    
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
 
