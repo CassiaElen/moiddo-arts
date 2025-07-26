@@ -771,7 +771,7 @@
   <dialog id="modal_endereco_editar" class="modal">
     <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
       <div class="bg-[#AAB898]/10">
-        <div class="sticky top-0 bg-[#5A7247] text-white p-6">
+        <div class="z-40 sticky top-0 bg-[#5A7247] text-white p-6">
           <div class="flex justify-between items-center">
             <h3 class="font-bold text-2xl">Editar Endereço</h3>
             <form method="dialog">
@@ -782,12 +782,14 @@
         </div>
 
         <form method="POST" action="" class="mt-6 space-y-4 p-6">
+          <input id="id_endereco-editar_endereco" type="hidden" name="id_endereco-editar_endereco" value="id_endereco-editar_endereco" >
+
           <input type="hidden" name="acao" value="editar_endereco">
           <div class="form-control">
             <label class="label">
               <span class="label-text text-[#2C3C1C]">Apelido (Ex: Casa, Trabalho)</span>
             </label>
-            <input id="apelido-editar-endereco" name="apelido-editar-endereco" type="text"
+            <input id="apelido-endereco-editar" name="apelido-endereco-editar" type="text"
               class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
@@ -797,7 +799,7 @@
                 <span class="label-text text-[#2C3C1C]">CEP</span>
               </label>
               <div class="relative">
-                <input type="text" id="cep-editar-endereco" name="cep-editar-endereco"
+                <input type="text" id="cep-endereco-editar" name="cep-endereco-editar"
                   class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
                 <button class="absolute right-3 top-3 text-[#5A7247] hover:text-[#2C3C1C]">
                   <i class="fas fa-search"></i>
@@ -857,6 +859,14 @@
               <span class="label-text text-[#2C3C1C]">Complemento</span>
             </label>
             <input type="text" id="complemento-endereco-editar" name="complemento-endereco-editar"
+              class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text text-[#2C3C1C]">Logradouro</span>
+            </label>
+            <input type="text" id="complemento-logradouro-editar" name="logradouro-endereco-editar"
               class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
@@ -967,8 +977,9 @@
         const modal = document.getElementById('modal_endereco_editar');
 
         // Preenche os campos do modal
-        document.getElementById('apelido-editar-endereco').value = dados.apelido || '';
-        document.getElementById('cep-editar-endereco').value = dados.cep || '';
+        document.getElementById('id_endereco-editar_endereco').value = dados.id || '';
+        document.getElementById('apelido-endereco-editar').value = dados.apelido || '';
+        document.getElementById('cep-endereco-editar').value = dados.cep || '';
         document.getElementById('cidade-endereco-editar').value = dados.cidade || '';
         document.getElementById('bairro-endereco-editar').value = dados.bairro || '';
         document.getElementById('rua-endereco-editar').value = dados.rua || '';

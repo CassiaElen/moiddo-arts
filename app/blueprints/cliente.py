@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from app.services.imagem_service import salvar_imagem
-from app.services.validacoes_service import validar_campos, regras_editar_perfil_cliente
+from app.services.validacoes_service import validar_campos, regras_editar_perfil_cliente, regras_editar_endereco
 from ..services.authmanager import auth_manager
 
 cliente_bp = Blueprint("clientes", __name__)
@@ -18,6 +18,7 @@ def perfil_cliente(id_cliente):
     from ..services.enderecos_service import EnderecosService
     service_endereco = EnderecosService()
     enderecos = service_endereco.buscar_enderecos(auth_manager.get_current_user_id())
+    print(enderecos)
 
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
@@ -46,6 +47,30 @@ def perfil_cliente(id_cliente):
             service_cliente.editar(campos, nome_arquivo)
             flash("Perfil editado com sucesso!", "alert-success")
 
+        if acao == "editar_endereco":
+            campos = {
+                "id_endereco": request.form.get("id_endereco-editar_endereco"),
+                "apelido": request.form.get("apelido-endereco-editar"),
+                "rua": request.form.get("rua-endereco-editar"),
+                "cep": request.form.get("cep-endereco-editar"),
+                "logradouro": request.form.get("logradouro-endereco-editar"),
+                "numero": request.form.get("numero-endereco-editar"),
+                "complemento": request.form.get("complemento-endereco-editar"),
+                "bairro": request.form.get("bairro-endereco-editar"),
+                "cidade": request.form.get("cidade-endereco-editar"),
+                "estado": request.form.get("estado-endereco-editar"),
+            }
+            print(campos)
+            principal = request.form.get("principal")
+            erros = validar_campos(campos, regras_editar_endereco)
+            if erros:
+                for erro in erros:
+                    flash(erro, "alert-error")
+                return redirect(url_for("clientes.perfil_cliente", id_cliente=id_cliente))
+            service_endereco.editar_enderecos(campos, principal)
+            flash("Endereço editado com sucesso!", "alert-success")
+    
+            
 
     return render_template(
         "perfil-cliente.html",
@@ -54,3 +79,4 @@ def perfil_cliente(id_cliente):
         dados_cliente = dados_cliente,
         enderecos= enderecos
         )
+
