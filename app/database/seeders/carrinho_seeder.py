@@ -14,8 +14,8 @@ def seed_carrinho():
 
         for cliente in clientes_sem_carrinho:
             cursor.execute("""
-                INSERT INTO carrinho (cliente_id, sessao_id, status_carrinho, qtd_item, data_criacao)
-                VALUES (?, NULL, 'ativo', 0, ?)
+                INSERT INTO carrinho (cliente_id, data_criacao)
+                VALUES (?, ?)
             """, (cliente["id_cliente"], cliente["data_cadastro"]))
 
         if clientes_sem_carrinho:

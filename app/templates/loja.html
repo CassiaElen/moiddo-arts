@@ -94,7 +94,7 @@
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
                                 <div
                                     class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
-                                    <img src="{{user.avatar}}" alt="Foto de perfil" />
+                                    <img src="{{user.avatar or '../static/assets/perfil.png'}}" alt="Foto de perfil" />
                                 </div>
                             </label>
                             <ul tabindex="0"
@@ -444,26 +444,27 @@
                             }}</span>
                         de <span class="font-semibold text-[#2C3C1C]">{{ total }}</span> obras
                     </div>
-                    
+
                     <div class="join">
                         <a href="?pagina={{ pagina_atual - 1 }}&busca={{ busca }}&filtro={{ filtro }}"
                             class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == 1 %}btn-disabled{% endif %}">
                             «
                         </a>
 
-                        {% for pagina in range([1, pagina_atual - 1] | max, [pagina_atual + 2, total_paginas + 1] | min) %}
-                        {% if loop.index <= 3 or p == total_paginas or p == 1 %}
-                        <a href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}"
+                        {% for pagina in range([1, pagina_atual - 1] | max, [pagina_atual + 2, total_paginas + 1] | min)
+                        %}
+                        {% if loop.index <= 3 or p==total_paginas or p==1 %} <a
+                            href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}"
                             class="join-item btn {% if pagina == pagina_atual %}bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">
                             {{ pagina }}
-                        </a>
-                        {% endif %}
-                        {% endfor %}
+                            </a>
+                            {% endif %}
+                            {% endfor %}
 
-                        <a href="?pagina={{ pagina_atual + 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
-                            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == total_paginas %}btn-disabled{% endif %}">
-                            »
-                        </a>
+                            <a href="?pagina={{ pagina_atual + 1 }}&busca={{ busca }}&filtro={{ filtro }}&ordenacao={{ ordenacao }}"
+                                class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white {% if pagina_atual == total_paginas %}btn-disabled{% endif %}">
+                                »
+                            </a>
                     </div>
                 </div>
             </div>

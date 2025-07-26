@@ -683,10 +683,6 @@
                                 Status
                             </th>
                             <th scope="col"
-                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
-                                Entregue
-                            </th>
-                            <th scope="col"
                                 class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
                                 Ações
                             </th>
@@ -730,27 +726,13 @@
                             {% if pedido.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
                             {% elif pedido.status_pedido == 'cancelado' %}bg-red-100 text-red-800
                             {% elif pedido.status_pedido == 'finalizado' %}bg-green-100 text-green-800
+                            {% elif pedido.status_pedido == 'entregue' %}bg-blue-100 text-blue-800
                             {% endif %}">
                                     {{ pedido.status_pedido | capitalize }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
-                                {% if pedido.entregue == 'S' %}
-                                SIM
-                                {% elif pedido.entregue == 'N' %}
-                                NÃO
-                                {% else %}
-                                Não informado
-                                {% endif %}
-                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-3">
-                                    {% if pedido.status_pedido == 'pendente' %}
-                                    <button class="text-green-600 hover:text-green-800 tooltip"
-                                        data-tip="Marcar como Finalizado">
-                                        <i class="fas fa-check-circle"></i>
-                                    </button>
-                                    {% endif %}
                                     <button class="text-[#8C3B2D] hover:text-[#6B2A20] tooltip" data-tip="Imprimir">
                                         <i class="fas fa-print"></i>
                                     </button>
@@ -1035,7 +1017,7 @@
                                     {{venda.titulo}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
-                                    R${{venda.preco}}
+                                    R${{venda.preco_unitario}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="px-2 py-1 inline-flex text-xs leading-4 font-semibold rounded-full 

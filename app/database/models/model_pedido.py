@@ -7,7 +7,6 @@ class Pedido:
         carrinho_id=None,
         cliente_id=None,
         status_pedido=None,
-        entregue=None,
         total_pedido=None,
         data_criacao=None,
     ):
@@ -15,7 +14,6 @@ class Pedido:
         self.carrinho_id = carrinho_id
         self.cliente_id = cliente_id
         self.status_pedido = status_pedido
-        self.entregue = entregue
         self.total_pedido = total_pedido
         self.data_criacao = data_criacao
 
