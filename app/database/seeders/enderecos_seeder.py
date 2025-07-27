@@ -13,7 +13,7 @@ def seed_enderecos():
             "Apto 101",
             "Centro",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -26,7 +26,7 @@ def seed_enderecos():
             "",
             "São José",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -41,7 +41,7 @@ def seed_enderecos():
             "",
             "Triângulo",
             "Crato",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -54,7 +54,7 @@ def seed_enderecos():
             "",
             "Sítio Fundão",
             "Crato",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -69,7 +69,7 @@ def seed_enderecos():
             "Bloco B",
             "Pirajá",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -82,7 +82,7 @@ def seed_enderecos():
             "",
             "Jericoacoara",
             "Jijoca",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -97,7 +97,7 @@ def seed_enderecos():
             "",
             "Centro",
             "Barbalha",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -110,7 +110,7 @@ def seed_enderecos():
             "Sala 2",
             "Alto da Alegria",
             "Barbalha",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -125,7 +125,7 @@ def seed_enderecos():
             "",
             "Centro",
             "Missão Velha",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -138,7 +138,7 @@ def seed_enderecos():
             "",
             "Sítio Lagoa",
             "Missão Velha",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -153,7 +153,7 @@ def seed_enderecos():
             "",
             "São Miguel",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -166,7 +166,7 @@ def seed_enderecos():
             "",
             "Salesianos",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -181,7 +181,7 @@ def seed_enderecos():
             "Bloco C",
             "Muriti",
             "Crato",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -194,7 +194,7 @@ def seed_enderecos():
             "",
             "Novo Crato",
             "Crato",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -209,7 +209,7 @@ def seed_enderecos():
             "",
             "Centro",
             "Jardim",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -222,7 +222,7 @@ def seed_enderecos():
             "Loja 5",
             "Universitário",
             "Jardim",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -237,7 +237,7 @@ def seed_enderecos():
             "",
             "Palmeiral",
             "Barbalha",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -250,7 +250,7 @@ def seed_enderecos():
             "",
             "Alto da Penha",
             "Barbalha",
-            "CE",
+            "Ceará",
             False
         ),
 
@@ -265,7 +265,7 @@ def seed_enderecos():
             "",
             "Sol Nascente",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             True
         ),
         (
@@ -278,7 +278,7 @@ def seed_enderecos():
             "Sala 3",
             "Romeirão",
             "Juazeiro do Norte",
-            "CE",
+            "Ceará",
             False
         ),
     ]

@@ -18,7 +18,6 @@ def perfil_cliente(id_cliente):
     from ..services.enderecos_service import EnderecosService
     service_endereco = EnderecosService()
     enderecos = service_endereco.buscar_enderecos(auth_manager.get_current_user_id())
-    print(enderecos)
 
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
@@ -61,7 +60,9 @@ def perfil_cliente(id_cliente):
                 "estado": request.form.get("estado-endereco-editar"),
             }
             print(campos)
-            principal = request.form.get("principal")
+            principal = request.form.get("principal-endereco-editar")
+            print("principal: ",principal)
+            print("tipo de campos: ",type(campos)) 
             erros = validar_campos(campos, regras_editar_endereco)
             if erros:
                 for erro in erros:

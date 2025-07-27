@@ -813,8 +813,9 @@
               <select id="estado-endereco-editar" name="estado-endereco-editar"
                 class="select select-bordered bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
                 <option disabled selected>Selecione</option>
-                <option>São Paulo</option>
-                <option>Rio de Janeiro</option>
+                <option value="São Paulo">São Paulo</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Ceará">Ceará</option>
                 <!-- outros estados -->
               </select>
             </div>
@@ -866,7 +867,7 @@
             <label class="label">
               <span class="label-text text-[#2C3C1C]">Logradouro</span>
             </label>
-            <input type="text" id="complemento-logradouro-editar" name="logradouro-endereco-editar"
+            <input type="text" id="logradouro-endereco-editar" name="logradouro-endereco-editar"
               class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
@@ -985,6 +986,7 @@
         document.getElementById('rua-endereco-editar').value = dados.rua || '';
         document.getElementById('numero-endereco-editar').value = dados.numero || '';
         document.getElementById('complemento-endereco-editar').value = dados.complemento || '';
+        document.getElementById('logradouro-endereco-editar').value = dados.logradouro || '';
 
         // Define se é o endereço principal
         document.getElementById('principal-endereco-editar').checked = dados.principal === '1';
