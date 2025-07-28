@@ -9,7 +9,7 @@ def validar_campos(campos, regras):
     tem_campo_vazio = False
 
     for nome_campo, valor in campos.items():
-        regra = regras().get(nome_campo, {})
+        regra = regras.get(nome_campo, {})
         nome_legivel = regra.get("nome_legivel", nome_campo)
 
         # Campo obrigatório
@@ -116,16 +116,3 @@ def regras_excluir_perfil():
         "senha": {"required": True, "type": str}
     }
 
-def regras_editar_endereco():
-    return {
-        "id_endereco": {"obrigatorio": True, "nome_legivel": "ID endereço"},
-        "apelido": {"obrigatorio": True, "nome_legivel": "Apelido"},
-        "rua": {"obrigatorio": True, "nome_legivel": "Rua"},
-        "cep": {"obrigatorio": True, "nome_legivel": "CEP"},
-        "logradouro": {"obrigatorio": True, "nome_legivel": "Logradouro"},
-        "numero": {"obrigatorio": True, "nome_legivel": "Número"},
-        "complemento": {"obrigatorio": True, "nome_legivel": "Complemento"},
-        "bairro": {"obrigatorio": True, "nome_legivel": "Bairro"},
-        "cidade": {"obrigatorio": True, "nome_legivel": "Cidade"},
-        "estado": {"obrigatorio": True, "nome_legivel": "Estado"},
-    }

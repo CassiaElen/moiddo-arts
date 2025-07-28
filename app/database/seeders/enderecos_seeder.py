@@ -13,8 +13,7 @@ def seed_enderecos():
             "Apto 101",
             "Centro",
             "Juazeiro do Norte",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             1,
@@ -26,8 +25,7 @@ def seed_enderecos():
             "",
             "São José",
             "Juazeiro do Norte",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 2
@@ -41,8 +39,7 @@ def seed_enderecos():
             "",
             "Triângulo",
             "Crato",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             2,
@@ -54,8 +51,7 @@ def seed_enderecos():
             "",
             "Sítio Fundão",
             "Crato",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 3
@@ -69,8 +65,7 @@ def seed_enderecos():
             "Bloco B",
             "Pirajá",
             "Juazeiro do Norte",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             3,
@@ -82,8 +77,7 @@ def seed_enderecos():
             "",
             "Jericoacoara",
             "Jijoca",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 4
@@ -97,8 +91,7 @@ def seed_enderecos():
             "",
             "Centro",
             "Barbalha",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             4,
@@ -110,8 +103,7 @@ def seed_enderecos():
             "Sala 2",
             "Alto da Alegria",
             "Barbalha",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 5
@@ -125,8 +117,7 @@ def seed_enderecos():
             "",
             "Centro",
             "Missão Velha",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             5,
@@ -138,8 +129,7 @@ def seed_enderecos():
             "",
             "Sítio Lagoa",
             "Missão Velha",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 6
@@ -153,8 +143,7 @@ def seed_enderecos():
             "",
             "São Miguel",
             "Juazeiro do Norte",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             6,
@@ -166,8 +155,7 @@ def seed_enderecos():
             "",
             "Salesianos",
             "Juazeiro do Norte",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 7
@@ -181,8 +169,7 @@ def seed_enderecos():
             "Bloco C",
             "Muriti",
             "Crato",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             7,
@@ -194,8 +181,7 @@ def seed_enderecos():
             "",
             "Novo Crato",
             "Crato",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 8
@@ -209,8 +195,7 @@ def seed_enderecos():
             "",
             "Centro",
             "Jardim",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             8,
@@ -222,8 +207,7 @@ def seed_enderecos():
             "Loja 5",
             "Universitário",
             "Jardim",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 9
@@ -237,8 +221,7 @@ def seed_enderecos():
             "",
             "Palmeiral",
             "Barbalha",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             9,
@@ -250,8 +233,7 @@ def seed_enderecos():
             "",
             "Alto da Penha",
             "Barbalha",
-            "Ceará",
-            False
+            "Ceará"
         ),
 
         # Cliente 10
@@ -265,8 +247,7 @@ def seed_enderecos():
             "",
             "Sol Nascente",
             "Juazeiro do Norte",
-            "Ceará",
-            True
+            "Ceará"
         ),
         (
             10,
@@ -278,8 +259,7 @@ def seed_enderecos():
             "Sala 3",
             "Romeirão",
             "Juazeiro do Norte",
-            "Ceará",
-            False
+            "Ceará"
         ),
     ]
 
@@ -291,8 +271,8 @@ def seed_enderecos():
                 """
                 INSERT INTO enderecos (
                     cliente_id, apelido, rua, cep, logradouro, numero, complemento,
-                    bairro, cidade, estado, principal
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    bairro, cidade, estado
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 enderecos,
             )

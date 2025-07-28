@@ -78,7 +78,6 @@ def init_db():
             bairro VARCHAR(50) NOT NULL,
             cidade VARCHAR(50) NOT NULL,
             estado VARCHAR(50) NOT NULL,
-            principal BOOLEAN DEFAULT FALSE,
             FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
     )
 """
