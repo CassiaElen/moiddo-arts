@@ -11,6 +11,21 @@ class EnderecosService:
     def buscar_enderecos(self, cliente_id):
         return self.endereco.buscar_enderecos(cliente_id)
     
+    def salvar_enderecos(self, campos):
+        salvar_endereco = Enderecos(
+            cliente_id= auth_manager.get_current_user_id(),
+            apelido = campos["apelido"],
+            rua = campos["rua"],
+            cep = campos["cep"],
+            logradouro = campos["logradouro"],
+            numero = campos["numero"],
+            complemento = campos["complemento"],
+            bairro = campos["bairro"],
+            cidade = campos["cidade"],
+            estado = campos["estado"]
+        )
+        salvar_endereco.salvar()
+
     def editar_enderecos(self, campos):
         user_id = auth_manager.get_current_user_id()
         if user_id is None:
@@ -27,10 +42,13 @@ class EnderecosService:
             bairro = campos["bairro"],
             cidade = campos["cidade"],
             estado = campos["estado"],
-            #principal = principal,
             id_endereco=campos["id_endereco"]
         )
-
-        
         editar_endereco.salvar()
-        campos = json.loads(campos)
+
+    def deletar_enderecos(self, id_endereco):
+        deletar_endereco = Enderecos(id_endereco=id_endereco)
+        deletar_endereco.deletar_enderecos()
+
+    def limite_enderecos(self, cliente_id):
+        return self.endereco.limite_enderecos(cliente_id=cliente_id)

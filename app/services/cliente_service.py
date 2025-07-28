@@ -51,3 +51,6 @@ class ClienteService:
     
     def buscar_cliente(self):
         return self.cliente.buscar_cliente()
+    
+    def buscar_pedidos_filtrados(self, status, pagina, por_pagina):
+        return self.cliente.buscar_pedidos_filtrados(status=status, pagina=pagina, por_pagina=por_pagina)

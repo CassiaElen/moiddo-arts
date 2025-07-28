@@ -109,8 +109,10 @@ def init_db():
             cliente_id INTEGER,
             status_pedido VARCHAR(15) DEFAULT 'pendente' CHECK (status_pedido IN ('pendente','finalizado','cancelado', 'entregue')),
             total_pedido DECIMAL(5,2) NOT NULL,
+            endereco_id INTEGER,
             data_criacao DATETIME NOT NULL,
-            FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente)
+            FOREIGN KEY(cliente_id) REFERENCES cliente(id_cliente),
+            FOREIGN KEY(endereco_id) REFERENCES enderecos(id_endereco)
     )
 """
         )

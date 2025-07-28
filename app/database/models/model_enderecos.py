@@ -33,7 +33,7 @@ class Enderecos:
         """Método para salvar ou editar o objeto no banco"""
         with db.get_conn() as conn:
             cursor = conn.cursor()
-            if self.cliente_id is None:
+            if self.id_endereco is None:
                 cursor.execute(
                     """INSERT INTO enderecos (cliente_id, apelido, rua, cep, logradouro, numero, complemento, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                     (
@@ -47,14 +47,13 @@ class Enderecos:
                         self.bairro,
                         self.cidade,
                         self.estado,
-                        #self.principal,
                     ),
                 )
                 conn.commit()
                 self.id_endereco = cursor.lastrowid
             else:
                 cursor.execute(
-                    """UPDATE cliente SET apelido=?, rua=?, cep=?, logradouro=?, numero=?, complemento=?, bairro=?, cidade=?, estado=? WHERE id_endereco=?""",
+                    """UPDATE enderecos SET apelido=?, rua=?, cep=?, logradouro=?, numero=?, complemento=?, bairro=?, cidade=?, estado=? WHERE id_endereco=?""",
                     (
                         self.apelido,
                         self.rua,
@@ -65,7 +64,6 @@ class Enderecos:
                         self.bairro,
                         self.cidade,
                         self.estado,
-                        #self.principal,
                         self.id_endereco,
                     ),
                 )
@@ -79,6 +77,28 @@ class Enderecos:
             )    
             return [Enderecos(**dict(row)) for row in cursor.fetchall()]
 
+    def deletar_enderecos(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "DELETE FROM enderecos WHERE id_endereco = ?", (self.id_endereco,)
+                )
+                conn.commit()
+                return True
+        except Exception as e:
+            print(f"Erro ao deletar endereco: {e}")
+            return False
+
+    def limite_enderecos(self, cliente_id):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT COUNT(*) FROM enderecos WHERE cliente_id = ?", (cliente_id,)
+            )
+            count = cursor.fetchone()[0]
+            return count >= 6 
+            
     def buscar_enderecos_service(self):
         try:
             with db.get_conn() as conn:
@@ -96,7 +116,6 @@ class Enderecos:
                     self.bairro = row["bairro"]
                     self.cidade = row["cidade"]
                     self.estado = row["estado"]
-                   #self.principal = row["principal"]
                     return dict(row)
                 return None
         except Exception as e:

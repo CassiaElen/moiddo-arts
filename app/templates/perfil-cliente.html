@@ -354,7 +354,7 @@
     <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-xl font-semibold text-[#2C3C1C]">Meus Endereços</h3>
-        {% if enderecos %}
+        {% if enderecos and not limite_endereco %}
         <button class="btn btn-gradient" onclick="document.getElementById('modal_endereco_adicionar').showModal()">
           <i class="fas fa-plus mr-2"></i> Adicionar Endereço
         </button>
@@ -370,11 +370,6 @@
             <!-- Cabeçalho do cartão -->
             <div class="flex justify-between items-start">
               <div class="flex items-center gap-3">
-                {% if endereco.principal == 1 %}
-                <div class="bg-[#2C3C1C] text-white p-3 rounded-full w-10 h-10 flex items-center justify-center">
-                  <i class="fas fa-home text-sm"></i>
-                </div>
-                {% endif %}
                 <div>
                   <h3 class="card-title text-[#2C3C1C] font-semibold">{{ endereco.apelido }}</h3>
                   {% if endereco.principal == 1 %}
@@ -392,14 +387,13 @@
                   data-cep="{{ endereco.cep }}" data-rua="{{ endereco.rua }}"
                   data-logradouro="{{ endereco.logradouro }}" data-numero="{{ endereco.numero }}"
                   data-complemento="{{ endereco.complemento or '' }}" data-bairro="{{ endereco.bairro }}"
-                  data-cidade="{{ endereco.cidade }}" data-estado="{{ endereco.estado }}"
-                  data-principal="{{ 1 if endereco.principal else 0 }}">
+                  data-cidade="{{ endereco.cidade }}" data-estado="{{ endereco.estado }}">
                   <i class="fas fa-edit"></i>
                 </button>
                 <form method="POST" action="" class="inline">
-                  <input type="hidden" name="endereco_id" value="{{ endereco.id_endereco }}">
-                  <button type="submit" class="btn btn-circle btn-sm btn-ghost text-[#8C3B2D] hover:bg-[#8C3B2D]/10"
-                    onclick="return confirm('Tem certeza que deseja excluir este endereço?')">
+                  <input type="hidden" name="acao" value="deletar_endereco">
+                  <button type="submit" value="{{ endereco.id_endereco }}" name="endereco_id-deletar"
+                    class="btn btn-circle btn-sm btn-ghost text-[#8C3B2D] hover:bg-[#8C3B2D]/10">
                     <i class="fas fa-trash"></i>
                   </button>
                 </form>
@@ -428,18 +422,6 @@
                 <p>CEP: {{ endereco.cep }}</p>
               </div>
             </div>
-
-            <!-- Botão para tornar principal -->
-            {% if endereco.principal != 1 %}
-            <div class="card-actions justify-end mt-4">
-              <form method="POST" action="" class="inline">
-                <input type="hidden" name="endereco_id" value="{{ endereco.id_endereco }}">
-                <button type="submit" class="btn btn-sm bg-[#5A7247] text-white hover:bg-[#2C3C1C] border-none">
-                  <i class="fas fa-star mr-1"></i> Tornar Principal
-                </button>
-              </form>
-            </div>
-            {% endif %}
           </div>
         </div>
         {% endfor %}
@@ -474,8 +456,7 @@
             <option disabled selected>Filtrar por status</option>
             <option>Todos</option>
             <option>Pendentes</option>
-            <option>Em processamento</option>
-            <option>Enviados</option>
+            <option>Finalizados</option>
             <option>Entregues</option>
             <option>Cancelados</option>
           </select>
@@ -500,7 +481,7 @@
                 Status
               </th>
               <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
-                Entregue
+                Endereço
               </th>
               <th scope="col"
                 class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
@@ -510,128 +491,70 @@
           </thead>
           <tbody class="bg-white divide-y divide-[#E3D9C6]">
             <!-- Pedido 1 -->
+            {% if pedidos %}
+            {% for pedido in pedidos %}
             <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
-                  <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
-                    <img class="h-full w-full object-cover"
-                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                      alt="Avatar do pedido">
-                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-semibold text-[#2C3C1C]">#MU12345</div>
-                    <div class="text-sm text-[#5A7247]">3 itens</div>
+                    <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{pedido.id_pedido}}</div>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
-                15/05/2023
+                {% if pedido.data_criacao %}
+                {{ pedido.data_criacao[:10].split('-') | reverse | join('/') }}
+                {% else %}
+                Não informado
+                {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
-                R$ 1.240,00
+                R$ {{pedido.total_pedido}}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span
-                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                  <i class="fas fa-spinner mr-1"></i>
-                  Em processamento
+                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
+                    {% if pedido.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
+                    {% elif pedido.status_pedido == 'cancelado' %}bg-red-100 text-red-800
+                    {% elif pedido.status_pedido == 'entregue' %}bg-green-100 text-green-800
+                    {% else %}bg-blue-100 text-blue-800{% endif %}">
+                  {{pedido.status_pedido}}
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                    <div class="text-sm font-semibold text-[#2C3C1C]">{{pedido.apelido}}</div>
+                    <div class="text-sm text-[#5A7247]">{{pedido.rua}}, {{pedido.numero}}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                {% if pedido.status_pedido == 'entregue' %}
                 <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
                   <i class="fas fa-check-circle mr-1"></i> Entregue
                 </button>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <div class="flex justify-end space-x-3">
-                  <button class="text-[#5A7247] hover:text-[#2C3C1C]">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Pedido 2 -->
-            <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
-                    <img class="h-full w-full object-cover"
-                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                      alt="Avatar do pedido">
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm font-semibold text-[#2C3C1C]">#MU12344</div>
-                    <div class="text-sm text-[#5A7247]">1 item</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
-                10/05/2023
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
-                R$ 450,00
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span
-                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                  <i class="fas fa-truck mr-1"></i>
-                  Enviado
-                </span>
-              </td>
-              <td class="px-3 py-1 whitespace-nowrap">
+                {% elif pedido.status_pedido == 'finalizado' %}
                 <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
                   <i class="fas fa-check mr-1"></i> Confirmar Entrega
                 </button>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <div class="flex justify-end space-x-3">
-                  <button class="text-[#5A7247] hover:text-[#2C3C1C]">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                  <button class="text-green-600 hover:text-green-800">
-                    <i class="fas fa-check"></i>
-                  </button>
-                </div>
+                {% else %}
+                Não informado
+                {% endif %}
               </td>
             </tr>
 
-            <!-- Pedido 3 -->
-            <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden">
-                    <img class="h-full w-full object-cover"
-                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                      alt="Avatar do pedido">
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm font-semibold text-[#2C3C1C]">#MU12343</div>
-                    <div class="text-sm text-[#5A7247]">2 itens</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
-                05/05/2023
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
-                R$ 780,00
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span
-                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                  <i class="fas fa-spinner mr-1"></i>
-                  Em processamento
-                </span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <div class="flex justify-end space-x-3">
-                  <button class="text-[#5A7247] hover:text-[#2C3C1C]">
-                    <i class="fas fa-eye"></i>
-                  </button>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="5" class="px-6 py-8 text-center">
+                <div class="flex flex-col items-center justify-center text-[#5A7247]">
+                  <i class="fas fa-box-open text-4xl mb-4 text-[#AAB898]"></i>
+                  <p class="text-lg font-medium">Nenhum pedido encontrado</p>
+                  <p class="text-sm">Quando realizar compras, elas aparecerão aqui</p>
                 </div>
               </td>
             </tr>
+            {% endif %}
           </tbody>
         </table>
       </div>
@@ -668,13 +591,13 @@
           <p class="text-white/80">Preencha os detalhes do Endereço</p>
         </div>
 
-        <form od="POST" action="" class="mt-6 space-y-4 p-6">
+        <form method="POST" action="" class="mt-6 space-y-4 p-6">
           <input type="hidden" name="acao" value="adicionar_endereco">
           <div class="form-control">
             <label class="label">
               <span class="label-text text-[#2C3C1C]">Apelido (Ex: Casa, Trabalho)</span>
             </label>
-            <input type="text"
+            <input type="text" name="apelido-endereco-adicionar"
               class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
@@ -684,18 +607,16 @@
                 <span class="label-text text-[#2C3C1C]">CEP</span>
               </label>
               <div class="relative">
-                <input type="text"
-                  class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
-                <button class="absolute right-3 top-3 text-[#5A7247] hover:text-[#2C3C1C]">
-                  <i class="fas fa-search"></i>
-                </button>
+                <input type="text" name="cep-endereco-adicionar" id="cep-endereco-adicionar"
+                  class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
               </div>
             </div>
             <div class="form-control">
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Estado</span>
               </label>
-              <select class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
+              <select name="estado-endereco-adicionar" id="estado-endereco-adicionar"
+                class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
                 <option disabled selected>Selecione</option>
                 <option>São Paulo</option>
                 <option>Rio de Janeiro</option>
@@ -709,14 +630,14 @@
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Cidade</span>
               </label>
-              <input type="text"
+              <input type="text" name="cidade-endereco-adicionar" id="cidade-endereco-adicionar"
                 class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
             <div class="form-control">
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Bairro</span>
               </label>
-              <input type="text"
+              <input type="text" name="bairro-endereco-adicionar" id="bairro-endereco-adicionar"
                 class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
           </div>
@@ -726,15 +647,15 @@
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Rua/Avenida</span>
               </label>
-              <input type="text"
+              <input type="text" name="rua-endereco-adicionar" id="rua-endereco-adicionar"
                 class="input input-bordered w-full text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
             <div class="form-control">
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Número</span>
               </label>
-              <input type="text"
-                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              <input type="text" name="numero-endereco-adicionar" id="numero-endereco-adicionar"
+                class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
           </div>
 
@@ -742,15 +663,18 @@
             <label class="label">
               <span class="label-text text-[#2C3C1C]">Complemento</span>
             </label>
-            <input type="text" class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+            <input type="text" name="complemento-endereco-adicionar" id="complemento-endereco-adicionar"
+              class="input input-bordered text-[#2C3C1C]  w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
-          <div class="form-control mt-6">
-            <label class="label cursor-pointer justify-start gap-4">
-              <input type="checkbox" checked="checked" value="1" class="checkbox checkbox-primary border-[#5A7247]" />
-              <span class="label-text text-[#2C3C1C]">Tornar este endereço principal</span>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text text-[#2C3C1C]">logradouro</span>
             </label>
+            <input type="text" name="logradouro-endereco-adicionar" id="logradouro-endereco-adicionar"
+              class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
+
 
           <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
             <button type="button"
@@ -782,7 +706,8 @@
         </div>
 
         <form method="POST" action="" class="mt-6 space-y-4 p-6">
-          <input id="id_endereco-editar_endereco" type="hidden" name="id_endereco-editar_endereco" value="id_endereco-editar_endereco" >
+          <input id="id_endereco-editar_endereco" type="hidden" name="id_endereco-editar_endereco"
+            value="id_endereco-editar_endereco">
 
           <input type="hidden" name="acao" value="editar_endereco">
           <div class="form-control">
@@ -790,7 +715,7 @@
               <span class="label-text text-[#2C3C1C]">Apelido (Ex: Casa, Trabalho)</span>
             </label>
             <input id="apelido-endereco-editar" name="apelido-endereco-editar" type="text"
-              class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -800,10 +725,7 @@
               </label>
               <div class="relative">
                 <input type="text" id="cep-endereco-editar" name="cep-endereco-editar"
-                  class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
-                <button class="absolute right-3 top-3 text-[#5A7247] hover:text-[#2C3C1C]">
-                  <i class="fas fa-search"></i>
-                </button>
+                  class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
               </div>
             </div>
             <div class="form-control">
@@ -811,7 +733,7 @@
                 <span class="label-text text-[#2C3C1C]">Estado</span>
               </label>
               <select id="estado-endereco-editar" name="estado-endereco-editar"
-                class="select select-bordered bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
+                class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
                 <option disabled selected>Selecione</option>
                 <option value="São Paulo">São Paulo</option>
                 <option value="Rio de Janeiro">Rio de Janeiro</option>
@@ -827,14 +749,14 @@
                 <span class="label-text text-[#2C3C1C]">Cidade</span>
               </label>
               <input type="text" id="cidade-endereco-editar" name="cidade-endereco-editar"
-                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+                class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
             <div class="form-control">
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Bairro</span>
               </label>
               <input type="text" id="bairro-endereco-editar" name="bairro-endereco-editar"
-                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+                class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
           </div>
 
@@ -844,14 +766,14 @@
                 <span class="label-text text-[#2C3C1C]">Rua/Avenida</span>
               </label>
               <input type="text" id="rua-endereco-editar" name="rua-endereco-editar"
-                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+                class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
             <div class="form-control">
               <label class="label">
                 <span class="label-text text-[#2C3C1C]">Número</span>
               </label>
               <input type="text" id="numero-endereco-editar" name="numero-endereco-editar"
-                class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+                class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
             </div>
           </div>
 
@@ -860,23 +782,15 @@
               <span class="label-text text-[#2C3C1C]">Complemento</span>
             </label>
             <input type="text" id="complemento-endereco-editar" name="complemento-endereco-editar"
-              class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
+              class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
-          <div class="form-control">
+          <div class="form-control mt-6">
             <label class="label">
               <span class="label-text text-[#2C3C1C]">Logradouro</span>
             </label>
             <input type="text" id="logradouro-endereco-editar" name="logradouro-endereco-editar"
-              class="input input-bordered w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
-          </div>
-
-          <div class="form-control mt-6">
-            <label class="label cursor-pointer justify-start gap-4">
-              <input type="checkbox" id="principal-endereco-editar" name="principal-endereco-editar" value="1"
-                checked="checked" class="checkbox checkbox-primary border-[#5A7247]" />
-              <span class="label-text text-[#2C3C1C]">Tornar este endereço principal</span>
-            </label>
+              class="input input-bordered text-[#2C3C1C] w-full bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]" />
           </div>
 
           <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
@@ -988,19 +902,9 @@
         document.getElementById('complemento-endereco-editar').value = dados.complemento || '';
         document.getElementById('logradouro-endereco-editar').value = dados.logradouro || '';
 
-        // Define se é o endereço principal
-        document.getElementById('principal-endereco-editar').checked = dados.principal === '1';
-
         // Seleciona o estado correto
         const selectEstado = document.getElementById('estado-endereco-editar');
         if (selectEstado) selectEstado.value = dados.estado || '';
-
-        // Adiciona o ID do endereço ao formulário (se necessário)
-        const inputId = document.createElement('input');
-        inputId.type = 'hidden';
-        inputId.name = 'id_endereco';
-        inputId.value = dados.id;
-        modal.querySelector('form').appendChild(inputId);
 
         // Abre o modal
         modal.showModal();

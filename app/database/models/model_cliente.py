@@ -1,5 +1,4 @@
 from ..connection import db
-from datetime import datetime
 
 class Cliente:
     def __init__(
@@ -140,3 +139,42 @@ class Cliente:
         except Exception as e:
             print("Erro ao buscar cliente:", e)
             return None
+        
+    def buscar_pedidos_filtrados(self, status, pagina, por_pagina):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+
+            query = """
+                SELECT p.id_pedido, p.data_criacao, p.status_pedido, p.total_pedido,
+                    e.apelido, e.rua, e.numero
+                FROM pedido p
+                JOIN enderecos e ON p.endereco_id = e.id_endereco
+                WHERE p.cliente_id = ?
+            """
+
+            params = [self.id_cliente]
+
+            if status != "todos":
+                query += " AND p.status_pedido = ?" 
+                params.append(status)
+
+            query += " GROUP BY p.id_pedido ORDER BY p.data_criacao DESC LIMIT ? OFFSET ?"
+            offset = (pagina - 1) * por_pagina
+            params.extend([por_pagina, offset])
+            
+            cursor.execute(query, params)
+            pedidos = [dict(row) for row in cursor.fetchall()]
+
+            count_query = """
+                SELECT COUNT(*) FROM pedido WHERE cliente_id = ?
+            """
+            count_params = [self.id_cliente]
+
+            if status != "todos":
+                count_query += " AND status_pedido = ?"
+                count_params.append(status)
+            
+            cursor.execute(count_query, count_params)
+            total = cursor.fetchone()[0]
+
+            return pedidos, total

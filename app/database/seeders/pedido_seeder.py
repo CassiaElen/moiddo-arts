@@ -8,12 +8,14 @@ def seed_pedido():
         cliente_id = random.randint(1,15)
         status_pedido = random.choice(['pendente', 'finalizado', 'cancelado', 'entregue'])
         total_pedido = "{:.2f}".format(random.randint(30,5000))
+        endereco = random.randint(1,2)
         data = f"2025-07-{random.randint(1, 30):02d}"
 
         pedido = (
             cliente_id,
             status_pedido,
             total_pedido,
+            endereco,
             data
         )
 
@@ -24,7 +26,7 @@ def seed_pedido():
         cursor.execute("SELECT COUNT(*) FROM pedido")
         if cursor.fetchone()[0] == 0:
             cursor.executemany(
-                "INSERT INTO pedido (cliente_id, status_pedido, total_pedido, data_criacao) VALUES (?, ?, ?, ?)",
+                "INSERT INTO pedido (cliente_id, status_pedido, total_pedido, endereco_id, data_criacao) VALUES (?, ?, ?, ?, ?)",
                 pedidos,
             )
             print("Pedidos iniciais inseridos com sucesso!")
