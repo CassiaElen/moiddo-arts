@@ -168,6 +168,10 @@ def painel_artista():
 
     from ..services.categoria_service import service_categorias
     categorias = service_categorias.buscar_categorias()
+
+    from ..services.visualizacao_service import VisualizacaoService
+    service_visualizacao = VisualizacaoService()
+    visu_artista = service_visualizacao.visualizacoes_artista(artista_id=id_artista)
     
     return render_template("painel-artista.html",
         dados=dados,
@@ -199,7 +203,8 @@ def painel_artista():
         pagina_vendas = pagina_vendas,
         total_paginas_vendas= total_paginas_vendas,
 
-        categorias = categorias
+        categorias = categorias,
+        visu_artista = visu_artista
     )
 
 @artistas_bp.route("/artistas-comunidade", methods=["GET"])

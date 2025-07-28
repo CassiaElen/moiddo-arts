@@ -318,7 +318,7 @@
                             <p class="text-[#5A7247] text-sm font-medium uppercase tracking-wider">Visualizações
                             </p>
                             <p class="text-4xl font-bold text-[#2C3C1C] mt-2"><span class="counter"
-                                    data-target="1248">0</span></p>
+                                    data-target="{{visu_artista}}">0</span></p>
                         </div>
                         <div
                             class="bg-[#AAB898]/20 p-3 rounded-full text-[#2C3C1C] group-hover:bg-[#5A7247] group-hover:text-white transition-colors duration-300">
@@ -359,15 +359,9 @@
                             <!-- Overlay de ações -->
                             <div
                                 class="absolute inset-0 bg-[#2C3C1C]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                                <button class="action-btn bg-[#8C3B2D] hover:bg-[#6E2E24] text-white">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn bg-[#5A7247] hover:bg-[#485B3A] text-white">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn bg-white hover:bg-[#F4F4F4] text-[#2C3C1C]">
+                                <a href="https://api.whatsapp.com/send?text=" target="_blank" class="action-btn bg-white hover:bg-[#F4F4F4] text-[#2C3C1C]">
                                     <i class="fas fa-share-alt"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
 

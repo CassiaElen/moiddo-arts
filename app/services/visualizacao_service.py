@@ -20,3 +20,6 @@ class VisualizacaoService:
 
     def visualizacoes_obra(self, obra_id):
         return self.visualizacao.visualizacoes_obra(obra_id=obra_id)
+
+    def visualizacoes_artista(self, artista_id):
+        return self.visualizacao.visualizacoes_artista(artista_id=artista_id)

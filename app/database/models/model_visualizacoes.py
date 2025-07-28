@@ -45,6 +45,14 @@ class Visualizacoes:
             )
             return cursor.fetchone()[0]
     
+    def visualizacoes_artista(self, artista_id):
+        with db.get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT COUNT(*) FROM visualizacoes WHERE obra_id = ?", (artista_id,)
+            )
+            return cursor.fetchone()[0]
+
     def buscar_visualizacao_service(self):
         try:
             with db.get_conn() as conn:
