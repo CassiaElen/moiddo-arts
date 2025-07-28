@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from app.services.imagem_service import salvar_imagem
-from app.services.validacoes_service import validar_campos, regras_editar_perfil_cliente, regras_editar_endereco
+from app.services.validacoes_service import validar_campos, regras_editar_perfil_cliente
 from ..services.authmanager import auth_manager
 
 cliente_bp = Blueprint("clientes", __name__)
@@ -60,15 +60,15 @@ def perfil_cliente(id_cliente):
                 "estado": request.form.get("estado-endereco-editar"),
             }
             print(campos)
-            principal = request.form.get("principal-endereco-editar")
-            print("principal: ",principal)
+            #principal = request.form.get("principal-endereco-editar")
+            #if principal == None:
+                #principal = ("N")
+            #print("principal: ",principal)
             print("tipo de campos: ",type(campos)) 
-            erros = validar_campos(campos, regras_editar_endereco)
-            if erros:
-                for erro in erros:
-                    flash(erro, "alert-error")
+            if not all(campos):
+                flash("Todos os campos são obrigatórios!")
                 return redirect(url_for("clientes.perfil_cliente", id_cliente=id_cliente))
-            service_endereco.editar_enderecos(campos, principal)
+            service_endereco.editar_enderecos(campos)
             flash("Endereço editado com sucesso!", "alert-success")
     
             

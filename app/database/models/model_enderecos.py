@@ -14,7 +14,7 @@ class Enderecos:
         bairro = None,
         cidade = None,
         estado = None,
-        principal = None
+        #principal = None
     ):
         self.id_endereco = id_endereco
         self.cliente_id = cliente_id
@@ -27,15 +27,15 @@ class Enderecos:
         self.bairro = bairro
         self.cidade = cidade
         self.estado = estado
-        self.principal = principal
+        #self.principal = principal
 
     def salvar(self):
         """Método para salvar ou editar o objeto no banco"""
         with db.get_conn() as conn:
             cursor = conn.cursor()
-            if self.id_cliente is None:
+            if self.cliente_id is None:
                 cursor.execute(
-                    """INSERT INTO enderecos (cliente_id, apelido, rua, cep, logradouro, numero, complemento, bairro, cidade, estado, principal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    """INSERT INTO enderecos (cliente_id, apelido, rua, cep, logradouro, numero, complemento, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                     (
                         self.cliente_id,
                         self.apelido,
@@ -47,14 +47,14 @@ class Enderecos:
                         self.bairro,
                         self.cidade,
                         self.estado,
-                        self.principal,
+                        #self.principal,
                     ),
                 )
                 conn.commit()
-                self.id_cliente = cursor.lastrowid
+                self.id_endereco = cursor.lastrowid
             else:
                 cursor.execute(
-                    """UPDATE cliente SET apelido=?, rua=?, cep=?, logradouro=?, numero=?, complemento=?, bairro=?, cidade=?, estado=?, principal=? WHERE id_endereco=?""",
+                    """UPDATE cliente SET apelido=?, rua=?, cep=?, logradouro=?, numero=?, complemento=?, bairro=?, cidade=?, estado=? WHERE id_endereco=?""",
                     (
                         self.apelido,
                         self.rua,
@@ -65,7 +65,7 @@ class Enderecos:
                         self.bairro,
                         self.cidade,
                         self.estado,
-                        self.principal,
+                        #self.principal,
                         self.id_endereco,
                     ),
                 )
@@ -96,7 +96,7 @@ class Enderecos:
                     self.bairro = row["bairro"]
                     self.cidade = row["cidade"]
                     self.estado = row["estado"]
-                    self.principal = row["principal"]
+                   #self.principal = row["principal"]
                     return dict(row)
                 return None
         except Exception as e:
