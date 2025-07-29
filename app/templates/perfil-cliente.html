@@ -392,7 +392,7 @@
                 </button>
                 <form method="POST" action="" class="inline">
                   <input type="hidden" name="acao" value="deletar_endereco">
-                  <button type="submit" value="{{ endereco.id_endereco }}" name="endereco_id-deletar"
+                  <button onclick="document.getElementById('modal_deletar_endereco').showModal()" type="button" value="{{ endereco.id_endereco }}" name="endereco_id-deletar"
                     class="btn btn-circle btn-sm btn-ghost text-[#8C3B2D] hover:bg-[#8C3B2D]/10">
                     <i class="fas fa-trash"></i>
                   </button>
@@ -618,8 +618,32 @@
               <select name="estado-endereco-adicionar" id="estado-endereco-adicionar"
                 class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
                 <option disabled selected>Selecione</option>
-                <option>São Paulo</option>
+                <option>Ceará</option>
+                <option>Acre</option>
+                <option>Alagoas</option>
+                <option>Amapá</option>
+                <option>Amazonas</option>
+                <option>Bahia</option>
+                <option>Espírito Santo</option>
+                <option>Goiás</option>
+                <option>Maranhão</option>
+                <option>Mato Grosso</option>
+                <option>Mato Grosso do Sul</option>
+                <option>Minas Gerais</option>
+                <option>Pará</option>
+                <option>Paraíba</option>
+                <option>Paraná</option>
+                <option>Pernambuco</option>
+                <option>Piauí</option>
                 <option>Rio de Janeiro</option>
+                <option>Rio Grande do Norte</option>
+                <option>Rio Grande do Sul</option>   
+                <option>Rondônia</option>
+                <option>Roraima</option>               
+                <option>São Paulo</option>
+                <option>Santa Catarina</option>
+                <option>Sergipe</option>
+                <option>Tocantins</option>
                 <!-- outros estados -->
               </select>
             </div>
@@ -735,9 +759,33 @@
               <select id="estado-endereco-editar" name="estado-endereco-editar"
                 class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
                 <option disabled selected>Selecione</option>
-                <option value="São Paulo">São Paulo</option>
-                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                
                 <option value="Ceará">Ceará</option>
+                <option value="Acre">Acre</option>
+                <option value="Alagoas">Alagoas</option>
+                <option value="Amapá">Amapá</option>
+                <option value="Amazonas">Amazonas</option>
+                <option value="Bahia">Bahia</option>
+                <option value="Espírito Santo">Espírito Santo</option>
+                <option value="Goiás">Goiás</option>
+                <option value="Maranhão">Maranhão</option>
+                <option value="Mato Grosso">Mato Grosso</option>
+                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                <option value="Minas Gerais">Minas Gerais</option>
+                <option value="Pará">Pará</option>
+                <option value="Paraíba">Paraíba</option>
+                <option value="Paraná">Paraná</option>
+                <option value="Pernambuco">Pernambuco</option>
+                <option value="Piauí">Piauí</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                <option value="Rio Grande do Sul">Rio Grande do Sul</option>   
+                <option value="Rondônia">Rondônia</option>
+                <option value="Roraima">Roraima</option>               
+                <option value="São Paulo">São Paulo</option>
+                <option value="Santa Catarina">Santa Catarina</option>
+                <option value="Sergipe">Sergipe</option>
+                <option value="Tocantins">Tocantins</option>
                 <!-- outros estados -->
               </select>
             </div>
@@ -807,6 +855,21 @@
       </div>
     </div>
   </dialog>
+
+    <!-- Modal para Excluir Endereço -->
+    <dialog id="modal_deletar_endereco" class="modal">
+      <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0 gap-20">
+        <form method="POST">
+          <input type="hidden" name="acao" value="deletar_endereco">
+          <input type="hidden" id="id_para_deletar_modal" name="endereco_id-deletar" value="">
+          <h3>Tem certeza que deseja excluir esse endereço?</h3>
+          <span>
+            <button class="cancelar-btn bg-[#2C3C2C] text-[#E3D9C6]" type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
+            <button class="bg-[#2C3C2C] text-[#E3D9C6]" type="submit">Excluir</button>
+          </span>
+        </form>
+      </div>
+    </dialog>
 
   <!-- Footer -->
   <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
@@ -908,8 +971,24 @@
 
         // Abre o modal
         modal.showModal();
+
+    
       });
     });
+  </script>
+  <script>
+    //Modal para excluir
+    document.querySelectorAll('.excluir-endereco-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const dados = this.dataset;
+        document.getElementById('modal_deletar_endereco').showModal();
+        document.getElementById('endereco_id-deletar').value = endereco.id_endereco
+        
+      });
+    });
+    document.querySelector('.cancelar-btn').addEventListener("click", () => {
+          document.getElementById('modal_deletar_endereco').close()
+        })
   </script>
 </body>
 

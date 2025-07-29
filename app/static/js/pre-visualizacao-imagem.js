@@ -142,3 +142,5 @@ document.querySelectorAll(".modal_editar_obra").forEach(botao => {
 modal_editar_obra.addEventListener('close', () => {
     editImageUpload.reset();
 });
+
+//modal para confirmaação de exclusão de enedereço
