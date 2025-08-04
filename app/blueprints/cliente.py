@@ -105,7 +105,7 @@ def perfil_cliente(id_cliente):
             return redirect(url_for("clientes.perfil_cliente", id_cliente=id_cliente))
 
         if acao == "deletar_endereco":
-            id_endereco = request.form.get("endereco_id-deletar")
+            id_endereco = request.form.get("endereco_id_deletar")
             service_endereco.deletar_enderecos(id_endereco=id_endereco)
             return redirect(url_for("clientes.perfil_cliente", id_cliente=id_cliente))
 

@@ -143,4 +143,3 @@ modal_editar_obra.addEventListener('close', () => {
     editImageUpload.reset();
 });
 
-//modal para confirmaação de exclusão de enedereço

@@ -392,8 +392,8 @@
                 </button>
                 <form method="POST" action="" class="inline">
                   <input type="hidden" name="acao" value="deletar_endereco">
-                  <button onclick="document.getElementById('modal_deletar_endereco').showModal()" type="button" value="{{ endereco.id_endereco }}" name="endereco_id-deletar"
-                    class="btn btn-circle btn-sm btn-ghost text-[#8C3B2D] hover:bg-[#8C3B2D]/10">
+                  <button type="button" data-id-endereco="{{endereco.id_endereco}}"
+                    class="excluir-endereco-btn btn btn-circle btn-sm btn-ghost text-[#8C3B2D] hover:bg-[#8C3B2D]/10">
                     <i class="fas fa-trash"></i>
                   </button>
                 </form>
@@ -861,11 +861,11 @@
       <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0 gap-20">
         <form method="POST">
           <input type="hidden" name="acao" value="deletar_endereco">
-          <input type="hidden" id="id_para_deletar_modal" name="endereco_id-deletar" value="">
+          <input type="hidden" id="id_para_deletar_modal" name="endereco_id_deletar" value="">
           <h3>Tem certeza que deseja excluir esse endereço?</h3>
           <span>
             <button class="cancelar-btn bg-[#2C3C2C] text-[#E3D9C6]" type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
-            <button class="bg-[#2C3C2C] text-[#E3D9C6]" type="submit">Excluir</button>
+            <button class="bg-[#2C3C2C] text-[#E3D9C6]" type="submit"> Excluir</button>
           </span>
         </form>
       </div>
@@ -980,15 +980,21 @@
     //Modal para excluir
     document.querySelectorAll('.excluir-endereco-btn').forEach(btn => {
       btn.addEventListener('click', function () {
-        const dados = this.dataset;
+        const idEndereco = this.dataset.idEndereco;
+        console.log("id:", idEndereco);
         document.getElementById('modal_deletar_endereco').showModal();
-        document.getElementById('endereco_id-deletar').value = endereco.id_endereco
+        document.getElementById('id_para_deletar_modal').value = idEndereco
         
       });
     });
     document.querySelector('.cancelar-btn').addEventListener("click", () => {
-          document.getElementById('modal_deletar_endereco').close()
-        })
+      document.getElementById('id_para_deletar_modal').close()
+    });
+
+    document.querySelector('.excluir-btn').addEventListener("click", () => {
+  
+    })
+
   </script>
 </body>
 
