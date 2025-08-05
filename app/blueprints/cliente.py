@@ -107,6 +107,7 @@ def perfil_cliente(id_cliente):
         if acao == "deletar_endereco":
             id_endereco = request.form.get("endereco_id_deletar")
             service_endereco.deletar_enderecos(id_endereco=id_endereco)
+            flash("Endereço excluído com sucesso!", "alert-success")
             return redirect(url_for("clientes.perfil_cliente", id_cliente=id_cliente))
 
     return render_template(

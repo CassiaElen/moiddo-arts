@@ -334,18 +334,6 @@
               <i class="fas fa-key mr-2"></i> Alterar Senha
             </a>
           </div>
-
-          <div
-            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-[#F4F4F4] rounded-lg">
-            <div>
-              <h3 class="font-medium text-[#2C3C1C]">Autenticação de Dois Fatores</h3>
-              <p class="text-sm text-[#5A7247]">Proteção adicional para sua conta</p>
-            </div>
-            <label class="cursor-pointer label">
-              <input type="checkbox" class="toggle bg-[#AAB898] border-[#AAB898] hover:bg-[#5A7247]">
-              <span class="label-text text-[#5A7247] ml-2">Ativar</span>
-            </label>
-          </div>
         </div>
       </form>
     </div>
@@ -581,7 +569,7 @@
   <dialog id="modal_endereco_adicionar" class="modal">
     <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
       <div class="bg-[#AAB898]/10">
-        <div class="sticky top-0 bg-[#5A7247] text-white p-6">
+        <div class="z-40 sticky top-0 bg-[#5A7247] text-white p-6">
           <div class="flex justify-between items-center">
             <h3 class="font-bold text-2xl">Adicionar Novo Endereço</h3>
             <form method="dialog">
@@ -858,14 +846,14 @@
 
     <!-- Modal para Excluir Endereço -->
     <dialog id="modal_deletar_endereco" class="modal">
-      <div class="modal-box max-w-2xl border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0 gap-20">
-        <form method="POST">
+      <div class="modal-box max-w-2x2 border-2 border-[#5A7247] bg-[#AAB898] rounded-xl p-0 gap-20">
+        <form method="POST" class="mt-6 space-y-4 p-6 ">
           <input type="hidden" name="acao" value="deletar_endereco">
           <input type="hidden" id="id_para_deletar_modal" name="endereco_id_deletar" value="">
-          <h3>Tem certeza que deseja excluir esse endereço?</h3>
+          <h3 class="font-bold text-2xl">Confirmar a exclusão do endereço?</h3><br>
           <span>
-            <button class="cancelar-btn bg-[#2C3C2C] text-[#E3D9C6]" type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
-            <button class="bg-[#2C3C2C] text-[#E3D9C6]" type="submit"> Excluir</button>
+            <button class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]" type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
+            <button class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]" type="submit"> Excluir Endereço</button>
           </span>
         </form>
       </div>
