@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/css/obra_detalhes.css">
     <link rel="stylesheet" href="../static/css/index.css">
     <style>
         .gallery-thumbnail {
@@ -347,9 +346,12 @@
                                     <button
                                         class="btn join-item bg-gray-100 border-gray-200 text-gray-800 hover:bg-gray-200">+</button>
                                 </div>
-                                <button class="btn btn-gradient flex-grow text-white">
-                                    <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho
-                                </button>
+                                <form action="{{ url_for('carrinho.adicionar_ao_carrinho', id_obra=obra.id_obra) }}" method="POST">
+                                    <input type="hidden" name="quantidade" value="1">
+                                    <button class="btn btn-gradient flex-grow text-white">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho
+                                    </button>
+                                </form>
                             </div>
                             {% else %}
                             <button

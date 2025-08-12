@@ -263,7 +263,7 @@
                         <div class="col-span-2 font-medium text-gray-600 text-right">Subtotal</div>
                     </div>
 
-                    <!-- Cart Item 1 -->
+                    {% for item in itens_carrinho %}
                     <div class="cart-item p-4 border-b">
                         <div class="flex flex-col md:flex-row md:items-center gap-4">
                             <div class="flex-shrink-0 flex items-center md:w-1/12">
@@ -273,113 +273,35 @@
                             </div>
                             <div class="flex items-center md:w-4/12">
                                 <div class="w-20 h-20 rounded-lg overflow-hidden mr-4">
-                                    <img src="https://images.pexels.com/photos/31837575/pexels-photo-31837575/free-photo-of-paisagem-de-savana-em-zaria-nigeria.jpeg"
-                                        alt="Itaquaquecetuba" class="w-full h-full object-cover">
+                                    <img src="{{ item.imagem_url }}" alt="{{ item.nome_obra }}" class="w-full h-full object-cover">
                                 </div>
                                 <div>
-                                    <h3 class="font-medium text-gray-800">Itaquaquecetuba</h3>
-                                    <p class="text-sm text-gray-500">por Lúcia Campos</p>
+                                    <h3 class="font-medium text-gray-800">{{ item.nome_obra }}</h3>
+                                    <p class="text-sm text-gray-500">por {{ item.nome_artista }}</p>
                                 </div>
                             </div>
                             <div class="md:w-2/12">
-                                <p class="text-gray-800 font-medium">R$ 480,00</p>
+                                <p class="text-gray-800 font-medium">R$ {{ item.preco }}</p>
                             </div>
                             <div class="md:w-3/12">
                                 <div class="flex items-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300">
+                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-decrement" data-item-id="{{ item.id_itemCarrinho }}">
                                         <i class="fas fa-minus"></i>
                                     </button>
-                                    <input type="number" value="1" min="1"
-                                        class="input-quantity mx-2 input input-sm input-bordered w-12 text-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300">
+                                    <input type="number" value="{{ item.quantidade }}" min="1"
+                                        class="input-quantity mx-2 input input-sm input-bordered w-12 text-center"
+                                        data-item-id="{{ item.id_itemCarrinho }}" readonly>
+                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-increment" data-item-id="{{ item.id_itemCarrinho }}">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="md:w-2/12 text-right">
-                                <p class="text-gray-800 font-medium">R$ 480,00</p>
+                                <p class="text-gray-800 font-medium">R$ {{ item.subtotal }}</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Cart Item 2 -->
-                    <div class="cart-item p-4 border-b">
-                        <div class="flex flex-col md:flex-row md:items-center gap-4">
-                            <div class="flex-shrink-0 flex items-center md:w-1/12">
-                                <button class="text-gray-400 hover:text-red-500">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="flex items-center md:w-4/12">
-                                <div class="w-20 h-20 rounded-lg overflow-hidden mr-4">
-                                    <img src="https://images.pexels.com/photos/2253835/pexels-photo-2253835.jpeg"
-                                        alt="Horizonte Silencioso" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Horizonte Silencioso</h3>
-                                    <p class="text-sm text-gray-500">por Lúcia Campos</p>
-                                </div>
-                            </div>
-                            <div class="md:w-2/12">
-                                <p class="text-gray-800 font-medium">R$ 650,00</p>
-                            </div>
-                            <div class="md:w-3/12">
-                                <div class="flex items-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" value="1" min="1"
-                                        class="input-quantity mx-2 input input-sm input-bordered w-12 text-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="md:w-2/12 text-right">
-                                <p class="text-gray-800 font-medium">R$ 650,00</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Cart Item 3 -->
-                    <div class="cart-item p-4">
-                        <div class="flex flex-col md:flex-row md:items-center gap-4">
-                            <div class="flex-shrink-0 flex items-center md:w-1/12">
-                                <button class="text-gray-400 hover:text-red-500">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="flex items-center md:w-4/12">
-                                <div class="w-20 h-20 rounded-lg overflow-hidden mr-4">
-                                    <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg"
-                                        alt="Aurora Dourada" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Aurora Dourada</h3>
-                                    <p class="text-sm text-gray-500">por Carlos Mendes</p>
-                                </div>
-                            </div>
-                            <div class="md:w-2/12">
-                                <p class="text-gray-800 font-medium">R$ 320,00</p>
-                                <p class="text-sm text-gray-500 line-through">R$ 400,00</p>
-                            </div>
-                            <div class="md:w-3/12">
-                                <div class="flex items-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" value="1" min="1"
-                                        class="input-quantity mx-2 input input-sm input-bordered w-12 text-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="md:w-2/12 text-right">
-                                <p class="text-gray-800 font-medium">R$ 320,00</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                     <!-- Coupon and Update Cart -->
                     <div class="p-4 bg-gray-50 border-t">
