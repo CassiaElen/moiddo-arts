@@ -53,6 +53,32 @@ class VerificarCarrinho:
 
         finally:
             conn.close()
+    
+    def listar_itens_carrinho(self, carrinho_id):
+        conn = self.conectar_db(self.db_caminho)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT 
+                o.id_obra AS id_obra,
+                o.titulo AS nome_obra,
+                o.preco AS preco,
+                ic.quantidade AS quantidade,
+                (o.preco * ic.quantidade) AS subtotal,
+                o.url_foto AS imagem_url,
+                a.nome_completo AS nome_artista
+            FROM ItemCarrinho ic
+            JOIN obras o ON ic.obra_id = o.id_obra
+            JOIN artistas a ON o.artista_id = a.id_artista
+            WHERE ic.carrinho_id = ?
+        """, (carrinho_id,))
+
+        # Isso cria uma lista de dicts com os nomes das colunas automaticamente, por precaução
+        colunas = [desc[0] for desc in cursor.description]
+        itens = [dict(zip(colunas, linha)) for linha in cursor.fetchall()]
+
+        conn.close()
+        return itens
 
     def adicionar_item_carrinho(self, carrinho_id, obra_id):
         conn = self.conectar_db(self.db_caminho)
@@ -101,9 +127,23 @@ def adicionar_ao_carrinho(id_obra):
     if obra:
         carrinho_service.adicionar_item_carrinho(carrinho_id, id_obra)
 
-    return redirect(url_for('obras.obra_detalhes',id_obra=id_obra))
+    return redirect(url_for('carrinho.visualizar_carrinho',id_obra=id_obra))
 
+@carrinho_bp.route('/carrinho')
+def visualizar_carrinho():
+    if not auth_manager.is_authenticated():
+        return redirect(url_for('main.login_client'))
+    
+    cliente_id = auth_manager.get_current_user_id()
+    carrinho_service = VerificarCarrinho()
 
+    carrinho_id = carrinho_service.buscar_ou_criar_carrinho(cliente_id)
+
+    itens_carrinho = carrinho_service.listar_itens_carrinho(carrinho_id)
+
+    return render_template('carrinho.html', itens_carrinho=itens_carrinho)
+
+    
 # Rota: Atualizar item no carrinho (aumentar/diminuir)
 @carrinho_bp.route('/atualizar_item/<int:obra_id>', methods=['POST'])
 def atualizar_item(obra_id):
