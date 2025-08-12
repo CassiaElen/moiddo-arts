@@ -7,7 +7,6 @@ carrinho_bp = Blueprint('carrinho', __name__)
 
 def buscar_obra_por_id(id_obra):
     conexao = sqlite3.connect("moiddo_arts.db")
-    conexao.row_factory = sqlite3.Row  # Para retornar como dicionário, se quiser
     cursor = conexao.cursor()
     cursor.execute("SELECT * FROM obras WHERE id_obra = ?", (id_obra,))
     obra = cursor.fetchone()
