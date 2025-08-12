@@ -283,22 +283,7 @@
                                     {% if filtro == 'mais_populares' %}<i class="fas fa-check"></i>{% endif %}
                                 </a>
                             </li>
-
                             <li>
-                                <a class="filtro-option {% if filtro == 'melhor_avaliados' %}bg-[#5A7247] text-white{% else %}text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %} rounded-lg flex justify-between items-center"
-                                    data-filtro="melhor_avaliados">
-                                    Melhor avaliados
-                                    {% if filtro == 'melhor_avaliados' %}<i class="fas fa-check"></i>{% endif %}
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="filtro-option {% if filtro == 'menos_avaliados' %}bg-[#5A7247] text-white{% else %}text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %} rounded-lg flex justify-between items-center"
-                                    data-filtro="menos_avaliados">
-                                    Menos avaliados
-                                    {% if filtro == 'menos_avaliados' %}<i class="fas fa-check"></i>{% endif %}
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <div class="dropdown dropdown-end">
@@ -316,12 +301,6 @@
                             <li class="border-t border-[#5A7247]/20 my-1"></li>
                             <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
                                     data-ordenacao="antigos">Mais antigos</a></li>
-                            <li class="border-t border-[#5A7247]/20 my-1"></li>
-                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
-                                    data-ordenacao="maior_preco">Maior preço</a></li>
-                            <li class="border-t border-[#5A7247]/20 my-1"></li>
-                            <li><a class="ordenacao-option text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white rounded-lg"
-                                    data-ordenacao="menor_preco">Menor preço</a></li>
                         </ul>
                     </div>
                 </div>
