@@ -460,14 +460,6 @@
                             </th>
                             <th scope="col"
                                 class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
-                                Visualizações
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
-                                Vendas
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
                                 Estoque
                             </th>
                             <th scope="col"
@@ -512,17 +504,6 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
                                 R$ {{ "%.2f"|format(obra.preco|float) }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
-                                <div class="flex items-center">
-                                    <i class="fas fa-eye mr-2 text-[#AAB898]"></i>
-                                    <!--ONDE EU QUERO MOSTRAR AS VISUALIZAÇÕES-->
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
-                                <div class="flex items-center">
-                                    <i class="fas fa-shopping-cart mr-2 text-[#AAB898]"></i>
-                                </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                                 {% if obra.estoque > 0 %}
