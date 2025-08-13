@@ -366,9 +366,23 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-primary w-full mb-4">
+                    <button class="btn btn-primary w-full mb-4" 
+                    onclick="document.getElementById('modal_pagamento').showModal()">
                         <i class="fas fa-lock mr-2"></i> Finalizar Compra
                     </button>
+
+                    <dialog id="modal_pagamento" class="modal">
+                        <div class="modal-box max-w-2x2 border-2 border-[#5A7247] bg-[#AAB898] rounded-xl p-0 gap-20">
+                            <form method="POST" class="mt-6 space-y-4 p-6 ">
+                                <input type="hidden" name="acao" value="pagamento">
+                                <input type="hidden" id="qr_pagamento" name="pagamento" value="">
+                                <button onclick="document.getElementById('modal_pagamento').close()" 
+                                class="pagar-btn absolute top-2 right-2 text-xl">&times;                              
+                                </button>
+                                <img src="/app/static/assets/qrcode.svg" alt="">
+                            </form>
+                        </div>
+                    </dialog>
 
                     <div class="text-center text-sm text-gray-500">
                         <p>Ou</p>
@@ -549,7 +563,15 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.querySelectorAll('.pagar-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.getElementById('modal_pagamento').showModal();    
+      });
+    });
+    </script>
 
 </body>
+
 
 </html>
