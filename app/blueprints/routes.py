@@ -58,7 +58,7 @@ def carrinho():
 
     user = auth_manager.current_user()
     user_type = auth_manager.current_user_type()
-    return render_template("carrinho.html",user=user, user_type=user_type)
+    return render_template("carrinho.html",user=user,user_type=user_type)
 
 @main.route("/politica-de-privacidade")
 def politica_privacidade():
