@@ -61,7 +61,7 @@
                                     <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
                                     <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
                                     <div class="card-actions">
-                                        <a href="{{url_for('main.carrinho')}}"
+                                        <a href="{{url_for('carrinho.carrinho', id_cliente=user.id)}}"
                                             class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
                                             Carrinho</a>
                                     </div>
@@ -273,7 +273,8 @@
                             </div>
                             <div class="flex items-center md:w-4/12">
                                 <div class="w-20 h-20 rounded-lg overflow-hidden mr-4">
-                                    <img src="{{ item.url_foto }}" alt="{{ item.titulo }}" class="w-full h-full object-cover">
+                                    <img src="{{ item.url_foto }}" alt="{{ item.titulo }}"
+                                        class="w-full h-full object-cover">
                                 </div>
                                 <div>
                                     <h3 class="font-medium text-gray-800">{{ item.titulo }}</h3>
@@ -285,13 +286,15 @@
                             </div>
                             <div class="md:w-3/12">
                                 <div class="flex items-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-decrement" data-item-id="{{ item.id_itemCarrinho }}">
+                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-decrement"
+                                        data-item-id="{{ item.id_itemCarrinho }}">
                                         <i class="fas fa-minus"></i>
                                     </button>
                                     <input type="number" value="{{ item.quantidade }}" min="1"
                                         class="input-quantity mx-2 input input-sm input-bordered w-12 text-center"
                                         data-item-id="{{ item.id_itemCarrinho }}" readonly>
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-increment" data-item-id="{{ item.id_itemCarrinho }}">
+                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-increment"
+                                        data-item-id="{{ item.id_itemCarrinho }}">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -366,8 +369,8 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-primary w-full mb-4" 
-                    onclick="document.getElementById('modal_pagamento').showModal()">
+                    <button class="btn btn-primary w-full mb-4"
+                        onclick="document.getElementById('modal_pagamento').showModal()">
                         <i class="fas fa-lock mr-2"></i> Finalizar Compra
                     </button>
 
@@ -376,8 +379,8 @@
                             <form method="POST" class="mt-6 space-y-4 p-6 ">
                                 <input type="hidden" name="acao" value="pagamento">
                                 <input type="hidden" id="qr_pagamento" name="pagamento" value="">
-                                <button onclick="document.getElementById('modal_pagamento').close()" 
-                                class="pagar-btn absolute top-2 right-2 text-xl">&times;                              
+                                <button onclick="document.getElementById('modal_pagamento').close()"
+                                    class="pagar-btn absolute top-2 right-2 text-xl">&times;
                                 </button>
                                 <img src="/app/static/assets/qrcode.svg" alt="">
                             </form>
@@ -565,10 +568,10 @@
     </footer>
     <script>
         document.querySelectorAll('.pagar-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        document.getElementById('modal_pagamento').showModal();    
-      });
-    });
+            btn.addEventListener('click', function () {
+                document.getElementById('modal_pagamento').showModal();
+            });
+        });
     </script>
 
 </body>

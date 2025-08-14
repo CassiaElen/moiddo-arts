@@ -36,3 +36,36 @@ class Carrinho:
         except Exception as e:
             print(f"Erro ao deletar carrinho: {e}")
             return False
+    
+    """def buscar_ou_criar_carrinho(self):
+        try:
+
+        except Exception as e:
+        print(f"Erro ao encontrar items no carrinho: {e}")
+        return False"""
+    
+    def buscar_items_carrinho(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    SELECT 
+                        o.id_obra AS id_obra,
+                        o.titulo AS nome_obra,
+                        o.preco AS preco,
+                        ic.quantidade AS quantidade,
+                        (o.preco * ic.quantidade) AS subtotal,
+                        o.url_foto AS imagem_url,
+                        a.nome_completo AS nome_artista
+                    FROM ItemCarrinho ic
+                    JOIN carrinho c ON ic.carrinho_id = c.id_carrinho
+                    JOIN obras o ON ic.obra_id = o.id_obra
+                    JOIN artistas a ON o.artista_id = a.id_artista
+                    WHERE c.cliente_id = ?
+                """,(self.cliente_id,))
+                items = [dict(row) for row in cursor.fetchall()]
+                return items
+        except Exception as e:
+            print(f"Erro ao encontrar items no carrinho: {e}")
+            return False
+        
