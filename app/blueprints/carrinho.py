@@ -41,7 +41,7 @@ def visualizar_carrinho():
 
     return render_template("carrinho.html")
 
-@carrinho_bp.route('/carrinho/int:id_cliente', methods=['POST'])
+@carrinho_bp.route("/carrinho/<int:id_cliente>")
 def carrinho(id_cliente):
     if not auth_manager.is_client():
         return redirect(url_for("main.login_client"))
@@ -52,6 +52,7 @@ def carrinho(id_cliente):
     from ..database.models.model_carrinho import Carrinho
 
     car_items = Carrinho(cliente_id=auth_manager.get_current_user_id())
+    itens_carrinho = car_items.buscar_items_carrinho()
     print(itens_carrinho)
 
     return render_template("carrinho.html", user=user, user_type=user_type, itens_carrinho=itens_carrinho)
