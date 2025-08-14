@@ -89,7 +89,7 @@
                                     <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
                                     <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
                                     <div class="card-actions">
-                                        <a href="{{url_for('main.carrinho')}}"
+                                        <a href="{{url_for('carrinho.carrinho', id_cliente=user.id)}}"
                                             class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
                                             Carrinho</a>
                                     </div>
@@ -346,7 +346,8 @@
                                     <button
                                         class="btn join-item bg-gray-100 border-gray-200 text-gray-800 hover:bg-gray-200">+</button>
                                 </div>
-                                <form action="{{ url_for('carrinho.adicionar_ao_carrinho', id_obra=obra.id_obra) }}" method="POST">
+                                <form action="{{ url_for('carrinho.adicionar_ao_carrinho', id_obra=obra.id_obra) }}"
+                                    method="POST">
                                     <input type="hidden" name="quantidade" value="1">
                                     <button class="btn btn-gradient flex-grow text-white">
                                         <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho

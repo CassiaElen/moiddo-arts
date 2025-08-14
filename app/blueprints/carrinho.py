@@ -1,7 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify, session, redirect, url_for
 from app.services.authmanager import auth_manager
 from app.services.carrinhoService import buscar_obra_por_id, VerificarCarrinho
-import sqlite3
 
 carrinho_bp = Blueprint('carrinho', __name__)
 
@@ -38,6 +37,21 @@ def visualizar_carrinho():
 
     print(f"[DEBUG] Cliente logado: {cliente_id} | Visualizando carrinho ID: {carrinho_id}")
 
-    itens_carrinho = carrinho_service.listar_itens_carrinho(carrinho_id)
+    #itens_carrinho = carrinho_service.listar_itens_carrinho(carrinho_id)
 
-    return render_template('carrinho.html', itens_carrinho=itens_carrinho)
+    return render_template('carrinho.html')
+
+@carrinho_bp.route('/carrinho/<int:id_cliente>')
+def carrinho(id_cliente):
+    if not auth_manager.is_client():
+        return redirect(url_for('main.login_client'))
+    
+    user = auth_manager.current_user()
+    user_type = auth_manager.current_user_type()
+
+    from ..database.models.model_carrinho import Carrinho
+    car_items = Carrinho(cliente_id=auth_manager.get_current_user_id())
+    itens_carrinho = car_items.buscar_items_carrinho()
+    print(itens_carrinho)
+
+    return render_template('carrinho.html',user = user, user_type = user_type, itens_carrinho=itens_carrinho)

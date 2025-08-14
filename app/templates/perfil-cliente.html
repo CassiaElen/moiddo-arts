@@ -77,7 +77,7 @@
                   <span class="font-bold text-[#2C3C1C] text-lg">3 Itens no Carrinho</span>
                   <span class="text-[#5A7247]">Subtotal: R$ 1.240,00</span>
                   <div class="card-actions">
-                    <a href="{{url_for('main.carrinho')}}"
+                    <a href="{{url_for('carrinho.carrinho', id_cliente=user.id)}}"
                       class="btn btn-block btn-gradient text-white hover:bg-[#2C3C1C]">Ver
                       Carrinho</a>
                   </div>
@@ -625,9 +625,9 @@
                 <option>Piauí</option>
                 <option>Rio de Janeiro</option>
                 <option>Rio Grande do Norte</option>
-                <option>Rio Grande do Sul</option>   
+                <option>Rio Grande do Sul</option>
                 <option>Rondônia</option>
-                <option>Roraima</option>               
+                <option>Roraima</option>
                 <option>São Paulo</option>
                 <option>Santa Catarina</option>
                 <option>Sergipe</option>
@@ -747,7 +747,7 @@
               <select id="estado-endereco-editar" name="estado-endereco-editar"
                 class="select select-bordered text-[#2C3C1C] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
                 <option disabled selected>Selecione</option>
-                
+
                 <option value="Ceará">Ceará</option>
                 <option value="Acre">Acre</option>
                 <option value="Alagoas">Alagoas</option>
@@ -767,9 +767,9 @@
                 <option value="Piauí">Piauí</option>
                 <option value="Rio de Janeiro">Rio de Janeiro</option>
                 <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                <option value="Rio Grande do Sul">Rio Grande do Sul</option>   
+                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
                 <option value="Rondônia">Rondônia</option>
-                <option value="Roraima">Roraima</option>               
+                <option value="Roraima">Roraima</option>
                 <option value="São Paulo">São Paulo</option>
                 <option value="Santa Catarina">Santa Catarina</option>
                 <option value="Sergipe">Sergipe</option>
@@ -844,20 +844,22 @@
     </div>
   </dialog>
 
-    <!-- Modal para Excluir Endereço -->
-    <dialog id="modal_deletar_endereco" class="modal">
-      <div class="modal-box max-w-2x2 border-2 border-[#5A7247] bg-[#AAB898] rounded-xl p-0 gap-20">
-        <form method="POST" class="mt-6 space-y-4 p-6 ">
-          <input type="hidden" name="acao" value="deletar_endereco">
-          <input type="hidden" id="id_para_deletar_modal" name="endereco_id_deletar" value="">
-          <h3 class="font-bold text-2xl">Confirmar a exclusão do endereço?</h3><br>
-          <span>
-            <button class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]" type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
-            <button class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]" type="submit"> Excluir Endereço</button>
-          </span>
-        </form>
-      </div>
-    </dialog>
+  <!-- Modal para Excluir Endereço -->
+  <dialog id="modal_deletar_endereco" class="modal">
+    <div class="modal-box max-w-2x2 border-2 border-[#5A7247] bg-[#AAB898] rounded-xl p-0 gap-20">
+      <form method="POST" class="mt-6 space-y-4 p-6 ">
+        <input type="hidden" name="acao" value="deletar_endereco">
+        <input type="hidden" id="id_para_deletar_modal" name="endereco_id_deletar" value="">
+        <h3 class="font-bold text-2xl">Confirmar a exclusão do endereço?</h3><br>
+        <span>
+          <button class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
+            type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
+          <button class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]" type="submit"> Excluir
+            Endereço</button>
+        </span>
+      </form>
+    </div>
+  </dialog>
 
   <!-- Footer -->
   <footer class="bg-[#2C3C1C] text-[#E3D9C6]">
@@ -960,7 +962,7 @@
         // Abre o modal
         modal.showModal();
 
-    
+
       });
     });
   </script>
@@ -972,7 +974,7 @@
         console.log("id:", idEndereco);
         document.getElementById('modal_deletar_endereco').showModal();
         document.getElementById('id_para_deletar_modal').value = idEndereco
-        
+
       });
     });
     document.querySelector('.cancelar-btn').addEventListener("click", () => {
@@ -980,7 +982,7 @@
     });
 
     document.querySelector('.excluir-btn').addEventListener("click", () => {
-  
+
     })
 
   </script>
