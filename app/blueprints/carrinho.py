@@ -5,7 +5,7 @@ from app.services.carrinhoService import buscar_obra_por_id, VerificarCarrinho
 carrinho_bp = Blueprint('carrinho', __name__)
 
 @carrinho_bp.route('/adicionar_carrinho/<int:id_obra>', methods=['GET'])
-def adicionar_carrinho(id_obra):
+def adicionar_ao_carrinho(id_obra):
     if not auth_manager.is_authenticated():
         return redirect(url_for("main.login_client"))
     
