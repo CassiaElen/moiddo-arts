@@ -39,7 +39,7 @@ def visualizar_carrinho():
     print(f"[DEBUG] Cliente logado:{cliente_id} | Visualizando carrinho ID: {carrinho_id}")
 
     itens_carrinho = carrinho_service.listar_itens_carrinho(carrinho_id)
-    
+    print(itens_carrinho)
     return render_template("carrinho.html")
 
 @carrinho_bp.route("/carrinho/<int:id_cliente>")

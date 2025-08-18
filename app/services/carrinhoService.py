@@ -17,7 +17,6 @@ def buscar_obra_por_id(id_obra):
     print(f"[DEBUG] Obra encontrada: id_obra = {obra['id_obra']}")
     return dict(obra)  # Retorna como dicionário
 
-
 class VerificarCarrinho:
     def __init__(self, db_caminho='moiddo_arts.db'):
         self.db_caminho = db_caminho
