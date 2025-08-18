@@ -66,7 +66,7 @@ class Cliente:
         with db.get_conn() as conn:
             cursor = conn.cursor()
             cursor.execute("""
-                        SELECT id_cliente as id, email, senha, status_cliente as status, url_avatar as avatar
+                        SELECT id_cliente as id, usuario, email, senha, status_cliente as status, url_avatar as avatar
                         FROM cliente 
                         WHERE email=? AND senha=?
                         """,
@@ -80,6 +80,7 @@ class Cliente:
         
             return {
                 'id': row['id'],
+                'usuario': row['usuario'],
                 'email': row['email'],
                 'status': row['status'],
                 'avatar': row['avatar']

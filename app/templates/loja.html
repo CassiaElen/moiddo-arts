@@ -91,35 +91,57 @@
                         {% endif %}
                         <!-- Perfil do Usuário -->
                         <div class="dropdown dropdown-end">
-                            <label tabindex="0" class="btn btn-ghost btn-circle avatar hover:bg-[#2C3C1C]">
+                            <label tabindex="0" class="btn btn-ghost btn-circle avatar group">
                                 <div
-                                    class="w-10 rounded-full border-2 border-white/20 hover:border-white/50 transition-all">
-                                    <img src="{{user.avatar or '../static/assets/perfil.png'}}" alt="Foto de perfil" />
+                                    class="w-10 rounded-full border-2 border-white/20 group-hover:border-[#5A7247] transition-all duration-200 relative">
+                                    <img src="{{user.avatar or '../static/assets/perfil.png'}}" alt="Foto de perfil"
+                                        class="object-cover" />
+                                    <div
+                                        class="absolute inset-0 bg-[#5A7247]/0 group-hover:bg-[#5A7247]/10 transition-all duration-200 rounded-full">
+                                    </div>
                                 </div>
                             </label>
+
                             <ul tabindex="0"
-                                class="border-2 border-solid border-[#5A7247] rounded-xl dropdown-content menu menu-sm mt-3 w-52 bg-[#f4f4f4] rounded-box shadow-l p-2">
+                                class="dropdown-content menu menu-sm mt-3 w-56 bg-white border-2 border-[#5A7247] rounded-xl shadow-lg p-2">
+                                <div class="px-4 py-3 border-b border-[#E3D9C6]">
+                                    <p class="text-sm font-medium text-[#2C3C1C] truncate">{{ user.usuario or 'Usuário'
+                                        }}
+                                    </p>
+                                    <p class="text-xs text-[#5A7247]/80 truncate">{{ user.email or '' }}</p>
+                                </div>
+
                                 {% if user_type == 'cliente' %}
                                 <li>
                                     <a href="{{ url_for('clientes.perfil_cliente', id_cliente=user.id) }}"
-                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
-                                        Perfil</a>
+                                        class="flex items-center gap-2 text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">
+                                        <i class="fas fa-user text-[#5A7247] w-4 text-center"></i>
+                                        <span>Meu Perfil</span>
+                                    </a>
                                 </li>
                                 {% elif user_type == 'artista' %}
                                 <li>
                                     <a href="{{ url_for('artistas.perfil_artista', id_artista=user.id) }}"
-                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Meu
-                                        Perfil</a>
+                                        class="flex items-center gap-2 text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">
+                                        <i class="fas fa-user text-[#5A7247] w-4 text-center"></i>
+                                        <span>Meu Perfil</span>
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="{{ url_for('artistas.painel_artista') }}"
-                                        class="text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Painel do
-                                        Artista</a>
+                                        class="flex items-center gap-2 text-[#2C3C1C] hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">
+                                        <i class="fas fa-palette text-[#5A7247] w-4 text-center"></i>
+                                        <span>Painel do Artista</span>
+                                    </a>
                                 </li>
                                 {% endif %}
-                                <li>
+
+                                <li class="mt-1 border-t border-[#E3D9C6]">
                                     <a href="{{url_for('main.logout')}}"
-                                        class="text-red-500 hover:bg-[#5A7247]/10 active:bg-[#5A7247]/20">Sair</a>
+                                        class="flex items-center gap-2 text-red-600 hover:bg-red-50 active:bg-red-100">
+                                        <i class="fas fa-sign-out-alt w-4 text-center"></i>
+                                        <span>Sair</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -435,7 +457,6 @@
                 </div>
                 {% endif %}
 
-                <!-- Paginação melhorada -->
                 <div class="flex flex-col sm:flex-row justify-between items-center mt-8">
                     <div class="mb-4 sm:mb-0 text-sm text-[#5A7247]">
                         Mostrando <span class="font-semibold text-[#2C3C1C]">{{ (pagina_atual - 1) * por_pagina + 1 if
@@ -451,8 +472,8 @@
                             «
                         </a>
 
-                        {% for pagina in range([1, pagina_atual - 1] | max, [pagina_atual + 2, total_paginas + 1] | min)
-                        %}
+                        {% for pagina in range([1, pagina_atual - 1] | max, [pagina_atual + 2, total_paginas + 1] |
+                        min)%}
                         {% if loop.index <= 3 or p==total_paginas or p==1 %} <a
                             href="?pagina={{ pagina }}&busca={{ busca }}&filtro={{ filtro }}"
                             class="join-item btn {% if pagina == pagina_atual %}bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]{% else %}btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white{% endif %}">

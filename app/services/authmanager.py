@@ -19,7 +19,8 @@ class AuthManager:
         if isinstance(user_data, tuple):
             session['user'] = {
                 'id':user_data[0],
-                'email':user_data[1],
+                'usuario':user_data[1],
+                'email':user_data[2],
                 'status':user_data[3],
                 'avatar':user_data[4]
             }
