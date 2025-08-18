@@ -435,19 +435,34 @@
     </div>
     </div>
     <!-- Seção de Pedidos -->
-    <div class="bg-white rounded-xl shadow-lg border border-[#E3D9C6]">
-      <div class="flex justify-between items-center p-6">
+    <div class="bg-white rounded-xl shadow-lg border border-[#E3D9C6] overflow-hidden">
+      <!-- Cabeçalho e Filtros -->
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-center p-6 gap-4 border-b border-[#E3D9C6]">
         <h3 class="text-xl font-semibold text-[#2C3C1C]">Meus Pedidos</h3>
-        <div class="form-control">
-          <select
-            class="select select-bordered border-[#5A7247] text-[#5A7247] bg-[#F5F5F0] focus:bg-white focus:border-[#5A7247]">
-            <option disabled selected>Filtrar por status</option>
-            <option>Todos</option>
-            <option>Pendentes</option>
-            <option>Finalizados</option>
-            <option>Entregues</option>
-            <option>Cancelados</option>
-          </select>
+
+        <!-- Filtros de Status -->
+        <div class="flex flex-wrap gap-2">
+          <a href="?status=todos#pedidos"
+            class="btn btn-sm {% if status_pedido == 'todos' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+            <i class="fas fa-list mr-1"></i> Todos
+          </a>
+          <a href="?status=pendente#pedidos"
+            class="btn btn-sm {% if status_pedido == 'pendente' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+            <i class="fas fa-clock mr-1"></i> Pendentes
+          </a>
+          <a href="?status=finalizado#pedidos"
+            class="btn btn-sm {% if status_pedido == 'finalizado' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+            <i class="fas fa-check-circle mr-1"></i> Finalizados
+          </a>
+          <a href="?status=entregue#pedidos"
+            class="btn btn-sm {% if status_pedido == 'entregue' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+            <i class="fas fa-truck mr-1"></i> Entregues
+          </a>
+          <a href="?status=cancelado#pedidos"
+            class="btn btn-sm {% if status_pedido == 'cancelado' %}bg-[#5A7247] border-[#2C3C1C]/50 text-white hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-[#5A7247]{% endif %}">
+            <i class="fas fa-times-circle mr-1"></i> Cancelados
+          </a>
         </div>
       </div>
 
@@ -456,38 +471,33 @@
         <table class="min-w-full divide-y divide-[#E3D9C6]">
           <thead class="bg-[#AAB898]/20">
             <tr>
-              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-[#2C3C1C] uppercase tracking-wider">
                 Pedido
               </th>
-              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-[#2C3C1C] uppercase tracking-wider">
                 Data
               </th>
-              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-[#2C3C1C] uppercase tracking-wider">
                 Valor
               </th>
-              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-[#2C3C1C] uppercase tracking-wider">
                 Status
               </th>
-              <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-[#2C3C1C] uppercase tracking-wider">
                 Endereço
               </th>
               <th scope="col"
-                class="px-6 py-4 text-right text-sm font-semibold text-[#2C3C1C] uppercase tracking-wider">
+                class="px-6 py-3 text-right text-xs font-semibold text-[#2C3C1C] uppercase tracking-wider">
                 Ações
               </th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-[#E3D9C6]">
-            <!-- Pedido 1 -->
             {% if pedidos %}
-            {% for pedidi in pedidos %}
+            {% for pedido in pedidos %}
             <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="ml-4">
-                    <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{pedidi.id_pedido}}</div>
-                  </div>
-                </div>
+                <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{pedido.id_pedido}}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                 {% if pedido.data_criacao %}
@@ -497,48 +507,48 @@
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#2C3C1C]">
-                R$ {{pedido.total_pedido}}
+                R$ {{ "%.2f"|format(pedido.total_pedido) }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
-                    {% if pedido.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
-                    {% elif pedido.status_pedido == 'cancelado' %}bg-red-100 text-red-800
-                    {% elif pedido.status_pedido == 'entregue' %}bg-green-100 text-green-800
-                    {% else %}bg-blue-100 text-blue-800{% endif %}">
-                  {{pedido.status_pedido}}
+                {% if pedido.status_pedido == 'pendente' %}bg-yellow-100 text-yellow-800
+                {% elif pedido.status_pedido == 'cancelado' %}bg-red-100 text-red-800
+                {% elif pedido.status_pedido == 'entregue' %}bg-green-100 text-green-800
+                {% else %}bg-blue-100 text-blue-800{% endif %}">
+                  {{ pedido.status_pedido|capitalize }}
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="ml-4">
-                    <div class="text-sm font-semibold text-[#2C3C1C]">{{pedido.apelido}}</div>
-                    <div class="text-sm text-[#5A7247]">{{pedido.rua}}, {{pedido.numero}}</div>
-                  </div>
-                </div>
+                <div class="text-sm font-semibold text-[#2C3C1C]">{{pedido.apelido}}</div>
+                <div class="text-sm text-[#5A7247]">{{pedido.rua}}, {{pedido.numero}}</div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
+              <td class="px-6 py-4 whitespace-nowrap text-right">
                 {% if pedido.status_pedido == 'entregue' %}
                 <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
                   <i class="fas fa-check-circle mr-1"></i> Entregue
                 </button>
                 {% elif pedido.status_pedido == 'finalizado' %}
-                <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
-                  <i class="fas fa-check mr-1"></i> Confirmar Entrega
+                <button class="btn btn-xs bg-[#5A7247] text-white hover:bg-[#2C3C1C]">
+                  <i class="fas fa-truck mr-1"></i> Confirmar Entrega
                 </button>
                 {% else %}
-                Não informado
+                <button class="btn btn-ghost btn-xs text-[#5A7247] hover:text-[#2C3C1C]">
+                  <i class="fas fa-eye mr-1"></i> Detalhes
+                </button>
                 {% endif %}
               </td>
             </tr>
-
             {% endfor %}
             {% else %}
             <tr>
-              <td colspan="5" class="px-6 py-8 text-center">
+              <td colspan="6" class="px-6 py-12 text-center">
                 <div class="flex flex-col items-center justify-center text-[#5A7247]">
                   <i class="fas fa-box-open text-4xl mb-4 text-[#AAB898]"></i>
                   <p class="text-lg font-medium">Nenhum pedido encontrado</p>
-                  <p class="text-sm">Quando realizar compras, elas aparecerão aqui</p>
+                  <p class="text-sm text-[#5A7247]/70">Quando realizar compras, elas aparecerão aqui</p>
+                  <a href="{{url_for('obras.loja')}}" class="btn btn-sm mt-4 bg-[#5A7247] text-white hover:bg-[#2C3C1C]">
+                    <i class="fas fa-shopping-bag mr-2"></i> Ver Produtos
+                  </a>
                 </div>
               </td>
             </tr>
@@ -548,20 +558,34 @@
       </div>
 
       <!-- Paginação -->
+      {% if pedidos and total_paginas > 1 %}
       <div class="flex justify-center p-6 border-t border-[#E3D9C6]">
         <div class="join">
-          <button
-            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">«</button>
-          <button
-            class="join-item btn btn-active bg-[#5A7247] hover:bg-[#2C3C1C] text-white border-[#5A7247]">1</button>
-          <button
-            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">2</button>
-          <button
-            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">3</button>
-          <button
-            class="join-item btn btn-outline border-[#5A7247] text-[#2C3C1C] hover:bg-[#5A7247] hover:text-white">»</button>
+          {% if pagina > 1 %}
+          <a class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
+            href="?status={{ status_pedido }}&pagina={{ pagina - 1 }}#pedidos">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+          {% endif %}
+
+          {% for p in range([1, pagina - 1] | max, [pagina + 2, total_paginas + 1] | min) %}
+          {% if loop.index <= 3 or p==total_paginas or p==1 %} <a
+            class="join-item btn btn-sm {% if p == pagina %}bg-[#5A7247] text-white border-none hover:bg-[#2C3C1C]{% else %}bg-white text-[#5A7247] border-[#AAB898] hover:bg-[#AAB898]/20 hover:border-none{% endif %}"
+            href="?status={{ status_pedido }}&pagina={{ p }}#pedidos">
+            {{ p }}
+            </a>
+            {% endif %}
+            {% endfor %}
+
+            {% if pagina < total_paginas %} <a
+              class="join-item btn btn-sm bg-white border-[#AAB898] text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-none"
+              href="?status={{ status_pedido }}&pagina={{ pagina + 1 }}#pedidos">
+              <i class="fas fa-chevron-right"></i>
+              </a>
+              {% endif %}
         </div>
       </div>
+      {% endif %}
     </div>
   </main>
 
@@ -846,18 +870,37 @@
 
   <!-- Modal para Excluir Endereço -->
   <dialog id="modal_deletar_endereco" class="modal">
-    <div class="modal-box max-w-2x2 border-2 border-[#5A7247] bg-[#AAB898] rounded-xl p-0 gap-20">
-      <form method="POST" class="mt-6 space-y-4 p-6 ">
-        <input type="hidden" name="acao" value="deletar_endereco">
-        <input type="hidden" id="id_para_deletar_modal" name="endereco_id_deletar" value="">
-        <h3 class="font-bold text-2xl">Confirmar a exclusão do endereço?</h3><br>
-        <span>
-          <button class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
-            type="button" onclick="document.getElementById('modal_deletar_endereco').close()">Cancelar</button>
-          <button class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]" type="submit"> Excluir
-            Endereço</button>
-        </span>
-      </form>
+    <div class="modal-box max-w-md border-2 border-[#5A7247] bg-[#f4f4f4] rounded-xl p-0">
+      <div class="bg-[#AAB898]/10">
+        <div class="z-40 sticky top-0 bg-[#5A7247] text-white p-6">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-2xl">Excluir Endereço</h3>
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+          </div>
+          <p class="text-white/80">Confirme a exclusão do endereço</p>
+        </div>
+
+        <form method="POST" action="" class="mt-6 space-y-4 p-6">
+          <input type="hidden" name="acao" value="deletar_endereco">
+          <input type="hidden" id="id_para_deletar_modal" name="endereco_id_deletar" value="">
+
+          <p class="text-[#2C3C1C] text-lg">Tem certeza que deseja excluir este endereço permanentemente?</p>
+          <p class="text-[#2C3C1C]/70">Esta ação não pode ser desfeita.</p>
+
+          <div class="modal-action mt-8 flex flex-wrap gap-2 justify-end">
+            <button type="button"
+              class="btn bg-white border-[#E3D9C6] text-[#5A7247] hover:bg-[#F4F4F4] hover:border-[#5A7247]"
+              onclick="modal_deletar_endereco.close()">
+              <i class="fas fa-times mr-2"></i> Cancelar
+            </button>
+            <button type="submit" class="btn bg-[#8C3B2D] border-none text-white hover:bg-[#6B2A20]">
+              <i class="fas fa-trash-alt mr-2"></i> Excluir Endereço
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </dialog>
 

@@ -71,7 +71,7 @@ class Artistas:
         with db.get_conn() as conn:
             cursor = conn.cursor()
             cursor.execute("""
-                        SELECT id_artista as id, email, status_artista as status, url_avatar as avatar
+                        SELECT id_artista as id, usuario, email, status_artista as status, url_avatar as avatar
                         FROM artistas 
                         WHERE email=? AND senha=?
                         """,
@@ -86,6 +86,7 @@ class Artistas:
             
             return {
                 'id': row['id'],
+                'usuario': row['usuario'],
                 'email': row['email'],
                 'status': row['status'],
                 'avatar': row['avatar']
