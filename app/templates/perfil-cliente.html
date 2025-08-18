@@ -497,7 +497,11 @@
             {% for pedido in pedidos %}
             <tr class="hover:bg-[#F4F4F4] transition-colors duration-150">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{pedido.id_pedido}}</div>
+                <div class="flex items-center">
+                  <div class="ml-4">
+                    <div class="text-sm font-semibold text-[#2C3C1C]">#MO{{pedidi.id_pedido}}</div>
+                  </div>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A7247]">
                 {% if pedido.data_criacao %}

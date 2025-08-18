@@ -1,4 +1,5 @@
 from ..connection import db
+import sqlite3
 
 class Visualizacoes:
     def __init__(
@@ -21,6 +22,7 @@ class Visualizacoes:
 
     def registrar(self):
         with db.get_conn() as conn:
+            conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             cursor.execute("""
                 INSERT INTO visualizacoes (artista_id, obra_id, id_visitante, tipo_user, ip_visitante, data_visualizacao) 
@@ -38,6 +40,7 @@ class Visualizacoes:
             self.id_visualizacao = cursor.lastrowid
 
     def visualizacoes_obra(self, obra_id):
+        conn.row_factory = sqlite3.Row
         with db.get_conn() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -47,6 +50,7 @@ class Visualizacoes:
     
     def visualizacoes_artista(self, artista_id):
         with db.get_conn() as conn:
+            conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             cursor.execute(
                 "SELECT COUNT(*) FROM visualizacoes WHERE obra_id = ?", (artista_id,)
@@ -56,6 +60,7 @@ class Visualizacoes:
     def buscar_visualizacao_service(self):
         try:
             with db.get_conn() as conn:
+                conn.row_factory = sqlite3.Row
                 cursor = conn.cursor()
                 cursor.execute("SELECT * FROM visualizacoes WHERE id_visualizacao = ?", (self.id_visualizacao,))
                 row = cursor.fetchone()

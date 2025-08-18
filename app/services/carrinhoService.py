@@ -27,6 +27,7 @@ class VerificarCarrinho:
 
     def buscar_ou_criar_carrinho(self, cliente_id):
         conn = self.conectar_db()
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         try:
             cursor.execute("""
@@ -54,11 +55,11 @@ class VerificarCarrinho:
         finally:
             conn.close()
 
-    """def listar_itens_carrinho(self, carrinho_id):
+    def listar_itens_carrinho(self, carrinho_id):
         conn = self.conectar_db()
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute("
+        cursor.execute('''
             SELECT 
                 o.id_obra AS id_obra,
                 o.titulo AS nome_obra,
@@ -70,16 +71,17 @@ class VerificarCarrinho:
             FROM ItemCarrinho ic
             JOIN obras o ON ic.obra_id = o.id_obra
             JOIN artistas a ON o.artista_id = a.id_artista
-            WHERE ic.carrinho_id = ?
-        ", (carrinho_id,))
+            WHERE ic.carrinho_id = ?'''
+        , (carrinho_id,))
         itens = [dict(linha) for linha in cursor.fetchall()]
         print(f"[DEBUG] Listando itens do carrinho {carrinho_id}: {itens}")
 
         conn.close()
-        return itens"""
+        return itens
 
     def adicionar_item_carrinho(self, carrinho_id, obra_id, quantidade=1):
         conn = self.conectar_db()
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         try:
             print(f"[DEBUG] Adicionando obra_id={obra_id} no carrinho_id={carrinho_id}")

@@ -21,11 +21,12 @@ def adicionar_ao_carrinho(id_obra):
 
     if obra:
         carrinho_service.adicionar_item_carrinho(carrinho_id, id_obra, quantidade)
+        print(type(obra))
     else:
         print("[DEBUG] Nenhuma obra adicionada pois não foi encontrada")
 
     # Redireciona para a página do carrinho já unificada
-    return redirect(url_for('carrinho.visualizar_carrinho'))
+    return redirect(url_for('carrinho.carrinho',id_cliente=cliente_id))
 
 @carrinho_bp.route('/carrinho')
 def visualizar_carrinho():
@@ -37,8 +38,8 @@ def visualizar_carrinho():
     carrinho_id = carrinho_service.buscar_ou_criar_carrinho(cliente_id)
     print(f"[DEBUG] Cliente logado:{cliente_id} | Visualizando carrinho ID: {carrinho_id}")
 
-    #itens_carrinho = carrinho_service.listar_itens_carrinho(carrinho_id)
-
+    itens_carrinho = carrinho_service.listar_itens_carrinho(carrinho_id)
+    
     return render_template("carrinho.html")
 
 @carrinho_bp.route("/carrinho/<int:id_cliente>", methods=['GET'])
@@ -53,6 +54,6 @@ def carrinho(id_cliente):
 
     car_items = Carrinho(cliente_id=auth_manager.get_current_user_id())
     itens_carrinho = car_items.buscar_items_carrinho()
-    print(itens_carrinho)
+    print("[DEBUG]",itens_carrinho, "aqui é a listagem dos itens do carrinho")
 
-    return render_template("carrinho.html", user=user, user_type=user_type, itens_carrinho=itens_carrinho)
+    return render_template("carrinho.html", user=user, user_type=user_type, car_items=car_items, itens_carrinho=itens_carrinho)
