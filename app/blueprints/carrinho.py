@@ -26,7 +26,7 @@ def adicionar_ao_carrinho(id_obra):
         print("[DEBUG] Nenhuma obra adicionada pois não foi encontrada")
 
     # Redireciona para a página do carrinho já unificada
-    return redirect(url_for('carrinho.visualizar_carrinho'))
+    return redirect(url_for('carrinho.carrinho',id_cliente=cliente_id))
 
 @carrinho_bp.route('/carrinho')
 def visualizar_carrinho():
