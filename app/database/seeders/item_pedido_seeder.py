@@ -4,7 +4,7 @@ import random
 def seed_item_pedido():
     items_pedidos = []
 
-    for i in range(200):
+    for _ in range(200):
         pedido_id = random.randint(1,50)
         obra_id = random.randint(1, 75)
         preco_unitario = "{:.2f}".format(random.randint(30, 2000))
