@@ -261,6 +261,136 @@ def seed_enderecos():
             "Juazeiro do Norte",
             "Ceará"
         ),
+
+        # Cliente 11
+        (
+            11,
+            "Casa",
+            "Rua Padre Cícero",
+            "63010-001",
+            "Centro",
+            "123",
+            "Apto 101",
+            "Centro",
+            "Juazeiro do Norte",
+            "Ceará"
+        ),
+        (
+            11,
+            "Trabalho",
+            "Av. São José",
+            "63020-100",
+            "São José",
+            "456",
+            "",
+            "São José",
+            "Juazeiro do Norte",
+            "Ceará"
+        ),
+
+        # Cliente 12
+        (
+            12,
+            "Residência",
+            "Rua São Pedro",
+            "63100-200",
+            "Triângulo",
+            "789",
+            "",
+            "Triângulo",
+            "Crato",
+            "Ceará"
+        ),
+        (
+            12,
+            "Sítio",
+            "Estrada do Caldeirão",
+            "63150-000",
+            "Zona Rural",
+            "S/N",
+            "",
+            "Sítio Fundão",
+            "Crato",
+            "Ceará"
+        ),
+
+        # Cliente 13
+        (
+            13,
+            "Apartamento",
+            "Av. Leão Sampaio",
+            "63040-000",
+            "Pirajá",
+            "101",
+            "Bloco B",
+            "Pirajá",
+            "Juazeiro do Norte",
+            "Ceará"
+        ),
+        (
+            13,
+            "Casa de Praia",
+            "Rua das Dunas",
+            "62580-000",
+            "Praia de Jericoacoara",
+            "202",
+            "",
+            "Jericoacoara",
+            "Jijoca",
+            "Ceará"
+        ),
+
+        # Cliente 14
+        (
+            14,
+            "Casa Principal",
+            "Rua Coronel Antônio Luiz",
+            "63180-000",
+            "Centro",
+            "303",
+            "",
+            "Centro",
+            "Barbalha",
+            "Ceará"
+        ),
+        (
+            14,
+            "Escritório",
+            "Rua Dr. João Pessoa",
+            "63180-100",
+            "Alto da Alegria",
+            "404",
+            "Sala 2",
+            "Alto da Alegria",
+            "Barbalha",
+            "Ceará"
+        ),
+
+        # Cliente 15
+        (
+            15,
+            "Residencial",
+            "Rua da Matriz",
+            "63030-000",
+            "Centro",
+            "505",
+            "",
+            "Centro",
+            "Missão Velha",
+            "Ceará"
+        ),
+        (
+            15,
+            "Chácara",
+            "Estrada do Sítio",
+            "63035-000",
+            "Zona Rural",
+            "S/N",
+            "",
+            "Sítio Lagoa",
+            "Missão Velha",
+            "Ceará"
+        ),
     ]
 
     with db.get_conn() as conn:

@@ -12,27 +12,27 @@
     <link rel="stylesheet" href="../static/css/index.css">
 </head>
 
-<body class="auth-containermin-h-screen bg-[#f5f5f5]">
+<body class="min-h-screen bg-[#f5f5f5]">
     {% include 'includes/notificacao-flash.html' %}
     
     <!--Header-->
     {% include 'includes/header.html' %}
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Breadcrumbs -->
         <div class="text-sm breadcrumbs mb-8">
             <ul>
-                <li><a href="index.html" class="text-indigo-600 hover:text-indigo-800">Home</a></li>
-                <li><a href="loja.html" class="text-indigo-600 hover:text-indigo-800">Loja</a></li>
+                <li><a href="{{url_for('main.home')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Home</a></li>
+                <li><a href="{{url_for('obras.loja')}}" class="text-[#5A7247] hover:text-[#2C3C1C]">Loja</a></li>
                 <li class="text-gray-500">Carrinho de Compras</li>
             </ul>
         </div>
 
         <!-- Page Title -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class=" text-3xl md:text-4xl font-bold text-gray-800">Seu Carrinho</h1>
-            <a href="loja.html" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#2C3C1C]">Seu Carrinho</h1>
+            <a href="{{url_for('obras.loja')}}" class="text-[#5A7247] hover:text-[#2C3C1C] flex items-center font-medium">
                 <i class="fas fa-arrow-left mr-2"></i> Continuar comprando
             </a>
         </div>
@@ -41,133 +41,136 @@
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Cart Items -->
             <div class="lg:w-2/3">
-                <!-- Empty State -->
-                <!-- <div class="bg-white rounded-xl shadow-sm p-8 text-center">
-                    <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
-                    <h3 class="text-xl font-medium text-gray-700 mb-2">Seu carrinho está vazio</h3>
-                    <p class="text-gray-500 mb-6">Explore nossa coleção e encontre obras incríveis para adicionar ao seu carrinho</p>
-                    <a href="loja.html" class="btn btn-primary">Ver Obras</a>
-                </div> -->
-
                 <!-- Cart Items List -->
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-[#E3D9C6]">
                     <!-- Table Header -->
-                    <div class="hidden md:grid grid-cols-12 bg-gray-50 p-4 border-b">
-                        <div class="col-span-5 font-medium text-gray-600">Produto</div>
-                        <div class="col-span-2 font-medium text-gray-600">Preço</div>
-                        <div class="col-span-3 font-medium text-gray-600">Quantidade</div>
-                        <div class="col-span-2 font-medium text-gray-600 text-right">Subtotal</div>
+                    <div class="hidden md:grid grid-cols-12 bg-[#AAB898]/10 p-4 border-b border-[#E3D9C6]">
+                        <div class="col-span-5 font-medium text-[#2C3C1C]">Produto</div>
+                        <div class="col-span-2 font-medium text-[#2C3C1C]">Preço</div>
+                        <div class="col-span-3 font-medium text-[#2C3C1C]">Quantidade</div>
+                        <div class="col-span-2 font-medium text-[#2C3C1C] text-right">Subtotal</div>
                     </div>
 
                     {% for item in itens_carrinho %}
-                    <div class="cart-item p-4 border-b">
+                    <div class="cart-item p-4 border-b border-[#E3D9C6] last:border-b-0">
                         <div class="flex flex-col md:flex-row md:items-center gap-4">
                             <div class="flex-shrink-0 flex items-center md:w-1/12">
                                 <form method="POST" action="{{url_for('carrinho.excluir_itemCarrinho', id_obra = item.id_obra)}}">
-                                    <button class="text-gray-400 hover:text-red-500">
-                                        <i class="fas fa-times"></i> <!--opa, sou eu aqui-->
+                                    <button class="text-gray-400 hover:text-[#8C3B2D] transition-colors">
+                                        <i class="fas fa-times"></i>
                                     </button>
                                 </form>
                             </div>
                             <div class="flex items-center md:w-4/12">
-                                <div class="w-20 h-20 rounded-lg overflow-hidden mr-4">
+                                <div class="w-20 h-20 rounded-lg overflow-hidden mr-4 border border-[#E3D9C6]">
                                     <img src="{{ item.imagem_url }}" alt="{{ item.nome_obra }}"
                                         class="w-full h-full object-cover">
                                 </div>
                                 <div>
-                                    <h3 class="font-medium text-gray-800">{{ item.nome_obra }}</h3>
-                                    <p class="text-sm text-gray-500">por {{ item.nome_artista }}</p>
+                                    <h3 class="font-medium text-[#2C3C1C]">{{ item.nome_obra }}</h3>
+                                    <p class="text-sm text-[#5A7247]">por {{ item.nome_artista }}</p>
                                 </div>
                             </div>
                             <div class="md:w-2/12">
-                                <p class="text-gray-800 font-medium">R$ {{ item.preco }}</p>
+                                <p class="text-[#2C3C1C] font-medium">R$ {{ item.preco }}</p>
                             </div>
                             <div class="md:w-3/12">
                                 <div class="flex items-center">
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-decrement"
+                                    <button class="btn btn-sm btn-square border border-[#E3D9C6] bg-white text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-[#5A7247] btn-decrement"
                                         data-item-id="{{ item.id_itemCarrinho }}">
                                         <i class="fas fa-minus"></i>
                                     </button>
                                     <input type="number" value="{{ item.quantidade }}" min="1"
-                                        class="input-quantity mx-2 input input-sm input-bordered w-12 text-center"
+                                        class="quantity-input mx-2 input input-sm input-bordered w-12 text-center bg-white border-[#E3D9C6] focus:border-[#5A7247] text-[#2C3C1C]"
                                         data-item-id="{{ item.id_itemCarrinho }}" readonly>
-                                    <button class="btn btn-sm btn-square btn-ghost border border-gray-300 btn-increment"
+                                    <button class="btn btn-sm btn-square border border-[#E3D9C6] bg-white text-[#5A7247] hover:bg-[#AAB898]/20 hover:border-[#5A7247] btn-increment"
                                         data-item-id="{{ item.id_itemCarrinho }}">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="md:w-2/12 text-right">
-                                <p class="text-gray-800 font-medium">R$ {{ item.subtotal }}</p>
+                                <p class="text-[#2C3C1C] font-medium">R$ {{ item.subtotal }}</p>
                             </div>
                         </div>
+                    </div>
+                    {% else %}
+                    <!-- Empty State -->
+                    <div class="bg-white rounded-xl shadow-sm p-8 text-center">
+                        <i class="fas fa-shopping-cart text-5xl text-[#AAB898] mb-4"></i>
+                        <h3 class="text-xl font-medium text-[#2C3C1C] mb-2">Seu carrinho está vazio</h3>
+                        <p class="text-[#5A7247] mb-6">Explore nossa coleção e encontre obras incríveis para adicionar ao seu carrinho</p>
+                        <a href="{{url_for('obras.loja')}}" class="btn bg-[#5A7247] text-white hover:bg-[#2C3C1C] border-none">Ver Obras</a>
                     </div>
                     {% endfor %}
 
                     <!-- Coupon and Update Cart -->
-                    <div class="p-4 bg-gray-50 border-t">
+                    {% if itens_carrinho %}
+                    <div class="p-4 bg-[#AAB898]/10 border-t border-[#E3D9C6]">
                         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                             <div class="flex items-center w-full md:w-auto">
                                 <input type="text" placeholder="Código de cupom"
-                                    class="input input-bordered rounded-r-none w-full md:w-64">
-                                <button class="btn btn-outline border-indigo-200 text-indigo-600 rounded-l-none">
+                                    class="input input-bordered rounded-r-none w-full md:w-64 bg-white border-[#E3D9C6] text-[#2C3C1C] focus:border-[#5A7247]">
+                                <button class="btn border-[#5A7247] text-[#5A7247] bg-white hover:bg-[#5A7247] hover:text-white rounded-l-none">
                                     Aplicar
                                 </button>
                             </div>
-                            <button class="btn btn-ghost text-indigo-600 hover:bg-indigo-50 w-full md:w-auto">
+                            <button class="btn btn-ghost text-[#5A7247] hover:bg-[#AAB898]/20 w-full md:w-auto">
                                 <i class="fas fa-sync-alt mr-2"></i> Atualizar Carrinho
                             </button>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
 
             <!-- Order Summary -->
+            {% if itens_carrinho %}
             <div class="lg:w-1/3">
-                <div class="bg-white rounded-xl shadow-sm p-6 sticky top-4">
-                    <h2 class=" text-xl font-bold text-gray-800 mb-6">Resumo do Pedido</h2>
+                <div class="bg-white rounded-xl shadow-sm p-6 sticky top-4 border border-[#E3D9C6]">
+                    <h2 class="text-xl font-bold text-[#2C3C1C] mb-6">Resumo do Pedido</h2>
 
                     <div class="space-y-4 mb-6">
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Subtotal</span>
-                            <span class="font-medium">R$ 1.450,00</span>
+                            <span class="text-[#5A7247]">Subtotal</span>
+                            <span class="font-medium text-[#2C3C1C]">R$ 1.450,00</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Frete</span>
-                            <span class="font-medium">A calcular</span>
+                            <span class="text-[#5A7247]">Frete</span>
+                            <span class="font-medium text-[#2C3C1C]">A calcular</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Desconto</span>
-                            <span class="font-medium text-green-600">- R$ 80,00</span>
+                            <span class="text-[#5A7247]">Desconto</span>
+                            <span class="font-medium text-[#8C3B2D]">- R$ 80,00</span>
                         </div>
-                        <div class="divider"></div>
+                        <div class="divider my-4"></div>
                         <div class="flex justify-between text-lg">
-                            <span class="font-bold">Total</span>
-                            <span class="font-bold text-indigo-600">R$ 1.370,00</span>
+                            <span class="font-bold text-[#2C3C1C]">Total</span>
+                            <span class="font-bold text-[#5A7247]">R$ 1.370,00</span>
                         </div>
                     </div>
 
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Método de Envio</label>
+                        <label class="block text-sm font-medium text-[#2C3C1C] mb-2">Método de Envio</label>
                         <div class="space-y-2">
-                            <div class="flex items-center gap-3 p-3 border rounded-lg">
+                            <div class="flex items-center gap-3 p-3 border border-[#E3D9C6] rounded-lg hover:border-[#5A7247] transition-colors">
                                 <input type="radio" name="shipping" class="radio radio-primary" checked>
                                 <div>
-                                    <p class="font-medium">Entrega Padrão</p>
-                                    <p class="text-sm text-gray-500">5-7 dias úteis • Grátis</p>
+                                    <p class="font-medium text-[#2C3C1C]">Entrega Padrão</p>
+                                    <p class="text-sm text-[#5A7247]">5-7 dias úteis • Grátis</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3 p-3 border rounded-lg">
+                            <div class="flex items-center gap-3 p-3 border border-[#E3D9C6] rounded-lg hover:border-[#5A7247] transition-colors">
                                 <input type="radio" name="shipping" class="radio radio-primary">
                                 <div>
-                                    <p class="font-medium">Entrega Expressa</p>
-                                    <p class="text-sm text-gray-500">2-3 dias úteis • R$ 25,00</p>
+                                    <p class="font-medium text-[#2C3C1C]">Entrega Expressa</p>
+                                    <p class="text-sm text-[#5A7247]">2-3 dias úteis • R$ 25,00</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <button class="abrir-btn btn btn-primary w-full mb-4"
+                    <button class="abrir-btn btn bg-[#5A7247] text-white hover:bg-[#2C3C1C] border-none w-full mb-4"
                         onclick="document.getElementById('modal_pagamento').showModal()">
                         <i class="fas fa-lock mr-2"></i> Finalizar Compra
                     </button>
@@ -185,45 +188,47 @@
                         </div>
                     </dialog>
 
-                    <div class="text-center text-sm text-gray-500">
+                    <div class="text-center text-sm text-[#5A7247]">
                         <p>Ou</p>
-                        <button class="btn btn-outline border-indigo-200 text-indigo-600 w-full mt-4">
+                        <button class="btn btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white w-full mt-4">
                             <i class="fab fa-google mr-2"></i> Pagar com Google Pay
                         </button>
-                        <button class="btn btn-outline border-indigo-200 text-indigo-600 w-full mt-2">
+                        <button class="btn btn-outline border-[#5A7247] text-[#5A7247] hover:bg-[#5A7247] hover:text-white w-full mt-2">
                             <i class="fab fa-paypal mr-2"></i> Pagar com PayPal
                         </button>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t">
-                        <h3 class="font-medium mb-2">Políticas de Compra</h3>
-                        <ul class="text-xs text-gray-500 space-y-1">
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Garantia de autenticidade</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Embalagem especializada</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Devolução em 7 dias</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Pagamento seguro</li>
+                    <div class="mt-6 pt-4 border-t border-[#E3D9C6]">
+                        <h3 class="font-medium mb-2 text-[#2C3C1C]">Políticas de Compra</h3>
+                        <ul class="text-xs text-[#5A7247] space-y-1">
+                            <li><i class="fas fa-check text-[#5A7247] mr-2"></i> Garantia de autenticidade</li>
+                            <li><i class="fas fa-check text-[#5A7247] mr-2"></i> Embalagem especializada</li>
+                            <li><i class="fas fa-check text-[#5A7247] mr-2"></i> Devolução em 7 dias</li>
+                            <li><i class="fas fa-check text-[#5A7247] mr-2"></i> Pagamento seguro</li>
                         </ul>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
 
         <!-- Recommended Products -->
+        {% if itens_carrinho %}
         <section class="mt-16">
-            <h2 class=" text-2xl font-bold text-gray-800 mb-6">Você também pode gostar</h2>
+            <h2 class="text-2xl font-bold text-[#2C3C1C] mb-6">Você também pode gostar</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Product 1 -->
-                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow border border-[#E3D9C6]">
                     <figure class="px-4 pt-4">
                         <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg"
                             alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
                     </figure>
                     <div class="card-body p-4">
-                        <h3 class="card-title text-lg font-semibold">Maré Noturna</h3>
-                        <p class="text-gray-600 text-sm">por Ana Beatriz</p>
+                        <h3 class="card-title text-lg font-semibold text-[#2C3C1C]">Maré Noturna</h3>
+                        <p class="text-[#5A7247] text-sm">por Ana Beatriz</p>
                         <div class="flex items-center justify-between mt-2">
-                            <p class="text-lg font-bold text-indigo-700">R$ 550,00</p>
-                            <button class="btn btn-sm btn-ghost text-indigo-600">
+                            <p class="text-lg font-bold text-[#5A7247]">R$ 550,00</p>
+                            <button class="btn btn-sm btn-ghost text-[#5A7247] hover:bg-[#AAB898]/20">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
                         </div>
@@ -231,17 +236,17 @@
                 </div>
 
                 <!-- Product 2 -->
-                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow border border-[#E3D9C6]">
                     <figure class="px-4 pt-4">
                         <img src="https://images.pexels.com/photos/1671324/pexels-photo-1671324.jpeg"
                             alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
                     </figure>
                     <div class="card-body p-4">
-                        <h3 class="card-title text-lg font-semibold">Caminho de Flores</h3>
-                        <p class="text-gray-600 text-sm">por Lúcia Campos</p>
+                        <h3 class="card-title text-lg font-semibold text-[#2C3C1C]">Caminho de Flores</h3>
+                        <p class="text-[#5A7247] text-sm">por Lúcia Campos</p>
                         <div class="flex items-center justify-between mt-2">
-                            <p class="text-lg font-bold text-indigo-700">R$ 480,00</p>
-                            <button class="btn btn-sm btn-ghost text-indigo-600">
+                            <p class="text-lg font-bold text-[#5A7247]">R$ 480,00</p>
+                            <button class="btn btn-sm btn-ghost text-[#5A7247] hover:bg-[#AAB898]/20">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
                         </div>
@@ -249,17 +254,17 @@
                 </div>
 
                 <!-- Product 3 -->
-                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow border border-[#E3D9C6]">
                     <figure class="px-4 pt-4">
                         <img src="https://images.pexels.com/photos/355770/pexels-photo-355770.jpeg"
                             alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
                     </figure>
                     <div class="card-body p-4">
-                        <h3 class="card-title text-lg font-semibold">Formas que Falam</h3>
-                        <p class="text-gray-600 text-sm">por Lúcia Campos</p>
+                        <h3 class="card-title text-lg font-semibold text-[#2C3C1C]">Formas que Falam</h3>
+                        <p class="text-[#5A7247] text-sm">por Lúcia Campos</p>
                         <div class="flex items-center justify-between mt-2">
-                            <p class="text-lg font-bold text-indigo-700">R$ 720,00</p>
-                            <button class="btn btn-sm btn-ghost text-indigo-600">
+                            <p class="text-lg font-bold text-[#5A7247]">R$ 720,00</p>
+                            <button class="btn btn-sm btn-ghost text-[#5A7247] hover:bg-[#AAB898]/20">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
                         </div>
@@ -267,17 +272,17 @@
                 </div>
 
                 <!-- Product 4 -->
-                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div class="card bg-white shadow-sm hover:shadow-md transition-shadow border border-[#E3D9C6]">
                     <figure class="px-4 pt-4">
                         <img src="https://images.pexels.com/photos/1021876/pexels-photo-1021876.jpeg"
                             alt="Obra relacionada" class="rounded-xl h-48 w-full object-cover" />
                     </figure>
                     <div class="card-body p-4">
-                        <h3 class="card-title text-lg font-semibold">Luz e Sombra</h3>
-                        <p class="text-gray-600 text-sm">por Carlos Mendes</p>
+                        <h3 class="card-title text-lg font-semibold text-[#2C3C1C]">Luz e Sombra</h3>
+                        <p class="text-[#5A7247] text-sm">por Carlos Mendes</p>
                         <div class="flex items-center justify-between mt-2">
-                            <p class="text-lg font-bold text-indigo-700">R$ 390,00</p>
-                            <button class="btn btn-sm btn-ghost text-indigo-600">
+                            <p class="text-lg font-bold text-[#5A7247]">R$ 390,00</p>
+                            <button class="btn btn-sm btn-ghost text-[#5A7247] hover:bg-[#AAB898]/20">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
                         </div>
@@ -285,6 +290,7 @@
                 </div>
             </div>
         </section>
+        {% endif %}
     </main>
 
     <!-- Footer -->
@@ -302,6 +308,5 @@
     </script>
 
 </body>
-
 
 </html>
