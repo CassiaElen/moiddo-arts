@@ -110,4 +110,18 @@ class VerificarCarrinho:
         finally:
             conn.close()
 
+    def excluir_item_carrinho(self, carrinho_id, obra_id):
+        conn = self.conectar_db()
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        try:
+            cursor.execute('''
+            DELETE FROM ItemCarrinho WHERE carrinho_id = ?", (self.id_itemCarrinho,)
+            ''', (carrinho_id, obra_id))
+            self.carrinho.deletar_itemCarrinho()
+            conn.commit()
+        finally:
+            conn.close()
+
+
 

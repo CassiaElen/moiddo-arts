@@ -57,3 +57,9 @@ def carrinho(id_cliente):
     print("[DEBUG]",itens_carrinho, "aqui é a listagem dos itens do carrinho")
 
     return render_template("carrinho.html", user=user, user_type=user_type, car_items=car_items, itens_carrinho=itens_carrinho)
+
+def excluir_itemCarrinho(id_obra):
+    from ..database.models.model_carrinho import Carrinho
+    car_items = Carrinho(cliente_id=auth_manager.get_current_user_id())
+    car_items.excluir_item_carrinho(id_obra)
+    return render_template("carrinho.html")

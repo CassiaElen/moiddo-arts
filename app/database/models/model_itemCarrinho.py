@@ -43,7 +43,7 @@ class ItemCarrinho:
             with db.get_conn() as conn:
                 cursor = conn.cursor()
                 cursor.execute(
-                    "DELETE FROM ItemCarrinho WHERE id_categoria = ?", (self.id_itemCarrinho,)
+                    "DELETE FROM ItemCarrinho WHERE carrinho_id = ?", (self.id_itemCarrinho,)
                 )
                 conn.commit()
                 return True
