@@ -109,6 +109,20 @@ class VerificarCarrinho:
             conn.commit()
         finally:
             conn.close()
+    
+    def resumo_carrinho(self,cliente_id):
+        conn = self.conectar_db()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT
+                COALESCE(SUM(ic.quantidade), 0) AS total_itens,
+                COALESCE(SUM(o.preco * ic.quantidade), 0) AS subtotal
+            FROM ItemCarrinho ic
+            JOIN obras o ON ic.obra_id = o.id_obra
+            JOIN carrinho c ON ic.carrinho_id = c.id_carrinho
+            WHERE c.cliente_id = ?
+        """, (cliente_id,))
+        return cursor.fetchone()
 
     def excluir_item_carrinho(self, carrinho_id, obra_id):
         conn = self.conectar_db()

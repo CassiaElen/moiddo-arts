@@ -4,7 +4,7 @@ import random
 def seed_visualizacoes():
     visualizacoes = []
 
-    for i in range(300):
+    for _ in range(800):
         ip = f"{random.randint(0,200)}.{random.randint(0,200)}.{random.randint(0,200)}.{random.randint(0,200)}"
         tipo_user = random.choice(['cliente', 'artista'])
         

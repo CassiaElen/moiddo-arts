@@ -4,7 +4,7 @@ import random
 def seed_pedido():
     pedidos = []
 
-    for i in range(50):
+    for _ in range(50):
         cliente_id = random.randint(1,15)
         status_pedido = random.choice(['pendente', 'finalizado', 'cancelado', 'entregue'])
         total_pedido = "{:.2f}".format(random.randint(30,5000))

@@ -1,0 +1,76 @@
+<footer class="bg-[#2C3C1C] text-[#E3D9C6]">
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <a href="{{url_for('main.home')}}" class="text-2xl font-bold">
+                        <span class="text-[#F4F4F4]">Muiddo</span>
+                        <span class="text-[#AAB898]">Arts</span>
+                    </a>
+                </div>
+                <p class="mb-4">
+                    Conectando artistas talentosos do Cariri com amantes da arte em todo o mundo.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                    <a href="#" class="text-[#F4F4F4]/70 hover:text-[#AAB898] transition-colors text-xl">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h6 class="footer-title text-lg font-semibold">Explorar</h6>
+                <ul class="space-y-2">
+                    <li><a href="{{url_for('obras.loja')}}" class="hover:text-[#AAB898] transition-colors">Loja</a>
+                    </li>
+                    <li><a href="{{url_for('artistas.artistas_comunidade')}}"
+                            class="hover:text-[#AAB898] transition-colors">Artistas</a></li>
+
+                    <li><a href="{{url_for('main.sobre_nos')}}" class="hover:text-[#AAB898] transition-colors">Sobre
+                            Nós</a></li>
+                    <li><a href="{{url_for('main.contato')}}" class="hover:text-[#AAB898] transition-colors">Contato</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="footer-title text-lg font-semibold">Suporte</h6>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Central de Ajuda</a></li>
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Como Comprar</a></li>
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Envios e Entregas</a></li>
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Devoluções</a></li>
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="footer-title text-lg font-semibold">Para Artistas</h6>
+                <ul class="space-y-2">
+                    <li><a href="{{url_for('main.login_artist')}}"
+                            class="hover:text-[#AAB898] transition-colors">Cadastre-se</a></li>
+                    <li><a href="{{url_for('main.termos_servico')}}"
+                            class="hover:text-[#AAB898] transition-colors">Termos para Artistas</a></li>
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Dicas para Vender Mais</a></li>
+                    <li><a href="#" class="hover:text-[#AAB898] transition-colors">Eventos e Workshops</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-[#2C3C1C] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p>© 2023 Muiddo Arts. Todos os direitos reservados.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a href="{{url_for('main.termos_servico')}}" class="hover:text-[#AAB898] transition-colors">Termos
+                    de Serviço</a>
+                <a href="{{url_for('main.politica_privacidade')}}"
+                    class="hover:text-[#AAB898] transition-colors">Política de Privacidade</a>
+            </div>
+        </div>
+    </div>
+</footer>
