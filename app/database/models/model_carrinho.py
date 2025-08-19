@@ -29,20 +29,13 @@ class Carrinho:
             with db.get_conn() as conn:
                 cursor = conn.cursor()
                 cursor.execute(
-                    "DELETE FROM carrinho WHERE id_carrinho = ?", (self.id_carrinho,)
+                    "DELETE FROM carrinho WHERE cliente = ?", (self.cliente_id,)
                 )
                 conn.commit()
                 return True
         except Exception as e:
             print(f"Erro ao deletar carrinho: {e}")
             return False
-    
-    """def buscar_ou_criar_carrinho(self):
-        try:
-
-        except Exception as e:
-        print(f"Erro ao encontrar items no carrinho: {e}")
-        return False"""
     
     def buscar_items_carrinho(self):
         try:

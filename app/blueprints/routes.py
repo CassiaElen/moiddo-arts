@@ -209,7 +209,7 @@ def register_artist():
             "nome_completo": request.form.get("name"),
             "usuario": request.form.get("user"),
             "email": request.form.get("email"),
-            "cpf": request.form.get("cpf"),
+            "cpf_cnpj": request.form.get("cpf"),
             "senha": request.form.get("password")
         }
         erros = validar_campos(campos, regras_registrar_perfil_artista())
