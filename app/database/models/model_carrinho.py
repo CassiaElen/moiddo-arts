@@ -1,4 +1,5 @@
 from ..connection import db
+import sqlite3
 
 class Carrinho:
     def __init__(
@@ -14,6 +15,7 @@ class Carrinho:
     def salvar(self):
         """Método para salvar ou editar o objeto no banco"""
         with db.get_conn() as conn:
+            conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             if self.id_carrinho is None:
                 cursor.execute(
@@ -22,14 +24,25 @@ class Carrinho:
                         self.cliente_id,
                         self.data_criacao),
                 )
-                conn.commit()
-
-    def deletar_carrinho(self):
+                return 
+            
+    def buscar_carrinho(self):
+        try:
+            with db.get_conn() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT id_carrinho FROM carrinho WHERE cliente_id = ?",(self.cliente_id,))
+                row = cursor.fetchone()
+                return dict(row) if row else None
+        except Exception as e:
+            print(f"Erro ao buscar carrinho: {e}")
+            return False
+        
+    def deletar_itemCarrinho(self,id_carrinho, id_obra):
         try:
             with db.get_conn() as conn:
                 cursor = conn.cursor()
                 cursor.execute(
-                    "DELETE FROM carrinho WHERE id_carrinho = ?", (self.id_carrinho,)
+                    "DELETE FROM itemCarrinho WHERE carrinho_id = ? AND obra_id = ?", (id_carrinho, id_obra)
                 )
                 conn.commit()
                 return True

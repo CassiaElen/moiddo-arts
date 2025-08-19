@@ -4,7 +4,7 @@ import random
 def seed_item_carrinho():
     items_carrinhos = []
 
-    for _ in range(30):
+    for _ in range(3):
         carrinho_id = random.randint(1,15)
         obra_id = random.randint(1, 75)
         quantidade = random.randint(1,3)

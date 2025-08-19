@@ -130,9 +130,9 @@ class VerificarCarrinho:
         cursor = conn.cursor()
         try:
             cursor.execute('''
-            DELETE FROM ItemCarrinho WHERE carrinho_id = ?", (self.id_itemCarrinho,)
-            ''', (carrinho_id, obra_id))
-            self.carrinho.deletar_itemCarrinho()
+            DELETE FROM ItemCarrinho WHERE carrinho_id = ?, (self.id_itemCarrinho,)
+            ''', (carrinho_id))
+            self.carrinho.deletar_itemCarrinho(carrinho_id, obra_id)
             conn.commit()
         finally:
             conn.close()

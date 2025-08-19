@@ -58,8 +58,13 @@ def carrinho(id_cliente):
 
     return render_template("carrinho.html", user=user, user_type=user_type, car_items=car_items, itens_carrinho=itens_carrinho)
 
+@carrinho_bp.route('/excluir_itemCarrinho/<int:id_obra>', methods=['POST'])
 def excluir_itemCarrinho(id_obra):
     from ..database.models.model_carrinho import Carrinho
-    car_items = Carrinho(cliente_id=auth_manager.get_current_user_id())
-    car_items.excluir_item_carrinho(id_obra)
-    return render_template("carrinho.html")
+    cliente_id = auth_manager.get_current_user_id()
+    carrinho = Carrinho(cliente_id=cliente_id)
+    id_carrinho_dict = carrinho.buscar_carrinho()
+    id_carrinho = id_carrinho_dict['id_carrinho'] if id_carrinho_dict else None
+    if id_carrinho:
+        carrinho.deletar_itemCarrinho(id_carrinho = id_carrinho, id_obra=id_obra)
+    return redirect(url_for('carrinho.carrinho',id_cliente = cliente_id))
